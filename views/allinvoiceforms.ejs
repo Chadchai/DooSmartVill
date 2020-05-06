@@ -96,8 +96,10 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header" style="font-weight: bold;color: black;">ระบบการจอง:</h6> -->
             <a class="collapse-item" href="/pendingapprove" style="font-weight:bold;">ออกใบแจ้งหนี้ประจำเดือน</a>
-            <a class="collapse-item" href="cards.ejs" style="font-weight:bold;">ออกใบแจ้งหนี้ล่วงหน้า</a>
-            <a class="collapse-item" href="cards.ejs" style="font-weight:bold;">ดูรายการหนี้คงค้าง</a>
+            <a class="collapse-item" href="/advanceinvoice" style="font-weight:bold;">ออกใบแจ้งหนี้ล่วงหน้า</a>
+            <a class="collapse-item" href="/getinvoicelist" style="font-weight:bold;">ดูรายการหนี้คงค้าง</a>
+            <a class="collapse-item" href="/getallinvoice" style="font-weight:bold;">พิมพ์ใบแจ้งหนี้ทั้งหมด</a>
+            <a class="collapse-item" href="/getsliplist" style="font-weight:bold;">กล่องรับสลิปการโอน</a>
           </div>
         </div>
       </li>
@@ -111,10 +113,10 @@
         <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header" style="font-weight:bold;" >เลือกรายการ</h6>
-            <a class="collapse-item" href="/" style="font-weight:bold;">กล่องรับสลิปการโอน</a>
-            <a class="collapse-item" href="/" style="font-weight:bold;">ออกใบเสร็จรับเงิน</a>
-            <a class="collapse-item" href="/schedule" style="font-weight:bold;">ออกใบเสร็จย้อนหลัง</a>
-            <a class="collapse-item" href="/schedule" style="font-weight:bold;">ดูใบเสร็จรับเงินย้อนหลัง</a>
+            <a class="collapse-item" href="/issuereceipt" style="font-weight:bold;">ออกใบเสร็จรับเงิน</a>
+            <a class="collapse-item" href="/oldcommonfee" style="font-weight:bold;">ออกใบเสร็จย้อนหลัง</a>
+            <a class="collapse-item" href="/getreceiptlist" style="font-weight:bold;">ดูใบเสร็จรับเงินย้อนหลัง</a>
+            <a class="collapse-item" href="/getallreceiptlist" style="font-weight:bold;">ดูใบเสร็จรับเงินย้อนหลังทั้งหมด</a>
            
           </div>
         </div>
@@ -128,10 +130,10 @@
         <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header" style="font-weight:bold;" >เลือกรายการ</h6>
-            <a class="collapse-item" href="/" style="font-weight:bold;">บันทึกรายจ่าย</a>
-            <a class="collapse-item" href="/" style="font-weight:bold;">บันทึกรายจ่าย</a>
-            <a class="collapse-item" href="/schedule" style="font-weight:bold;">ดูประวัติรายรับอืนๆ</a>
-            <a class="collapse-item" href="/schedule" style="font-weight:bold;">ดูรายการรายจ่าย</a>
+            <a class="collapse-item" href="/income" style="font-weight:bold;">บันทึกรายรับ</a>
+            <a class="collapse-item" href="/expense" style="font-weight:bold;">บันทึกรายจ่าย</a>
+            <a class="collapse-item" href="/getreceiptlist1" style="font-weight:bold;">ดูประวัติรายรับอืนๆ</a>
+            <a class="collapse-item" href="/getexpenselist" style="font-weight:bold;">ดูรายการรายจ่าย</a>
             
            
           </div>
@@ -147,13 +149,14 @@
   <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
       <h6 class="collapse-header" style="font-weight:bold;" >เลือกรายการ</h6>
-      <a class="collapse-item" href="/" style="font-weight:bold;">สรุปรับ-จ่าย วัน/เดือน/ปี</a>
-      <a class="collapse-item" href="/" style="font-weight:bold;">สรุปยอดคงค้าง</a>
-      <a class="collapse-item" href="/schedule" style="font-weight:bold;">Backup ข้อมูล</a>
+      <a class="collapse-item" href="/todaysummary" style="font-weight:bold;">สรุปรับ-จ่ายวันนี้</a>
+      <a class="collapse-item" href="/incomeexpense" style="font-weight:bold;">สรุปรับ-จ่าย วัน/เดือน/ปี</a>
+      <a class="collapse-item" href="/pendingpayment" style="font-weight:bold;">สรุปยอดคงค้าง</a>
    
     </div>
   </div>
 </li>
+
   
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -170,9 +173,9 @@
   </a>
   <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
     <div class="bg-white py-2 collapse-inner rounded">
-      <h6 class="collapse-header">ข้อมูลลูกค้า:</h6>
-      <a class="collapse-item" href="/register">แก้ไขข้อมูลลูกค้า</a>
-      <a class="collapse-item" href="/register">เพิ่มลูกค้าใหม่</a>
+      <h6 class="collapse-header">ข้อมูลลูกบ้าน:</h6>
+      <a class="collapse-item" href="/gethouselist">ข้อมูลลูกบ้าน</a>
+      
       <!-- <a class="collapse-item" href="forgot-password.ejs">Forgot Password</a> -->
       <!-- <div class="collapse-divider"></div>
       <h6 class="collapse-header">Other Pages:</h6>
@@ -182,23 +185,7 @@
   </div>
 </li>
       <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages1" aria-expanded="true" aria-controls="collapsePages1">
-          <i class="fas fa-fw fa-user" style="size: medium;"></i>
-          <span style="color:white;font-size:medium">ข้อมูลพนักงาน</span>
-        </a>
-        <div id="collapsePages1" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">ข้อมูลพนักงาน:</h6>
-            <a class="collapse-item" href="/register">แก้ไขข้อมูลพนักงาน</a>
-            <a class="collapse-item" href="/register">เพิ่มพนักงาน</a>
-            <!-- <a class="collapse-item" href="forgot-password.ejs">Forgot Password</a> -->
-            <!-- <div class="collapse-divider"></div>
-            <h6 class="collapse-header">Other Pages:</h6>
-            <a class="collapse-item" href="404.ejs">404 Page</a>
-            <a class="collapse-item" href="blank.ejs">Blank Page</a>
-          </div> -->
-        </div>
+ 
      <!-- Divider -->
    <hr class="sidebar-divider my-0">
   <!-- Divider -->
