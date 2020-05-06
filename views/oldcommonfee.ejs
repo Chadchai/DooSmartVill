@@ -1,0 +1,755 @@
+<!DOCTYPE.html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <base href="/">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>DooSmartVill - ชำระค่าส่วนกลางย้อนหลัง</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<style>
+.blink {
+  animation: blinker 1s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+</style>
+
+<body id="page-top" onload="startTime()">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+      <!-- Sidebar - Brand -->
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        <div class="sidebar-brand-icon rotate-n-15">
+          <!-- <img class="img-profile rounded-circle" src="assets/images/badminton1.png"> -->
+           <i class="fas fa-laugh-wink"></i> 
+        </div>
+        <div class="sidebar-brand-text mx-3">DooSmartVill <sup></sup></div>
+      </a>
+
+   
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading" >
+        ระบบบริหารหมู่บ้าน
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span style="color: white;font-size: medium;">ออกใบแจ้งหนี้</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <!-- <h6 class="collapse-header" style="font-weight: bold;color: black;">ระบบการจอง:</h6> -->
+            <a class="collapse-item" href="/pendingapprove" style="font-weight:bold;">ออกใบแจ้งหนี้ประจำเดือน</a>
+            <a class="collapse-item" href="/advanceinvoice" style="font-weight:bold;">ออกใบแจ้งหนี้ล่วงหน้า</a>
+            <a class="collapse-item" href="/getinvoicelist" style="font-weight:bold;">ดูรายการหนี้คงค้าง</a>
+            <a class="collapse-item" href="/getallinvoice" style="font-weight:bold;">พิมพ์ใบแจ้งหนี้ทั้งหมด</a>
+            <a class="collapse-item" href="/getsliplist" style="font-weight:bold;">กล่องรับสลิปการโอน</a>
+          </div>
+        </div>
+      </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span style="font-size: medium;color: white;">ออกใบเสร็จรับเงิน</span>
+        </a>
+        <div id="collapseUtilities1" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header" style="font-weight:bold;" >เลือกรายการ</h6>
+            <a class="collapse-item" href="/issuereceipt" style="font-weight:bold;">ออกใบเสร็จรับเงิน</a>
+            <a class="collapse-item" href="/oldcommonfee" style="font-weight:bold;">ออกใบเสร็จย้อนหลัง</a>
+            <a class="collapse-item" href="/getreceiptlist" style="font-weight:bold;">ดูใบเสร็จรับเงินย้อนหลัง</a>
+            <a class="collapse-item" href="/getallreceiptlist" style="font-weight:bold;">ดูใบเสร็จรับเงินย้อนหลังทั้งหมด</a>
+           
+          </div>
+        </div>
+      </li>
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities">
+          <i class="fas fa-fw fa-wrench"></i>
+          <span style="font-size: medium;color: white;">บันทึกรายรับ-จ่ายอื่นๆ</span>
+        </a>
+        <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header" style="font-weight:bold;" >เลือกรายการ</h6>
+            <a class="collapse-item" href="/income" style="font-weight:bold;">บันทึกรายรับ</a>
+            <a class="collapse-item" href="/expense" style="font-weight:bold;">บันทึกรายจ่าย</a>
+            <a class="collapse-item" href="/getreceiptlist1" style="font-weight:bold;">ดูประวัติรายรับอืนๆ</a>
+            <a class="collapse-item" href="/getexpenselist" style="font-weight:bold;">ดูรายการรายจ่าย</a>
+            
+           
+          </div>
+        </div>
+      </li>
+ 
+ <!-- Nav Item - Utilities Collapse Menu -->
+ <li class="nav-item">
+  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3" aria-expanded="true" aria-controls="collapseUtilities">
+    <i class="fas fa-fw fa-wrench"></i>
+    <span style="font-size: medium;color: white;">สรุปรับ-จ่าย</span>
+  </a>
+  <div id="collapseUtilities3" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+      <h6 class="collapse-header" style="font-weight:bold;" >เลือกรายการ</h6>
+      <a class="collapse-item" href="/todaysummary" style="font-weight:bold;">สรุปรับ-จ่ายวันนี้</a>
+      <a class="collapse-item" href="/incomeexpense" style="font-weight:bold;">สรุปรับ-จ่าย วัน/เดือน/ปี</a>
+      <a class="collapse-item" href="/pendingpayment" style="font-weight:bold;">สรุปยอดคงค้าง</a>
+   
+    </div>
+  </div>
+</li>
+
+  
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        ข้อมูลลูกบ้านและพนักงาน
+      </div>
+<!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+    <i class="fas fa-fw fa-user-tie"></i>
+    <span style="color:white;font-size:medium">ข้อมูลลูกบ้าน</span>
+  </a>
+  <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+    <div class="bg-white py-2 collapse-inner rounded">
+      <h6 class="collapse-header">ข้อมูลลูกบ้าน:</h6>
+      <a class="collapse-item" href="/gethouselist">ข้อมูลลูกบ้าน</a>
+      
+      <!-- <a class="collapse-item" href="forgot-password.ejs">Forgot Password</a> -->
+      <!-- <div class="collapse-divider"></div>
+      <h6 class="collapse-header">Other Pages:</h6>
+      <a class="collapse-item" href="404.ejs">404 Page</a>
+      <a class="collapse-item" href="blank.ejs">Blank Page</a>
+    </div> -->
+  </div>
+</li>
+      <!-- Nav Item - Pages Collapse Menu -->
+ 
+     <!-- Divider -->
+   <hr class="sidebar-divider my-0">
+  <!-- Divider -->
+  <!-- <hr class="sidebar-divider my-0"> -->
+
+      <!-- Nav Item - Charts -->
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="charts.ejs">
+          <i class="fas fa-fw fa-chart-area"></i>
+          <span>Charts</span></a>
+      </li> -->
+   <!-- Divider -->
+   <hr class="sidebar-divider my-0">
+
+   <!-- Nav Item - Dashboard -->
+   <li class="nav-item ">
+     <a class="nav-link" href="/summary">
+       <i class="fas fa-fw fa-tachometer-alt"></i>
+       <span style="color:white;font-size:medium">แจ้งข่าวสารให้ลูกบ้าน</span></a>
+   </li>
+
+   <!-- Divider -->
+   <hr class="sidebar-divider my-0">
+
+   <!-- Nav Item - Dashboard -->
+   <li class="nav-item ">
+     <a class="nav-link" href="/summary">
+       <i class="fas fa-fw fa-tachometer-alt"></i>
+       <span style="color:white;font-size:medium">เบอร์โทรติดต่อฉุกเฉิน</span></a>
+   </li>
+ <!-- Divider -->
+ <hr class="sidebar-divider my-0">
+
+      <!-- Nav Item - Tables -->
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="/schedule">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Tables</span></a>
+      </li> -->
+      <li class="nav-item ">
+        <a class="nav-link" href="index.ejs">
+          <i class="fas fa-fw fa-sign-out-alt"></i>
+          <span style="color:white;font-size:medium">ออกจากระบบ</span></a>
+      </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider d-none d-md-block">
+
+      <!-- Sidebar Toggler (Sidebar) -->
+      <div class="text-center d-none d-md-inline">
+        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+      <!-- Main Content -->
+      <div id="content">
+
+        <!-- Topbar -->
+        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+          <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+          </button>
+
+          <!-- Topbar Search -->
+          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+            <div class="input-group">
+              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fas fa-search fa-sm"></i>
+                </button>
+              </div>
+            </div>
+          </form> -->
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800">หมู่บ้านไอน์ดีไซน์ วงแหวน-รามอินทรา</h1>
+          <!-- Topbar Navbar -->
+          <ul class="navbar-nav ml-auto">
+
+            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+            <li class="nav-item dropdown no-arrow d-sm-none">
+              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-search fa-fw"></i>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                <form class="form-inline mr-auto w-100 navbar-search">
+                  <div class="input-group">
+                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </li>
+
+            <!-- Nav Item - Alerts -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-bell fa-fw"></i>
+                <!-- Counter - Alerts -->
+                <span class="badge badge-danger badge-counter">3+</span>
+              </a>
+              <!-- Dropdown - Alerts -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">
+                  Alerts Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-primary">
+                      <i class="fas fa-file-alt text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 12, 2019</div>
+                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-success">
+                      <i class="fas fa-donate text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 7, 2019</div>
+                    $290.29 has been deposited into your account!
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="mr-3">
+                    <div class="icon-circle bg-warning">
+                      <i class="fas fa-exclamation-triangle text-white"></i>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="small text-gray-500">December 2, 2019</div>
+                    Spending Alert: We've noticed unusually high spending for your account.
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+              </div>
+            </li>
+
+            <!-- Nav Item - Messages -->
+            <li class="nav-item dropdown no-arrow mx-1">
+              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-envelope fa-fw"></i>
+                <!-- Counter - Messages -->
+                <span class="badge badge-danger badge-counter">7</span>
+              </a>
+              <!-- Dropdown - Messages -->
+              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
+                <h6 class="dropdown-header">
+                  Message Center
+                </h6>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div class="font-weight-bold">
+                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
+                    <div class="small text-gray-500">Emily Fowler · 58m</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
+                    <div class="status-indicator"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
+                    <div class="small text-gray-500">Jae Chun · 1d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
+                    <div class="status-indicator bg-warning"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
+                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
+                  </div>
+                </a>
+                <a class="dropdown-item d-flex align-items-center" href="#">
+                  <div class="dropdown-list-image mr-3">
+                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
+                    <div class="status-indicator bg-success"></div>
+                  </div>
+                  <div>
+                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
+                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                  </div>
+                </a>
+                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+              </div>
+            </li>
+
+            <div class="topbar-divider d-none d-sm-block"></div>
+
+            <!-- Nav Item - User Information -->
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">อุไร ไพรวัน</span>
+                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+              </a>
+              <!-- Dropdown - User Information -->
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Profile
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Settings
+                </a>
+                <a class="dropdown-item" href="#">
+                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Activity Log
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Logout
+                </a>
+              </div>
+            </li>
+
+          </ul>
+
+        </nav>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid" style="min-height:75%;">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <!-- <h1 class="h3 mb-0 text-gray-800" style="color: blue;"><div id="txt"></div></h1> -->
+            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+          </div>
+
+          <!-- Content Row -->
+
+
+          <!-- Content Row -->
+
+                     <!-- Color System -->
+                     <div class="container" style="background-color: white;width: 80%;">
+                      <div class="row justify-content-center">
+                          <div class="title col-12 col-lg-12 " style="margin-top: 20px;">
+                            <h1 class="m-0 font-weight-bold text-primary" style="text-align: center;"   >
+                                  ชำระค่าส่วนกลางย้อนหลัง</h1>
+                                  <br>
+                              
+                          </div>
+                      </div>
+                  </div>
+                  <div class="container" style="background-color: white;width: 80%;">
+                    <div class="row justify-content-center">
+                      <div class="media-container-column col-lg-8" data-form-type="formoid">
+                          <!---Formbuilder Form--->
+                          <form name="receiptform" action="/receiptoldpayment" onsubmit="return validateForm()" method="POST" class="mbr-form form-with-styler">
+                              <div class="row">
+                                  
+                                  <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                                  </div>
+                              </div>
+                              <div class="dragArea row">
+                                  <div class="col-md-4  form-group" data-for="name">
+                                      <label for="name-form1-h" class="form-control-label mbr-fonts-style display-7">บ้านเลขที่</label>
+                                       <input type="้house_no" name="house_no" data-form-field="Name" required="required" class="form-control display-7" id="house_no" value="<%= houseno %>">
+                                      
+                                       <!-- <select class="form-control display-7" name="name" data-form-field="Name" id="sel1">
+                                          <option>ค่ารักษาความปลอดภัย</option>
+                                          <option>ค่าจ้างพนักงาน</option>
+                                          <option>ค่าไฟ</option>
+                                          <option>ค่าน้ำ</option>
+                                          <option>ค่าซ่อมบำรุง</option>
+                                          <option>ค่าใช้จ่ายอื่นๆ</option>
+                                        </select> -->
+                                  </div>
+                                  <div class="col-md-1">
+                                    <br>
+                                   <button type="button" class="btn btn-success btn-sm display-4" style="border-radius: 5px;margin-left: -20px;margin-top: 10px;" onclick="getonwername()" >ค้นหา</button>
+                             
+                                  </div>
+                                  <div class="col-md-6  form-group" data-for="email">
+                                      <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่ออกใบเสร็จ</label>
+                                      <input type="date" name="receiptdate" data-form-field="Email" required="required" class="form-control display-7 align-right" id="receiptdate">
+                                  </div>
+                                  
+                                  <div data-for="phone" class="col-md-4  form-group">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ชื่อเจ้าบ้าน</label>
+                                      <input type="owner_name" name="owner_name" data-form-field="Phone" class="form-control display-7" id="owner_name" value="<%= ownername %>">
+                                  </div>
+                                  
+                               
+                                  <div data-for="number" class="col-md-3  form-group">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ชำระจริง(บาท)</label>
+                                      <input type="number" name="actual_pay" data-form-field="Phone" class="form-control display-7 align-right"  style="background-color: yellow;" id="actual_pay" onchange="calbalance()" >
+                                  </div>
+                                  <div data-for="number" class="col-md-2  form-group">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ยกมา(บาท)</label>
+                                      <input type="number" name="lastremain" data-form-field="Phone" class="form-control dislay-7 align-right " value="<%= balance %>" id="lastremain" readonly >
+                                  </div>
+                                  <div data-for="number" class="col-md-3  form-group">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ยอดคงเหลือ(บาท)</label>
+                                      <input type="double" name="remain" data-form-field="Phone" class="form-control dislay-7 align-right " id="remain" readonly>
+                                  </div>
+                       
+                               
+                                  <div data-for="number" class="col-md-6  form-group" style="border-style: solid;;border-radius: 10px;border-color: lightgray;">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เงินสด/เงินโอน</label>
+                                      <!-- <input type="number" name="phone" data-form-field="Phone" class="form-control display-7" id="phone-form1-h"> -->
+                                      <div class="radio">
+                                          <label><input type="radio" name="payment_type" id= "payment_type1" value="เงินสด" checked>เงินสด</label>
+                                        </div>
+                                        <div class="radio">
+                                          <label><input type="radio" name="payment_type" id= "payment_type2" value="เงินโอน">เงินโอน</label>
+                                         
+                                         
+                                        </div>
+                                  
+                                  </div>
+                                  <div data-for="number" class="col-md-6  form-group">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เลขที่การโอน/เลขที่บัญชี/เลขที่ใบเสร็จ</label>
+                                      <input type="hidden" name="invoicelist" data-form-field="Phone" class="form-control display-7" id="invoicelist">
+                                      <input type="text" name="transfer_no" data-form-field="Phone" class="form-control display-7 align-right" id="transfer_no">
+                                 
+                                  </div>
+                                  <div data-for="number" class="col-md-4  form-group">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่โอนเงิน</label>
+                                      <input type="date" name="transfer_date" data-form-field="Email" required="required" class="form-control display-7 align-right" id="transfer_date">
+                                  </div>
+            
+                                  <div data-for="phone" class="col-md-8  form-group">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ชื่อผู้รับเงิน</label>
+                                      <input type="text" name="receiver" data-form-field="Phone" class="form-control display-7" value="คุณ ชัยรงค์ สุทธิชัยวรกุล" id="receiver">
+                                  </div>    
+                            
+                                
+                                  <div data-for="message" class="col-md-12 form-group">
+                                      <label for="message-form1-h" class="form-control-label mbr-fonts-style display-7">หมายเหตุ</label>
+                                      <textarea rows="2" name="remark" class="form-control display-4" id="remark" ></textarea>
+                                  </div>
+                                  <div class="col-md-12 input-group-btn align-center" style="margin-top: 20px;text-align: center;">
+                                      <button type="submit" class="btn btn-success btn-form display-4" style="width:150px">บันทึก</button>
+                                     <button type="button" class="btn btn-warning btn-form display-4" style="width:150px" onclick="window.history.back()">ยกเลิก</button>
+                                  </div>
+                              </div>
+                          </form><!---Formbuilder Form--->
+                      </div>
+                  </div>
+                  </div>
+      
+        <!-- /.container-fluid -->
+<br>
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; DooSmartVill 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.ejs">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="assets/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="assets/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="assets/js/demo/chart-area-demo.js"></script>
+  <script src="assets/js/demo/chart-pie-demo.js"></script>
+  <script>
+    function startTime() {
+      var today = new Date();
+      var d = today.getDate();
+      var mm = today.getMonth();
+      var y = today.getFullYear();
+      var h = today.getHours();
+      var m = today.getMinutes();
+      var s = today.getSeconds();
+      var month = new Array();
+           month[0] = "มกราคม";
+           month[1] = "กุมภาพันธ์";
+           month[2] = "มีนาคม";
+           month[3] = "เมษายน";
+           month[4] = "พฤษภาคม";
+           month[5] = "มิถุนายน";
+           month[6] = "กรกฎาคม";
+           month[7] = "สิงหาคม";
+           month[8] = "กันยายน";
+           month[9] = "ตุลาคม";
+           month[10] = "พฤศจิกายน";
+           month[11] = "ธันวาคม";
+      m = checkTime(m);
+      s = checkTime(s);
+      document.getElementById('txt').innerHTML =
+     "วันที่ " + d + " " + month[mm] + " " + y + " เวลา " + h + ":" + m + ":" + s;
+      var t = setTimeout(startTime, 500);
+    }
+    function checkTime(i) {
+      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+      return i;
+    }
+    </script>
+<script>
+  function validateForm() {
+    var x = Number(document.forms["receiptform"]["actual_pay"].value);
+    var y = Number(document.forms["receiptform"]["t_amount"].value);
+    var z = Number(document.forms["receiptform"]["remain"].value);
+      
+      if ( y == 0) {
+      alert("กรุณาเลือกรายการที่จะชำระเงิน");
+      document.forms["receiptform"]["t_amount"].style = "border-color:red;border-width: thick;"
+      return false;
+    } else {
+      document.forms["receiptform"]["t_amount"].style = "border-color:white;" 
+    }
+    
+    if ( x ==  null) {
+      alert("กรุณาใส่จำนวนเงินที่ต้องการชำระ");
+      return false;
+    } 
+     if (x < y && z < 0) {
+      alert("ชำระเงินน้อยกว่าค่าส่วนกลางหรือรายการที่เลือก");
+      document.forms["receiptform"]["actual_pay"].style = "border-color:red;border-width: thick;background-color: yellow;"
+      return false;
+    } else {
+      document.forms["receiptform"]["actual_pay"].style = "border-color:white;" 
+    }
+    if (document.forms["receiptform"]["payment_type"].checked== false) {
+      alert("กรุณาเลือกประเภทชำระเงิน (เงินสดหรือเงินโอน)");
+      return false;
+  } 
+  if (document.forms["receiptform"]["payment_type"].value == "เงินโอน" && document.forms["receiptform"]["transfer_no"].value == "") {
+          alert("กรุณาใส่หมายเลขการโอน");
+          document.forms["receiptform"]["transfer_no"].style = "border-color:red;border-width: thick;"
+          return false;
+      } else {
+          document.forms["receiptform"]["transfer_no"].style = "border-color:white;"
+      }
+  }
+  </script>
+<script>
+
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd;
+  } 
+  if (mm < 10) {
+    mm = '0' + mm;
+  } 
+  var today = yyyy + '-' + mm + '-' + dd ;
+  //console.log(today);
+  document.getElementById("receiptdate").value = today;
+  document.getElementById("transfer_date").value = today;
+  
+  function calbalance() {
+      document.getElementById("remain").value =0;
+    var lastremain =  Number(document.getElementById("lastremain").value);
+    var remain =   Number(document.getElementById("remain").value);
+    var payperinvoice =   Number(document.getElementById("t_amount").value);
+    var actualpay = Number(document.getElementById("actual_pay").value);
+    var netremain = actualpay - payperinvoice +lastremain + remain;
+    document.getElementById("remain").value = netremain.toFixed(2);
+    if (netremain <0) {
+      document.getElementById("remain").style = "background-color:red"
+
+    } else {
+      document.getElementById("remain").style = "background-color:white"
+    }
+  }
+
+  function checkformat()
+          {
+              console.log(document.getElementById("receiptdate").value);
+          }
+  
+  </script>
+  
+  <script>
+  var totalsum=0;
+  var invoiceidlist = new Array;
+          var monthlist = new Array;
+          var typelist = new Array;
+          var periodlist = new Array;
+          var amountlist = new Array;
+  function sumamount(id,invid,amount)
+          {
+
+              
+              if (document.getElementById(id).checked == true) {
+
+                  totalsum = Number(amount) + totalsum;
+                  invoiceidlist.push(invid);
+                  // monthlist.push(month);
+                  // typelist.push(type);
+                  // periodlist.push(period);
+                  // amountlist.push(amount);
+                  document.getElementById('invoicelist').value = invoiceidlist;
+              } else {
+
+                  totalsum =  totalsum - Number(amount);
+                  invoiceidlist.indexOf(invid) !== -1 ? invoiceidlist.splice(invoiceidlist.indexOf(invid),1): console.log("-1");
+                  document.getElementById('invoicelist').value = invoiceidlist;
+              }
+              document.getElementById('t_amount').value = totalsum;
+
+           
+    document.getElementById("remain").value =0;
+    //document.getElementById("t_amount").value = 0;
+   
+   
+    
+    calbalance();
+
+          // window.location.href="/issuereceipt/" + house_no;
+
+          }
+
+
+  function getonwername()
+          {
+              var house_no= document.getElementById("house_no").value;
+  window.location.href="/getrcpowner/" + house_no;
+  //console.log(storeid);
+          }
+  </script>
+
+</body>
+
+</html>

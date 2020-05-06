@@ -1,0 +1,19 @@
+{
+  "name": "doosmartvill",
+  "version": "1.0.0",
+  "description": "Smart Village App",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chart.js": "^2.9.3",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "json2csv": "^5.0.1",
+    "mysql": "^2.18.1"
+  }
+}
