@@ -73,7 +73,7 @@ app.get('/loadhouseinfo',loadhouseinfo);
 
 //const PORT1 = process.env.PORT || 3000;
 //http.listen(app.get('port'));
- http.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port : ${PORT}`)
    });
 //ทำการ export app ที่เราสร้างขึ้น เพื่อให้สามารถนำไปใช้งานใน project อื่นๆ 
