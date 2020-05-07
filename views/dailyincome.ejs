@@ -405,7 +405,7 @@
                       
             <div class="col-md-6" >
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-4 ">
-            <div class="card border-left-primary shadow h-100 py-2" style="background-color: white;height: 260px;">
+            <div class="card border-left-primary shadow h-100 py-2" id="today" style="background-color: white;height: 260px;">
               <div class="card-body">
                 <div class="row">
                   <div class="col align-center">
@@ -442,9 +442,9 @@
                   <div class="col align-center">
                     <h6 class="h6 card-title text-uppercase text-muted mb-0">เงินโอนวันนี้(บาท)</h6><br>
                     <% if (todaytransfer !== null) {%>
-                    <span id="sum1" class="h3 font-weight-bold mb-0 align-center"><%= todaytransfer %></span>
+                    <span id="sum1" class="h4 font-weight-bold mb-0 align-center"><%= todaytransfer %></span>
                     <% } else {%>
-                      <span id="sum0" class="h3 font-weight-bold mb-0 align-center">0</span>
+                      <span id="sum0" class="h4 font-weight-bold mb-0 align-center">0</span>
                      
                       <% }%>
                  
@@ -467,9 +467,9 @@
                   <div class="col align-center">
                     <h6 class="h6 card-title text-uppercase text-muted mb-0">เงินสดวันนี้(บาท)</h6><br>
                     <% if (todaycash !== null) {%>
-                    <span id="sum2" class="h3 font-weight-bold mb-0 "><%= todaycash %></span>
+                    <span id="sum2" class="h4 font-weight-bold mb-0 "><%= todaycash %></span>
                     <% } else {%>
-                      <span id="sum0" class="h3 font-weight-bold mb-0 align-center">0</span>
+                      <span id="sum0" class="h4 font-weight-bold mb-0 align-center">0</span>
                      
                       <% }%>
                   </div>
@@ -493,9 +493,9 @@
                     <div class="col align-center">
                       <h5 class="h6 card-title text-uppercase text-muted mb-1">รายจ่ายวันนี้(บาท)</h6><br>
                         <% if (todayexpense !== null) {%>
-                      <span id="sum3" class="h3 font-weight-bold mb-0 align-center"><%= todayexpense %></span>
+                      <span id="sum3" class="h4 font-weight-bold mb-0 align-center"><%= todayexpense %></span>
                       <% } else {%>
-                        <span id="sum0" class="h3 font-weight-bold mb-0 align-center">0</span>
+                        <span id="sum0" class="h4 font-weight-bold mb-0 align-center">0</span>
                        
                         <% }%>
                     </div>
@@ -517,9 +517,9 @@
                     <div class="col align-center">
                       <h5 class="h6 card-title text-uppercase text-muted mb-1">เงินสดย่อยวันนี้(บาท)</h6><br>
                         <% if (todaypettycash !== null) {%>
-                        <span id="sum3" class="h3 font-weight-bold mb-0 align-center"><%= todaypettycash %></span>
+                        <span id="sum3" class="h4 font-weight-bold mb-0 align-center"><%= todaypettycash %></span>
                         <% } else {%>
-                          <span id="sum0" class="h3 font-weight-bold mb-0 align-center">0</span>
+                          <span id="sum0" class="h4 font-weight-bold mb-0 align-center">0</span>
                          
                           <% }%>
                       </div>
@@ -632,6 +632,7 @@
     if (x<500) {
       document.getElementById('myChart2').height = 300;
       document.getElementById('myChart2').style = "border-style: solid;border-radius: 10px;border-color: white;padding:0px;background-color: white";
+      document.getElementById('today').style ="height:150px"
     } 
     
 </script>
