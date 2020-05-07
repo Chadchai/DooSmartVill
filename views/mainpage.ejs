@@ -240,7 +240,7 @@
             </div>
           </form> -->
 <!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800">หมู่บ้านไอน์ดีไซน์ วงแหวน-รามอินทรา</h1>
+<h1 class="h3 mb-2 text-gray-800" id="head1">หมู่บ้านไอน์ดีไซน์ วงแหวน-รามอินทรา</h1>
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
 
@@ -682,6 +682,19 @@
   <!-- Page level custom scripts -->
   <script src="assets/js/demo/chart-area-demo.js"></script>
   <script src="assets/js/demo/chart-pie-demo.js"></script>
+  <script>
+    var x = screen.width;
+    
+       if (x<800) {
+         document.getElementById('head1').style = "display:none";
+         document.getElementById('txt').style = "font-size:20px";
+        //  document.getElementById('accordionSidebar').style.width = "0px";;
+         
+       
+         //document.getElementById('myChart2').style = "border-style: solid;border-radius: 10px;border-color: white;padding:0px;background-color: white";
+       } 
+   
+   </script>
   <script>
     function startTime() {
       var today = new Date();
