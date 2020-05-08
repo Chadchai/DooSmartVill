@@ -39,7 +39,7 @@ const PORT = process.env.PORT || 8080
 //app.get('/', index);
 const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,getsliplist,updateslipstatus,getinvoicesform} = require("./")
 const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./")
-const {loadincome,loadexpense,loadpending,loadhouseinfo} = require("./")
+const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice} = require("./")
 
 app.get('/', index);
 app.get('/getreceiptlist', getreceiptlist);
@@ -69,6 +69,8 @@ app.post('/loadexpense',loadexpense);
 app.post('/loadincome',loadincome);
 app.get('/loadpending',loadpending);
 app.get('/loadhouseinfo',loadhouseinfo);
+app.post('/updatehouseinfo',updatehouseinfo);
+app.post('/createadvinv',createadvanceinvoice);  
 
 
 //const PORT1 = process.env.PORT || 3000;

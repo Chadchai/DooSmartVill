@@ -1043,6 +1043,114 @@ res.send(csv);
  }
 });
 },
+updatehouseinfo: function(req, res){
+    
+  let houseid = req.body.house_no;
+  let ownername = req.body.owner_name;
+  let laneno = req.body.lane_no;
+  let commonfee = Number(req.body.common_fee);
+  let parkingqty = Number(req.body.parking_qty);
+  let parkingfee = Number(req.body.parking_fee);
+  let lockno = req.body.lock_no;
+  let remark = req.body.remark;
+  
+  let updateinfo = "UPDATE house_info SET lane_no ='" + laneno + "', owner_name ='" +ownername +"', common_fee = "+ commonfee + " , parking_qty = "+ parkingqty + ", parking_fee = " + parkingfee + ", lock_no = '" + lockno + "', remark = '" + remark +"' WHERE house_no = '" + houseid +"'"
 
+  //console.log(updateinfo);
+  db.query(updateinfo, (err, result) => {
+    if (err) {
+        return res.status(500).send(err);
+    } else {
+      //console.log(result);
+      res.redirect('/gethouselist');
+
+    }
+
+ });
+},
+createadvanceinvoice: function(req, res){
+  let houseid = req.body.house_no;
+  let invdate = req.body.inv_date;
+  let periodid = req.body.period_id;
+  let commonfee = req.body.common_fee;
+  let parkfee = req.body.parking_fee;
+  let advmonth = Number(req.body.adv_month);
+  let remark = req.body.remark;
+
+  var today = new Date();
+  var c_date = today.getDate();
+  var c_month = today.getMonth()+1;
+  var c_year = today.getFullYear();
+  var c_year1 = today.getFullYear()+543;
+  var month = new Array();
+  month[0] = "มกราคม";
+  month[1] = "กุมภาพันธ์";
+  month[2] = "มีนาคม";
+  month[3] = "เมษายน";
+  month[4] = "พฤษภาคม";
+  month[5] = "มิถุนายน";
+  month[6] = "กรกฎาคม";
+  month[7] = "สิงหาคม";
+  month[8] = "กันยายน";
+  month[9] = "ตุลาคม";
+  month[10] = "พฤศจิกายน";
+  month[11] = "ธันวาคม";
+
+  var thismonth = month[today.getMonth()] + "-" + c_year1.toString() ;
+      
+             
+                  var i;
+                  var invoiceno ;
+                  var newperiod;
+                  var thismonth1;
+                  for (i=0;i<advmonth;i++) {
+                      invoiceno = c_year.toString() + c_month.toString() + c_date.toString() + + houseid.toString().split('/')[1]+i;
+                      //console.log(invoiceno);
+                      newperiod = Number(periodid)+i+1;
+                      if (newperiod <=12) {
+                        thismonth1 = month[newperiod-1] + "-" + c_year1.toString() ;
+                      } else if (newperiod/12 - Math.floor(newperiod/12) > 0) {
+                        var c_year2 = c_year1+Math.floor(newperiod/12);
+                        thismonth1 = month[newperiod- (12*Math.floor(newperiod/12))-1] + "-" + c_year2.toString() ;
+                      //console.log(thismonth1);
+                      } else {
+                        var c_year2 = c_year1+Math.floor(newperiod/12)-1;
+                        thismonth1 = month[11] + "-" + c_year2.toString() ;
+
+                      }
+                      
+                      let createinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ('" + invoiceno +"-1', '" + houseid + "' , 'ค่าส่วนกลาง', '"+ newperiod + "',"+ commonfee + ",'"+ thismonth1 + "' )";
+                      //console.log(createinvoice);
+                 
+                     let updateinvoiceperiod = "UPDATE `house_info` SET `invoice_period`= "+ newperiod + " WHERE  `house_no`='"+ houseid + "'";
+                    //result1[i].parking_qty;
+                    if (parkfee >0 ){
+                      let createparkinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ('" + invoiceno +"-2', '" + houseid + "' , 'ค่าจอดรถ', '"+ newperiod + "',"+ parkfee + ",'"+ thismonth1 +  "' )";
+                      //console.log(createinvoice);
+                      db.query(createparkinvoice, (err, result4) => {
+                          if (err) {
+                              return res.status(500).send(err);
+                          } 
+                      } );
+                  }
+                     db.query(createinvoice, (err, result3) => {
+                      if (err) {
+                          return res.status(500).send(err);
+                      } 
+                      else {
+                          
+                          db.query(updateinvoiceperiod, (err, result2) => {
+                              if (err) {
+                                  return res.status(500).send(err);
+                              } 
+                      } );
+                      }
+                    
+                  });
+
+                  }
+                  res.redirect('/getinvoicelist');
+                 
+          },
 
 }
