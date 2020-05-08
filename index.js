@@ -1294,5 +1294,129 @@ saveSlip: (req, res) => {
            });
           
           },
+checkadmin: function(req, res){
+            let username = req.body.username;
+            let password = req.body.password;
+            let checkpwd = "SELECT * FROM `admin` WHERE username ='" + username + "' AND password ='" + password + "'";
+           //console.log(checkpwd);
+            db.query(checkpwd, (err, result) => {
+              if (err) {
+                  return res.status(500).send(err);
+              } else if (result =="") {
+                
+                res.render('loginadmin.ejs', {
+                  title: "Login"
+                  ,message: '!!ชื่อ username หรือ password ไม่ถูกต้อง'
+              });
+          
+                } else {
+          
+                    let getcount = "SELECT COUNT(id) AS count FROM slip_info WHERE status <> 'ออกใบเสร็จแล้ว'"
+                    db.query(getcount, (err, result1) => {
+                      if (err) {
+                          return res.status(500).send(err);
+                      } 
+                      else {
+              res.render('index.ejs', {
+                title: "iDesign2020"
+                ,message: '',count1:result1[0].count,role1:result[0].role,
+              });
+              //console.log(result[0].role);
+            };
+          
+            });
+                }
+          
+          
+          
+          });
+          },
+receiptpayment: function(req, res){
+           
+            let houseid = req.body.house_no;
+            let invid = req.body.invoicelist.split(",");
+            let paymenttype = req.body.payment_type;
+            let transferno = req.body.transfer_no;
+            let transferdate = req.body.transfer_date;
+            let receivername = req.body.receiver;
+            let receiptdate = req.body.receiptdate;
+            let remark = req.body.remark;
+            let actual_pay = req.body.actual_pay;
+            let lastremain=req.body.lastremain;;
+            let remain = req.body.remain;
+            if (lastremain == ''){
+              lastremain = 0;
+            } else {
+              lastremain = req.body.lastremain;
+            }
+            var today = new Date();
+            var c_date = today.getDate();
+            var c_month = today.getMonth()+1;
+            var c_month1 = ("0" + (today.getMonth() + 1)).slice(-2);
+            var c_year = today.getFullYear();
+            var c_year1 = today.getFullYear()+543;
+            var month = new Array();
+            month[0] = "มกราคม";
+            month[1] = "กุมภาพันธ์";
+            month[2] = "มีนาคม";
+            month[3] = "เมษายน";
+            month[4] = "พฤษภาคม";
+            month[5] = "มิถุนายน";
+            month[6] = "กรกฎาคม";
+            month[7] = "สิงหาคม";
+            month[8] = "กันยายน";
+            month[9] = "ตุลาคม";
+            month[10] = "พฤศจิกายน";
+            month[11] = "ธันวาคม";
+            let updatepayment;
+            let updatebalance;
+            var thismonth = month[today.getMonth()] + "-" + c_year1.toString() ;
+            var receiptno ;
+            var monthcode = "RE" +c_year.toString() + c_month1.toString();
+            //console.log(invid);
+           
+              let getlastrcvno = "SELECT COUNT(DISTINCT receipt_no) AS count FROM invoice_info WHERE receipt_no LIKE '" + monthcode +"%'"
+             // var createinvoice;
+                //console.log(c_month);
+              //console.log(createinvoice);
+              console.log(getlastrcvno);
+      db.query(getlastrcvno, (err, result) => {
+        if (err) {
+          return res.status(500).send(err);
+        } else {
+          let no = ("00" + (Number(result[0].count)+1)).slice(-3);;
+          receiptno = "RE" +c_year.toString() + c_month1.toString()+ no;
+      console.log(receiptno);
+       for (i=0;i<invid.length;i++) {
+              if (i == invid.length-1){
+                 updatepayment = "UPDATE `invoice_info` SET `payment_type`= '"+ paymenttype + "', `transfer_no`= '" + transferno + "', `payment_date`= '" + transferdate + "' , `receipt_date` = '"+ receiptdate  + "', `receiver_name` = '"+ receivername + "', `receipt_no` = '" + receiptno +"', `remark` = '"+ remark + "', `actual_pay` =" + actual_pay + " , `lastmonth` = " + lastremain +" , `balance` = " + remain +" WHERE  `id`= "+ invid[i];
+                updatebalance = "UPDATE house_info SET remain = "+ remain + " WHERE house_no = '" + houseid + "'";
+              } else {
+               updatepayment = "UPDATE `invoice_info` SET `payment_type`= '"+ paymenttype + "', `transfer_no`= '" + transferno + "', `payment_date`= '" + transferdate + "' , `receipt_date` = '"+ receiptdate  + "', `receiver_name` = '"+ receivername + "', `receipt_no` = '" + receiptno +"', `remark` = '"+ remark + "' WHERE  `id`= "+ invid[i];
+             //  updatebalance = "UPDATE house_info SET remain = 0 WHERE house_no = '" + houseid + "'";
+            
+              }
+              console.log(updatepayment);
+             // console.log(updatebalance);
+      db.query(updatepayment, (err, result) => {
+       if (err) {
+           return res.status(500).send(err);
+       }  db.query(updatebalance, (err, result1) => {
+         if (err) {
+             return res.status(500).send(err);
+         } 
+       });
+     });
+   
+            }
+          }
+          }); 
+          
+              res.redirect('/getreceiptlist');
+    
+            
+                       
+          },
+
 
 }
