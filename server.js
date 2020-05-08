@@ -8,10 +8,10 @@ const bodyParser = require('body-parser');
 const http = require('http').createServer(app);
 
 const db = mysql.createConnection ({
-    host: 'pfw0ltdr46khxib3.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-      user: 'h0fh806wbn807e8o',
-      password: 'ghhpbwghaavxilm1',
-      database: 'bjmh3rwe5d0ncn4f'
+    host: 'ijj1btjwrd3b7932.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+      user: 'ghwr2m49z94xqrt3',
+      password: 'qp0lr9wyokjzsg7k',
+      database: 'me0wpspgmbwzlkyn'
   });
   db.connect((err) => {
     if (err) {
