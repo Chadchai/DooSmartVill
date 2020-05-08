@@ -1379,14 +1379,14 @@ receiptpayment: function(req, res){
              // var createinvoice;
                 //console.log(c_month);
               //console.log(createinvoice);
-              console.log(getlastrcvno);
+              //console.log(getlastrcvno);
       db.query(getlastrcvno, (err, result) => {
         if (err) {
           return res.status(500).send(err);
         } else {
           let no = ("00" + (Number(result[0].count)+1)).slice(-3);;
           receiptno = "RE" +c_year.toString() + c_month1.toString()+ no;
-      console.log(receiptno);
+      //console.log(receiptno);
        for (i=0;i<invid.length;i++) {
               if (i == invid.length-1){
                  updatepayment = "UPDATE `invoice_info` SET `payment_type`= '"+ paymenttype + "', `transfer_no`= '" + transferno + "', `payment_date`= '" + transferdate + "' , `receipt_date` = '"+ receiptdate  + "', `receiver_name` = '"+ receivername + "', `receipt_no` = '" + receiptno +"', `remark` = '"+ remark + "', `actual_pay` =" + actual_pay + " , `lastmonth` = " + lastremain +" , `balance` = " + remain +" WHERE  `id`= "+ invid[i];
@@ -1396,7 +1396,7 @@ receiptpayment: function(req, res){
              //  updatebalance = "UPDATE house_info SET remain = 0 WHERE house_no = '" + houseid + "'";
             
               }
-              console.log(updatepayment);
+              //console.log(updatepayment);
              // console.log(updatebalance);
       db.query(updatepayment, (err, result) => {
        if (err) {
@@ -1416,6 +1416,91 @@ receiptpayment: function(req, res){
     
             
                        
+          },
+createinvoice1month: function(req, res){
+
+            var today = new Date();
+            var c_date = today.getDate();
+            var c_month = today.getMonth()+1;
+            var c_year = today.getFullYear();
+            var c_year1 = today.getFullYear()+543;
+            var month = new Array();
+            month[0] = "มกราคม";
+            month[1] = "กุมภาพันธ์";
+            month[2] = "มีนาคม";
+            month[3] = "เมษายน";
+            month[4] = "พฤษภาคม";
+            month[5] = "มิถุนายน";
+            month[6] = "กรกฎาคม";
+            month[7] = "สิงหาคม";
+            month[8] = "กันยายน";
+            month[9] = "ตุลาคม";
+            month[10] = "พฤศจิกายน";
+            month[11] = "ธันวาคม";
+          
+            var thismonth = month[today.getMonth()] + "-" + c_year1.toString() ;
+        
+            let getinvoicelist = "SELECT period_id,period_mo,status  FROM `invoice_period` WHERE MONTH(period_mo) ='" + c_month + "' AND YEAR(period_mo) ='"+ c_year +"'";
+            //console.log(getinvoicelist);
+          
+          db.query(getinvoicelist, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            } 
+            else {
+                var periodid = result[0].period_id;
+                let gethouselist = "SELECT * FROM `house_info` WHERE invoice_period < " + result[0].period_id + " OR invoice_period IS NULL " ;
+                //console.log(gethouselist);
+                db.query(gethouselist, (err, result1) => {
+                    if (err) {
+                        return res.status(500).send(err);
+                    } 
+                    else {
+                        if (result1.length >0) {
+                            var i;
+                            var invoiceno ;
+                            for (i=0;i<result1.length;i++) {
+                                invoiceno = c_year.toString() + c_month.toString() + c_date.toString() + i.toString();
+                                //console.log(invoiceno);
+                                let createinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ('" + invoiceno +"-1', '" + result1[i].house_no + "' , 'ค่าส่วนกลาง', '"+ periodid + "',"+ result1[i].common_fee + ",'"+ thismonth + "' )";
+                                //console.log(createinvoice);
+                               let updateinvoiceperiod = "UPDATE `house_info` SET `invoice_period`= "+ periodid + " WHERE  `house_no`='"+ result1[i].house_no + "'";
+                              //result1[i].parking_qty;
+                              if (result1[i].parking_qty >0 ){
+                                let createparkinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ('" + invoiceno +"-2', '" + result1[i].house_no + "' , 'ค่าจอดรถ', '"+ periodid + "',"+ result1[i].parking_fee + ",'"+ thismonth +  "' )";
+                                //console.log(createinvoice);
+                                db.query(createparkinvoice, (err, result4) => {
+                                    if (err) {
+                                        return res.status(500).send(err);
+                                    } 
+                                } );
+                            }
+                               db.query(createinvoice, (err, result3) => {
+                                if (err) {
+                                    return res.status(500).send(err);
+                                } 
+                                else {
+                                    
+                                    db.query(updateinvoiceperiod, (err, result2) => {
+                                        if (err) {
+                                            return res.status(500).send(err);
+                                        } 
+                                } );
+                                }
+                              
+                            });
+        
+                            }
+                            
+                        } else {
+                            res.redirect('/getinvoicelist');
+        
+                        }
+                    }
+                });
+            }
+        });
+           
           },
 
 
