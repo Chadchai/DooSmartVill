@@ -1406,13 +1406,14 @@ receiptpayment: function(req, res){
              return res.status(500).send(err);
          } 
        });
+       res.redirect('/getreceiptlist');
      });
    
             }
           }
           }); 
           
-              res.redirect('/getreceiptlist');
+             
     
             
                        
