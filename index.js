@@ -1152,5 +1152,147 @@ createadvanceinvoice: function(req, res){
                   res.redirect('/getinvoicelist');
                  
           },
+saveexpense: function(req, res){
+            let expensetype = req.body.expense_type;
+            let expensedate = req.body.expense_date;
+            let amount = req.body.amount;
+            let rcvname = req.body.receiver_name;
+            let detail = req.body.detail;
+            let paymenttype = req.body.payment_type;
+            let saveexpense1 = "INSERT INTO `expense_info` (expense_type, expense_date,expense_amount,receive_name,details,payment_type) VALUES ('" + expensetype + "' , '" + expensedate + "', " + amount + " ,'" + rcvname + "','" + detail + "','" + paymenttype + "')" ;
+         // console.log(saveexpense1);
+            db.query(saveexpense1, (err, result) => {
+                if (err) {
+                  return res.status(500).send(err);
+                } else {
+                    
+                  res.redirect('/getexpenselist');
+        }
+          });
+          },
+saveincome: function(req, res){
+
+              
+            let incomedate = req.body.income_date;
+            let incometype = req.body.income_type;
+            
+            let amount = req.body.income_amount;
+            let payername = req.body.payer_name;
+            let rcvname = req.body.receiver_name;
+            let detail = req.body.details;
+            let receipttype = req.body.receipt_type;
+            let transferno = req.body.transfer_no;
+            let transferdate = req.body.transfer_date;
+            let houseno = req.body.house_no;
+            var today = new Date();
+            var c_date = today.getDate();
+            var c_month = ("0" + (today.getMonth() + 1)).slice(-2);
+            //console.log(houseno);
+            var c_year = today.getFullYear();
+           // var c_year1 = today.getFullYear()+543;
+            var invoiceno = "INV" +c_year.toString() + c_month.toString() + c_date.toString() + today.getSeconds().toString();
+            var monthcode = "RE" +c_year.toString() + c_month.toString();
+//console.log(invid);
+          var receiptno;
+          let periodid = 0;
+          let getlastrcvno = "SELECT COUNT(DISTINCT receipt_no) AS count FROM invoice_info WHERE receipt_no LIKE '" + monthcode +"%'"
+          var createinvoice;
+            //console.log(c_month);
+          //console.log(getlastrcvno);
+          db.query(getlastrcvno, (err, result) => {
+            if (err) {
+              return res.status(500).send(err);
+            } else {
+              let no = ("00" + (Number(result[0].count)+1)).slice(-3);;
+              receiptno = "RE" +c_year.toString() + c_month.toString()+ no;
+              //console.log(receiptno);
+              createinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month,payment_type,transfer_no,payment_date,receipt_date,receiver_name,receipt_no,remark,actual_pay) VALUES ('" + 
+          invoiceno +"','"+houseno +"' , '"+ incometype +"','"+ periodid + "',"+ amount + ",'" + detail + "','"+ receipttype + "','"+ transferno +"','" + transferdate +"','" +  incomedate + "','" +  rcvname + "','" +  receiptno + "','"+ payername + "'," +  amount + ")";
+         // console.log(createinvoice);
+          db.query(createinvoice, (err, result) => {
+                    if (err) {
+                      return res.status(500).send(err);
+                   } else {
+                    res.redirect('/getreceiptlist1');
+                   }
+            });
+          }
+          });
+
+          
+          //let saveincome1 = "INSERT INTO `income_info` ( income_date,income_amount,payer_name,receiver_name,details,receipt_type) VALUES ('" + incomedate + "' , " + amount + ", '" + payername + "' ,'" + rcvname + "','" + detail + "','" + receipttype + "')" ;
+         //console.log(saveexpense1);
+        //     db.query(saveincome1, (err, result) => {
+        //         if (err) {
+        //           return res.status(500).send(err);
+        //         } else {
+        //           receiptno = "RE" +c_year.toString() + c_month.toString();
+        //           res.redirect('/getincomelist');
+        // }
+        //   });
+          },
+saveSlip: (req, res) => {
+            let transferdate = req.body.slip_date;
+            let memo = req.body.details;
+            let houseid = req.body.houseno;
+            var today = new Date();
+            var c_min = today.getMinutes();
+            var c_date = today.getDate();
+            var c_month = today.getMonth();
+            let filename;
+            //console.log(houseid);
+          if (typeof req.files.image !== "undefined"){
+          let uploadedFile = req.files.image;
+          let image_name = uploadedFile.name;
+          
+          let image_name1 = uploadedFile.name.split('.')[0];
+          
+           filename = 'idesign_slip/' + "104_" +houseid.toString().split('/')[1] + "_" + c_date + c_month+ c_min;
+          //console.log(filename);
+            if (uploadedFile.mimetype === 'image/png' || uploadedFile.mimetype === 'image/jpeg' || uploadedFile.mimetype === 'image/gif') {
+              //console.log("upload Failed")  
+           
+              uploadedFile.mv(`public/assets/images/${image_name}`, (err ) => {
+                if (err) {
+                  //console.log("upload Failed")
+                    return res.status(500).send(err)          
+                 }
+               
+                
+             });
+            //  gm(`public/assets/images/${image_name}`)
+            //  .resize(353, 257)
+            //  .autoOrient()
+            //  .write(fs.createWriteSteam , function (err) {
+            //    if (!err) console.log(' hooray! ');
+            //  });
+             //cloudinary.url("sample.jpg", { width: 100, height: 150, crop: "fill" })
+             cloudinary.v2.uploader.upload(`public/assets/images/${image_name}`, {public_id: filename } ,
+             function(error, result) {console.log(result, error)});
+          
+             
+          
+          
+            }
+          } else {
+            message = "Invalid File format. Only 'gif', 'jpg' and 'png' images are allowed.";
+          
+          }
+          let saveslip = "INSERT INTO slip_info (house_no,memo,image_name,status) VALUES ('" + houseid + "','" + memo + "','" + filename + "','ส่ง slip แล้ว')";
+          
+           db.query(saveslip, (err, result) => {
+             if (err) {
+                 return res.status(500).send(err);
+             } else {
+            
+               res.render('member.ejs', {
+                 title: "Main Page"
+                 ,message:'ส่งสลิปให้นิติบุคคลเรียบร้อยแล้ว',houseno:houseid
+             });
+          
+             }
+           });
+          
+          },
 
 }
