@@ -181,6 +181,14 @@ advanceinvoice: function(req, res){
       ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',houseno:'',carqty:0 ,periodid:'',commonfee:'',parkfee:''
   });
   },
+  contact: function(req, res){
+
+            
+    res.render('contact.ejs', {
+      title: "Show contact list"
+      ,message: '',
+  });
+  },
 
   getownername: function(req, res){
     let houseid = req.params.house_no;

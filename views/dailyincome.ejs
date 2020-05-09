@@ -396,7 +396,7 @@
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">สรุปรายรับ</h1>
+            <h1 class="h2 mb-0 text-gray-800">สรุปรายรับวันนี้</h1>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
           </div>
 
@@ -439,11 +439,11 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col align-center">
-                    <h6 class="h3 card-title text-uppercase text-muted mb-0">เงินโอนวันนี้(บาท)</h6><br>
+                    <h6 class="h4 card-title text-uppercase text-muted mb-0">เงินโอนวันนี้(บาท)</h6><br>
                     <% if (todaytransfer !== null) {%>
-                    <span id="sum1" class="h3 font-weight-bold mb-0 align-center"><%= todaytransfer %></span>
+                    <span id="sum1" class="h2 font-weight-bold mb-0 align-center"><%= todaytransfer %></span>
                     <% } else {%>
-                      <span id="sum0" class="h3 font-weight-bold mb-0 align-center">0</span>
+                      <span id="sum0" class="h2 font-weight-bold mb-0 align-center">0</span>
                      
                       <% }%>
                  
@@ -464,11 +464,11 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col align-center">
-                    <h6 class="h3 card-title text-uppercase text-muted mb-0">เงินสดวันนี้(บาท)</h6><br>
+                    <h6 class="h4 card-title text-uppercase text-muted mb-0">เงินสดวันนี้(บาท)</h6><br>
                     <% if (todaycash !== null) {%>
-                    <span id="sum2" class="h3 font-weight-bold mb-0 "><%= todaycash %></span>
+                    <span id="sum2" class="h2 font-weight-bold mb-0 "><%= todaycash %></span>
                     <% } else {%>
-                      <span id="sum0" class="h3 font-weight-bold mb-0 align-center">0</span>
+                      <span id="sum0" class="h2 font-weight-bold mb-0 align-center">0</span>
                      
                       <% }%>
                   </div>
