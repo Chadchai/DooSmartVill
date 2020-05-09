@@ -1503,6 +1503,26 @@ createinvoice1month: function(req, res){
         });
            
           },
+getrcpowner1: function(req, res){
+            let houseid = req.params.house_no;
+            //console.log(houseid);
+            let getownername1 = "SELECT *  FROM `house_info` WHERE house_no = '104/" + houseid + "'";
+             //console.log(getownername1);
+            db.query(getownername1, (err, result) => {
+             // console.log(result);
+                if (err || result == "") {
+                    res.render('oldcommonfee.ejs', {
+                        title: "Pay old common fee"
+                        ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',houseno:'104/'+ houseid,invoicelist:'',periodid:'',balance:0
+                      })
+                } else {
+            res.render('oldcommonfee.ejs', {
+              title: "Issue Invoice in Advance"
+              ,message: '',ownername:result[0].owner_name,balance:result[0].remain,houseno:'104/'+ houseid
+            })
+        }
+          });
+          },
 
 
 }
