@@ -590,165 +590,74 @@
   <script src="assets/js/demo/chart-area-demo.js"></script>
   <script src="assets/js/demo/chart-pie-demo.js"></script>
   <script>
-    function startTime() {
-      var today = new Date();
-      var d = today.getDate();
-      var mm = today.getMonth();
-      var y = today.getFullYear();
-      var h = today.getHours();
-      var m = today.getMinutes();
-      var s = today.getSeconds();
-      var month = new Array();
-           month[0] = "มกราคม";
-           month[1] = "กุมภาพันธ์";
-           month[2] = "มีนาคม";
-           month[3] = "เมษายน";
-           month[4] = "พฤษภาคม";
-           month[5] = "มิถุนายน";
-           month[6] = "กรกฎาคม";
-           month[7] = "สิงหาคม";
-           month[8] = "กันยายน";
-           month[9] = "ตุลาคม";
-           month[10] = "พฤศจิกายน";
-           month[11] = "ธันวาคม";
-      m = checkTime(m);
-      s = checkTime(s);
-      document.getElementById('txt').innerHTML =
-     "วันที่ " + d + " " + month[mm] + " " + y + " เวลา " + h + ":" + m + ":" + s;
-      var t = setTimeout(startTime, 500);
-    }
-    function checkTime(i) {
-      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-      return i;
+    function validateForm() {
+      var x = Number(document.forms["receiptform"]["actual_pay"].value);
+     
+      if ( x == 0) {
+        alert("กรุณาใส่จำนวนเงินที่ต้องการชำระ");
+        return false;
+      }
+     
     }
     </script>
 <script>
-  function validateForm() {
-    var x = Number(document.forms["receiptform"]["actual_pay"].value);
-    var y = Number(document.forms["receiptform"]["t_amount"].value);
-    var z = Number(document.forms["receiptform"]["remain"].value);
-      
-      if ( y == 0) {
-      alert("กรุณาเลือกรายการที่จะชำระเงิน");
-      document.forms["receiptform"]["t_amount"].style = "border-color:red;border-width: thick;"
-      return false;
-    } else {
-      document.forms["receiptform"]["t_amount"].style = "border-color:white;" 
-    }
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
     
-    if ( x ==  null) {
-      alert("กรุณาใส่จำนวนเงินที่ต้องการชำระ");
-      return false;
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
     } 
-     if (x < y && z < 0) {
-      alert("ชำระเงินน้อยกว่าค่าส่วนกลางหรือรายการที่เลือก");
-      document.forms["receiptform"]["actual_pay"].style = "border-color:red;border-width: thick;background-color: yellow;"
-      return false;
-    } else {
-      document.forms["receiptform"]["actual_pay"].style = "border-color:white;" 
-    }
-    if (document.forms["receiptform"]["payment_type"].checked== false) {
-      alert("กรุณาเลือกประเภทชำระเงิน (เงินสดหรือเงินโอน)");
-      return false;
-  } 
-  if (document.forms["receiptform"]["payment_type"].value == "เงินโอน" && document.forms["receiptform"]["transfer_no"].value == "") {
-          alert("กรุณาใส่หมายเลขการโอน");
-          document.forms["receiptform"]["transfer_no"].style = "border-color:red;border-width: thick;"
-          return false;
-      } else {
-          document.forms["receiptform"]["transfer_no"].style = "border-color:white;"
-      }
-  }
-  </script>
-<script>
-
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth() + 1; //January is 0!
-  
-  var yyyy = today.getFullYear();
-  if (dd < 10) {
-    dd = '0' + dd;
-  } 
-  if (mm < 10) {
-    mm = '0' + mm;
-  } 
-  var today = yyyy + '-' + mm + '-' + dd ;
-  //console.log(today);
-  document.getElementById("receiptdate").value = today;
-  document.getElementById("transfer_date").value = today;
-  
-  function calbalance() {
-      document.getElementById("remain").value =0;
-    var lastremain =  Number(document.getElementById("lastremain").value);
-    var remain =   Number(document.getElementById("remain").value);
-    var payperinvoice =   Number(document.getElementById("t_amount").value);
-    var actualpay = Number(document.getElementById("actual_pay").value);
-    var netremain = actualpay - payperinvoice +lastremain + remain;
-    document.getElementById("remain").value = netremain.toFixed(2);
-    if (netremain <0) {
-      document.getElementById("remain").style = "background-color:red"
-
-    } else {
-      document.getElementById("remain").style = "background-color:white"
-    }
-  }
-
-  function checkformat()
-          {
-              console.log(document.getElementById("receiptdate").value);
-          }
-  
-  </script>
-  
-  <script>
-  var totalsum=0;
-  var invoiceidlist = new Array;
-          var monthlist = new Array;
-          var typelist = new Array;
-          var periodlist = new Array;
-          var amountlist = new Array;
-  function sumamount(id,invid,amount)
-          {
-
-              
-              if (document.getElementById(id).checked == true) {
-
-                  totalsum = Number(amount) + totalsum;
-                  invoiceidlist.push(invid);
-                  // monthlist.push(month);
-                  // typelist.push(type);
-                  // periodlist.push(period);
-                  // amountlist.push(amount);
-                  document.getElementById('invoicelist').value = invoiceidlist;
-              } else {
-
-                  totalsum =  totalsum - Number(amount);
-                  invoiceidlist.indexOf(invid) !== -1 ? invoiceidlist.splice(invoiceidlist.indexOf(invid),1): console.log("-1");
-                  document.getElementById('invoicelist').value = invoiceidlist;
-              }
-              document.getElementById('t_amount').value = totalsum;
-
-           
-    document.getElementById("remain").value =0;
-    //document.getElementById("t_amount").value = 0;
-   
-   
+    if (mm < 10) {
+      mm = '0' + mm;
+    } 
+    var today = yyyy + '-' + mm + '-' + dd ;
+    //console.log(today);
+    document.getElementById("receiptdate").value = today;
+    document.getElementById("transfer_date").value = today;
     
-    calbalance();
+    function calbalance() {
+        document.getElementById("remain").value =0;
+      var lastremain =  Number(document.getElementById("lastremain").value);
+      var remain =   Number(document.getElementById("remain").value);
+      //var payperinvoice =   Number(document.getElementById("t_amount").value);
+      var actualpay = Number(document.getElementById("actual_pay").value);
+      var netremain =  lastremain + actualpay;
+      document.getElementById("remain").value = netremain;
+      if (netremain <0) {
+        document.getElementById("remain").style = "background-color:red"
 
-          // window.location.href="/issuereceipt/" + house_no;
+      } else {
+        document.getElementById("remain").style = "background-color:white"
+      }
+    }
 
-          }
+    function checkformat()
+            {
+                console.log(document.getElementById("receiptdate").value);
+            }
+    
+    </script>
+    
+    <script>
+    var totalsum=0;
+    var invoiceidlist = new Array;
+            var monthlist = new Array;
+            var typelist = new Array;
+            var periodlist = new Array;
+            var amountlist = new Array;
+   
 
 
-  function getonwername()
-          {
-              var house_no= document.getElementById("house_no").value;
-  window.location.href="/getrcpowner/" + house_no;
-  //console.log(storeid);
-          }
-  </script>
+    function getonwername()
+            {
+                var house_no= document.getElementById("house_no").value;
+    window.location.href="/getrcp1/" + house_no;
+    //console.log(storeid);
+            }
+    </script>
 
 </body>
 
