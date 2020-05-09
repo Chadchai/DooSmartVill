@@ -454,9 +454,9 @@
                                           <option>ค่าใช้จ่ายอื่นๆ</option>
                                         </select> -->
                                   </div>
-                                  <div class="col-md-2">
-                                    <br>
-                                    <button type="button" class="btn btn-success display-4" style="border-radius: 20px;;margin-top: 10px;margin-left: -20px;" onclick="getonwername()" >ค้นหา</button>
+                                  <div class="col-md-2" id="boxsearch1">
+                                    
+                                    <button type="button" id="search1" class="btn btn-success display-4" style="border-radius: 10px;margin-top: 30px;margin-left: -20px;" onclick="getonwername()" >ค้นหา</button>
                                    
                                   </div>
                                   <div class="col-md-4  form-group" data-for="email">
@@ -514,7 +514,7 @@
                                   </div>
                                  
                                   <div class="col-md-12 input-group-btn align-center" style="text-align: center;margin-top: 30px;">
-                                      <button type="submit" class="btn btn-success btn-form display-4" style="width:150px;margin-bottom: 10px;">ออกใบแจ้งหนี้</button>
+                                      <button type="submit" class="btn btn-success btn-form display-4" style="width:150px;margin: 10px;">ออกใบแจ้งหนี้</button>
                                       <button type="button" class="btn btn-warning btn-form display-4" style="width:150px" onclick="window.history.back()">ยกเลิก</button>
                                   </div>
                               </div>
@@ -584,6 +584,16 @@
   <!-- Page level custom scripts -->
   <script src="assets/js/demo/chart-area-demo.js"></script>
   <script src="assets/js/demo/chart-pie-demo.js"></script>
+  <script>
+    var x = screen.width;
+    
+       if (x<600) {
+       
+         document.getElementById('search1').style = "margin-top:0px;margin-left:0px;width:100px";
+         document.getElementById('boxsearch1').style = "text-align:center";
+      } 
+   
+   </script>
   <script>
 
     var today = new Date();
