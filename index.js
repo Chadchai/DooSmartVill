@@ -1523,6 +1523,80 @@ getrcpowner1: function(req, res){
         }
           });
           },
+receiptoldpayment: function(req, res){
+           
+            let houseid = req.body.house_no;
+            let paymenttype = req.body.payment_type;
+            let transferno = req.body.transfer_no;
+            let transferdate = req.body.transfer_date;
+            let receivername = req.body.receiver;
+            let receiptdate = req.body.receiptdate;
+            let remark = req.body.remark;
+            let actualpay = req.body.actual_pay;
+            let lastremain=req.body.lastremain;;
+            let remain = req.body.remain;
+            if (lastremain == ''){
+              lastremain = 0;
+            } else {
+              lastremain = req.body.lastremain;
+            }
+            var today = new Date();
+            var c_date = today.getDate();
+            //var c_month = today.getMonth()+1;
+            var c_year = today.getFullYear();
+            var c_year1 = today.getFullYear()+543;
+            var c_month = ("0" + (today.getMonth() + 1)).slice(-2);
+            var month = new Array();
+            month[0] = "มกราคม";
+            month[1] = "กุมภาพันธ์";
+            month[2] = "มีนาคม";
+            month[3] = "เมษายน";
+            month[4] = "พฤษภาคม";
+            month[5] = "มิถุนายน";
+            month[6] = "กรกฎาคม";
+            month[7] = "สิงหาคม";
+            month[8] = "กันยายน";
+            month[9] = "ตุลาคม";
+            month[10] = "พฤศจิกายน";
+            month[11] = "ธันวาคม";
+            var monthcode = "RE" +c_year.toString() + c_month.toString();
+            var thismonth = month[today.getMonth()] + "-" + c_year1.toString() ;
+            var invoiceno = "INV" +c_year.toString() + c_month.toString() + c_date.toString() + today.getSeconds().toString() + houseid.toString().split('/')[1];
+            var receiptno;
+            //let periodid = 0;
+            let getlastrcvno = "SELECT COUNT(DISTINCT receipt_no) AS count FROM invoice_info WHERE receipt_no LIKE '" + monthcode +"%'"
+          
+            //var receiptno = "RE" +c_year.toString() + c_month.toString() + c_date.toString() + today.getSeconds().toString() + houseid.toString().split('/')[1];
+            //console.log(invid);
+            //console.log(getlastrcvno);
+            let periodid = 0;
+            db.query(getlastrcvno, (err, result) => {
+              if (err) {
+                return res.status(500).send(err);
+              } else {
+                let no = ("00" + (Number(result[0].count)+1)).slice(-3);;
+                receiptno = "RE" +c_year.toString() + c_month.toString()+ no;
+            let createinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month,payment_type,transfer_no,payment_date,receipt_date,receiver_name,receipt_no,remark,actual_pay,lastmonth,balance) VALUES ('" + 
+            invoiceno +"', '" + houseid + "' , 'ค่าส่วนกลาง', '"+ periodid + "',"+ actualpay + ",'ชำระค่าส่วนกลางค้างจ่ายสะสม','"+ paymenttype + "','"+ transferno + "','" +  transferdate + "','" +  receiptdate + "','" +  receivername + "','" +  receiptno + "','" +  remark + "'," +  actualpay + "," +  lastremain + "," +  remain + " )";
+              let  updatebalance = "UPDATE house_info SET remain = "+ remain + " WHERE house_no = '" + houseid + "'";
+              
+              //console.log(createinvoice);
+           db.query(createinvoice, (err, result) => {
+           if (err) {
+           return res.status(500).send(err);
+           }  db.query(updatebalance, (err, result1) => {
+           if (err) {
+             return res.status(500).send(err);
+           } 
+           });
+           });
+          };
+          
+              res.redirect('/getreceiptlist');
+          
+            }); 
+                       
+          },
 
 
 }

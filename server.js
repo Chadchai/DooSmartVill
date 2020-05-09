@@ -40,6 +40,7 @@ const PORT = process.env.PORT || 8080
 const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,getsliplist,updateslipstatus,getinvoicesform} = require("./")
 const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./")
 const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./")
+const {receiptoldpayment} = require("./")
 
 app.get('/', index);
 app.get('/getreceiptlist', getreceiptlist);
@@ -78,6 +79,7 @@ app.post('/checkadmin',checkadmin);
 app.post('/receiptpayment',receiptpayment); 
 app.get('/create1moinv', createinvoice1month);
 app.get('/getrcp1/104/:house_no',getrcpowner1);
+app.post('/receiptoldpayment',receiptoldpayment);
 
 
 
