@@ -68,7 +68,7 @@
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <!-- <h6 class="collapse-header" style="font-weight: bold;color: black;">ระบบการจอง:</h6> -->
-            <a class="collapse-item" href="/pendingapprove" style="font-weight:bold;">ออกใบแจ้งหนี้ประจำเดือน</a>
+            <a class="collapse-item" href="/create1moinv" style="font-weight:bold;">ออกใบแจ้งหนี้ประจำเดือน</a>
             <a class="collapse-item" href="/advanceinvoice" style="font-weight:bold;">ออกใบแจ้งหนี้ล่วงหน้า</a>
             <a class="collapse-item" href="/getinvoicelist" style="font-weight:bold;">ดูรายการหนี้คงค้าง</a>
             <a class="collapse-item" href="/getallinvoice" style="font-weight:bold;">พิมพ์ใบแจ้งหนี้ทั้งหมด</a>
@@ -420,77 +420,107 @@
 
                      <!-- Color System -->
                      <div class="row">
-               
-                    
-                      <div class="col-lg-3 mb-4">
-                        <div class="card bg-success text-white shadow" style="height: 180px;">
-                          <div class="card-body">
-                            <a style="font-weight: bold;font-size: larger;">  ออกใบแจ้งหนี้ </a>
-                            <a href="/" style="color: white;">  <div class="text-white-10 large">- ออกใบแจ้งหนี้ประจำเดือน</div></a>
-                            <a href="/advanceinvoice" style="color: white;"> <div class="text-white-10 large">- ออกใบแจ้งหนี้ล่วงหน้า</div></a>
-                             <a href="/getinvoicelist" style="color: white;"><div class="text-white-10 large">- ดูรายการหนี้คงค้าง</div></a>
-                             <a href="/getallinvoice" style="color: white;"><div class="text-white-10 large">- พิมพ์ใบแจ้งหนี้ทั้งหมด</div></a>
-                             <a href="/getsliplist" style="color: white;"><div class="text-white-10 large">- กล่องรับสลิปการโอน</div></a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 mb-4">
-                        <div class="card bg-success text-white shadow" style="height: 180px;">
-                          <div class="card-body"  >
-                            <a style="font-weight: bold;font-size: larger;"> ออกใบเสร็จรับเงิน</a>
-                            <a href="/" style="color: white;"> <div class="text-white-10 large"  ><a href="/issuereceipt" style="color: white;">- ออกใบเสร็จรับเงิน</a></div>
-                            <a href="/oldcommonfee" style="color: white;"><div class="text-white-10 large">- ออกใบเสร็จชำระเงินย้อนหลัง</div></a>
-                            <a href="/getreceiptlist" style="color: white;"><div class="text-white-10 large">- ดูประวัติชำระเงินย้อนหลัง 1 เดือน</div></a>
-                            <a href="/getallreceiptlist" style="color: white;"> <div class="text-white-10 large">- ดูประวัติชำระเงินย้อนหลังทั้งหมด</div></a>
-                           
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 mb-4">
-                        <div class="card bg-success text-white shadow" style="height: 180px;">
-                          <div class="card-body">
-                            <a style="font-weight: bold;font-size: larger;">บันทึกรายรับ-จ่ายอื่นๆ</a>
-                            <a href="/income" style="color: white;"><div class="text-white-10 large"  >- บันทึกรายรับอื่นๆ</div></a>
-                            <a href="/expense" style="color: white;"> <div class="text-white-10 large">- บันทึกรายจ่าย</div></a>
-                              <a href="/getreceiptlist1" style="color: white;"><div class="text-white-10 large">- ดูประวัติรายรับอืนๆ</div></a>
-                                <a href="/getexpenselist" style="color: white;"> <div class="text-white-10 large">- ดูรายการรายจ่าย</div></a>
-                          </div>
-                        </div>
-                      </div>
-                     
-                      <div class="col-lg-3 mb-4">
-                        <div class="card bg-success text-white shadow" style="height: 180px;">
-                          <div class="card-body">
-                            <a style="font-weight: bold;font-size: larger;"> ดูรายงานสรุป</a>
-                            <a href="/todaysummary" style="color: white;"><div class="text-white-10 large">- สรุปรับ-จ่ายวันนี้</div></a>
-                            <a href="/incomeexpense" style="color: white;"><div class="text-white-10 large"  >- สรุปรับ-จ่าย วัน/เดือน/ปี</div></a>
-                            <a href="/pendingpayment" style="color: white;"> <div class="text-white-10 large">- สรุปยอดคงค้าง</div></a>
-                              
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 mb-4">
-                        <div class="card bg-success text-white shadow" style="height: 180px;">
-                          <div class="card-body">
-                            <a style="font-weight: bold;font-size: larger;"> ข้อมูลลูกบ้าน</a>
-                            <a href="/gethouselist" style="color: white;"><div class="text-white-10 large"  >- ข้อมูลลูกบ้าน</div></a>
-                            <a href="/" style="color: white;"><div class="text-white-10 large">- ข้อมูลค่าส่วนกลาง</div></a>
-                            <a href="/" style="color: white;"> <div class="text-white-10 large">- ข้อมูลทะเบียนรถ</div></a>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-3 mb-4">
-                        <div class="card bg-success text-white shadow" style="height: 180px;">
-                          <div class="card-body">
-                            <a style="font-weight: bold;font-size: larger;"> Back up ข้อมูล</a>
-                            <a href="" data-toggle="modal" data-target="#incomeperiod" style="color: white;"><div class="text-white-10 large">- ข้อมูลรายรับ</div></a>
-                            <a href="" data-toggle="modal" data-target="#expenseperiod" style="color: white;"><div class="text-white-10 large"  >- ข้อมูลรายจ่าย</div></a>
-                            <a href="/loadpending" style="color: white;"> <div class="text-white-10 large">- ข้อมูลสรุปยอดคงค้าง</div></a>
-                            <a href="/loadhouseinfo" style="color: white;"> <div class="text-white-10 large">- ข้อมูลลูกบ้าน</div></a>
-                              
-                          </div>
-                        </div>
-                      </div>
+                 
+                      <!-- Approach -->
+                      <div class="col-lg-3 ">
+              <div class="card shadow mb-4">
+                <div class="card-header bg-success py-3">
+                  <h6 class="m-0 font-weight-bold text-gray-100">ออกใบแจ้งหนี้</h6>
+                </div>
+                <div class="card-body " >
+                  <a href="/create1moinv" >  <div class="text-white-10 large">- ออกใบแจ้งหนี้ประจำเดือน</div></a>
+                  <a href="/advanceinvoice" > <div class="text-white-10 large">- ออกใบแจ้งหนี้ล่วงหน้า</div></a>
+                   <a href="/getinvoicelist" ><div class="text-white-10 large">- ดูรายการหนี้คงค้าง</div></a>
+                   <a href="/getallinvoice" ><div class="text-white-10 large">- พิมพ์ใบแจ้งหนี้ทั้งหมด</div></a>
+                   <a href="/getsliplist" ><div class="text-white-10 large">- กล่องรับสลิปการโอน</div></a>
+ 
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-3 ">
+              <div class="card shadow mb-4">
+                <div class="card-header bg-success py-3">
+                  <h6 class="m-0 font-weight-bold text-gray-100">ออกใบเสร็จรับเงิน</h6>
+                </div>
+                <div class="card-body " >
+                 
+                  <a href="/" > <div class="text-white-10 large"  ><a href="/issuereceipt" >- ออกใบเสร็จรับเงิน</a></div>
+                  <a href="/oldcommonfee" ><div class="text-white-10 large">- ออกใบเสร็จชำระเงินย้อนหลัง</div></a>
+                  <a href="/getreceiptlist" ><div class="text-white-10 large">- ดูประวัติชำระเงินย้อนหลัง 1 เดือน</div></a>
+                  <a href="/getallreceiptlist" > <div class="text-white-10 large">- ดูประวัติชำระเงินย้อนหลังทั้งหมด</div></a>
+                 <br>
+                  </div>
+              </div>
+            </div>
+
+            <div class="col-lg-3 ">
+              <div class="card shadow mb-4">
+                <div class="card-header bg-success py-3">
+                  <h6 class="m-0 font-weight-bold text-gray-100">บันทึกรายรับ-จ่ายอื่นๆ</h6>
+                </div>
+                <div class="card-body " >
+                 
+                  <a href="/income" ><div class="text-white-10 large"  >- บันทึกรายรับอื่นๆ</div></a>
+                  <a href="/expense" > <div class="text-white-10 large">- บันทึกรายจ่าย</div></a>
+                    <a href="/getreceiptlist1" ><div class="text-white-10 large">- ดูประวัติรายรับอืนๆ</div></a>
+                      <a href="/getexpenselist" > <div class="text-white-10 large">- ดูรายการรายจ่าย</div></a>
+               <br>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-3 ">
+              <div class="card shadow mb-4">
+                <div class="card-header bg-success py-3">
+                  <h6 class="m-0 font-weight-bold text-gray-100">ดูรายงานสรุป</h6>
+                </div>
+                <div class="card-body " >
+                 
+                
+                  <a href="/todaysummary" ><div class="text-white-10 large">- สรุปรับ-จ่ายวันนี้</div></a>
+                  <a href="/incomeexpense" ><div class="text-white-10 large"  >- สรุปรับ-จ่าย วัน/เดือน/ปี</div></a>
+                  <a href="/pendingpayment" > <div class="text-white-10 large">- สรุปยอดคงค้าง</div></a>
+                    <br>
+                    <br>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-3 ">
+              <div class="card shadow mb-4">
+                <div class="card-header bg-success py-3">
+                  <h6 class="m-0 font-weight-bold text-gray-100">ข้อมูลลูกบ้าน</h6>
+                </div>
+                <div class="card-body " >
+                 
+                
+                  <a href="/gethouselist" ><div class="text-white-10 large"  >- ข้อมูลลูกบ้าน</div></a>
+                  <a href="/" ><div class="text-white-10 large">- ข้อมูลค่าส่วนกลาง</div></a>
+                  <a href="/" > <div class="text-white-10 large">- ข้อมูลทะเบียนรถ</div></a>
+                  <br>
+                    <br>
+                  </div>
+              </div>
+            </div>
+            <div class="col-lg-3 ">
+              <div class="card shadow mb-4">
+                <div class="card-header bg-success py-3">
+                  <h6 class="m-0 font-weight-bold text-gray-100">Back up ข้อมูล</h6>
+                </div>
+                <div class="card-body " >
+                      
+                  <a href="" data-toggle="modal" data-target="#incomeperiod" ><div class="text-white-10 large">- ข้อมูลรายรับ</div></a>
+                  <a href="" data-toggle="modal" data-target="#expenseperiod" ><div class="text-white-10 large"  >- ข้อมูลรายจ่าย</div></a>
+                  <a href="/loadpending" > <div class="text-white-10 large">- ข้อมูลสรุปยอดคงค้าง</div></a>
+                  <a href="/loadhouseinfo" > <div class="text-white-10 large">- ข้อมูลลูกบ้าน</div></a>
+                    <br>
+                 
+                  </div>
+              </div>
+            </div>
+        
+                                         
+                      
+                
+        
                     </div>
       
         <!-- /.container-fluid -->
