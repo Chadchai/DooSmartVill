@@ -1605,6 +1605,13 @@ receiptoldpayment: function(req, res){
             }); 
                        
           },
+memberpage: function(req, res){
+          
+            res.render('member.ejs', {
+              title: "Main Page"
+              ,message: '',houseno:''
+          });
+          },
 
 
 }
