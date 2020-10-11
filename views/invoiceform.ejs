@@ -14,10 +14,10 @@
 
   <!-- Custom fonts for this template-->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+ <link href="assets/css/sb-admin-2.css" rel="stylesheet">
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
   
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -452,206 +452,206 @@
              
               </div>
               
-                  <div id="printable" style="background-color: white;" >
-                  <div class="invoice-box" style="width:98%;color: black;">
-                      <table cellpadding="0" cellspacing="0" style="border-style: solid;border-color: black;padding: 15px;min-height: 170mm;color: black;">
-                          <tr class="top">
-                              <td colspan="2">
-                            
-                                  <table>
-                            
-                                      <tr id="head1">
-                                          <td class="title" id = "image1">
-                                              <img src="assets/images/idesign1.png" style="width:100%; max-width:300px;" />
-                                              </td>
-                                      
-                                            
-                                          <td style="margin-top: -20px;color: black;" >
-                                           
-                                              เลขที่ใบแจ้งหนี้: INV<%= invoiceno %>
-                                              <br> วันที่ออก: <%= invoicedate %>
-                                              <br>  <p class="align-right" style="font-size:small;">นิติบุคคลหมู่บ้านไอน์ดีไซน์ บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">171-272623-1</a> </p>
-                                         
-                                          </td>
-                                         
-                                      </tr>
-                                      <tr  id="headios" style="display:none">
-                                                              
-                                          <td colspan="2" class="title" id = "image1">
-                                              <img src="assets/images/idesign1.png" style="width:100%; max-width:300px;" />
-                                              </td>
-                                                                       
-                                      </tr>
-                                      <tr id="headios1" style="display:none;color: black;">
-                                                 
-                                          <td colspan="2" >
-                                           
-                                              เลขที่ใบแจ้งหนี้: INV<%= invoiceno %>
-                                              <br> วันที่ออก: <%= invoicedate %>
-                                              <br>  <p class="align-right" style="font-size:small;">นิติบุคคลหมู่บ้าน บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">171-272623-1</a> </p>
-                                         
-                                          </td>
-                                         
-                                      </tr>
-                                   
-                                  </table>
-                                  <table id="head" style="margin-top: -100px;"> 
-                                      <tr>       
-                                          <td id = "blank1">
-                                              
-                                          </td>
-                                          
-                                        <td class="title align-right" id="head2">
-                                          
-                                          ใบแจ้งชำระค่าส่วนกลาง
-                                        </td>
-                                         
-                                      </tr>
-                               
-                                  </table>
-                                  
-                              </td>
-                          </tr>
+              <div id="printable" >
+                <div class="invoice-box" style="width:98%;">
+                    <table cellpadding="0" cellspacing="0" style="border-style: solid;border-color: black;padding: 15px;min-height: 170mm;">
+                        <tr class="top">
+                            <td colspan="2">
                           
-                          <tr class="information ">
-                              <td colspan="2 " class="align-right">
-                                  <table>
-                                      <tr>
-                                          <td style="color: black;">
-                                              <br>
-                                           <a style="font-weight: bold;"> <%= ownername %><br></a>
-                                              บ้านเลขที่ <a style="font-weight: bold;font-size: large;"><%= houseno %></a> ซอยที่ <a style="font-weight: bold;font-size: large;"><%= laneno %></a> <br>
-                                              ถนน xxxxxxxx แขวง xxxxxxx เขต xxxxxxxxx กรุงเทพมหานคร 10510
-                                                 
-                              <input type="hidden" id = "house_id" name="house_id"  class="form-control align-right"  value="<%= houseno %>" >
-                             
-                                          </td>
+                                <table>
+                          
+                                    <tr id="head1">
+                                        <td class="title" id = "image1">
+                                            <img src="assets/images/idesign1.png" style="width:100%; max-width:300px;" />
+                                            </td>
+                                    
+                                          
+                                        <td style="margin-top: -20px;" >
                                          
-                                      </tr>
-                                  </table>
-                              </td>
-                          </tr>
-                          <tr class="heading " style="font-size: large;">
-                              <td>
-                                  รายการ
-                              </td>
-                              <td>
-                                 จำนวนเงิน
-                              </td>
-                          </tr>
-                          <% if (invoicelist.length > 0) {%>
-                              <% invoicelist.forEach((invoice, index) => { %>
-                          <tr class="item" style="font-size: large;">
-                             
-                              <td>
-                                <%= invoice.invoice_type %> เดือน <%= invoice.invoice_month %>
-                              </td>
-                              <td>
-                                <%= invoice.amount %> บาท
-                              </td>
-                           
-                            
-                                        
-                          </tr>
-                          <% }) %>
-                          <tr class="item" style="font-size: large;">
-                              <% if (oldamount1 > 0) {%>
-                                  <td >
-                                      ยอดเงินชำระไว้เกินยกมา:
-                                  </td>
-                                  <td >
-                                     <%= oldamount %> บาท
-                                  </td>
-                                  <% } else if (oldamount1 < 0) { %>
-                                      <td >
-                                          ยอดเงินค้างชำระยกมา: 
-                                      </td>
-                                      <td >
-                                          <%= oldamount %> บาท
-                                      </td>
-                                      <% } else {  %>
-                                          <td >
-                                             
-                                          </td>
-                                          <td >
+                                            เลขที่ใบแจ้งหนี้: INV<%= invoiceno %>
+                                            <br> วันที่ออก: <%= invoicedate %>
+                                            <br>  <p class="align-right" style="font-size:small;">นิติบุคคลหมู่บ้านไอน์ดีไซน์ บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">171-272623-1</a> </p>
+                                       
+                                        </td>
+                                       
+                                    </tr>
+                                    <tr  id="headios" style="display:none">
+                                                            
+                                        <td colspan="2" class="title" id = "image1">
+                                            <img src="assets/images/idesign1.png" style="width:100%; max-width:300px;" />
+                                            </td>
+                                                                     
+                                    </tr>
+                                    <tr id="headios1" style="display:none">
+                                               
+                                        <td colspan="2" >
+                                         
+                                            เลขที่ใบแจ้งหนี้: INV<%= invoiceno %>
+                                            <br> วันที่ออก: <%= invoicedate %>
+                                            <br>  <p class="align-right" style="font-size:small;">นิติบุคคลหมู่บ้านไอน์ดีไซน์ บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">171-272623-1</a> </p>
+                                       
+                                        </td>
+                                       
+                                    </tr>
+                                 
+                                </table>
+                                <table id="head" style="margin-top: -100px;"> 
+                                    <tr>       
+                                        <td id = "blank1">
                                             
-                                          </td>
-                                          <% } %>
-          
-                          </tr>
-                       
-                          <tr class="total " style="font-size: large;">
-                            
-                            <td colspan="2" style="text-align: right;">
-                                รวมที่ต้องชำระทั้งสิ้น: <%= totalamount %> บาท
+                                        </td>
+                                        
+                                      <td class="title align-right" id="head2">
+                                        
+                                        ใบแจ้งชำระค่าส่วนกลาง
+                                      </td>
+                                       
+                                    </tr>
+                             
+                                </table>
+                                
                             </td>
                         </tr>
-                        <% if (oldamount1  < -5000) {%>
-                          <tr class="total " style="font-size: large;">
-                              
-                              <td colspan="2" style="text-align: right;font-size: small;color:red">
-                                  (เงินจำนวนนี้ไม่รวมค่าปรับค้างชำระ)
-                              </td>
-                             
-                          </tr>
-                          <% } else { %>
-                              <tr class="total " style="font-size: large;">
-                              
-                                  <td colspan="2" style="text-align: right;font-size: small;color:red">
-                                 
-                                  </td>
-                                 
-                              </tr>
-                              <% } %>
-                        <tr class="total ">
-                         
-                           
-                      </tr>
-                          <% } else { %>
-                         
                         
-                              <% if (oldamount1 < 0) {%>              
-                          <td colspan="2" style="text-align: right;">
-                              ไม่มีค่าส่วนกลางค้างจ่ายเดือนนี้ แต่มียอดเงินค้างชำระ: <%= oldamount %> บาท
-                          </td>
-                          <% } else if (oldamount1 > 0) { %>
-                              <td colspan="2" style="text-align: right;">
-                                  คุณมีเงินคงเหลือจากการชำระล่วงหน้า: <%= oldamount %> บาท
-                                  <br>
-                                  ไม่มีค่าส่วนกลางค้างจ่าย ขอบคุณที่ชำระตรงเวลา
-                              </td>
-                              <% } else { %>
-                                  <td colspan="2" style="text-align: right;">
-                                      ไม่มีค่าส่วนกลางค้างจ่าย ขอบคุณที่ชำระตรงเวลา
-                                  </td>
-                                  <% } %>
-                            <% } %>
-                          <tr class="information ">
-                            <td colspan="2 ">
+                        <tr class="information ">
+                            <td colspan="2 " class="align-right">
                                 <table>
                                     <tr>
-          
-                                      <td>
-                                   
-                                     </td>
-                                        <td style="color: black;">
-                                          <br>
-                                           ผู้ออกใบแจ้งหนี้<br>
-                                           <br>
-                                           ลงชื่อ ___________________________<br>
-                                   
+                                        <td>
+                                            <br>
+                                         <a style="font-weight: bold;"> <%= ownername %><br></a>
+                                            บ้านเลขที่ <a style="font-weight: bold;font-size: large;"><%= houseno %></a> ซอยที่ <a style="font-weight: bold;font-size: large;"><%= laneno %></a> <br>
+                                            ถนน เลียบคลองสอง แขวง บางชัน เขตคลองสามวา กรุงเทพมหานคร 10510
+                                               
+                            <input type="hidden" id = "house_id" name="house_id"  class="form-control align-right"  value="<%= houseno %>" >
+                           
                                         </td>
-                                        
+                                       
                                     </tr>
                                 </table>
-                                <p class="align-center" style="font-size:medium;color: black;text-align: center;"> ******ใบแจ้งหนี้นี้อยู่ในระหว่างการพัฒนาระบบ หากพบข้อมูลไม่ถูกต้องให้ติดต่อนิติบุคคลในวันและเวลาทำการ*******</p> 
-                              
                             </td>
                         </tr>
-                      </table>
-          
-                  </div>
-              </div>
+                        <tr class="heading " style="font-size: large;">
+                            <td>
+                                รายการ
+                            </td>
+                            <td>
+                               จำนวนเงิน
+                            </td>
+                        </tr>
+                        <% if (invoicelist.length > 0) {%>
+                            <% invoicelist.forEach((invoice, index) => { %>
+                        <tr class="item" style="font-size: large;">
+                           
+                            <td>
+                              <%= invoice.invoice_type %> เดือน <%= invoice.invoice_month %>
+                            </td>
+                            <td>
+                              <%= invoice.amount %> บาท
+                            </td>
+                         
+                          
+                                      
+                        </tr>
+                        <% }) %>
+                        <tr class="item" style="font-size: large;">
+                            <% if (oldamount1 > 0) {%>
+                                <td >
+                                    ยอดเงินชำระไว้เกินยกมา:
+                                </td>
+                                <td >
+                                   <%= oldamount %> บาท
+                                </td>
+                                <% } else if (oldamount1 < 0) { %>
+                                    <td >
+                                        ยอดเงินค้างชำระยกมา: 
+                                    </td>
+                                    <td >
+                                        <%= oldamount %> บาท
+                                    </td>
+                                    <% } else {  %>
+                                        <td >
+                                           
+                                        </td>
+                                        <td >
+                                          
+                                        </td>
+                                        <% } %>
+        
+                        </tr>
+                     
+                        <tr class="total " style="font-size: large;">
+                          
+                          <td colspan="2" style="text-align: right;">
+                              รวมที่ต้องชำระทั้งสิ้น: <%= totalamount %> บาท
+                          </td>
+                      </tr>
+                      <% if (oldamount1  < -5000) {%>
+                        <tr class="total " style="font-size: large;">
+                            
+                            <td colspan="2" style="text-align: right;font-size: small;color:red">
+                                (เงินจำนวนนี้ไม่รวมค่าปรับค้างชำระ)
+                            </td>
+                           
+                        </tr>
+                        <% } else { %>
+                            <tr class="total " style="font-size: large;">
+                            
+                                <td colspan="2" style="text-align: right;font-size: small;color:red">
+                               
+                                </td>
+                               
+                            </tr>
+                            <% } %>
+                      <tr class="total ">
+                       
+                         
+                    </tr>
+                        <% } else { %>
+                       
+                      
+                            <% if (oldamount1 < 0) {%>              
+                        <td colspan="2" style="text-align: right;">
+                            ไม่มีค่าส่วนกลางค้างจ่ายเดือนนี้ แต่มียอดเงินค้างชำระ: <%= oldamount %> บาท
+                        </td>
+                        <% } else if (oldamount1 > 0) { %>
+                            <td colspan="2" style="text-align: right;">
+                                คุณมีเงินคงเหลือจากการชำระล่วงหน้า: <%= oldamount %> บาท
+                                <br>
+                                ไม่มีค่าส่วนกลางค้างจ่าย ขอบคุณที่ชำระตรงเวลา
+                            </td>
+                            <% } else { %>
+                                <td colspan="2" style="text-align: right;">
+                                    ไม่มีค่าส่วนกลางค้างจ่าย ขอบคุณที่ชำระตรงเวลา
+                                </td>
+                                <% } %>
+                          <% } %>
+                        <tr class="information ">
+                          <td colspan="2 ">
+                              <table>
+                                  <tr>
+        
+                                    <td>
+                                 
+                                   </td>
+                                      <td>
+                                        <br>
+                                         ผู้ออกใบแจ้งหนี้<br>
+                                         <br>
+                                         ลงชื่อ ___________________________<br>
+                                 
+                                      </td>
+                                      
+                                  </tr>
+                              </table>
+                              <p class="align-center" style="font-size:medium;"> ******ใบแจ้งหนี้นี้อยู่ในระหว่างการพัฒนาระบบ หากพบข้อมูลไม่ถูกต้องให้ติดต่อนิติบุคคลในวันและเวลาทำการ*******</p> 
+                            
+                          </td>
+                      </tr>
+                    </table>
+                  
+                </div>
+            </div>
                      
       <!-- End of Main Content -->
 

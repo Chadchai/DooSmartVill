@@ -14,10 +14,10 @@
 
   <!-- Custom fonts for this template-->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="assets/css/sb-admin-2.min.css" rel="stylesheet">
+ <link href="assets/css/sb-admin-2.css" rel="stylesheet">
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
   
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -472,8 +472,8 @@
                         
                         <% } %>
                 <div id="printable" style="width:98%;background-color: white;color: black;">
-                <div class="invoice-box" style="color: black;" >
-                    <table cellpadding="0" cellspacing="0" style="border-style: solid;border-color: black;padding: 15px;min-height: 170mm;color: black;">
+                  <div class="invoice-box" style="color: black;" >
+                    <table cellpadding="0" cellspacing="0" style="border-style: solid;border-color: black;padding: 15px;min-height: 170mm;">
                         <tr class="top">
                             <td colspan="2">
                           
@@ -485,7 +485,7 @@
                                             </td>
                                     
                                           
-                                        <td style="margin-top: -20px;color:black">
+                                        <td style="margin-top: -20px;">
                                             เลขที่ใบแจ้งหนี้: INV<%= house.invoice_no %>
                                             <br> วันที่ออก: <%= house.invoicedate %>
                                             <br>  นิติบุคคลหมู่บ้านไอน์ดีไซน์ บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">171-272623-1 </a> 
@@ -514,7 +514,7 @@
                             <td colspan="2 " class="align-right" style="height:20px;" >
                                 <table>
                                     <tr>
-                                        <td style="color: black;">
+                                        <td>
                                             
                                          <a style="font-weight: bold;"> <%= house.owner_name %><br></a>
                                             บ้านเลขที่ <a style="font-weight: bold;font-size: large;"><%= house.house_no %></a> ซอยที่ <a style="font-weight: bold;font-size: large;"><%= house.lane_no %></a><br>
@@ -537,22 +537,36 @@
                         <% if (invoicelist.length > 0) {%>
                             <% invoicelist.forEach((invoice, index1) => { %>
                         <% if (house.house_no == invoice.house_no) {%>
-                            <tr class="item" style="font-size: medium;color: black;">
+                            <% if (invoice.START !== invoice.END) {%>
+                            <tr class="item" style="font-size: medium;">
                            
                                 <td>
-                                  <%= invoice.invoice_type %> เดือน <%= invoice.remark %> ( <%= invoice.amount1 %> บาท/เดือน  )
+                                  <%= invoice.invoice_type %> เดือน <%= invoice.START %> - <%= invoice.END %>  ( <%= invoice.amount1 %> บาท/เดือน  )
                                 </td>
                                 <td>
                                   <%= invoice.amount %> บาท
                                 </td>
                                    
                             </tr>
+                            <% } else {%>
+                                <tr class="item" style="font-size: medium;">
+                           
+                                    <td>
+                                      <%= invoice.invoice_type %> เดือน <%= invoice.START %>  ( <%= invoice.amount1 %> บาท/เดือน  )
+                                    </td>
+                                    <td>
+                                      <%= invoice.amount %> บาท
+                                    </td>
+                                       
+                                </tr>
+                                <% } %>
                             <% invoicelist1.forEach((invoice1, index2) => { %>
                             <% if (invoice.house_no == invoice1.house_no) {%>
-                                <tr class="item" style="font-size: medium;color:black">
+                                <% if (invoice1.START !== invoice1.END) {%>
+                                <tr class="item" style="font-size: medium;">
                                
                                     <td>
-                                      <%= invoice1.invoice_type %> เดือน <%= invoice1.remark %>  ( <%= invoice1.amount1 %> บาท/เดือน  )
+                                      <%= invoice1.invoice_type %> เดือน <%= invoice1.START %> - <%= invoice1.END %>  ( <%= invoice1.amount1 %> บาท/เดือน  )
                                     </td>
                                     
                                     <td>
@@ -560,7 +574,19 @@
                                     </td>
                                        
                                 </tr>
+                                <% } else {%>
+                                    <tr class="item" style="font-size: medium;">
+                               
+                                        <td>
+                                          <%= invoice1.invoice_type %> เดือน <%= invoice1.START %> ( <%= invoice1.amount1 %> บาท/เดือน  )
+                                        </td>
+                                        
+                                        <td>
+                                          <%= invoice1.amount %> บาท
+                                        </td>
+                                           
         
+                                    <% }%>   
         
                                 <% } %>
         
@@ -569,7 +595,7 @@
                         <% } %>
         
                         <% }) %>
-                        <tr class="item" style="font-size: medium;color: black;">
+                        <tr class="item" style="font-size: medium;">
                             <% if (house.remain1  > 0) {%>
                                 <td >
                                     ยอดเงินชำระไว้เกินยกมา:
@@ -628,7 +654,7 @@
                                     <td>
                                  
                                    </td>
-                                      <td style="color: black;">
+                                      <td>
                                         
                                          ผู้ออกใบแจ้งหนี้<br>
                                          <br>

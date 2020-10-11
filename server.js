@@ -94,4 +94,3 @@ app.listen(PORT, () => {
 //ทำการ export app ที่เราสร้างขึ้น เพื่อให้สามารถนำไปใช้งานใน project อื่นๆ 
 //เปรียบเสมือนเป็น module ตัวนึง
 module.exports = app
-
