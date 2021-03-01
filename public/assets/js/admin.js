@@ -1,0 +1,96 @@
+var x = screen.width;
+
+    
+var token1 = localStorage.getItem("token1");
+  var empname = localStorage.getItem("empname");
+var role;
+
+// console.log("token = "+ token1);
+
+  //Check token
+   if (token1 == null || token1 =='' )  {
+    
+       var x = screen.width;
+       var token2 = document.getElementById("token3").value;
+       var empname2= document.getElementById("emp_name1").value;  
+       if (token2 !== null && token2 !== '')  {
+          
+        localStorage.setItem("token1", token2);
+        localStorage.setItem("empname", empname2);
+        window.location.href="/";
+
+
+} else {
+  window.location.href="/adminlogin";
+
+} 
+
+   
+  } 
+
+  if (token1 !== null && token1 !=='' )  {
+      var base64Url = token1.split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  var obj = JSON.parse(jsonPayload);
+  var now = new Date();
+  var expired = new Date(obj.exp );
+  //console.log(obj.id);
+  document.getElementById("username").innerHTML = "คุณ "+  obj.id;
+//   document.getElementById("editinfo").href = "/editemployee1/" + obj.id1;
+  role = obj.role;
+  //console.log(role);
+}
+// set authorization
+
+// if (role == 'owner') {
+
+// document.getElementById("summary").style = "display:in-line";
+// document.getElementById("summary1").style = "display:in-line";
+// document.getElementById("employee").style = "display:in-line;font-weight:bold";
+// } else {
+// document.getElementById("summary").style = "display:none";
+// document.getElementById("summary1").style = "display:none";
+// document.getElementById("employee").style = "display:none";
+// }
+
+  
+  function logout()
+  {
+    localStorage.removeItem('token1');
+    localStorage.removeItem('empname');
+//document.getElementById("logout").style = "display:none";
+//localStorage.clear();
+window.location.href="/loginadmin";
+//console.log(storeid);\
+  } 
+
+  function convertThaiDate(date) {
+    var newdate = date.split("-").reverse().join("-");
+    let date1 = new Date(newdate);
+    var day = new Array();
+      day[0] = "วันอาทิตย์";
+      day[1] = "วันจันทร์";
+      day[2] = "วันอังคาร";
+      day[3] = "วันพุธ";
+      day[4] = "วันพฤหัสบดี";
+      day[5] = "วันศุกร์";
+      day[6] = "วันเสาร์";
+    var month = new Array();
+    month[0] = "มกราคม";
+    month[1] = "กุมภาพันธ์";
+    month[2] = "มีนาคม";
+    month[3] = "เมษายน";
+    month[4] = "พฤษภาคม";
+    month[5] = "มิถุนายน";
+    month[6] = "กรกฎาคม";
+    month[7] = "สิงหาคม";
+    month[8] = "กันยายน";
+    month[9] = "ตุลาคม";
+    month[10] = "พฤศจิกายน";
+    month[11] = "ธันวาคม";
+    return day[date1.getDay()]+ " ที่ " + date1.getDate() +" " + month[date1.getMonth()]+" "+ (Number(date1.getFullYear())+543);
+     
+  }

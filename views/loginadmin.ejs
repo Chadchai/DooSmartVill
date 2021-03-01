@@ -1,0 +1,194 @@
+<!DOCTYPE.html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <base href="/">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Advance Invoice</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="assets/css/sb-admin-2.css" rel="stylesheet">
+
+</head>
+
+<style>
+.blink {
+  animation: blinker 1s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+</style>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+  
+    
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid" style="min-height:75%;">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <!-- <h1 class="h3 mb-0 text-gray-800" style="color: blue;"><div id="txt"></div></h1> -->
+            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+          </div>
+
+          <!-- Content Row -->
+
+
+          <!-- Content Row -->
+
+                     <!-- Color System -->
+                     <div class="container" style="background-color: white;width: 100%;">
+                      <div class="row justify-content-center">
+                          <div class="title col-12 col-lg-12 " style="margin-top: 30px;">
+                            <h2 class="m-0 font-weight-bold text-primary" style="text-align: center;"  >
+                              เข้าสู่ระบบ บริหารงานหมู่บ้าน</h2>
+                                  <br> <h1 class="m-0 font-weight-bold text-primary" style="text-align: center;">DoSmartView</h1>
+                                  <br>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="container" style="background-color: white;width: 100%;">
+ 
+                            <!---Formbuilder Form--->
+                           
+                                <div class="row" style="margin-top: 10px;min-height: 600px;">
+                                        <div class="container mt-8 pb-5" >
+                                                <div class="row justify-content-center">
+                                                        
+                                                  <div class="col-lg-5 col-md-7 col-12"  >
+                                                    <div class="card bg-secondary shadow border-0" style="background-color: black;">
+                                               
+                                                      <div class="card-body px-lg-7 py-lg-7">
+                                                    
+                                                       
+                                                        <h6 style="color:red;"><%= message %> </h6>
+                                                        <form action="/checkadmin" method="POST">
+                                                           
+                                                          <div class="form-group mb-3">
+                                                            <div class="input-group input-group-alternative">
+                                                              <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="far fa-user"></i></span>
+                                                              </div>
+                                                              <input class="form-control" placeholder="ชื่อผู้ใช้" type="text" name="username">
+                                                            </div>
+                                                            </div>
+                                                          <div class="form-group">
+                                                            <div class="input-group input-group-alternative">
+                                                              <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                                              </div>
+                                                              <input class="form-control" placeholder="Password" type="password" name="password">
+                                                            </div>
+                                                            
+                                                          </div>
+                                                          <!-- <div class="form-group">
+                                                          <div class="custom-control custom-control-alternative custom-checkbox">
+                                                            <input class="custom-control-input" id=" customCheckLogin" type="checkbox">
+                                                            <label class="custom-control-label" for=" customCheckLogin" style="color:white">
+                                                              <span class="text-white"  >จำ password</span>
+                                                            </label>
+                                                          </div>
+                                                        </div> -->
+                                                          
+                                                          <div class="form-group align-center" style="text-align: center;">
+                                                              <button type="submit" class="btn btn-primary my-4">เข้าสู่ระบบ</button>
+                                                          </div> 
+                                                        </form>
+                                                      </div>
+                                                    </div>
+                                                    <!-- <div class="row mt-3">
+                                                      <div class="col-6">
+                                                        <a href="/reset-password" class="text-light"><small>ลืม password?</small></a>
+                                                      </div>
+                                                      <div class="col-6 text-right">
+                                                        <a href="/register" class="text-light"><small>สมัครใช้งาน</small></a>
+                                                      </div>
+                                                    </div> -->
+                                                  </div>
+                                                </div>
+                                              </div>
+                                </div>
+                            <!---Formbuilder Form--->
+                     
+                </div>
+      <br>
+      <!-- End of Main Content -->
+
+         <!-- Footer -->
+         <%- include('partials/adminfooter.ejs') %>
+         <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.ejs">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="assets/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="assets/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="assets/js/demo/chart-area-demo.js"></script>
+  <script src="assets/js/demo/chart-pie-demo.js"></script>
+
+
+    
+
+</body>
+
+</html>

@@ -32,15 +32,12 @@ app.set('views', __dirname + '/views/'); // set express to look in this folder t
 
    //สร้างตัวแปร PORT ขึ้นมารับค่า port ในกรณีที่เราได้กำหนดไว้ใน environment ของเครื่อง
 //แต่ถ้าไม่ได้กำหนดไว้ เราจะใช้ค่า 8080 แทน
-const PORT = process.env.PORT || 8080
-//สร้าง route ขึ้นมา 1 ตัว โดยกำหนดให้ path คือ / หรือ index ของ host นั่นเอง
-//จากนั้นให้กำหนด response แสดงคำว่า Hello World
-// app.get('/', home);
-//app.get('/', index);
+const PORT = process.env.PORT || 7000
+
 const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,getsliplist,updateslipstatus,getinvoicesform} = require("./")
 const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./")
 const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./")
-const {receiptoldpayment,contact,memberpage} = require("./")
+const {receiptoldpayment,contact,memberpage,loginadmin} = require("./")
 
 app.get('/', index);
 app.get('/getreceiptlist', getreceiptlist);
@@ -82,7 +79,7 @@ app.get('/getrcp1/104/:house_no',getrcpowner1);
 app.post('/receiptoldpayment',receiptoldpayment);
 app.get('/contact', contact);
 app.get('/member', memberpage);
-
+app.get('/loginadmin', loginadmin);
 
 
 
