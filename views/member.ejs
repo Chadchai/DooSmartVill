@@ -14,8 +14,17 @@
   <!-- Custom fonts for this template-->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template-->
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
   <link href="assets/css/sb-admin-2.css" rel="stylesheet">
 
 </head>
@@ -33,442 +42,96 @@
 
 </style>
 
-<body id="page-top" onload="startTime()">
+<body>
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
-
-    <!-- Sidebar -->
- 
-    <!-- End of Sidebar -->
-
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
-
-      <!-- Main Content -->
-      <div id="content">
-
-        <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Search -->
-          <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-          </form> -->
-<!-- Page Heading -->
-<h1 class="h3 mb-2 text-gray-800" id="head1">หมู่บ้าน DooSmartVill</h1>
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
-
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </li>
-
-            <!-- Nav Item - Alerts -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
-              </a>
-              <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                <h6 class="dropdown-header">
-                  Alerts Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-primary">
-                      <i class="fas fa-file-alt text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    $290.29 has been deposited into your account!
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    Spending Alert: We've noticed unusually high spending for your account.
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-              </div>
-            </li>
-
-            <!-- Nav Item - Messages -->
-            <li class="nav-item dropdown no-arrow mx-1">
-              <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-envelope fa-fw"></i>
-                <!-- Counter - Messages -->
-                <span class="badge badge-danger badge-counter">7</span>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="messagesDropdown">
-                <h6 class="dropdown-header">
-                  Message Center
-                </h6>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div class="font-weight-bold">
-                    <div class="text-truncate">Hi there! I am wondering if you can help me with a problem I've been having.</div>
-                    <div class="small text-gray-500">Emily Fowler · 58m</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-                    <div class="status-indicator"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">I have the photos that you ordered last month, how would you like them sent to you?</div>
-                    <div class="small text-gray-500">Jae Chun · 1d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-                    <div class="status-indicator bg-warning"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Last month's report looks great, I am very happy with the progress so far, keep up the good work!</div>
-                    <div class="small text-gray-500">Morgan Alvarez · 2d</div>
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="dropdown-list-image mr-3">
-                    <img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-                    <div class="status-indicator bg-success"></div>
-                  </div>
-                  <div>
-                    <div class="text-truncate">Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
-              </div>
-            </li>
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">อุไร ไพรวัน</span>
-                <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid" style="min-height:75%;">
-
-          <!-- Page Heading -->
-          <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800" style="color: blue;"><div id="txt"></div></h1>
-            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
-          </div>
-
-          <!-- Content Row -->
+  <%- include('partials/custheader.ejs') %>
 
 
-          <!-- Content Row -->
-
-                     <!-- Color System -->
-       <div class="row">
-          <!-- Earnings (Daily) Card Example -->
-             <div class="col-xl-2 col-sm-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">ประกาศหมู่บ้าน</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800" style="text-align: center;"> 
-                        <br>
-                      <a id="post2" href="/login">
-                        <i class="fas fa-calendar-alt fa-5x text-gray-300"></i>
-                        <br>
-                        <span class="mbr-iconfont mbri-layers">ข่าวสาร</span>
-                        </a>
-                      </div>
-                    </div>
-                    <!-- <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-2 col-sm-6">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">ประกาศหมู่บ้าน</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800" style="text-align: center;"> 
-                        <br>
-                      <a id="post2" href="/login">
-                        <i class="fas fa-calendar-alt fa-5x text-gray-300"></i>
-                        <br>
-                        <span class="mbr-iconfont mbri-layers">ข่าวสาร</span>
-                        </a>
-                      </div>
-                    </div>
-                    <!-- <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div> -->
-                  </div>
-                </div>
-              </div>
-            </div>
-                      <!-- Approach -->
-                      <div class="card col-md-6" style="border-style: solid;border-radius: 20px;border-color: white;padding: 10px;margin: 5px;">
-                        <div class="icon-block" >
-                        <a id="post2" href="/login" >
-                            <span class="mbr-iconfont mbri-layers"></span>
-                            </a>
-                        </div>
-                        <h6 class="mbr-fonts-style display-5" style="font-size: medium;">
-                            ประกาศหมู่บ้าน
-                        </h6>
-                    </div>
-
-                    <div class="card col-5 col-sm-5 col-md-6" style="border-style: solid;border-radius: 20px;border-color: white;padding: 10px;margin: 5px;">
-                        <div class="icon-block">
-                            <a id="invoice2" href="/login">
-                                <span class="mbr-iconfont mbri-cash"></span>
-                            </a>
-                        </div>
-                        <h5 class="mbr-fonts-style display-5" style="font-size: medium;">
-                            ดูยอดต้องชำระ
-                        </h5>
-                    </div>
-                    <div class="card col-5 col-sm-5 col-md-5 col-lg-2" style="border-style: solid;border-radius: 20px;border-color: white;padding: 10px;margin: 5px;">
-                        <div class="icon-block">
-                            <a id="slip" href="/login">
-                                <span class="mbr-iconfont mbri-bookmark"></span>
-                            </a>
-                        </div>
-                        <h5 class="mbr-fonts-style display-5" style="font-size: medium;">
-                            ส่งสลิปโอนเงิน
-                        </h5>
-                    </div>
-                    <div class="card col-5 col-sm-5 col-md-5 col-lg-2" style="border-style: solid;border-radius: 20px;border-color: white;padding: 10px;margin: 5px;">
-                        <div class="icon-block">
-                            <a id="receipt2" href="/login">
-                                <span class="mbr-iconfont mbri-edit"></span>
-                            </a>
-                        </div>
-                        <h5 class="mbr-fonts-style display-5" style="font-size: medium;">
-                            ใบเสร็จรับเงิน
-                        </h5>
-                    </div>
-
-                    <div class="card col-5 col-sm-5 col-md-5 col-lg-2" style="border-style: solid;border-radius: 20px;border-color: white;padding: 10px;margin: 5px;">
-                        <div class="icon-block">
-                            <a id="report2" href="/login">
-                                <span class="mbri-growing-chart mbr-iconfont"></span>
-                            </a>
-                        </div>
-                        <h5 class="mbr-fonts-style display-5" style="font-size: medium;">
-                            ดูรายงานรับ-จ่าย
-                        </h5>
-                    </div>
-
-                    <div class="card col-5 col-sm-5 col-md-5 col-lg-2" style="border-style: solid;border-radius: 20px;border-color: white;padding: 10px;margin: 5px;">
-                        <div class="icon-block">
-                            <a id="contact2" href="/login">
-                                <span class="mbri-touch mbr-iconfont"></span>
-                            </a>
-                        </div>
-                        <h5 class="mbr-fonts-style display-5" style="font-size: medium;">
-                            เบอร์โทรฉุกเฉิน</h5>
-                    </div>
-                </div>
+        <!-- ======= Steps Section ======= -->
+        <section id="steps" class="steps section-image" style="text-align: center;color: white;">
          
-                    </div>
-        
-                                         
-                      
-                
-        
-                   
-      
-        <!-- /.container-fluid -->
-
-      </div>
-      <!-- End of Main Content -->
-
-      <!-- Footer -->
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; DooSmartVill 2020</span>
-          </div>
-        </div>
-      </footer>
-      <!-- End of Footer -->
-
-    </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
-  <!-- Modal Select income period-->
-
- <div class="modal fade" id="incomeperiod" role="dialog" >
-  <div class="modal-dialog">
-  
-    <!-- Modal content-->
-    <div class="modal-content" style="height:auto;" >
-      <div class="modal-header">
-       
-              <h4 class="modal-title">ข้อมูลรายรับระหว่างวันที่</h4>
-      </div> 
-      <form id="status1"  action="/loadincome" method="post" style="padding:10px">
-          <div class="dragArea row">
-              <div data-for="number" class="col-md-12  form-group" style="text-align: center;">
-                  <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เลือกช่วงเวลา</label>
-                  <!-- <input type="number" name="phone" data-form-field="Phone" class="form-control display-7" id="phone-form1-h"> -->
-                  <div class="radio" onchange="showperiod()" >
-                      <label style="padding-right: 20px;"><input type="radio" name="period" id= "today" value="today" checked required >วันนี้</label>
-                  
-                      <label style="padding-right: 20px;"><input type="radio" name="period" id= "thismonth" value="thismonth" required>เดือนนี้</label>
-                      <label style="padding-right: 20px;"><input type="radio" name="period" id= "period1" value="period" required onchange="showperiod()">เลือกช่วงเวลา</label>
-                     
-                     
-                    </div>
-              
-              </div>    
-              <div class="col-md-12" id="showperiod" style="display: none;"> 
-                  <div class="row">     
-          <div class="col-md-6  form-group" data-for="email">
-              <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">จากวันที่</label>
-              <input type="date" id="start_date" name="start_date" data-form-field="Email" required="required" class="form-control display-7 align-right" >
-          </div>
-          <div class="col-md-6  form-group" data-for="email">
-              <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">ถึงวันที่</label>
-              <input type="date" id="end_date" name="end_date" data-form-field="Email" required="required" class="form-control display-7 align-right" >
-          </div>
-      </div> 
-  </div> 
-  
-      
-          <div class="col-md-12 input-group-btn align-center" style="text-align: center;">
-              <button type="submit" class="btn-sm btn-success" style="width:100px">ยืนยัน</button>
-          <button type="button" class="btn-sm btn-warning" style="width:100px" data-dismiss="modal">ยกเลิก</button>
+          <div class="container">
     
-      </div>
-  </div>
-  </form>
-    </div>
-                  </div>
-            
-
+            <div class="row no-gutters">
+    
+              <div class="col-lg-4 col-6 content-item" data-aos="fade-in" >
+                <span>01  </span>
+               
+                <a id="post2" href="/login" >
+                  <span class="mbr-iconfont mbri-layers"> <h4><i class="far fa-newspaper"></i> ประกาศหมู่บ้าน</h4></span>
+                  </a>
+                <p>ข่าวประกาศต่างๆของหมู่บ้าน</p>
+              </div>
+    
+              <div class="col-lg-4 col-6 content-item" data-aos="fade-in" data-aos-delay="100">
+                <span>02 
+                
+                  <a id="invoice2" href="/login">
+                    <h4><i class="far fa-file-alt"></i> ดูยอดต้องชำระ</h4></span>
+                    </a>
+                </span>
+               
+               
+               
+                <p>ดูยอดต้องชำระ</p>
               </div>
 
+              <div class="col-lg-4 col-6 content-item" data-aos="fade-in" data-aos-delay="100">
+                <span>03  
+               
+                <a id="slip" href="/login">
+                  <span class="mbr-iconfont mbri-layers"> <h4><i class="fas fa-receipt"></i> ส่งสลิปโอนเงิน</h4></span>
+                  </a>
+                </span>
+                <p>ส่งสลิปโอนเงินค่าส่วนกลาง ง่ายนิดเดียว</p>
+              </div>
+    
+              <div class="col-lg-4 col-6 content-item" data-aos="fade-in" data-aos-delay="200">
+                <span>04  </span>
+               
+                <a id="slip" href="/login">
+                  <span class="mbr-iconfont mbri-layers"> <h4><i class="fas fa-receipt"></i> ใบเสร็จรับเงิน</h4></span>
+                  </a>
+                <p>ดูใบเสร็จรับเงินย้อนหลัง</p>
+              </div>
+    
+              <div class="col-lg-4 col-6 content-item" data-aos="fade-in" data-aos-delay="300">
+                <span>05 </span>
+               
+                <a id="report2" href="/login">
+                  <span class="mbr-iconfont mbri-layers"> <h4><i class="fas fa-chart-line"></i> ดูสรุปรายรับ-จ่าย</h4></span>
+                  </a>
+                <p>ดูรายงานรับ-จ่าย</p>
+              </div>
+    
+    
+              <div class="col-lg-4 col-6 content-item" data-aos="fade-in" data-aos-delay="400">
+                <span>06  </span>
+               
+                <a id="contact2" href="/login">
+                  <span class="mbr-iconfont mbri-layers"> <h4><i class="fas fa-phone-alt"></i>  เบอร์โทรฉุกเฉิน</h4></span>
+                  </a>
+                <p> เบอร์โทรฉุกเฉิน</p>
+              </div>
+    
+              <input type="hidden" id = "message" name="message"  class="form-control align-right"  value="<%= message %>" >
+                  
+              <% if (houseno.length > 0) {%>
+                 
+              <input type="hidden" id = "house_id" name="house_id"  class="form-control align-right"  value="<%= houseno %>" >
+              <%} else {%>
+                  <input type="hidden" id = "house_id" name="house_id"  class="form-control align-right"  >
+           
+                  <%} %>
+    
+            </div>
+    
+          </div>
+        </section><!-- End Steps Section -->
 
-<!-- End-->
-
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.ejs">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
+            <!-- ======= F.A.Q Section ======= -->
+  
+</body>
   <!-- Bootstrap core JavaScript-->
   <script src="assets/vendor/jquery/jquery.min.js"></script>
   <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -476,95 +139,71 @@
   <!-- Core plugin JavaScript-->
   <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
 
+<!-- Vendor JS Files -->
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
   <!-- Custom scripts for all pages-->
   <script src="assets/js/sb-admin-2.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="assets/vendor/chart.js/Chart.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="assets/js/demo/chart-area-demo.js"></script>
-  <script src="assets/js/demo/chart-pie-demo.js"></script>
   <script>
-    var x = screen.width;
-    
-       if (x<800) {
-         document.getElementById('head1').style = "display:none";
-         document.getElementById('txt').style = "font-size:20px";
-        //  document.getElementById('accordionSidebar').style.width = "0px";;
-         
-       
-         //document.getElementById('myChart2').style = "border-style: solid;border-radius: 10px;border-color: white;padding:0px;background-color: white";
-       } 
-   
-   </script>
-  <script>
-    function startTime() {
-      var today = new Date();
-      var d = today.getDate();
-      var mm = today.getMonth();
-      var y = today.getFullYear();
-      var h = today.getHours();
-      var m = today.getMinutes();
-      var s = today.getSeconds();
-      var month = new Array();
-           month[0] = "มกราคม";
-           month[1] = "กุมภาพันธ์";
-           month[2] = "มีนาคม";
-           month[3] = "เมษายน";
-           month[4] = "พฤษภาคม";
-           month[5] = "มิถุนายน";
-           month[6] = "กรกฎาคม";
-           month[7] = "สิงหาคม";
-           month[8] = "กันยายน";
-           month[9] = "ตุลาคม";
-           month[10] = "พฤศจิกายน";
-           month[11] = "ธันวาคม";
-      m = checkTime(m);
-      s = checkTime(s);
-      document.getElementById('txt').innerHTML =
-     "วันที่ " + d + " " + month[mm] + " " + y + " เวลา " + h + ":" + m + ":" + s;
-      var t = setTimeout(startTime, 500);
-    }
-    function checkTime(i) {
-      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-      return i;
-    }
-    </script>
-    <script>
-
-      function showperiod() {
-          //console.log ("already clicked");
-          if ( document.getElementById("period1").checked == true) {
-          document.getElementById("showperiod").style.display = "inline";
-       } else {
-          document.getElementById("showperiod").style.display = "none";
+    window.scrollTo(0,1);
+      //document.body.requestFullscreen();
+       var message1= document.getElementById("message").value;
+       if (message1 !== '') {
+         alert(message1);
        }
-      }
+ var houseid = localStorage.getItem("HouseID", houseid);
+ //console.log(localStorage.getItem("HouseID",houseid));
+ if (houseid == null) {
      
+     
+     houseid= document.getElementById("house_id").value;
+     localStorage.setItem("HouseID", houseid);
+ } 
+ 
+ if (houseid !== null) {
+ 
+     
+     document.getElementById("post1").href = "/post";
+     document.getElementById("invoice1").href = "/invoiceform/" + houseid;
+       document.getElementById("receipt1").href = "/getmyreceiptlist/" + houseid;
+       document.getElementById("report1").href = "/incomeexpense1";
+       document.getElementById("contact1").href = "/contact";
+       document.getElementById("post2").href = "/post";
+     document.getElementById("invoice2").href = "/invoiceform/" + houseid;
+       document.getElementById("receipt2").href = "/getmyreceiptlist/" + houseid;
+       document.getElementById("slip").href = "/uploadslip";
+       document.getElementById("report2").href = "/incomeexpense1";
+       document.getElementById("contact2").href = "/contact";
+       document.getElementById("changepwd1").href = "/changepwd/" + houseid;
+      
+ 
+ }
+ function logout()
+         {
+ localStorage.clear();
+ window.location.href="/login";
+ //console.log(storeid);
+         }
+ 
+ </script>
+ <script>
+     //  var message= document.getElementById("message1").value;
+     // if ( message !== "") {
+     //     alert(message);
+     //     return false;
+     //   }
+     var x = screen.width;
+        
+        if (x<800) {
+           document.getElementById('head2').style.marginTop = "50px";
+        } 
     
-      var today = new Date();
-      var dd = today.getDate();
-      var mm = today.getMonth() + 1; //January is 0!
-      
-      var yyyy = today.getFullYear();
-      if (dd < 10) {
-        dd = '0' + dd;
-      } 
-      if (mm < 10) {
-        mm = '0' + mm;
-      } 
-      var today = yyyy + '-' + mm + '-' + dd ;
-      //console.log(today);
-      document.getElementById("start_date").value = today;
-      document.getElementById("end_date").value = today;
-      document.getElementById("start_date1").value = today;
-      document.getElementById("end_date1").value = today;
-      document.getElementById("start_date2").value = today;
-      document.getElementById("end_date2").value = today;
-     
-      
-      </script>
-</body>
-
+    </script>
 </html>
