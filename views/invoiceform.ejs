@@ -1,89 +1,61 @@
-<!DOCTYPE.html>
-<html lang="en">
+<!-- 
+Invoice dynamically rendered into html using handlebars and converted into pdf
+using chrome-pdf recipe. The styles are extracted into separate asset for 
+better readability and later reuse.
 
-<head>
+Data to this sample are mocked at the design time and should be filled on the 
+incoming API request.
+!-->
 
-  <meta charset="utf-8">
-  <base href="/">
+<html>
+    <head>
+      <meta charset="UTF-8">
+      <base href="/">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="generator" content="Mobirise v4.11.4, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon">
+  <meta name="description" content="Site Maker Description">
+  
+  <title>INV<%= invoiceno %></title>
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/datatables/data-tables.bootstrap4.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="print-js/dist/print.css">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <script src="node_modules\print-js\dist\print.js"></script>
+        <style type="text/css">
 
-  <title>DooSmartVill - Invoice form</title>
-
-  <!-- Custom fonts for this template-->
-  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-  <!-- Custom styles for this template-->
- <link href="assets/css/sb-admin-2.css" rel="stylesheet">
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-  <!-- Template Main CSS File -->
- <link href="assets/css/style.css" rel="stylesheet">
-  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-  <style >
-
-@media print
-    {
-      body {-webkit-print-color-adjust: exact;}
-        #non-printable { display: none }
-       
-         #printable { display:inline-flex;background-color: white } 
+            @media print
+            {
+                #non-printable { display: none; }
+                #printable { display: block; }
+            }
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            </style>
+                
+    </head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://www.google.com/cloudprint/client/cpgadget.js"></script>
+    <body>
         
-         footer {page-break-before: always;}
-        /* #printable1{ display: block; } */
-        
-    }
-        
-    
-      </style>       
-</head>
-
-<style>
-.blink {
-  animation: blinker 1s step-start infinite;
-}
-
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
-}
-
-</style>
-
-<body id="page-top" >
-
-  <!-- Page Wrapper -->
-  <div id="wrapper">
-    <%- include('partials/custheader.ejs') %>
-        <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
+        <div id="non-printable">
+          
+            <button type="button" class="btn btn-primary btn-form display-4" style="border-radius: 30px;" onclick="window.history.back()">กลับ</button>
       
-
-          <!-- Page Heading -->
-          <div id="non-printable" class="non-printable card-header py-3" style="margin-top: 100px;">
-            <div class="row">
-            <div class="col-6"  style="text-align: left;">
-            <h1 class="h3 mb-2 text-primary">ใบแจ้งชำระค่าส่วนกลาง</h1>
-          </div>
-             <!-- <h6 class="m-0 font-weight-bold text-primary">ข้อมูลการจอง</h6>  -->
-             <div class="col-6" style="text-align: right;">
-              <button type="button" class="btn btn-primary btn-form display-4" style="border-radius: 30px;" onclick="window.history.back()">กลับ</button>
-      
-              <button type="button" id="printpdf" class="btn btn-primary btn-form display-4" style="border-radius: 30px;display:none" onclick="printJS('printable', 'html');"> <span class="mbri-save"></span> บันทึก</button>
-      <!-- <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm text-white" onclick="savetoword()"><i class="fas fa-print fa-sm text-white"></i> Save เป็น word</a>   -->
-            </div>
-            </div>
-          </div>
-          <!-- Content Row -->
-
-
-          <!-- Content Row -->
-
-
+            <button type="button" id="printpdf" class="btn btn-primary btn-form display-4" style="border-radius: 30px;display:none" onclick="printJS('printable', 'html');"> <span class="mbri-save"></span> บันทึก</button>
+   
+    </div>
     
         <div id="printable" >
         <div class="invoice-box" style="width:98%;">
@@ -285,102 +257,66 @@
           
         </div>
     </div>
-    <!-- End of Content Wrapper -->
-
-  </div>
-  <!-- End of Page Wrapper -->
-
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded " href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
-
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.ejs">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="assets/vendor/jquery/jquery.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Template Main JS File -->
-<script src="assets/js/main.js"></script>
+    </body>
+</html>
 
 
-  <script>
-    var x = screen.width;
-    var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-       if (x<800) {
-         document.getElementById('head').style = "margin-top:-10px";
-       
-         document.getElementById('printpdf').style= "display:in-line;border-radius: 30px;";
-         if (iOS == true) {
-            document.getElementById('printable').style = "width:95%";
-            //document.getElementById('printable1').style.display = "none";
+<script>
+ var x = screen.width;
+ var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+ function printfile() 
+        {
+            if (iOS == false) {
+                var gadget = new cloudprint.Gadget();
+gadget.setPrintDocument("[document mimetype]", "[document title]", "[document content]", "[encoding] (optional)");
+gadget.openPrintDialog();
+
+            } else {
+
+                printJS('printable', 'html');
+            }
+        }
+
+    if (x<800) {
+
+      document.getElementById('head').style = "margin-top:-10px";
+      document.getElementById('printpdf').style= "display:in-line;border-radius: 30px;";
+      if (iOS == true) {
         document.getElementById('head1').style= "display:none";
+        //document.getElementById('image1').style= "display:none";
+        //document.getElementById('image2').style= "display:none";
         document.getElementById('blank1').style= "display:none";
-        document.getElementById('head').style= "margin-top:0px";
         document.getElementById('headios').style= "display:in-line";
         document.getElementById('headios1').style= "display:in-line";
       }
-         //document.getElementById('myChart2').style = "border-style: solid;border-radius: 10px;border-color: white;padding:0px;background-color: white";
-       } 
-   
-   </script>
-   
-   <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 
-  <script>
-    function startTime() {
-      var today = new Date();
-      var d = today.getDate();
-      var mm = today.getMonth();
-      var y = today.getFullYear();
-      var h = today.getHours();
-      var m = today.getMinutes();
-      var s = today.getSeconds();
-      var month = new Array();
-           month[0] = "มกราคม";
-           month[1] = "กุมภาพันธ์";
-           month[2] = "มีนาคม";
-           month[3] = "เมษายน";
-           month[4] = "พฤษภาคม";
-           month[5] = "มิถุนายน";
-           month[6] = "กรกฎาคม";
-           month[7] = "สิงหาคม";
-           month[8] = "กันยายน";
-           month[9] = "ตุลาคม";
-           month[10] = "พฤศจิกายน";
-           month[11] = "ธันวาคม";
-      m = checkTime(m);
-      s = checkTime(s);
-      document.getElementById('txt').innerHTML =
-     "วันที่ " + d + " " + month[mm] + " " + y + " เวลา " + h + ":" + m + ":" + s;
-      var t = setTimeout(startTime, 500);
-    }
-    function checkTime(i) {
-      if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
-      return i;
-    }
-    </script>
-</body>
+      //document.getElementById('myChart2').style = "border-style: solid;border-radius: 10px;border-color: white;padding:0px;background-color: white";
+    } 
 
-</html>
+
+    var houseid = localStorage.getItem("HouseID", houseid);
+    var houseid1 =  document.getElementById("house_id").value;
+    //console.log("houseid =" + houseid);
+   // console.log("houseid1 =" + houseid1);
+    var role = localStorage.getItem("Role", role);
+    //console.log("role =" + role);
+    if (role !== 'admin') {
+        
+        if (houseid !== houseid1) {
+//         localStorage.clear();
+ window.location.href="/login";
+// console.log("houseid =" + houseid);
+//     console.log("houseid1 =" + houseid1);
+    } 
+
+    } 
+
+   
+    
+
+</script>
+<script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
+
+

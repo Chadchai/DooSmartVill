@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html  >
+<head>
+  <!-- Site made with Mobirise Website Builder v4.11.4, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.11.4, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon">
+  <meta name="description" content="Site Maker Description">
+  
+  <title>Report Income-Expense</title>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
+  
+  
+</head>
+<body>
+  <section class="menu cid-rNnuKRzwV6" once="menu" id="menu1-0">
+
+    
+
+    <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm bg-color transparent">
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
+        <div class="menu-logo">
+            <div class="navbar-brand">
+                
+                <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-5" href="/member">DoSmartVill</a></span>
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item">
+                    <a id="post1" class="nav-link link text-white display-4" href="/login">
+                        <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>ประกาศหมู่บ้าน</a>
+                </li>
+                <li class="nav-item">
+                    <a id="invoice1" class="nav-link link text-white display-4" href="/login">
+                        <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
+                        ดูยอดต้องชำระ</a>
+                </li>
+                <li class="nav-item">
+                    <a id="receipt1" class="nav-link link text-white display-4" href="/login">
+                        <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
+                        ใบเสร็จรับเงิน</a>
+                </li>
+                <li class="nav-item"><a id="report1" class="nav-link link text-white display-4" href="/login"><span class="mbri-cash mbr-iconfont mbr-iconfont-btn"></span>
+                        
+                    ดูรายงานรับ-จ่าย</a></li>
+                        <li class="nav-item">
+                            <a id="contact1" class="nav-link link text-white display-4" href="/login"><span class="mbri-cash mbr-iconfont mbr-iconfont-btn"></span>
+                        
+                            เบอร์โทรฉุกเฉิน</a></li>
+                        <li class="nav-item"><a class="nav-link link text-white display-4" onclick="logout()"><span class="mbri-cash mbr-iconfont mbr-iconfont-btn"></span>
+                        
+                        ออกจากระบบ</a></li></ul>
+            
+        </div>
+    </nav>
+</section>
+
+
+<section class="engine"><a href="https://mobirise.info/k">how to develop free website</a></section><section class="tabs1 cid-rNt8p1w3Sq" id="tabs1-i">
+
+    
+
+    
+    <div class="container">
+        <br>
+        <br>
+        <h2 class="mbr-white align-center pb-5 mbr-fonts-style mbr-bold display-2">สรุปรายรับ-รายจ่าย ปี 2564</h2>
+        <div class="media-container-row" style="margin-bottom: -100px;">
+            <div class="col-12 col-md-12" style="width:100%;margin-bottom: 150px;">
+                <div class="header-body">
+                    <!-- Card stats -->
+                    <div class="row">
+                      <div class="col-xl-3 col-lg-3 col-sm-6 ">
+                        <div class="card card-stats mb-4 mb-xl-0" style="background-color: white;">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col align-center">
+                                <h6  class="h6 card-title text-uppercase text-muted mb-0">รายรับเดือนนี้(บาท)</h6><br>
+                                <span id="sum0" class="h3 font-weight-bold mb-0 align-center"><%= monthincome %></span>
+                              </div>
+                              <div class="col-auto">
+                                <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+                                  <i class="fas fa-chart-bar"></i>
+                                </div>
+                              </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-muted text-sm">
+                              <!-- <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                              <span class="text-nowrap">Since last month</span> -->
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-sm-6 ">
+                        <div class="card card-stats mb-4 mb-xl-0" style="background-color: white;">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col align-center">
+                                <h6 class="h6 card-title text-uppercase text-muted mb-0">รายจ่ายเดือนนี้(บาท)</h6><br>
+                                <% if (monthexpense == null) {%>
+                                  <span id="sum1" class="h3 font-weight-bold mb-0 align-center"> 0 </span>
+                                  <% } else {%>
+                                    <span id="sum1" class="h3 font-weight-bold mb-0 align-center"><%= monthexpense %></span>
+                                
+                                    <% } %>
+                              </div>
+                              <div class="col-auto">
+                                <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+                                  <i class="fas fa-chart-pie"></i>
+                                </div>
+                              </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-muted text-sm">
+                              <!-- <span class="text-danger mr-2"><i class="fas fa-arrow-down"></i> 3.48%</span>
+                              <span class="text-nowrap">Since last week</span> -->
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-sm-6 ">
+                        <div class="card card-stats mb-4 mb-xl-0" style="background-color: white;">
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col align-center">
+                                <h6 class="h6 card-title text-uppercase text-muted mb-0">รายรับรวมทั้งปี(บาท)</h6><br>
+                                <span id="sum2" class="h3 font-weight-bold mb-0 "><%= yearincome %></span>
+                                <input type="hidden" name="paymenttype" data-form-field="Phone" class="form-control display-7" id="paymenttype" value="<%= paymentype %>">
+                                <input type="hidden" name="sum" data-form-field="Phone" class="form-control display-7" id="amount" value="<%= amount %>">
+                                <input type="hidden" name="expensetype" data-form-field="Phone" class="form-control display-7" id="expensetype" value="<%= expensetype %>">
+                                <input type="hidden" name="expenseamount" data-form-field="Phone" class="form-control display-7" id="expenseamount" value="<%= expenseamount %>">
+                                <input type="hidden" name="incomebymonth" data-form-field="Phone" class="form-control display-7" id="incomebymonth" value="<%= incomebymonth %>">
+                                <input type="hidden" name="invoicetype" data-form-field="Phone" class="form-control display-7" id="invoicetype" value="<%= invoicetype %>">
+                                <input type="hidden" name="incomebytype" data-form-field="Phone" class="form-control display-7" id="incomebytype" value="<%= incomebytype %>">
+                          
+                              </div>
+                              <div class="col-auto">
+                                <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                  <i class="fas fa-users"></i>
+                                </div>
+                              </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-muted text-sm">
+                              <!-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                              <span class="text-nowrap">Since yesterday</span> -->
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xl-3 col-lg-3 col-sm-6">
+                          <div class="card card-stats mb-4 mb-xl-0" style="background-color: white;">
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col align-center">
+                                  <h5 class="h6 card-title text-uppercase text-muted mb-1">รายจ่ายรวมทั้งปี(บาท)</h6><br>
+                                  <span id="sum3" class="h3 font-weight-bold mb-0 align-center"><%= yearexpense %></span>
+                                </div>
+                                <div class="col-auto">
+                                  <div class="icon icon-shape bg-yellow text-white rounded-circle shadow">
+                                    <i class="fas fa-users"></i>
+                                  </div>
+                                </div>
+                              </div>
+                              <p class="mt-3 mb-0 text-muted text-sm">
+                                <!-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                                <span class="text-nowrap">Since yesterday</span> -->
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+            
+                      </div>
+                    </div>
+                  
+                </div>
+                    
+                    
+                    
+                </div>
+               <div class="col-md-12" >
+                  <div class="row align-center">
+                  <div class="col-md-5">
+                    <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-4" style="color: white;">รายรับ- เงินโอน/เงินสดเดือนนี้</label>
+                         
+                    <canvas id="myChart"  height="250"  style="border-style: solid;;border-radius: 30px;border-color: white;padding-bottom:20px;background-color: white;"></canvas>
+                  </div>
+                        
+                 
+                    <div class="col-md-6" style="display: none;">
+                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7" style="color: white;">รายรับรายประเภทเดือนนี้</label>
+                      <canvas id="myChart3"  height="250"  style="border-style: solid;;border-radius: 30px;border-color: white;padding-bottom:20px;background-color: white;"></canvas>
+                    </div>
+                    <div class="col-md-5">
+                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7" style="color: white;">รายจ่ายรายประเภทเดือนนี้</label>
+                      <canvas id="myChart1"  height="250"  style="border-style: solid;;border-radius: 30px;border-color: white;padding-bottom:20px;background-color: white;"></canvas>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-md-12" style="margin-top: 30px;display: none"  >
+                     <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7" style="color: white;">รายรับเป็นรายเดือน</label>
+                   
+                  <canvas id="myChart2" class="col col-lg-12" width="200" height="100"   style="border-style: solid;border-radius: 30px;border-color: white;padding-bottom:20px;background-color: white"></canvas>
+               
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section once="footers" class="cid-rNt8p3JVBT" id="footer6-k">
+
+ 
+
+    
+
+    <div class="container">
+        <div class="media-container-row align-center mbr-white">
+            <div class="col-12">
+                <p class="mbr-text mb-0 mbr-fonts-style display-7">
+                    © Copyright 2020 DoSmart Village - All Rights Reserved
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+var houseid = localStorage.getItem("HouseID", houseid);
+// change link
+document.getElementById("post1").href = "/post";
+    document.getElementById("invoice1").href = "/invoiceform/" + houseid;
+      document.getElementById("receipt1").href = "/getmyreceiptlist/" + houseid;
+      document.getElementById("report1").href = "/incomeexpense1";
+      document.getElementById("contact1").href = "/contact";
+      document.getElementById("post2").href = "/post";
+    document.getElementById("invoice2").href = "/invoiceform/" + houseid;
+      document.getElementById("receipt2").href = "/getmyreceiptlist/" + houseid;
+      document.getElementById("report2").href = "/incomeexpense1";
+      document.getElementById("contact2").href = "/contact";
+// end change link
+</script>
+
+<script>
+
+  var x = screen.width;
+    
+    if (x<800) {
+      document.getElementById('myChart2').height = 300;
+      document.getElementById('myChart1').height = 400;
+      document.getElementById('myChart2').style = "border-style: solid;border-radius: 10px;border-color: white;padding:0px;background-color: white";
+    } 
+   
+    var label1 = document.getElementById("paymenttype").value.split(',');
+    var data1 = document.getElementById("amount").value.split(',');
+    var label2 = document.getElementById("expensetype").value.split(',');
+    var data2 = document.getElementById("expenseamount").value.split(',');
+    var label4 = document.getElementById("invoicetype").value.split(',');
+    var data4 = document.getElementById("incomebytype").value.split(',');
+    var data3 = document.getElementById("incomebymonth").value.split(',');
+     
+var ctx = document.getElementById('myChart');
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: label1,
+        datasets: [{
+            label: 'รายรับเดือนนี้',
+            data: data1,
+            backgroundColor: [
+               
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderColor: [
+               
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        scales: {
+         
+        }
+    },
+    
+});
+var ctx1 = document.getElementById('myChart1');
+var myChart1 = new Chart(ctx1, {
+    type: 'doughnut',
+    data: {
+        labels: label2,
+        datasets: [{
+            label: 'รายจ่ายรายประเภท',
+            data: data2,
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        scales: {
+          
+        }
+    }
+}); 
+var ctx3 = document.getElementById('myChart3');
+var myChart3 = new Chart(ctx3, {
+    type: 'doughnut',
+    data: {
+        labels: label4,
+        datasets: [{
+            label: 'รายรับรายประเภท',
+            data: data4,
+            backgroundColor: [
+               
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderColor: [
+              
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        scales: {
+          
+        }
+    }
+}); 
+var ctx2 = document.getElementById('myChart2');
+var myChart2 = new Chart(ctx2, {
+    type: 'bar',
+    data: {
+        labels: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov','Dec','Jan'],
+        datasets: [{
+            label: 'รายรับเป็นรายเดือน',
+            data: data3,
+            backgroundColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        scales: {
+          yAxis: [{
+             
+
+          }]  
+        }
+        
+    },
+    
+    
+});
+function logout()
+        {
+localStorage.clear();
+window.location.href="/login";
+//console.log(storeid);
+        }
+
+</script>
+
+<script src="assets/vendor/chart.js/dist/Chart.extension.js"></script>
+<script src="assets/vendor/chart.js/dist/Chart.min.js"></script>
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/tether/tether.min.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/mbr-tabs/mbr-tabs.js"></script>
+  <script src="assets/dropdown/js/nav-dropdown.js"></script>
+  <script src="assets/dropdown/js/navbar-dropdown.js"></script>
+  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  
+  
+</body>
+</html>

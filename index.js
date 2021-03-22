@@ -87,7 +87,7 @@ memberpage: function(req, res){
       ,message: ''
   });
   },
-  uploadslip: function(req, res){
+uploadslip: function(req, res){
           
     res.render('uploadslip.ejs', {
       title: "Upload Slip"
