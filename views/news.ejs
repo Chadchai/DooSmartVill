@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html  >
+<head>
+  <!-- Site made with Mobirise Website Builder v4.11.4, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.11.4, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon">
+  <meta name="description" content="">
+  
+ <!-- Custom fonts for this template-->
+ <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+ <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+ <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+ <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+ <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+ <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+ <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+ <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  
+
+
+ <!-- Template Main CSS File -->
+ <link href="assets/css/style.css" rel="stylesheet">
+  
+  
+</head>
+<body>
+
+    <%- include('partials/custheader.ejs') %>
+    
+    <section id="features" class="features">
+        <div class="container news">
+  
+          <div class="row">
+            <div class="card col-3">
+                <img src="assets/img/features-1.png" alt="Avatar" style="width:100%">
+                <div class="container">
+                  <h4><b>John Doe</b></h4>
+                  <p>Architect & Engineer</p>
+                </div>
+              </div>
+          </div>
+  
+        </div>
+      </section><!-- End Features Section -->
+  
+
+
+
+
+
+<script>
+    var houseid = localStorage.getItem("HouseID", houseid);
+    // change link
+    document.getElementById("post1").href = "/post";
+        document.getElementById("invoice1").href = "/invoiceform/" + houseid;
+          document.getElementById("receipt1").href = "/getmyreceiptlist/" + houseid;
+          document.getElementById("report1").href = "/incomeexpense1";
+          document.getElementById("contact1").href = "/contact";
+
+    // end change link
+    </script>
+<script>
+    function logout()
+        {
+localStorage.clear();
+window.location.href="/login";
+//console.log(storeid);
+        }
+</script>
+   <!-- Vendor JS Files -->
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>

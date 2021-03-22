@@ -67,6 +67,8 @@ h1, h2, h3, h4, h5, h6 {
   [data-aos-delay] {
     transition-delay: 0 !important;
   }
+
+
 }
 
 /*--------------------------------------------------------------
@@ -413,10 +415,29 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@media print
+{
+   
+   
+     #printable { display:inline;background-color: white;margin-left: 3%; } ;
+     #non-printable { display: none; };
+    /* #printable1{ display: block; } */
+    
+}
+
 @media (max-width: 768px) {
   #hero h1 {
     font-size: 28px;
     line-height: 36px;
+  }
+
+  .logo {
+
+    width: 80%;
+
+  }
+  #head {
+margin-top: 10px;
   }
   #hero h2 {
     font-size: 18px;
@@ -619,7 +640,13 @@ section {
 --------------------------------------------------------------*/
 .features .nav-tabs {
   border: 0;
+
 }
+
+.news {
+  margin-top: 50px;
+}
+
 
 .features .nav-link {
   border: 0;
@@ -1511,4 +1538,19 @@ section {
   text-align: center;
   font-size: 13px;
   color: #fff;
+}
+.card {
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.container {
+  padding: 2px 16px;
 }

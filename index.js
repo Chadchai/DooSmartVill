@@ -1,15 +1,15 @@
 const fs = require('fs');
 var express = require('express');
 //const Blob = require('blob');
-const jwt = require("jwt-simple");
-//ใช้ในการ decode jwt ออกมา
-
-//สร้าง Strategy
-
 
 const http = require('http');
 const readline = require('readline');
 
+
+
+
+//var fs = require('fs');
+//var gm = require('gm');
 var cloudinary = require('cloudinary');
 const Json2csvParser = require("json2csv").Parser;
 //const querystring = require('querystring');  
@@ -28,9 +28,9 @@ module.exports = {
                 return res.status(500).send(err);
             } 
             else {
-    res.render('mainpage.ejs', {
+    res.render('index.ejs', {
       title: "iDesign2020"
-      ,message: '',count1:result[0].count,role1:'',token1:'',empname:'',
+      ,message: '',count1:result[0].count,role1:'',adminname:'',
     });
   };
 
@@ -599,18 +599,23 @@ memberpage: function(req, res){
                     var invoiceno ;
                     var newperiod;
                     var thismonth1;
+                    var c_year2;
                     for (i=0;i<advmonth;i++) {
                         invoiceno = c_year.toString() + c_month.toString() + c_date.toString() + + houseid.toString().split('/')[1]+i;
                         //console.log(invoiceno);
                         newperiod = Number(periodid)+i+1;
                         if (newperiod <=12) {
                           thismonth1 = month[newperiod-1] + "-" + c_year1.toString() ;
-                        } else if (newperiod/12 - Math.floor(newperiod/12) > 0) {
-                          var c_year2 = c_year1+Math.floor(newperiod/12);
+                        }
+                         else if (newperiod/12 - Math.floor(newperiod/12) > 0) {
+                          //console.log ("check modulo = "+ newperiod%12 );
+                         
+                          c_year2 = 2563 + Math.floor(newperiod/12);
+                          
                           thismonth1 = month[newperiod- (12*Math.floor(newperiod/12))-1] + "-" + c_year2.toString() ;
                         //console.log(thismonth1);
                         } else {
-                          var c_year2 = c_year1+Math.floor(newperiod/12)-1;
+                           c_year2 = 2563 + Math.floor(newperiod/12)-1;
                           thismonth1 = month[11] + "-" + c_year2.toString() ;
 
                         }
@@ -736,11 +741,12 @@ memberpage: function(req, res){
             saveexpense: function(req, res){
               let expensetype = req.body.expense_type;
               let expensedate = req.body.expense_date;
+              let companyname = req.body.company_name;
               let amount = req.body.amount;
               let rcvname = req.body.receiver_name;
               let detail = req.body.detail;
               let paymenttype = req.body.payment_type;
-              let saveexpense1 = "INSERT INTO `expense_info` (expense_type, expense_date,expense_amount,receive_name,details,payment_type) VALUES ('" + expensetype + "' , '" + expensedate + "', " + amount + " ,'" + rcvname + "','" + detail + "','" + paymenttype + "')" ;
+              let saveexpense1 = "INSERT INTO `expense_info` (expense_type, expense_date,expense_amount,receive_name,company_name,details,payment_type) VALUES ('" + expensetype + "' , '" + expensedate + "', " + amount + " ,'" + rcvname + "','" + companyname + "','" + detail + "','" + paymenttype + "')" ;
            // console.log(saveexpense1);
               db.query(saveexpense1, (err, result) => {
                   if (err) {
@@ -847,270 +853,270 @@ memberpage: function(req, res){
             },
             incomeexpense: function(req, res){
             
-              let monthincome = "SELECT FORMAT(SUM(actual_pay),0) AS monthincome FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) AND MONTH(receipt_date) = MONTH(CURDATE())" ;
-              let cashtransfer = "SELECT SUM(actual_pay) AS income,payment_type FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) AND MONTH(receipt_date) = MONTH(CURDATE()) GROUP BY payment_type" ;
-              let incomebymonth = "SELECT SUM(actual_pay) AS monthincome,payment_date FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) GROUP BY MONTH(receipt_date) ORDER BY MONTH(receipt_date) " ;
-              let incomebytype = "SELECT SUM(amount) AS incomebytype,invoice_type FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) AND MONTH(receipt_date) = MONTH(CURDATE()) GROUP BY invoice_type" ;
-              let percentbymonth = "SELECT COUNT(DISTINCT house_no) AS percentbymonth,payment_date FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) GROUP BY MONTH(receipt_date) ORDER BY MONTH(receipt_date) " ;
-             
-              let monthexpense = "SELECT FORMAT(SUM(expense_amount),0) AS monthexpense FROM expense_info WHERE YEAR(expense_date) = YEAR(CURDATE()) AND MONTH(expense_date) = MONTH(CURDATE())";
-              let expensebytype = "SELECT SUM(expense_amount) AS monthexpense,expense_type FROM expense_info WHERE YEAR(expense_date) = YEAR(CURDATE()) AND MONTH(expense_date) = MONTH(CURDATE()) GROUP BY expense_type";
-              let yearincome = "SELECT FORMAT(SUM(actual_pay),0) AS yearincome FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE())" ;
-              let yearexpense = "SELECT FORMAT(SUM(expense_amount),0) AS yearexpense FROM expense_info WHERE YEAR(expense_date) = YEAR(CURDATE())";
-             // console.log(monthexpense);
-              //console.log(incomebytype);
-             // console.log(expensebytype);
-              //console.log(percentbymonth);
-              db.query(monthincome, (err, result) => {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                console.log(result[0].monthincome);
-                db.query(monthexpense , (err, result1) => {
+                let monthincome = "SELECT FORMAT(SUM(actual_pay),0) AS monthincome FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) AND MONTH(receipt_date) = MONTH(CURDATE())" ;
+                let cashtransfer = "SELECT SUM(actual_pay) AS income,payment_type FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) AND MONTH(receipt_date) = MONTH(CURDATE()) GROUP BY payment_type" ;
+                let incomebymonth = "SELECT SUM(actual_pay) AS monthincome,payment_date FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) GROUP BY MONTH(receipt_date) ORDER BY MONTH(receipt_date) " ;
+                let incomebytype = "SELECT SUM(amount) AS incomebytype,invoice_type FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) AND MONTH(receipt_date) = MONTH(CURDATE()) GROUP BY invoice_type" ;
+                let percentbymonth = "SELECT COUNT(DISTINCT house_no) AS percentbymonth,payment_date FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) GROUP BY MONTH(receipt_date) ORDER BY MONTH(receipt_date) " ;
+               
+                let monthexpense = "SELECT FORMAT(SUM(expense_amount),0) AS monthexpense FROM expense_info WHERE YEAR(expense_date) = YEAR(CURDATE()) AND MONTH(expense_date) = MONTH(CURDATE())";
+                let expensebytype = "SELECT SUM(expense_amount) AS monthexpense,expense_type FROM expense_info WHERE YEAR(expense_date) = YEAR(CURDATE()) AND MONTH(expense_date) = MONTH(CURDATE()) GROUP BY expense_type";
+                let yearincome = "SELECT FORMAT(SUM(actual_pay),0) AS yearincome FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE())" ;
+                let yearexpense = "SELECT FORMAT(SUM(expense_amount),0) AS yearexpense FROM expense_info WHERE YEAR(expense_date) = YEAR(CURDATE())";
+               // console.log(monthexpense);
+                //console.log(incomebytype);
+               // console.log(expensebytype);
+                //console.log(percentbymonth);
+                db.query(monthincome, (err, result) => {
                   if (err) {
                       return res.status(500).send(err);
                   }
-                  console.log("result1 "+ result1[0].monthexpense);
-                  db.query(yearincome, (err, result2) => {
+                  console.log(result[0].monthincome);
+                  db.query(monthexpense , (err, result1) => {
                     if (err) {
                         return res.status(500).send(err);
-                    }  
-                    if (result2[0].yearincome == null ) {
-                      result2[0].yearincome = 0;
                     }
-                   // console.log("result2"+result2);
-                    db.query(yearexpense, (err, result3) => {
+                    console.log("result1 "+ result1[0].monthexpense);
+                    db.query(yearincome, (err, result2) => {
                       if (err) {
                           return res.status(500).send(err);
-                      }   
-                      if (result3[0].yearexpense == null ) {
-                        result3[0].yearexpense = 0;
+                      }  
+                      if (result2[0].yearincome == null ) {
+                        result2[0].yearincome = 0;
                       }
-                     // console.log("result3"+result3);
-                      db.query(cashtransfer, (err, result4) => {
+                     // console.log("result2"+result2);
+                      db.query(yearexpense, (err, result3) => {
                         if (err) {
                             return res.status(500).send(err);
-                        } 
-                      //  console.log("result4"+ result4);
-                        db.query(expensebytype, (err, result5) => {
+                        }   
+                        if (result3[0].yearexpense == null ) {
+                          result3[0].yearexpense = 0;
+                        }
+                       // console.log("result3"+result3);
+                        db.query(cashtransfer, (err, result4) => {
                           if (err) {
                               return res.status(500).send(err);
                           } 
-                          //console.log("result5"+ result5);
-                          db.query(incomebymonth, (err, result6) => {
+                        //  console.log("result4"+ result4);
+                          db.query(expensebytype, (err, result5) => {
                             if (err) {
                                 return res.status(500).send(err);
-                            }  
-                          //  console.log("result6"+ result6);
-                            db.query(incomebytype, (err, result7) => {
+                            } 
+                            //console.log("result5"+ result5);
+                            db.query(incomebymonth, (err, result6) => {
                               if (err) {
-                               // result7=0;
                                   return res.status(500).send(err);
-                              } 
-                              db.query(percentbymonth, (err, result8) => {
+                              }  
+                            //  console.log("result6"+ result6);
+                              db.query(incomebytype, (err, result7) => {
                                 if (err) {
+                                 // result7=0;
                                     return res.status(500).send(err);
                                 } 
-                              console.log("result7="+ result7.length);
-                          x = [];
-                          y = [];                    
-                          if ((result4.length > 0 )) {
-                          
-                           
-                              for (i = 0; i<result4.length; i++) {
-                                x[i] = result4[i].payment_type;
-                                y[i] = result4[i].income;
+                                db.query(percentbymonth, (err, result8) => {
+                                  if (err) {
+                                      return res.status(500).send(err);
+                                  } 
+                                console.log("result7="+ result7.length);
+                            x = [];
+                            y = [];                    
+                            if ((result4.length > 0 )) {
                             
-                         
-                        }
-                      }
-                        x1 = [];
-                          y1 = [];     
-                         // console.log("result5"+ x1);
-                        
-                                      
-                          if ((result5 !== null || result5.length > 0 )) {
-                          
+                             
+                                for (i = 0; i<result4.length; i++) {
+                                  x[i] = result4[i].payment_type;
+                                  y[i] = result4[i].income;
+                              
                            
-                              for (i = 0; i<result5.length; i++) {
-                                x1[i] = result5[i].expense_type;
-                                y1[i] = result5[i].monthexpense;
-                            
-                         
-                        }
-                      }
-                        
-                          y2 = [];                    
-                          if ((result6.length > 0 )) {
-                          
-                           
-                              for (i = 0; i<=11; i++) {
-                               if (result6[i] == null) {
-                                y2[i] = 0;
-                            
-                              } else {
-                                y2[i] = result6[i].monthincome;
-                              }
-                        }
-                      }
-                        x3 = [];
-                        y3 = [];                    
-                        if ((result7.length > 0 )) {
-                        
-                         
-                            for (i = 0; i<result7.length; i++) {
-                              x3[i] = result7[i].invoice_type;
-                              y3[i] = result7[i].incomebytype;
-                          
-                       
-                      }
-                    }
-                      y4 = [];                    
-                      if ((result8.length > 0 )) {
-                      
-                       
-                          for (i = 0; i<=11; i++) {
-                           if (result8[i] == null) {
-                            y4[i] = 0;
-                        
-                          } else {
-                            y4[i] = result8[i].percentbymonth;
                           }
+                        }
+                          x1 = [];
+                            y1 = [];     
+                           // console.log("result5"+ x1);
+                          
+                                        
+                            if ((result5 !== null || result5.length > 0 )) {
+                            
+                             
+                                for (i = 0; i<result5.length; i++) {
+                                  x1[i] = result5[i].expense_type;
+                                  y1[i] = result5[i].monthexpense;
+                              
+                           
+                          }
+                        }
+                          
+                            y2 = [];                    
+                            if ((result6.length > 0 )) {
+                            
+                             
+                                for (i = 0; i<=11; i++) {
+                                 if (result6[i] == null) {
+                                  y2[i] = 0;
+                              
+                                } else {
+                                  y2[i] = result6[i].monthincome;
+                                }
+                          }
+                        }
+                          x3 = [];
+                          y3 = [];                    
+                          if ((result7.length > 0 )) {
+                          
+                           
+                              for (i = 0; i<result7.length; i++) {
+                                x3[i] = result7[i].invoice_type;
+                                y3[i] = result7[i].incomebytype;
+                            
+                         
+                        }
+                      }
+                        y4 = [];                    
+                        if ((result8.length > 0 )) {
+                        
+                         
+                            for (i = 0; i<=11; i++) {
+                             if (result8[i] == null) {
+                              y4[i] = 0;
+                          
+                            } else {
+                              y4[i] = result8[i].percentbymonth;
+                            }
+                      }
                     }
-                  }
 
-                    //console.log("result 0 =" + result[0].monthincome);
-                   
-                if (result1[0].monthexpense !== null && result[0].monthincome !== null ) {
-                  console.log("no result4");
-                  res.render('income-expense.ejs', {
-                    title: "Income"
-                    ,message: '',monthincome: result[0].monthincome.toLocaleString(), monthexpense:result1[0].monthexpense,yearincome: result2[0].yearincome.toLocaleString(),yearexpense: result3[0].yearexpense.toLocaleString(),paymentype:x,amount:y,expensetype:x1,expenseamount:y1,incomebymonth:y2,invoicetype:x3,incomebytype:y3,percentbymonth:y4
-                });
+                      //console.log("result 0 =" + result[0].monthincome);
+                     
+                  if (result1[0].monthexpense !== null && result[0].monthincome !== null ) {
+                    console.log("no result4");
+                    res.render('income-expense.ejs', {
+                      title: "Income"
+                      ,message: '',monthincome: result[0].monthincome.toLocaleString(), monthexpense:result1[0].monthexpense,yearincome: result2[0].yearincome.toLocaleString(),yearexpense: result3[0].yearexpense.toLocaleString(),paymentype:x,amount:y,expensetype:x1,expenseamount:y1,incomebymonth:y2,invoicetype:x3,incomebytype:y3,percentbymonth:y4
+                  });
+                  
+                  } else if (result1[0].monthexpense == null && result[0].monthincome == null) {
+                    console.log("no result5");
+                    res.render('income-expense.ejs', {
+                      title: "Income"
+                      ,message: '',monthincome: 0, monthexpense: 0 ,yearincome: result2[0].yearincome.toLocaleString(),yearexpense: result3[0].yearexpense.toLocaleString(),paymentype:'0',amount:'0',expensetype:x1,expenseamount:y1,incomebymonth:y2,invoicetype:x3,incomebytype:y3,percentbymonth:y4
+                  });
+                  } else {
+                    console.log("no result6");
+                    res.render('income-expense.ejs', {
+                      title: "Income"
+                      ,message: '',monthincome: result[0].monthincome.toLocaleString(), monthexpense: 0 ,yearincome: result2[0].yearincome.toLocaleString(),yearexpense: result3[0].yearexpense.toLocaleString(),paymentype:x,amount:y,expensetype:x1,expenseamount:y1,incomebymonth:y2,invoicetype:x3,incomebytype:y3,percentbymonth:y4
+                  });
+                  }   
+                  
+              } 
+            
+            
                 
-                } else if (result1[0].monthexpense == null && result[0].monthincome == null) {
-                  console.log("no result5");
-                  res.render('income-expense.ejs', {
-                    title: "Income"
-                    ,message: '',monthincome: 0, monthexpense: 0 ,yearincome: result2[0].yearincome.toLocaleString(),yearexpense: result3[0].yearexpense.toLocaleString(),paymentype:'0',amount:'0',expensetype:x1,expenseamount:y1,incomebymonth:y2,invoicetype:x3,incomebytype:y3,percentbymonth:y4
-                });
-                } else {
-                  console.log("no result6");
-                  res.render('income-expense.ejs', {
-                    title: "Income"
-                    ,message: '',monthincome: result[0].monthincome.toLocaleString(), monthexpense: 0 ,yearincome: result2[0].yearincome.toLocaleString(),yearexpense: result3[0].yearexpense.toLocaleString(),paymentype:x,amount:y,expensetype:x1,expenseamount:y1,incomebymonth:y2,invoicetype:x3,incomebytype:y3,percentbymonth:y4
-                });
-                }   
-                
-            } 
-          
-          
-              
+            
           
         
+      );
+              
       
-    );
-            
+          });
+          });
+          }); 
+        });
+          });
+          });
+        });
+      });
     
-        });
-        });
-        }); 
-      });
-        });
-        });
-      });
-    });
+            },
+pendingpayment: function(req, res){
+              var today = new Date();
+            
+            
+              var c_year1 = today.getFullYear()+543;
+              var month = new Array();
+              month[0] = "มกราคม";
+              month[1] = "กุมภาพันธ์";
+              month[2] = "มีนาคม";
+              month[3] = "เมษายน";
+              month[4] = "พฤษภาคม";
+              month[5] = "มิถุนายน";
+              month[6] = "กรกฎาคม";
+              month[7] = "สิงหาคม";
+              month[8] = "กันยายน";
+              month[9] = "ตุลาคม";
+              month[10] = "พฤศจิกายน";
+              month[11] = "ธันวาคม";
   
-          },
-          pendingpayment: function(req, res){
-            var today = new Date();
-          
-          
-            var c_year1 = today.getFullYear()+543;
-            var month = new Array();
-            month[0] = "มกราคม";
-            month[1] = "กุมภาพันธ์";
-            month[2] = "มีนาคม";
-            month[3] = "เมษายน";
-            month[4] = "พฤษภาคม";
-            month[5] = "มิถุนายน";
-            month[6] = "กรกฎาคม";
-            month[7] = "สิงหาคม";
-            month[8] = "กันยายน";
-            month[9] = "ตุลาคม";
-            month[10] = "พฤศจิกายน";
-            month[11] = "ธันวาคม";
-
-  var thismonth = month[today.getMonth()] + "-" + c_year1.toString() ;
-      
-           let percentpayment = "SELECT COUNT(invoice_no) AS totalpay FROM invoice_info WHERE payment_type IS NOT NULL AND invoice_type ='ค่าส่วนกลาง' AND invoice_month = '" + thismonth + "'";
-           let over30days = "SELECT FORMAT(SUM(amount),0) AS days30,SUM(amount) AS afterfeb FROM invoice_info WHERE payment_type IS NULL OR payment_type=''";
-           let over90days = "SELECT FORMAT(ABS(SUM(remain)),0) AS days90,ABS(SUM(remain)) AS beforefeb FROM house_info WHERE remain <0";
-           //let over120days = "SELECT FORMAT(SUM(amount),0) AS days120 FROM invoice_info WHERE payment_type IS NULL AND invoice_type='ค่าส่วนกลาง' AND invoice_date < DATE_ADD(NOW(), INTERVAL -120 DAY)";
-          let allpending;
-           let getbysoi = "SELECT SUM(amount) AS sumbysoi, invoice_info.house_no, house_info.lane_no AS laneno " + 
-           "FROM invoice_info " + 
-           "LEFT JOIN house_info " + 
-           "ON invoice_info.house_no = house_info.house_no " +
-           "WHERE payment_type IS NULL AND invoice_type='ค่าส่วนกลาง' AND invoice_date > DATE_ADD(NOW(), INTERVAL -30 DAY) " +
-           "GROUP BY lane_no ORDER BY sumbysoi DESC ";
-           //console.log(over30days);
-          db.query(percentpayment, (err, result) => {
-            if (err) {
-                return res.status(500).send(err);
-            }  else {
-              db.query(over30days, (err, result1) => {
-                if (err) {
-                    return res.status(500).send(err);
-                } else {
-                  db.query(over90days, (err, result2) => {
-                    if (err) {
-                        return res.status(500).send(err);
-                    } else {
-                     allpending = (Number(result1[0].afterfeb) + Number(result2[0].beforefeb)).toLocaleString('es-ES', {maximumFractionDigits: 0})
-                          db.query(getbysoi, (err, result4) => {
-                            if (err) {
-                                return res.status(500).send(err);
+    var thismonth = month[today.getMonth()] + "-" + c_year1.toString() ;
+        
+             let percentpayment = "SELECT COUNT(invoice_no) AS totalpay FROM invoice_info WHERE payment_type IS NOT NULL AND invoice_type ='ค่าส่วนกลาง' AND invoice_month = '" + thismonth + "'";
+             let over30days = "SELECT FORMAT(SUM(amount),0) AS days30,SUM(amount) AS afterfeb FROM invoice_info WHERE payment_type IS NULL OR payment_type=''";
+             let over90days = "SELECT FORMAT(ABS(SUM(remain)),0) AS days90,ABS(SUM(remain)) AS beforefeb FROM house_info WHERE remain <0";
+             //let over120days = "SELECT FORMAT(SUM(amount),0) AS days120 FROM invoice_info WHERE payment_type IS NULL AND invoice_type='ค่าส่วนกลาง' AND invoice_date < DATE_ADD(NOW(), INTERVAL -120 DAY)";
+            let allpending;
+             let getbysoi = "SELECT SUM(amount) AS sumbysoi, invoice_info.house_no, house_info.lane_no AS laneno " + 
+             "FROM invoice_info " + 
+             "LEFT JOIN house_info " + 
+             "ON invoice_info.house_no = house_info.house_no " +
+             "WHERE payment_type IS NULL AND invoice_type='ค่าส่วนกลาง' AND invoice_date > DATE_ADD(NOW(), INTERVAL -30 DAY) " +
+             "GROUP BY lane_no ORDER BY sumbysoi DESC ";
+             //console.log(over30days);
+            db.query(percentpayment, (err, result) => {
+              if (err) {
+                  return res.status(500).send(err);
+              }  else {
+                db.query(over30days, (err, result1) => {
+                  if (err) {
+                      return res.status(500).send(err);
+                  } else {
+                    db.query(over90days, (err, result2) => {
+                      if (err) {
+                          return res.status(500).send(err);
+                      } else {
+                       allpending = (Number(result1[0].afterfeb) + Number(result2[0].beforefeb)).toLocaleString('es-ES', {maximumFractionDigits: 0})
+                            db.query(getbysoi, (err, result4) => {
+                              if (err) {
+                                  return res.status(500).send(err);
+                              } else {
+                                x = [];
+                                y = [];                    
+                                if ((result4.length > 0 )) {
+                                
+                                 if ((result4.length > 5 )) {
+                                    for (i = 0; i<5; i++) {
+                                      x[i] = "ซอย "+ result4[i].laneno;
+                                      y[i] = result4[i].sumbysoi;
+                              } 
                             } else {
-                              x = [];
-                              y = [];                    
-                              if ((result4.length > 0 )) {
-                              
-                               if ((result4.length > 5 )) {
-                                  for (i = 0; i<5; i++) {
-                                    x[i] = "ซอย "+ result4[i].laneno;
-                                    y[i] = result4[i].sumbysoi;
-                            } 
-                          } else {
-                            for (i = 0; i<result4.length; i++) {
-                              x[i] = "ซอย "+ result4[i].laneno;
-                              y[i] = result4[i].sumbysoi;
-                      } 
+                              for (i = 0; i<result4.length; i++) {
+                                x[i] = "ซอย "+ result4[i].laneno;
+                                y[i] = result4[i].sumbysoi;
+                        } 
 
-                          }
-                            if (result1[0].days30 != null ){
+                            }
+                              if (result1[0].days30 != null ){
+                                res.render('duepayreport.ejs', {
+                                  title: "Overdue Payment Report"
+                                  ,message: '',percentpayment: (Number(result[0].totalpay)*100/282).toFixed(2), over30days: result1[0].days30,over90days: result2[0].days90,over120days:allpending,soino:x,sumbysoi:y
+                              });
+                            } else {
                               res.render('duepayreport.ejs', {
                                 title: "Overdue Payment Report"
-                                ,message: '',percentpayment: (Number(result[0].totalpay)*100/282).toLocaleString('es-ES', {maximumFractionDigits: 2}), over30days: result1[0].days30,over90days: result2[0].days90,over120days:allpending,soino:x,sumbysoi:y
+                                ,message: '',percentpayment: (Number(result[0].totalpay)*100/282).toLocaleString('es-ES', {maximumFractionDigits: 2}), over30days: 0,over90days: 0 ,over120days:0,soino:x,sumbysoi:y
                             });
-                          } else {
-                            res.render('duepayreport.ejs', {
-                              title: "Overdue Payment Report"
-                              ,message: '',percentpayment: (Number(result[0].totalpay)*100/282).toLocaleString('es-ES', {maximumFractionDigits: 2}), over30days: 0,over90days: 0 ,over120days:0,soino:x,sumbysoi:y
-                          });
 
-                          }
-                          }
                             }
-                          });
-                        }
-                      });
-                    }
-               
-              });
+                            }
+                              }
+                            });
+                          }
+                        });
+                      }
+                 
+                });
 
-            } 
-});
+              } 
+  });
 },
 invoiceform: function(req, res){
   let houseid = req.params.house_no;
@@ -1186,7 +1192,7 @@ receiptform: function(req, res){
   let getreceiptlist =  "SELECT *,(DATE_FORMAT(payment_date,'%d/%m/%Y')) AS transfer_date,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าส่วนกลาง' ORDER BY invoice_period";
   let getreceiptlist1 =  "SELECT *,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
   let getsum =  "SELECT SUM(amount) AS t_amount, SUM(actual_pay) AS t_pay,Abs(SUM(lastmonth)) AS t_lastmonth,SUM(lastmonth) AS t_lastmonth1, SUM(balance) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
-   //console.log(getreceiptlist);
+   //console.log(getreceiptlist1);
   db.query(getownername1, (err, result) => {
     //console.log(result);
       if (err || result == "") {
@@ -1233,6 +1239,11 @@ receiptform: function(req, res){
   var netremain = Number(result2[0].t_pay) - Number(result2[0].t_amount);
   var totaltopay = Number(result2[0].t_amount) - Number(result2[0].t_lastmonth1);
 var paymenttype = result1[0].payment_type;
+if (paymenttype == null ) {
+  paymenttype = result3[0].payment_type;
+  
+}
+//console.log(paymenttype);
 var transferno = result1[0].transfer_no;
 var transferdate = result1[0].transfer_date;
   var lastmonth;
@@ -1873,18 +1884,6 @@ checkadmin: function(req, res){
     });
 
       } else {
-        const payload = {
-          id: username,
-          id1: result[0].emp_id,
-          role:result[0].role,
-          iat: new Date().getTime(),//มาจากคำว่า issued at time (สร้างเมื่อ),
-          exp: new Date().getTime() + (4*60*60*1000),
-       };
-       const SECRET = "MY_SECRET_KEY"; //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
-    var token = jwt.encode(payload, SECRET);
-          token1 =token;
-  empname = result[0].username;
-  //custid1= result[0].emp_id;
 
           let getcount = "SELECT COUNT(id) AS count FROM slip_info WHERE status <> 'ออกใบเสร็จแล้ว'"
           db.query(getcount, (err, result1) => {
@@ -1892,9 +1891,9 @@ checkadmin: function(req, res){
                 return res.status(500).send(err);
             } 
             else {
-    res.render('mainpage.ejs', {
-      title: "DoSmartView"
-      ,message: '',count1:result1[0].count,role1:result[0].role,empname:empname,token1:token,
+    res.render('index.ejs', {
+      title: "iDesign2020"
+      ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,
     });
     //console.log(result[0].role);
   };
@@ -1912,7 +1911,7 @@ todaysummary: function(req, res){
   let todaytransfer = "SELECT FORMAT(SUM(actual_pay),0) AS todaytransfer FROM invoice_info WHERE receipt_date = CURDATE() AND payment_type = 'เงินโอน'" ;
   let todaycash = "SELECT FORMAT(SUM(actual_pay),0) AS todaycash FROM invoice_info WHERE receipt_date = CURDATE() AND payment_type = 'เงินสด'" ; 
   let todayexpense = "SELECT FORMAT(SUM(expense_amount),0) AS todayexpense FROM expense_info WHERE expense_date = CURDATE() AND payment_type = 'เงินสด'" ; 
-  let todaypettycash = "SELECT FORMAT((15000-SUM(expense_amount)),0) AS todaypettycash FROM expense_info WHERE MONTH(expense_date) = MONTH(CURDATE()) AND payment_type = 'เงินสด'" ; 
+  let todaypettycash = "SELECT FORMAT((20000-SUM(expense_amount)),0) AS todaypettycash FROM expense_info WHERE MONTH(expense_date) = MONTH(CURDATE()) AND YEAR(expense_date) = YEAR(CURDATE()) AND payment_type = 'เงินสด'" ; 
   
    //console.log(todaypettycash);
   //console.log(incomebymonth);
@@ -1937,10 +1936,16 @@ todaysummary: function(req, res){
             if (err) {
                 return res.status(500).send(err);
             } 
-         // console.log(result1[0].todaytransfer);
+            var todaypettycash1;
+            if (result4[0].todaypettycash == null) {
+              todaypettycash1 = 20000;
+            } else {
+              todaypettycash1 = result4[0].todaypettycash ;
+            }
+          //console.log(result4[0].todaypettycash);
           res.render('dailyincome.ejs', {
             title: "Today Income"
-            ,message: '',todayincome: result[0].todayincome,todaytransfer: result1[0].todaytransfer,todaycash: result2[0].todaycash,todayexpense: result3[0].todayexpense,todaypettycash: result4[0].todaypettycash,
+            ,message: '',todayincome: result[0].todayincome,todaytransfer: result1[0].todaytransfer,todaycash: result2[0].todaycash,todayexpense: result3[0].todayexpense,todaypettycash: todaypettycash1,
         });
 
         });
@@ -1988,11 +1993,5 @@ res.send(csv);
  }
 });
 },
-loginadmin: function(req, res){
-          
-  res.render('loginadmin.ejs', {
-    title: "Admin Login Page"
-    ,message: ''
-});
-},
+
 }
