@@ -4,7 +4,10 @@ var express = require('express');
 
 const http = require('http');
 const readline = require('readline');
+const jwt = require("jwt-simple");
+//ใช้ในการ decode jwt ออกมา
 
+//สร้าง Strategy
 
 
 
@@ -28,9 +31,21 @@ module.exports = {
                 return res.status(500).send(err);
             } 
             else {
-    res.render('index.ejs', {
+              const payload = {
+                id: result[0].username,
+                id1: result[0].emp_id,
+                role:result[0].role,
+                iat: new Date().getTime(),//มาจากคำว่า issued at time (สร้างเมื่อ),
+                exp: new Date().getTime() + (4*60*60*1000),
+             };
+             const SECRET = "MY_SECRET_KEY"; //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
+          var token = jwt.encode(payload, SECRET);
+                token1 =token;
+        empname = result[0].username;
+        //custid1= result[0].emp_id;
+    res.render('mainpage.ejs', {
       title: "iDesign2020"
-      ,message: '',count1:result[0].count,role1:'',adminname:'',
+      ,message: '',count1:result[0].count,role1:'',adminname:'',empname:empname,token1:token,
     });
   };
 
@@ -87,7 +102,7 @@ memberpage: function(req, res){
       ,message: ''
   });
   },
-uploadslip: function(req, res){
+  uploadslip: function(req, res){
           
     res.render('uploadslip.ejs', {
       title: "Upload Slip"
@@ -1884,16 +1899,26 @@ checkadmin: function(req, res){
     });
 
       } else {
-
+        const payload = {
+          id: username,
+          id1: result[0].emp_id,
+          role:result[0].role,
+          iat: new Date().getTime(),//มาจากคำว่า issued at time (สร้างเมื่อ),
+          exp: new Date().getTime() + (4*60*60*1000),
+       };
+       const SECRET = "MY_SECRET_KEY"; //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
+    var token = jwt.encode(payload, SECRET);
+          token1 =token;
+  empname = result[0].username;
           let getcount = "SELECT COUNT(id) AS count FROM slip_info WHERE status <> 'ออกใบเสร็จแล้ว'"
           db.query(getcount, (err, result1) => {
             if (err) {
                 return res.status(500).send(err);
             } 
             else {
-    res.render('index.ejs', {
+    res.render('mainpage.ejs', {
       title: "iDesign2020"
-      ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,
+      ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,empname:empname,token1:token,
     });
     //console.log(result[0].role);
   };

@@ -21,7 +21,7 @@ var role;
 
 
 } else {
-  window.location.href="/adminlogin";
+  window.location.href="/loginadmin";
 
 } 
 
