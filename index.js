@@ -2018,5 +2018,23 @@ res.send(csv);
  }
 });
 },
+getvotelist: function(req, res){
+  let gethouselist = "SELECT *,DATE_FORMAT(vote_date, '%d-%m-%Y') AS vote_date,DATE_FORMAT(close_date, '%d-%m-%Y') AS close_date FROM vote_info"
+  db.query(gethouselist, (err, result) => {
+    if (err) {
+        return res.status(500).send(err);
+    } else {
+      //console.log(result);
+     res.render('votelist.ejs', {
+         title: "Main Page"
+         ,message: '',votelist:result
+     });
+
+    }
+
+ });
+},
+
+
 
 }

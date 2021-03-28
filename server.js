@@ -37,7 +37,7 @@ const PORT = process.env.PORT || 7000
 const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,getsliplist,updateslipstatus,getinvoicesform} = require("./")
 const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./")
 const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./")
-const {receiptoldpayment,contact,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1} = require("./")
+const {receiptoldpayment,contact,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1,getvotelist} = require("./")
 
 app.get('/', index);
 app.get('/getreceiptlist', getreceiptlist);
@@ -87,6 +87,7 @@ app.get('/post', news);
 app.get('/uploadslip', uploadslip);
 app.get('/getmyreceiptlist/104/:house_no', getmyreceiptlist);
 app.get('/incomeexpense1', incomeexpense1);
+app.get('/getvotelist', getvotelist);
 
 //const PORT1 = process.env.PORT || 3000;
 //http.listen(app.get('port'));
