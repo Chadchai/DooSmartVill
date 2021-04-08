@@ -93,14 +93,14 @@ incoming API request.
                                  
                                     เลขที่ใบแจ้งหนี้: INV<%= invoiceno %>
                                     <br> วันที่ออก: <%= invoicedate %>
-                                    <br>  <p class="align-right" style="font-size:small;">นิติบุคคลหมู่บ้านไอน์ดีไซน์ บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">171-272623-1</a> </p>
+                                    <br>  <p class="align-right" style="font-size:small;">นิติบุคคลหมู่บ้าน DoSmartVill บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">XXX-XXXXXX-X</a> </p>
                                
                                 </td>
                                
                             </tr>
                          
                         </table>
-                        <table id="head" style="margin-top: -100px;"> 
+                        <table id="head" > 
                             <tr>       
                                 <td id = "blank1">
                                     
@@ -299,13 +299,13 @@ gadget.openPrintDialog();
     var houseid1 =  document.getElementById("house_id").value;
     //console.log("houseid =" + houseid);
    // console.log("houseid1 =" + houseid1);
-    var role = localStorage.getItem("Role", role);
+    var role = localStorage.getItem("role", role);
     //console.log("role =" + role);
     if (role !== 'admin') {
         
         if (houseid !== houseid1) {
 //         localStorage.clear();
- window.location.href="/login";
+ window.location.href="/loginadmin";
 // console.log("houseid =" + houseid);
 //     console.log("houseid1 =" + houseid1);
     } 

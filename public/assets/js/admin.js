@@ -13,10 +13,12 @@ var role;
        var x = screen.width;
        var token2 = document.getElementById("token3").value;
        var empname2= document.getElementById("emp_name1").value;  
+       var role2= document.getElementById("role").value; 
        if (token2 !== null && token2 !== '')  {
           
         localStorage.setItem("token1", token2);
         localStorage.setItem("empname", empname2);
+        localStorage.setItem("role", role2);
         window.location.href="/";
 
 
@@ -70,6 +72,33 @@ window.location.href="/loginadmin";
   function convertThaiDate(date) {
     var newdate = date.split("-").reverse().join("-");
     let date1 = new Date(newdate);
+    var day = new Array();
+      day[0] = "วันอาทิตย์";
+      day[1] = "วันจันทร์";
+      day[2] = "วันอังคาร";
+      day[3] = "วันพุธ";
+      day[4] = "วันพฤหัสบดี";
+      day[5] = "วันศุกร์";
+      day[6] = "วันเสาร์";
+    var month = new Array();
+    month[0] = "มกราคม";
+    month[1] = "กุมภาพันธ์";
+    month[2] = "มีนาคม";
+    month[3] = "เมษายน";
+    month[4] = "พฤษภาคม";
+    month[5] = "มิถุนายน";
+    month[6] = "กรกฎาคม";
+    month[7] = "สิงหาคม";
+    month[8] = "กันยายน";
+    month[9] = "ตุลาคม";
+    month[10] = "พฤศจิกายน";
+    month[11] = "ธันวาคม";
+    return day[date1.getDay()]+ " ที่ " + date1.getDate() +" " + month[date1.getMonth()]+" "+ (Number(date1.getFullYear())+543);
+     
+  };
+  function convertThaiDate1(date) {
+        
+    let date1 = new Date(date);
     var day = new Array();
       day[0] = "วันอาทิตย์";
       day[1] = "วันจันทร์";

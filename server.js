@@ -3,7 +3,7 @@ const express = require('express');
 
 const app = express();
 const mysql = require('mysql');
-
+const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const http = require('http').createServer(app);
 
@@ -24,20 +24,22 @@ app.set('views', __dirname + '/views/'); // set express to look in this folder t
   
   app.set('view engine', 'ejs');
   app.use(express.static('public/'));
-  
+  app.use(bodyParser());
   app.use(bodyParser.urlencoded({extended: true}));
 
   app.use(bodyParser.json()); // parse form data client
  
+  app.use(fileUpload()); // configure fileupload
 
    //สร้างตัวแปร PORT ขึ้นมารับค่า port ในกรณีที่เราได้กำหนดไว้ใน environment ของเครื่อง
 //แต่ถ้าไม่ได้กำหนดไว้ เราจะใช้ค่า 8080 แทน
 const PORT = process.env.PORT || 7000
 
-const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,getsliplist,updateslipstatus,getinvoicesform} = require("./")
-const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./")
-const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./")
-const {receiptoldpayment,contact,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1,getvotelist} = require("./")
+const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,getsliplist,updateslipstatus,getinvoicesform} = require("./");
+const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./");
+const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./");
+const {receiptoldpayment,contact,contact1,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1,getvotelist} = require("./");
+const {getcontactlist,addcontact,updatecontact,deletecontact,getnewslist,addnews,updatenews,deletenews,getalert} = require("./")
 
 app.get('/', index);
 app.get('/getreceiptlist', getreceiptlist);
@@ -78,6 +80,7 @@ app.get('/create1moinv', createinvoice1month);
 app.get('/getrcp1/104/:house_no',getrcpowner1);
 app.post('/receiptoldpayment',receiptoldpayment);
 app.get('/contact', contact);
+app.get('/contact1', contact1);
 app.get('/member', memberpage);
 app.get('/loginadmin', loginadmin);
 // For User
@@ -88,7 +91,15 @@ app.get('/uploadslip', uploadslip);
 app.get('/getmyreceiptlist/104/:house_no', getmyreceiptlist);
 app.get('/incomeexpense1', incomeexpense1);
 app.get('/getvotelist', getvotelist);
-
+app.get('/getcontactlist', getcontactlist);
+app.post('/addcontact',addcontact);
+app.post('/updatecontact',updatecontact);
+app.post('/deletecontact',deletecontact);
+app.get('/getnewslist', getnewslist);
+app.post('/addnews',addnews);
+app.post('/updatenews',updatenews);
+app.post('/deletenews',deletenews);
+app.get('/getalert', getalert);
 //const PORT1 = process.env.PORT || 3000;
 //http.listen(app.get('port'));
 app.listen(PORT, () => {

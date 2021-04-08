@@ -1,0 +1,346 @@
+<!DOCTYPE.html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>DoSmartVill - ข่าวประชาสัมพันธ์</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+ <link href="assets/css/sb-admin-2.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <%- include('partials/adminheader.ejs') %>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">ข่าวประชาสัมพันธ์</h1>
+            <a href=# class="d-none d-sm-inline-block btn btn-lg btn-success shadow-sm" data-toggle="modal" data-target="#addNews"><i class="fas fa-plus-square"></i> ลงประกาศ</a>
+          </div>
+
+          <!-- Content Row -->
+          <div class="row">
+            <% if (newslist.length > 0) {%> 
+                  <% newslist.forEach((news, index) => { %>
+            <div class="col-lg-4 ">
+                <div class="card shadow mb-4">
+                  <div class="card-header bg-success py-3">
+                    <div class="row">
+                    <div class="col-10 ">
+                    <h6 class="m-0 font-weight-bold text-gray-100 text-lg"><%= news.news_topic %></h6>
+                   </div>
+                    <div class="col-2 ">
+                    <a class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm align-right text-white" onclick="updatenews('<%= news.news_id %>','<%= news.post_type %>','<%= news.post_date1 %>','<%= news.expired_date1 %>','<%= news.news_topic %>')"><i class="fas fa-edit"></i></a>
+                    
+                </div>
+            </div>
+                </div>
+                  <div class="card-body text-lg " style="text-align: center;" >
+                   
+                    <div class="card-img">
+                      <div class="mbr-overlay"></div>
+                      <div class="mbr-section-btn text-center">
+                        <% if (news.image_name == '' || news.image_name == null ) { %>
+                          <img src="assets/images/background1.jpg" style="max-width:100%;height:200px" alt="Mobirise">
+                           <% } else { %>
+                            <img src="https://res.cloudinary.com/hiuscvdu2/image/upload/v159281582/<%= news.image_name %>" style="max-width:100%;height:200px" alt="Mobirise">
+                  
+                          
+                          <% } %>     
+                      
+                          <!-- <a href="/member" class="btn btn-primary display-4">Learn More</a> -->
+                      </div>
+                   
+                  </div>
+                    </div>
+                    <div class="container">
+                      <h5 >วันที่ประกาศ: <b class="text-primary" style="text-align: right;"><%= news.post_date %></b></h5>
+                     <p id="details_<%= news.news_id %>" class="shrinkable"><%= news.news_details %></p>
+                     <p id="details1_<%= news.news_id %>" style="display:none"><%= news.news_details %></p>
+                    </div>
+                </div>
+              </div>
+        
+            <% }) %>
+          
+                
+            <% } %>
+
+
+        <!-- /.container-fluid -->
+
+      </div>
+
+
+
+</div>
+</div>
+<!-- End of Content Wrapper -->
+
+
+        <!-- Footer -->
+        <%- include('partials/adminfooter.ejs') %>
+        <!-- End of Footer -->
+
+ 
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.ejs">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+   <!-- Add New Contact-->
+   <div class="modal fade" id="addNews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-primary" id="exampleModalLabel">ลงประกาศ/ประชามติ</h4>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addnews1" action="/addnews" method="POST" enctype="multipart/form-data" >
+                <div class="row"> 
+                  <div class="col-12"> 
+                    <h6 class="modal-title text-primary" >เลือกประเภทประกาศ: </h6>
+                  <select class="form-control display-7 col-12" name="post_type" data-form-field="Name" id="post_type" style="text-align: center;" onchange="calendtime()">
+                    
+                    <option value="news">ข่าวสาร</option>
+                    <option value="vote">ประชามติ</option>                 
+                    <option value="vote">แจ้งประชุม</option> 
+                    <option value="vote">ขอความเห็น</option>     
+                       
+                  </select>
+                </div>
+                <div class="col-6"> 
+                  <h6 class="modal-title text-primary" >วันที่ประกาศ: </h6>
+                  <input type="date" name="post_date"  id="post_date"  class="form-control"> 
+                  </div>
+                  <div class="col-6"> 
+                    <h6 class="modal-title text-primary" >ประกาศหมดอายุ: </h6>
+                    <input type="date" name="expiry_date"  id="expiry_date"  class="form-control"> 
+                    </div>
+
+                  <div class="col-12"> 
+                <h6 class="modal-title text-primary" >หัวข้อประกาศ: </h6>
+                <input type="text" name="topic_name"  id="topic_name"  class="form-control"> 
+                </div>
+                <div class="col-12"> 
+                  <h6 class="modal-title text-primary" >รายละเอียดประกาศ: </h6>
+                  <textarea rows="4" cols="50" name="post_details"  id="post_details"  class="form-control"> </textarea>
+                  </div>
+                  <div class="col-md-12 form-group">
+                    <label ><b class="text-primary">รูป Profile ประกาศ</b></label><br>
+                    <input type="file" name="image" id="image" class="form-control display-7" required  >
+                </div>
+                    <input type="hidden" name="village_id2"  id="village_id2"  class="form-control" value="1"> 
+                  
+            </div>
+            <div class="modal-footer">
+              <button type="submit" style="width:100px" class="btn btn-success">บันทึก</button>
+              <button type="button" style="width:100px" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+          
+          </div>
+          </form>
+
+        </div>
+        
+      </div>
+    
+    </div>
+  </div>
+
+     <!-- Add New Contact-->
+     <div class="modal fade" id="updatenews" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <form id="addnews1" action="/updatenews" method="POST" enctype="multipart/form-data" >
+        
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title text-primary" id="exampleModalLabel">แก้ไขประกาศ/ประชามติ</h4>
+              <button type="submit" formaction="/deletenews" style="width:100px;margin-left: 15px;" class="btn-sm btn-danger">ลบประกาศนี้</button>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+                  <div class="row"> 
+                  <div class="col-12"> 
+                    <h6 class="modal-title text-primary" >เลือกประเภทประกาศ: </h6>
+                    
+                  <select class="form-control display-7 col-12" name="post_type1" data-form-field="Name" id="post_type1" style="text-align: center;" onchange="calendtime()">
+                    
+                    <option value="news">ข่าวสาร</option>
+                    <option value="vote">ประชามติ</option>                 
+                    <option value="vote">แจ้งประชุม</option> 
+                    <option value="vote">ขอความเห็น</option>     
+                       
+                  </select>
+                </div>
+                <div class="col-6"> 
+                  <h6 class="modal-title text-primary" >วันที่ประกาศ: </h6>
+                  <input type="date" name="post_date1"  id="post_date1"  class="form-control"> 
+                  </div>
+                  <div class="col-6"> 
+                    <h6 class="modal-title text-primary" >ประกาศหมดอายุ: </h6>
+                    <input type="date" name="expiry_date1"  id="expiry_date1"  class="form-control"> 
+                    </div>
+
+                  <div class="col-12"> 
+                <h6 class="modal-title text-primary" >หัวข้อประกาศ: </h6>
+                <input type="text" name="topic_name1"  id="topic_name1"  class="form-control"> 
+                </div>
+                <div class="col-12"> 
+                  <h6 class="modal-title text-primary" >รายละเอียดประกาศ: </h6>
+                  <textarea rows="4" cols="50" name="post_details1"  id="post_details1"  class="form-control"> </textarea>
+                  </div>
+                  <input type="hidden" name="news_id1"  id="news_id1"  class="form-control"> 
+                  
+            </div>
+          
+               
+    
+    
+            </div>
+            <div class="modal-footer">
+                <button type="submit" style="width:100px" class="btn btn-success">บันทึก</button>
+                <button type="button" style="width:100px" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+            
+            </div>
+          </div>
+        </form>
+        </div>
+      </div>
+
+  <script>
+
+function updatenews(id,posttype,postdate,expirydate,topicname) {
+
+  document.getElementById("news_id1").value = id;
+  document.getElementById("post_type1").value = posttype;
+  document.getElementById("post_date1").value = postdate;
+  document.getElementById("expiry_date1").value = expirydate;
+  document.getElementById("topic_name1").value = topicname;
+  document.getElementById("post_details1").value = document.getElementById("details1_"+id).innerText;
+  //document.getElementById("image1").value = imagename;
+    $("#updatenews").modal();
+};
+
+
+  </script>
+
+  <script>
+
+var today = new Date();
+var dd = today.getDate();
+  var mm = today.getMonth() + 1; //January is 0!
+  
+  var yyyy = today.getFullYear();
+  if (dd < 10) {
+    dd = '0' + dd;
+  } 
+  if (mm < 10) {
+    mm = '0' + mm;
+  } 
+  var today = yyyy + '-' + mm + '-' + dd ;
+document.getElementById("post_date").value =today;
+document.getElementById("expiry_date").value =today;
+
+function showMore(id){
+    document.getElementById(id+'Overflow').className='';
+    document.getElementById(id+'MoreLink').className='hidden';
+    document.getElementById(id+'LessLink').className='text-danger';
+}
+
+function showLess(id){
+    document.getElementById(id+'Overflow').className='hidden';
+    document.getElementById(id+'MoreLink').className='text-danger';
+    document.getElementById(id+'LessLink').className='hidden';
+}
+
+var len = 100;
+var shrinkables = document.getElementsByClassName('shrinkable');
+if (shrinkables.length > 0) {
+
+    for (var i = 0; i < shrinkables.length; i++){
+        var fullText = shrinkables[i].innerHTML;
+        console.log(fullText);
+        if(fullText.length > len){
+            // var trunc = fullText.substring(0, len).replace(/\w+$/, '');
+            var trunc = fullText.substring(0, len);
+            var remainder = "";
+            var id = shrinkables[i].id;
+           
+            remainder = fullText.substring(len, fullText.length);
+            shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" class="text-danger" href="#!" onclick="showMore(\''+ id + '\');">ดูเพิ่มเติม</a><a class="hidden text-danger" href="#!" id="' + id + 'LessLink" onclick="showLess(\''+ id + '\');">ย่อ</a>';
+            //console.log(shrinkables[i].innerHTML);
+          }
+    }
+}
+
+
+  </script>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="assets/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="assets/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="assets/js/demo/chart-area-demo.js"></script>
+  <script src="assets/js/demo/chart-pie-demo.js"></script>
+  <script src="assets/js/demo/chart-bar-demo.js"></script>
+
+</body>
+
+</html>

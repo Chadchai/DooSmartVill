@@ -8,7 +8,7 @@ const jwt = require("jwt-simple");
 //ใช้ในการ decode jwt ออกมา
 
 //สร้าง Strategy
-
+const bodyParser = require("body-parser");
 
 
 //var fs = require('fs');
@@ -18,9 +18,9 @@ const Json2csvParser = require("json2csv").Parser;
 //const querystring = require('querystring');  
 //var pendingRFQ;
 cloudinary.config({ 
-    cloud_name: 'hv0f4acfj', 
-    api_key: '949949159755975', 
-    api_secret: '8tckR-OmWSt2I8oxr1kcng9brMs' 
+    cloud_name: 'hiuscvdu2', 
+    api_key: '134241229815455', 
+    api_secret: '8otzx5zTxjtO-gi7ipJe7FowaoY' 
   });
 module.exports = {
  
@@ -62,6 +62,13 @@ memberpage: function(req, res){
           
     res.render('contact.ejs', {
       title: "Main Page"
+      ,message: ''
+  });
+  },
+  contact1: function(req, res){
+          
+    res.render('contact1.ejs', {
+      title: "Contact Admin Page"
       ,message: ''
   });
   },
@@ -2034,7 +2041,212 @@ getvotelist: function(req, res){
 
  });
 },
+getcontactlist: function(req, res){
+  let getcontactlist = "SELECT * FROM contact_info"
+  db.query(getcontactlist, (err, result) => {
+    if (err) {
+        return res.status(500).send(err);
+    } else {
+      //console.log(result);
+     res.render('contact1.ejs', {
+         title: "List of Contact"
+         ,message: '', contactlist:result,
+     });
 
+    }
 
+ });
+},
+addcontact: function(req, res){
+  let contactname = req.body.contact_name;
+  let contactno = req.body.contact_no;
+  let villageno = req.body.village_id;
+  let saveexpense1 = "INSERT INTO `contact_info` (village_id, contact_name,contact_no) VALUES (" + villageno + " , '" + contactname + "', '" + contactno + "')" ;
+// console.log(saveexpense1);
+  db.query(saveexpense1, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/getcontactlist');
+}
+});
+},
+updatecontact: function(req, res){
+  let contactname = req.body.contact_name1;
+  let contactno = req.body.contact_no1;
+  let contactid = req.body.contact_id;
+                  
+  let updatecontact = "UPDATE `contact_info` SET contact_name = '" + contactname + "', contact_no = '"  + contactno + "' WHERE id =" + contactid ;
+// console.log(saveexpense1);
+  db.query(updatecontact, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/getcontactlist');
+}
+});
+},
+deletecontact: function(req, res){
 
+  let contactid = req.body.contact_id1;
+
+  let deletecontact = "DELETE FROM `contact_info` WHERE id =" + contactid ;
+// console.log(saveexpense1);
+  db.query(deletecontact, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/getcontactlist');
+}
+});
+},
+getnewslist: function(req, res){
+  let getnewslist = "SELECT *,DATE_FORMAT(post_date, '%d-%m-%Y') AS post_date,DATE_FORMAT(post_date, '%Y-%m-%d') AS post_date1,DATE_FORMAT(expired_date, '%Y-%m-%d') AS expired_date1 FROM news_info"
+  db.query(getnewslist, (err, result) => {
+    if (err) {
+        return res.status(500).send(err);
+    } else {
+      //console.log(result);
+
+    
+     res.render('news1.ejs', {
+         title: "List of News"
+         ,message: '', newslist:result,
+     });
+
+    }
+
+ });
+},
+addnews: function(req, res){
+  let posttype = req.body.post_type;
+  let posttopic = req.body.topic_name;
+  let postdate = req.body.post_date;
+  let expirydate = req.body.expiry_date;
+  let details = req.body.post_details;
+  let villageno = req.body.village_id1;
+  var today = new Date();
+  var minute = today.getMinutes();
+
+ 
+    let filename,filename1;
+    //console.log(req.files);
+    //console.log(slipdate1);
+  if (typeof req.files.image !== "undefined"){
+  let uploadedFile = req.files.image;
+  let image_name = uploadedFile.name;
+  
+  let filetype = uploadedFile.name.split('.')[1];
+  //console.log(image_name);
+   filename = 'image_news/' + "news_" + villageno + minute ;
+   filename1 =  filename + "." + filetype;
+  //console.log(filename1);
+    if (uploadedFile.mimetype === 'image/png' || uploadedFile.mimetype === 'image/jpeg' || uploadedFile.mimetype === 'image/gif') {
+      //console.log("upload Failed")  
+   
+      uploadedFile.mv(`public/assets/images/${image_name}`, (err ) => {
+        if (err) {
+          //console.log("upload Failed")
+            return res.status(500).send(err)          
+         }
+       
+        
+     });
+  
+     cloudinary.v2.uploader.upload(`public/assets/images/${image_name}`, {public_id: filename } ,
+     function(error, result) {console.log(result, error)});
+    }
+  } else {
+    message = "Invalid File format. Only 'gif', 'jpg' and 'png' images are allowed.";
+  
+  }
+  let addNews = "INSERT INTO `news_info` (village_id, post_type,news_topic,news_details,post_date,expired_date,image_name) VALUES (" + villageno + ", '" + posttype +"' , '" + posttopic  + "' , '" + details  + "' , '" + postdate  + "' , '" + expirydate  + "' , '" + filename1 + "')" ;
+  //console.log(addNews);
+  
+
+  db.query(addNews, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/getnewslist');
+}
+});
+},
+updatenews: function(req, res){
+  let posttype = req.body.post_type1;
+  let posttopic = req.body.topic_name1;
+  let postdate = req.body.post_date1;
+  let expirydate = req.body.expiry_date1;
+  let details = req.body.post_details1;
+  let newsid = req.body.news_id1;
+  var today = new Date();
+  var minute = today.getMinutes();
+                  
+  let updatenews = "UPDATE `news_info` SET post_type = '" + posttype + "', news_topic = '"  + posttopic + "', post_date = '"  + postdate + "', expired_date = '"  + expirydate + "', news_details = '"  + details  + "' WHERE news_id =" + newsid ;
+// console.log(saveexpense1);
+  db.query(updatenews, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/getnewslist');
+}
+});
+},
+deletenews: function(req, res){
+
+  let newsid = req.body.news_id1;
+
+  let deletenews = "DELETE FROM `news_info` WHERE news_id =" + newsid ;
+// console.log(saveexpense1);
+  db.query(deletenews, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/getnewslist');
+}
+});
+},
+getalert: function(req, res){
+
+  function GetFormattedDate(date1) {
+   var todayTime = new Date(date1);
+   var month = todayTime.getMonth() + 1;
+   var day = todayTime.getDate();
+   if (month < 10) {
+     month = '0' + month;
+   } 
+   if (day < 10) {
+     day = '0' + day;
+   } 
+   var year = todayTime.getFullYear();
+   return year + "-" + month + "-" + day;
+}
+let today1 = GetFormattedDate(new Date());
+ let todayslip = "SELECT COUNT(id) AS nopendingslip FROM slip_info WHERE status <> 'ออกใบเสร็จแล้ว'";
+     
+ //console.log(todaypost);
+                       let jsonData = [];
+                       db.query(todayslip, (err, result) => {
+                         //console.log(result);
+                           if (err ) {
+                               return res.status(500).send(err);
+                           } else { 
+                           
+                             jsonData[0] = JSON.parse(JSON.stringify(result));
+                          
+                             res.setHeader('Content-Type', 'application/json');
+                             res.send(JSON.stringify(jsonData));
+                             
+                        
+                     }
+ 
+                   });
+                       
+},
 }

@@ -140,44 +140,47 @@
     <!-- Modal content-->
     <div class="modal-content" style="width: 600px;" >
       <div class="modal-header">
-        <h5 class="modal-title text-primary" style="font-weight: bold;" id="exampleModalLabel">เพิ่มพนักงานใหม่</h5>
+        <h5 class="modal-title text-primary" style="font-weight: bold;" id="exampleModalLabel">เพิ่มหัวข้อโหวต</h5>
         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">×</span>
         </button>
       </div> 
       <div class="modal-body">
-      <form id="addemployee"  action="/addemployee" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+      <form id="addvotetopic"  action="/addvotetopic" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
         <div class="row"> 
-          <div class="col-6"> 
-        <h6 class="modal-title text-primary" >Username: </h6>
+          <div class="col-12"> 
+        <h6 class="modal-title text-primary" >หัวข้อการโหวต: </h6>
         <input type="text" name="emp_name"  id="emp_name"  class="form-control"> 
         </div>
         <div class="col-6"> 
-        <h6 class="modal-title text-primary" >วันที่เริ่มงาน: </h6>    
+        <h6 class="modal-title text-primary" >วันที่เริ่มโหวต: </h6>    
+        <input type="date" id="start_date1" name="start_date1" required="required" class="form-control display-7" style="text-align:center;" > 
+      </div>
+      <div class="col-6"> 
+        <h6 class="modal-title text-primary" >วันที่ปิดโหวต: </h6>    
         <input type="date" id="start_date1" name="start_date1" required="required" class="form-control display-7" style="text-align:center;" > 
       </div>
     </div>
         <div class="row"> 
-          <div class="col-6"> 
-          
-        <h6 class="modal-title text-primary" >ชื่อพนักงาน: </h6>
-        <input type="text" name="emp_name1"  id="emp_name1"  class="form-control">  
+          <div class="col-12"> 
+            <h6 class="modal-title text-primary" >รายละเอียดเพิ่มเติม: </h6>
+            <input type="text" name="details"  id="details"  class="form-control">  
+       
+        <h6 class="modal-title text-primary" >ทางเลือกที่ 1: </h6>
+        <input type="text" name="option1"  id="option1"  class="form-control">  
       </div>
-      <div class="col-6"> 
-        <h6 class="modal-title text-primary" >นามสกุล: </h6>
-        <input type="text" name="emp_surname"  id="emp_surname"  class="form-control"> 
+      <div class="col-12"> 
+        <h6 class="modal-title text-primary" >ทางเลือกที่ 2: </h6>
+        <input type="text" name="option2"  id="option2"  class="form-control"> 
       </div>
     </div>
-        <h6 class="modal-title text-primary" >เบอร์ติดต่อ: </h6>
-        <input type="text" name="emp_contact"  id="emp_contact"  class="form-control">  
+        <h6 class="modal-title text-primary" >ทางเลือกที่ 3: </h6>
+        <input type="text" name="option3"  id="option3"  class="form-control">  
        
-        <h6 class="modal-title text-primary" >Password: </h6>
-        <!-- <input type="password" name="emp_pwd" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  id="emp_pwd1"  class="form-control">  
-        -->
-        <input type="password" name="emp_pwd1"   id="emp_pwd1"  class="form-control">  
-        <h6 class="modal-title text-primary" >ยืนยัน Password </h6>
-        <input type="password" name="emp_pwd"  id="emp_pwd2"  class="form-control">  
-       
+        <h6 class="modal-title text-primary" >ทางเลือกที่ 4: </h6>
+        <input type="text" name="option4"  id="option4"  class="form-control">  
+   
+        
         <div class="modal-footer" >
             
           <button type="submit" style="width:100px" class="btn-sm btn-success">ยืนยัน</button>

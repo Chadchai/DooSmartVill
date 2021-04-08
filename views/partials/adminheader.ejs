@@ -135,7 +135,7 @@
   
      <!-- Nav Item - Dashboard -->
      <li class="nav-item ">
-       <a class="nav-link" href="/summary">
+       <a class="nav-link" href="/getnewslist">
          <i class="fas fa-fw fa-tachometer-alt"></i>
          <span style="color:white;font-size:medium">แจ้งข่าวสารให้ลูกบ้าน</span></a>
      </li>
@@ -145,7 +145,7 @@
   
      <!-- Nav Item - Dashboard -->
      <li class="nav-item ">
-      <a class="nav-link" href="/contact">
+      <a class="nav-link" href="/getcontactlist">
         <i class="fas fa-fw fa-phone-alt"></i>
         <span style="color:white;font-size:medium">เบอร์โทรติดต่อฉุกเฉิน</span></a>
      </li>
@@ -227,49 +227,29 @@
               <!-- Nav Item - Alerts -->
               <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-bell fa-fw"></i>
+                  <i class="fas fa-bell fa-fw" style="margin-right: 15px;"></i>
                   <!-- Counter - Alerts -->
-                  <span class="badge badge-danger badge-counter">3+</span>
+                  <span id="todayslip" class="badge badge-danger badge-counter" style="font-size: medium"></span>
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
-                  <h6 class="dropdown-header">
+                  <h2 class="dropdown-header" style="font-size: larger;">
                     ประกาศแจ้งเตือน
-                  </h6>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
+                  </h2>
+                  <a class="dropdown-item d-flex align-items-center" href="/getsliplist">
                     <div class="mr-3">
                       <div class="icon-circle bg-primary">
                         <i class="fas fa-file-alt text-white"></i>
                       </div>
                     </div>
                     <div>
-                      <div class="small text-gray-500">December 12, 2019</div>
-                      <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                      <div id="date1" class=" text-gray-500"></div>
+                      <span id="waittoreceipt" class="font-weight-bold"></span>
                     </div>
                   </a>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                      <div class="icon-circle bg-success">
-                        <i class="fas fa-donate text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">December 7, 2019</div>
-                      $290.29 has been deposited into your account!
-                    </div>
-                  </a>
-                  <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                      <div class="icon-circle bg-warning">
-                        <i class="fas fa-exclamation-triangle text-white"></i>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="small text-gray-500">December 2, 2019</div>
-                      Spending Alert: We've noticed unusually high spending for your account.
-                    </div>
-                  </a>
-                  <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                  
+                 
+            
                 </div>
               </li>
   
@@ -328,4 +308,45 @@
     </div>
   </div>
   <script src="assets/js/admin.js"></script>
- 
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+     
+  <script>
+axios
+  .get("/getalert")
+  .then(response => {
+    console.log("ok");
+    
+    var alert = response.data;
+    console.log(alert);
+    
+   if (alert.length > 0) {
+    var today1 = convertThaiDate1(new Date());
+   document.getElementById("date1").innerHTML = today1;
+
+    let todayslip = alert[0][0].nopendingslip;
+  
+    if (todayslip > 0 ){
+     
+     
+      document.getElementById("todayslip").innerHTML= " " + todayslip + "+";
+      document.getElementById("waittoreceipt").innerHTML = "มี " + todayslip+" รายการ รอออกใบเสร็จวันนี้";
+
+
+    } else {
+      document.getElementById("todayslip").style= "display:none";
+      document.getElementById("waittoreceipt").innerHTML = "ไม่มี รายการ รอออกใบเสร็จวันนี้";
+
+    } 
+    
+   // console.log("response: ", todaypost[i].details);
+  
+  
+   //console.log(alert[0].noofposttoday);
+  } 
+   
+  })
+  .catch(err => {
+    console.error(err)
+  });
+
+  </script>
