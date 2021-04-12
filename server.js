@@ -82,7 +82,7 @@ app.post('/receiptoldpayment',receiptoldpayment);
 app.get('/contact', contact);
 app.get('/contact1', contact1);
 app.get('/member', memberpage);
-app.get('/loginadmin', loginadmin);
+app.get('/:village_name/loginadmin', loginadmin);
 // For User
 app.get('/login', login);
 app.post('/checkuser',checkusr);

@@ -80,10 +80,12 @@ memberpage: function(req, res){
   });
   },
   loginadmin: function(req, res){
-          
+    
+    let villagename = req.params.village_name;
+
     res.render('loginadmin.ejs', {
       title: "Admin Login Page"
-      ,message: ''
+      ,message: '',villagename:villagename,
   });
   },
   news: function(req, res){
@@ -1893,7 +1895,8 @@ res.send(csv);
 checkadmin: function(req, res){
   let username = req.body.username;
   let password = req.body.password;
-  let checkpwd = "SELECT * FROM `admin` WHERE username ='" + username + "' AND password ='" + password + "'";
+  let villagename = req.body.village_name;
+  let checkpwd = "SELECT * FROM `admin` WHERE username ='" + username + "' AND password ='" + password + "' AND village_name ='" + villagename + "'" ;
  //console.log(checkpwd);
   db.query(checkpwd, (err, result) => {
     if (err) {
@@ -1902,7 +1905,7 @@ checkadmin: function(req, res){
       
       res.render('loginadmin.ejs', {
         title: "Login"
-        ,message: '!!ชื่อ username หรือ password ไม่ถูกต้อง'
+        ,message: '!!ชื่อ username หรือ password ไม่ถูกต้อง',villagename:villagename,
     });
 
       } else {
