@@ -24,10 +24,10 @@ app.set('views', __dirname + '/views/'); // set express to look in this folder t
   
   app.set('view engine', 'ejs');
   app.use(express.static('public/'));
-  app.use(bodyParser());
-  app.use(bodyParser.urlencoded({extended: true}));
+   app.use(bodyParser());
+   app.use(bodyParser.urlencoded({extended: true}));
 
-  app.use(bodyParser.json()); // parse form data client
+   app.use(bodyParser.json()); // parse form data client
  
   app.use(fileUpload()); // configure fileupload
 

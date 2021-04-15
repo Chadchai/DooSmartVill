@@ -45,7 +45,7 @@ module.exports = {
         //custid1= result[0].emp_id;
     res.render('mainpage.ejs', {
       title: "iDesign2020"
-      ,message: '',count1:result[0].count,role1:'',adminname:'',empname:empname,token1:token,
+      ,message: '',count1:result[0].count,role1:'',adminname:'',empname:empname,token1:token,villagename:'',
     });
   };
 
@@ -1913,6 +1913,7 @@ checkadmin: function(req, res){
           id: username,
           id1: result[0].emp_id,
           role:result[0].role,
+          village:result[0].village_name,
           iat: new Date().getTime(),//มาจากคำว่า issued at time (สร้างเมื่อ),
           exp: new Date().getTime() + (4*60*60*1000),
        };
@@ -1927,8 +1928,8 @@ checkadmin: function(req, res){
             } 
             else {
     res.render('mainpage.ejs', {
-      title: "iDesign2020"
-      ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,empname:empname,token1:token,
+      title: "DoSmartVill"
+      ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,empname:empname,token1:token,villagename:villagename,
     });
     //console.log(result[0].role);
   };

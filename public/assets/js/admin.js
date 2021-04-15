@@ -3,7 +3,8 @@ var x = screen.width;
     
 var token1 = localStorage.getItem("token1");
   var empname = localStorage.getItem("empname");
-var role;
+  var role = localStorage.getItem("role");
+var villagename = localStorage.getItem("villagename") ;
 
 // console.log("token = "+ token1);
 
@@ -14,11 +15,13 @@ var role;
        var token2 = document.getElementById("token3").value;
        var empname2= document.getElementById("emp_name1").value;  
        var role2= document.getElementById("role").value; 
+       var villagename= document.getElementById("villagename").value; 
        if (token2 !== null && token2 !== '')  {
           
         localStorage.setItem("token1", token2);
         localStorage.setItem("empname", empname2);
         localStorage.setItem("role", role2);
+        localStorage.setItem("villagename", villagename);
         window.location.href="/";
 
 
@@ -63,9 +66,10 @@ var role;
   {
     localStorage.removeItem('token1');
     localStorage.removeItem('empname');
+    localStorage.removeItem('role');
 //document.getElementById("logout").style = "display:none";
 //localStorage.clear();
-window.location.href="/loginadmin";
+window.location.href= "/"+ villagename + "/loginadmin";
 //console.log(storeid);\
   } 
 
