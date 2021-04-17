@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>DooSmartVill - Car List</title>
+
+  <!-- Custom fonts for this template -->
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+ <link href="assets/css/sb-admin-2.css" rel="stylesheet">
+
+  <!-- Custom styles for this page -->
+  <link href="assets/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <%- include('partials/adminheader.ejs') %>
+        <!-- End of Topbar -->
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid">
+
+          <!-- Page Heading -->
+          
+          <!-- <h1 class="h3 mb-2 text-gray-800">ข้อมูลการจอง</h1> -->
+          <!-- <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below. For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official DataTables documentation</a>.</p> -->
+
+          <!-- DataTales Example -->
+          <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h4 class="m-0 font-weight-bold text-primary">ข้อมูลทะเบียนรถ</h4>  
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr class="table-heads ">
+                      <th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th>
+                      <th class="head-item mbr-fonts-style display-7">ซอยที่</th>
+
+                      <th class="head-item mbr-fonts-style display-7">ทะเบียนรถคันที่ 1</th>
+                      <th class="head-item mbr-fonts-style display-7">ทะเบียนรถคันที่ 2</th>
+                        <th class="head-item mbr-fonts-style display-7">ทะเบียนรถคันที่ 3</th>
+                        <th class="head-item mbr-fonts-style display-7"></th>
+                      
+                      </tr>
+                  </thead>
+                  <tfoot>
+                    <tr >
+                      <th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th>
+                      <th class="head-item mbr-fonts-style display-7">ซอยที่</th>
+                      <th class="head-item mbr-fonts-style display-7">ทะเบียนรถคันที่ 1</th>
+                      <th class="head-item mbr-fonts-style display-7">ทะเบียนรถคันที่ 2</th>
+                        <th class="head-item mbr-fonts-style display-7">ทะเบียนรถคันที่ 3</th>
+                        <th class="head-item mbr-fonts-style display-7"></th>
+                      </tr>
+                  </tfoot>
+                  <% if (carlist.length > 0) {%>
+
+                    <tbody>
+                      
+                      
+                      
+                      <% carlist.forEach((car, index) => { %>
+                    <tr> 
+                        
+                      <td class="body-item mbr-fonts-style display-7"><%= car.house_no %></td>
+                      <td class="body-item mbr-fonts-style display-7 align-center" style="text-align: center;"><%= car.lane_no %></td>
+
+                      <td class="body-item mbr-fonts-style display-7 align-center "><%= car.car_no1 %></td>
+                      <td class="body-item mbr-fonts-style display-7 align-center"><%= car.car_no2 %></td>
+                      <td class="body-item mbr-fonts-style display-7 align-center"><%= car.car_no3 %></td>
+                      <td class="body-item mbr-fonts-style display-7">
+                        <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm align-right text-white" onclick="updatecar('<%= car.id %>','<%= car.house_no %>','<%= car.car_no1 %>','<%= car.car_no2 %>','<%= car.car_no3 %>')" >แก้ไข</a>
+                               
+        
+                      </td>
+                   
+                      
+                    </tr>
+                    <% }) %>
+                    </tbody>
+                        
+                    <% } %>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <%- include('partials/adminfooter.ejs') %>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+     <!-- Add New Contact-->
+     <div class="modal fade" id="updatecar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+          <form  action="/updatecar" method="post" onsubmit="return " >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title text-primary" id="exampleModalLabel">แก้ไขทะเบียนรถ</h4>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+                  <div class="row"> 
+                    <div class="col-12"> 
+                  <h6 class="modal-title text-primary" >บ้านเลขที่: </h6>
+                  <input type="text" name="house_no1"  id="house_no1"  class="form-control" readonly> 
+                  <input type="hidden" name="house_id"  id="house_id"  class="form-control"> 
+                  </div>
+                  <div class="col-12"> 
+                      <h6 class="modal-title text-primary" >ทะเบียนรถคันที่ 1: </h6>
+                      <input type="text" name="car_no1"  id="car_no1"  class="form-control"> 
+                     
+                      </div>
+                      <div class="col-12"> 
+                        <h6 class="modal-title text-primary" >ทะเบียนรถคันที่ 2: </h6>
+                        <input type="text" name="car_no2"  id="car_no2"  class="form-control"> 
+                       
+                        </div>
+                        <div class="col-12"> 
+                          <h6 class="modal-title text-primary" >ทะเบียนรถคันที่ 3: </h6>
+                          <input type="text" name="car_no3"  id="car_no3"  class="form-control"> 
+                          </div>
+              </div>
+             
+  
+  
+          </div>
+          <div class="modal-footer">
+              <button type="submit" style="width:100px" class="btn btn-success">บันทึก</button>
+              <button type="button" style="width:100px" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+           
+          </div>
+        </div>
+      </form>
+      </div>
+    </div>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.html">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+function updatecar(houseid,houseno,carno1,carno2,carno3) {
+
+document.getElementById("house_id").value = houseid;
+document.getElementById("house_no1").value = houseno;
+document.getElementById("car_no1").value = carno1;
+document.getElementById("car_no2").value = carno2;
+document.getElementById("car_no3").value = carno3;
+$("#updatecar").modal();
+};
+
+  </script>
+  <!-- Bootstrap core JavaScript-->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="assets/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="assets/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script>
+    // Call the dataTables jQuery plugin
+  $(document).ready(function() {
+    $('#dataTable').DataTable({
+    "order": [[ 1, 'asc' ]]
+});
+    
+  });
+  </script>
+
+</body>
+
+</html>

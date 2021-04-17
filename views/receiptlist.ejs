@@ -51,12 +51,16 @@
                     <tr class="table-heads ">
                         <th class="head-item mbr-fonts-style display-7">ใบเสร็จเลขที่</th>  <th class="head-item mbr-fonts-style display-7" style="width: 13%;">วันที่</th><th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th><th class="head-item mbr-fonts-style display-7">
                             ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th><th class="head-item mbr-fonts-style display-7">หมายเหตุ</th><th class="head-item mbr-fonts-style display-7">พิมพ์ใบเสร็จ</th>
+                            <th class="head-item mbr-fonts-style display-7">ยกเลิก</th>
                           </tr>
                   </thead>
                   <tfoot>
                     <tr >
                         <th class="head-item mbr-fonts-style display-7">ใบเสร็จเลขที่</th> <th class="head-item mbr-fonts-style display-7" style="width: 13%;">วันที่</th><th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th><th class="head-item mbr-fonts-style display-7">
-                           ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th><th class="head-item mbr-fonts-style display-7">หมายเหตุ</th><th class="head-item mbr-fonts-style display-7">พิมพ์ใบเสร็จ</th>
+                           ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th>
+                           <th class="head-item mbr-fonts-style display-7">หมายเหตุ</th>
+                           <th class="head-item mbr-fonts-style display-7">พิมพ์ใบเสร็จ</th>
+                           <th class="head-item mbr-fonts-style display-7">ยกเลิก</th>
                          </tr>
                   </tfoot>
                   <% if (receiptlist.length > 0) {%>
@@ -76,7 +80,11 @@
                                    
       
                     </td>
-                    
+                    <td class="body-item mbr-fonts-style display-7">
+                      <a class=".btn-circle"  href="/receiptform/<%= receipt.house_no %>/<%= receipt.receipt_no %>">พิมพ์</a>
+                                   
+      
+                    </td>
                   </tr>
                   <% }) %>
                   </tbody>

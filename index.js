@@ -2253,4 +2253,37 @@ let today1 = GetFormattedDate(new Date());
                    });
                        
 },
+getcarlist: function(req, res){
+  let getcarlist = "SELECT * FROM house_info"
+  db.query(getcarlist, (err, result) => {
+    if (err) {
+        return res.status(500).send(err);
+    } else {
+      //console.log(result);
+     res.render('carlist.ejs', {
+         title: "Car List"
+         ,message: '',carlist:result
+     });
+
+    }
+
+ });
+},
+updatecar: function(req, res){
+  let houseid = req.body.house_id;
+  let carno1 = req.body.car_no1;
+  let carno2 = req.body.car_no2;
+  let carno3 = req.body.car_no2;
+                  
+  let updatecar = "UPDATE `house_info` SET car_no1 = '" + carno1 + "', car_no2 = '"  + carno2+ "', car_no3 = '"  + carno3 + "' WHERE id =" + houseid ;
+// console.log(saveexpense1);
+  db.query(updatecar, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/getcarlist');
+}
+});
+},
 }

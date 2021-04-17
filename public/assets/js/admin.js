@@ -48,18 +48,7 @@ var villagename = localStorage.getItem("villagename") ;
   role = obj.role;
   //console.log(role);
 }
-// set authorization
 
-// if (role == 'owner') {
-
-// document.getElementById("summary").style = "display:in-line";
-// document.getElementById("summary1").style = "display:in-line";
-// document.getElementById("employee").style = "display:in-line;font-weight:bold";
-// } else {
-// document.getElementById("summary").style = "display:none";
-// document.getElementById("summary1").style = "display:none";
-// document.getElementById("employee").style = "display:none";
-// }
 
   
   function logout()
