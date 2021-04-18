@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>DooSmartVill - List of Receipt</title>
+  <title>DooSmartVill - List of Voided Receipt</title>
 
   <!-- Custom fonts for this template -->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -42,7 +42,7 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h4 class="m-0 font-weight-bold text-primary">ใบเสร็จรับเงินย้อนหลัง 30 วัน</h4>  
+                <h4 class="m-0 font-weight-bold text-primary">ใบเสร็จที่ทำการยกเลิก</h4>  
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -50,8 +50,9 @@
                   <thead>
                     <tr class="table-heads ">
                         <th class="head-item mbr-fonts-style display-7">ใบเสร็จเลขที่</th>  <th class="head-item mbr-fonts-style display-7" style="width: 13%;">วันที่</th><th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th><th class="head-item mbr-fonts-style display-7">
-                            ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th><th class="head-item mbr-fonts-style display-7">หมายเหตุ</th><th class="head-item mbr-fonts-style display-7">พิมพ์ใบเสร็จ</th>
-                            <th class="head-item mbr-fonts-style display-7">ยกเลิก</th>
+                            ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th><th class="head-item mbr-fonts-style display-7">หมายเหตุ</th>
+<!--   
+                            <th class="head-item mbr-fonts-style display-7">ยกเลิก</th> -->
                           </tr>
                   </thead>
                   <tfoot>
@@ -59,8 +60,8 @@
                         <th class="head-item mbr-fonts-style display-7">ใบเสร็จเลขที่</th> <th class="head-item mbr-fonts-style display-7" style="width: 13%;">วันที่</th><th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th><th class="head-item mbr-fonts-style display-7">
                            ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th>
                            <th class="head-item mbr-fonts-style display-7">หมายเหตุ</th>
-                           <th class="head-item mbr-fonts-style display-7">พิมพ์ใบเสร็จ</th>
-                           <th class="head-item mbr-fonts-style display-7">ยกเลิก</th>
+                          
+                           <!-- <th class="head-item mbr-fonts-style display-7">ยกเลิก</th> -->
                          </tr>
                   </tfoot>
                   <% if (receiptlist.length > 0) {%>
@@ -69,23 +70,19 @@
                   <tr> 
                       
                     <td class="body-item mbr-fonts-style display-7"><%= receipt.receipt_no %></td>
-                    <td class="body-item mbr-fonts-style display-7"><%= receipt.receipt_date %></td>
+                    <td class="body-item mbr-fonts-style display-7"><%= receipt.void_date %></td>
                     
                     <td class="body-item mbr-fonts-style display-7"><%= receipt.house_no %></td>
                     <td class="body-item mbr-fonts-style display-7"><%= receipt.owner_name %></td>
-                    <td class="body-item mbr-fonts-style display-7 align-center"><%= receipt.t_amount %></td>
-                    <td class="body-item mbr-fonts-style display-7"><%= receipt.remark %></td>
-                    <td class="body-item mbr-fonts-style display-7">
-                      <a class=".btn-circle"  href="/receiptform/<%= receipt.house_no %>/<%= receipt.receipt_no %>">พิมพ์</a>
-                                   
-      
-                    </td>
-                    <td class="body-item mbr-fonts-style display-7">
+                    <td class="body-item mbr-fonts-style display-7 align-center"><%= receipt.void_amount %></td>
+                    <td class="body-item mbr-fonts-style display-7"><%= receipt.void_reason %></td>
+                
+                    <!-- <td class="body-item mbr-fonts-style display-7">
 
-                      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm align-right text-white" onclick="cancelreceipt('<%= receipt.receipt_no %>','<%= receipt.house_no %>','<%= receipt.t_amount1 %>','<%= receipt.id %>','<%= receipt.lastmonth %>','<%= receipt.owner_name %>')"><i class="fas fa-edit">ยกเลิก</i></a>
+                      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm align-right text-white" onclick="cancelreceipt('<%= receipt.receipt_no %>','<%= receipt.house_no %>','<%= receipt.t_amount %>','<%= receipt.id %>','<%= receipt.lastmonth %>','<%= receipt.invoice_period %>')"><i class="fas fa-edit">ยกเลิก</i></a>
                                 
       
-                    </td>
+                    </td> -->
                   </tr>
                   <% }) %>
                   </tbody>
@@ -161,13 +158,8 @@
                       <input type="hidden" name="receipt_id"  id="receipt_id"  class="form-control" readonly> 
                       </div>
                       <div class="col-12"> 
-                        <h6 class="modal-title text-primary" >ชื่อเจ้าของบ้าน: </h6>
-                        <input type="text" name="ownername"  id="ownername"  class="form-control"> 
-                      
-                        </div>
-                      <div class="col-12"> 
                         <h6 class="modal-title text-primary" >ยอดในใบเสร็จ </h6>
-                        <input type="number" name="amount"  id="amount"  class="form-control" readonly> 
+                        <input type="text" name="amount"  id="amount"  class="form-control" readonly> 
                   
                    
                         </div>
@@ -177,12 +169,6 @@
                           <input type="text" name="prev_month"  id="prev_month"  class="form-control" readonly> 
                      
                           </div>
-                          <div class="col-12"> 
-                            <h6 class="modal-title text-primary" >เหตุผลในการยกเลิก</h6>
-                          
-                            <input type="text" name="void_reason"  id="void_reason"  class="form-control" required> 
-                       
-                            </div>
               </div>
              
   
@@ -215,11 +201,11 @@
   <script src="assets/js/demo/datatables-demo.js"></script>
 
   <script>
-function cancelreceipt(receiptno,houseno,amount,id,lastmonth,ownername) {
-      console.log(ownername);
+function cancelreceipt(receiptno,houseno,amount,id,lastmonth) {
+      //console.log(lastmonth);
      
       document.getElementById("receipt_id").value = id;
-document.getElementById("ownername").value = ownername;
+
 document.getElementById("receipt_no").value = receiptno;
 document.getElementById("prev_month").value = lastmonth;
 document.getElementById("homeno").value = houseno;

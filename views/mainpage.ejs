@@ -41,6 +41,7 @@
     <input type="hidden" id = "emp_name1" name="emp_name1"  class="form-control align-right" value="<%= empname %>" >
     <input type="hidden" id = "role" name="role"  class="form-control align-right" value="<%= role1 %>" >
     <input type="hidden" id = "villagename" name="villagename"  class="form-control align-right" value="<%= villagename %>" >
+    <input type="hidden" id = "fullname" name="fullname"  class="form-control align-right" value="<%= adminname %>" >
 
     <%- include('partials/adminheader.ejs') %>
 
@@ -88,7 +89,8 @@
                   <a href="/oldcommonfee" ><div class="text-white-10 large">- ออกใบเสร็จชำระเงินย้อนหลัง</div></a>
                   <a href="/getreceiptlist" ><div class="text-white-10 large">- ดูประวัติชำระเงินย้อนหลัง 1 เดือน</div></a>
                   <a href="/getallreceiptlist" > <div class="text-white-10 large">- ดูประวัติชำระเงินย้อนหลังทั้งหมด</div></a>
-                 <br>
+                  <a href="/getvoidreceipt" > <div class="text-white-10 large">- ดูใบเสร็จรับเงินที่ยกเลิก</div></a>
+
                   </div>
               </div>
             </div>

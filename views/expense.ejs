@@ -200,7 +200,10 @@
   <script src="assets/js/demo/chart-area-demo.js"></script>
   <script src="assets/js/demo/chart-pie-demo.js"></script>
   <script>
-
+// get admin name
+var fullname = localStorage.getItem("fullname");
+  document.getElementById("receiver_name").value = "คุณ " +fullname;
+  
     var today = new Date();
        var dd = today.getDate();
        var mm = today.getMonth() + 1; //January is 0!

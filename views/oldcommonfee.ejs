@@ -274,6 +274,10 @@
     </script>
     
     <script>
+      // get admin name
+  var fullname = localStorage.getItem("fullname");
+  document.getElementById("receiver").value = "คุณ " +fullname;
+  
     var totalsum=0;
     var invoiceidlist = new Array;
             var monthlist = new Array;

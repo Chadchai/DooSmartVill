@@ -3,6 +3,7 @@ var x = screen.width;
     
 var token1 = localStorage.getItem("token1");
   var empname = localStorage.getItem("empname");
+  var fullname1 = localStorage.getItem("fullname");
   var role = localStorage.getItem("role");
 var villagename = localStorage.getItem("villagename") ;
 
@@ -16,11 +17,13 @@ var villagename = localStorage.getItem("villagename") ;
        var empname2= document.getElementById("emp_name1").value;  
        var role2= document.getElementById("role").value; 
        var villagename= document.getElementById("villagename").value; 
+       var fullname = document.getElementById("fullname").value; 
        if (token2 !== null && token2 !== '')  {
           
         localStorage.setItem("token1", token2);
         localStorage.setItem("empname", empname2);
         localStorage.setItem("role", role2);
+        localStorage.setItem("fullname", fullname);
         localStorage.setItem("villagename", villagename);
         window.location.href="/";
 
@@ -48,13 +51,11 @@ var villagename = localStorage.getItem("villagename") ;
   role = obj.role;
   //console.log(role);
 }
-
-
-  
   function logout()
   {
     localStorage.removeItem('token1');
     localStorage.removeItem('empname');
+    localStorage.removeItem('fullname');
     localStorage.removeItem('role');
 //document.getElementById("logout").style = "display:none";
 //localStorage.clear();

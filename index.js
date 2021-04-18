@@ -349,7 +349,7 @@ memberpage: function(req, res){
   },
   getreceiptlist: function(req, res){
     
-    let getreceiptlist = "SELECT invoice_info.house_no,invoice_info.id,FORMAT(SUM(invoice_info.actual_pay),-2) AS t_amount,MAX(invoice_info.invoice_month) AS remark,invoice_info.payment_type,invoice_info.receipt_no,house_info.owner_name,DATE_FORMAT(invoice_info.receipt_date, '%d-%m-%Y') AS receipt_date " +  
+    let getreceiptlist = "SELECT invoice_info.house_no,invoice_info.id,FORMAT(SUM(invoice_info.actual_pay),-2) AS t_amount,MAX(invoice_info.invoice_month) AS remark,invoice_info.payment_type,invoice_info.receipt_no,house_info.owner_name,DATE_FORMAT(invoice_info.receipt_date, '%d-%m-%Y') AS receipt_date,invoice_info.lastmonth,SUM(invoice_info.actual_pay) as t_amount1 " +  
     "FROM `invoice_info` " +
     "LEFT JOIN `house_info` " + 
     "ON invoice_info.house_no = house_info.house_no " +
@@ -677,7 +677,7 @@ memberpage: function(req, res){
                     res.redirect('/getinvoicelist');
                    
             },
-            receiptpayment: function(req, res){
+receiptpayment: function(req, res){
            
               let houseid = req.body.house_no;
               let invid = req.body.invoicelist.split(",");
@@ -724,7 +724,7 @@ memberpage: function(req, res){
                 let getlastrcvno = "SELECT COUNT(DISTINCT receipt_no) AS count FROM invoice_info WHERE receipt_no LIKE '" + monthcode +"%'"
                // var createinvoice;
                   //console.log(c_month);
-                //console.log(getlastrcvno);
+               // console.log(getlastrcvno);
         db.query(getlastrcvno, (err, result) => {
           if (err) {
             return res.status(500).send(err);
@@ -746,18 +746,21 @@ memberpage: function(req, res){
         db.query(updatepayment, (err, result) => {
          if (err) {
              return res.status(500).send(err);
-         }  db.query(updatebalance, (err, result1) => {
+         } 
+           db.query(updatebalance, (err, result1) => {
            if (err) {
                return res.status(500).send(err);
            } 
+         
          });
        });
-     
+    
               }
+              res.redirect('/getreceiptlist');
             }
             }); 
             
-                res.redirect('/getreceiptlist');
+               
       
               
                          
@@ -1216,7 +1219,7 @@ receiptform: function(req, res){
   let getreceiptlist =  "SELECT *,(DATE_FORMAT(payment_date,'%d/%m/%Y')) AS transfer_date,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าส่วนกลาง' ORDER BY invoice_period";
   let getreceiptlist1 =  "SELECT *,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
   let getsum =  "SELECT SUM(amount) AS t_amount, SUM(actual_pay) AS t_pay,Abs(SUM(lastmonth)) AS t_lastmonth,SUM(lastmonth) AS t_lastmonth1, SUM(balance) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
-   //console.log(getreceiptlist1);
+  
   db.query(getownername1, (err, result) => {
     //console.log(result);
       if (err || result == "") {
@@ -2285,5 +2288,77 @@ updatecar: function(req, res){
         res.redirect('/getcarlist');
 }
 });
+},
+cancelreceipt: function(req, res){
+  
+  let lastmonth = req.body.prev_month;
+  let receiptid = req.body.receipt_id;
+  let houseno = req.body.homeno;
+  let rcvno = req.body.receipt_no;
+  let ownername = req.body.ownername;
+  let voidreason = req.body.void_reason;
+  let tamount= Number(req.body.amount);
+
+ // console.log(rcvno);
+  //console.log(houseno);
+  let savevoidinfo = "INSERT INTO `void_info` (receipt_no,house_no,owner_name,void_amount,void_reason) VALUES ('" + rcvno + "', '" + houseno +"' , '" + ownername  + "' , " + tamount  + " , '" + voidreason  + "')" ;
+ // console.log(savevoidinfo);
+  let cancelreceipt = "UPDATE `invoice_info` SET payment_type='',transfer_no='',payment_date='',receipt_date='',receiver_name='',remark='',actual_pay = 0,balance=0,lastmonth=0 WHERE receipt_no ='" + rcvno +"'";
+  //console.log(cancelreceipt);
+
+  db.query(savevoidinfo, (err, result0) => {
+    if (err) {
+      return res.status(500).send(err);
+    } else {
+  db.query(cancelreceipt, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        let rollbackhouseinfo = "UPDATE `house_info` SET remain = '"+ lastmonth +  "' WHERE house_no ='" + houseno +"'";
+        //console.log(rollbackhouseinfo);
+        db.query(rollbackhouseinfo, (err, result1) => {
+          if (err) {
+            return res.status(500).send(err);
+          } else {
+        res.redirect('/getreceiptlist');
+}
+});
+}
+});
+}
+});
+},
+getvoidreceipt: function(req, res){
+    
+  let getvoidreceipt = "SELECT *,DATE_FORMAT(void_date, '%d-%m-%Y') AS void_date,FORMAT(void_amount,-2) AS void_amount from void_info"
+ //console.log(getreceiptlist);
+      var today = new Date();
+      //var c_month = today.getMonth()+1;
+      var c_year = today.getFullYear()+543;
+      var month = new Array();
+      month[0] = "มกราคม";
+      month[1] = "กุมภาพันธ์";
+      month[2] = "มีนาคม";
+      month[3] = "เมษายน";
+      month[4] = "พฤษภาคม";
+      month[5] = "มิถุนายน";
+      month[6] = "กรกฎาคม";
+      month[7] = "สิงหาคม";
+      month[8] = "กันยายน";
+      month[9] = "ตุลาคม";
+      month[10] = "พฤศจิกายน";
+      month[11] = "ธันวาคม";
+      var n = month[today.getMonth()] + "-" + c_year.toString() ;
+   db.query(getvoidreceipt, (err, result) => {
+     if (err) {
+         return res.status(500).send(err);
+     } else {
+      // console.log(result);
+      res.render('voidlist.ejs', {
+          title: "Main Page"
+          ,message: 'ออกใบแจ้งหนี้เดือนนี้ไปแล้ว ออกซ้ำ',receiptlist:result, monthyear:n
+      });
+     }
+  });
 },
 }

@@ -340,7 +340,9 @@
   //console.log(today);
   document.getElementById("receiptdate").value = today;
   document.getElementById("transfer_date").value = today;
-  
+  // get admin name
+  var fullname = localStorage.getItem("fullname");
+  document.getElementById("receiver").value = "คุณ " +fullname;
   function calbalance() {
       document.getElementById("remain").value =0;
     var lastremain =  Number(document.getElementById("lastremain").value);
