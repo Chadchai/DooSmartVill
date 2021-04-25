@@ -39,14 +39,15 @@
 
     <div class="container  ">
             <div class="media-container">
+                  
                 <div class="col-md-12 align-center">
+                    <p id= "villagename3" class="mbr-text pb-3 mbr-white mbr-fonts-style display-5" style="font-size: x-large;font-weight: bold;" >DoSMart Village</p>
+                
                     <input type="hidden" id = "villagename" name="villagename"  class="form-control align-right" value="<%= villagename %>" >
                     <input type="hidden" id = "house_id" name="house_id"  class="form-control align-right"  value="<%= houseno %>" >
             
                     <!-- <h1 id = "head1" class="mbr-section-title pb-3 mbr-white mbr-bold mbr-fonts-style display-6" >iDesign Villege System</h1> -->
-                  <br>
-                  <br>
-                    <p id= "villagename3" class="mbr-text pb-3 mbr-white mbr-fonts-style display-5" style="margin-top: -20px;margin-bottom: 10px;font-size: x-large;font-weight: bold;" >DoSMart Village</p>
+                 
                     
 
                     <div class="icons-media-container mbr-white" style="margin-top: -20%;">
@@ -126,23 +127,7 @@
     
 </section>
 
-<section once="footers" class="cid-rNnyIJRFpo" id="footer6-2">
-
-    
-
-    
-
-    <div class="container">
-        <div class="media-container-row align-center mbr-white">
-            <div class="col-12">
-                <p class="mbr-text mb-0 mbr-fonts-style display-7">
-                    © Copyright 2020 DoSmart Village - All Rights Reserved
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
-
+<%- include('partials/custfooter.ejs') %>
 
   <script src="assets/web/assets/jquery/jquery.min.js"></script>
   <script src="assets/popper/popper.min.js"></script>

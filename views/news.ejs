@@ -33,13 +33,13 @@
     <div class="container">
         <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">
             ข่าวประชาสัมพันธ์</h2>
-        
+            <div class="col-md-12">
         <div class="media-container-row pt-5 ">
             <% if (newslist.length > 0) {%> 
                 <% newslist.forEach((news, index) => { %>
             <div class="card p-3 col-12 col-md-6 col-lg-4">
-                <div class="card-wrapper ">
-                    <div class="card-img">
+                <div class="card-wrapper " >
+                    <div class="card-img" style="border-radius:25px 25px 0px 0px;">
                         <div class="mbr-overlay"></div>
                         <div class="mbr-section-btn text-center">
                             <!-- <a href="/member" class="btn btn-primary display-4">Learn More</a> -->
@@ -73,6 +73,7 @@
 
             
         </div>
+    </div>
     </div>
 </section>
 

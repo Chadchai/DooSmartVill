@@ -38,14 +38,17 @@
                 
             </div>
                     <!--Card-7-->
+                    <% if (contactlist.length > 0) {%>
+ 
+                        <% contactlist.forEach((contact, index) => { %>
                     <div class="card px-3 col-12 col-md-6">
                         <div class="card-wrapper media-container-row media-container-row">
                             <div class="card-box">
                                 <div class="top-line pb-3">
                                     <h4 class="card-title mbr-fonts-style display-6">
-                                        ผู้จัดการนิติ <br> (คุณ ปวีณา)</h4>
+                                        <%= contact.contact_name %></h4>
                                     <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">
-                                        <a href="callto:090-960-4995"> 090-960-4995 </a></p>
+                                        <a href="callto:090-960-4995"> <%= contact.contact_no %> </a></p>
                                         </div>
                                 <div class="bottom-line">
                                     
@@ -53,124 +56,10 @@
                             </div>
                         </div>
                     </div>
-                    <!--Card-8-->
-                    <div class="card px-3 col-12 col-md-6">
-                        <div class="card-wrapper media-container-row media-container-row">
-                            <div class="card-box">
-                                <div class="top-line pb-3">
-                                    <h4 class="card-title mbr-fonts-style display-6">ประธาน <br> (คุณโกศล)</h4>
-                                    <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">  <a href="callto:081-848-8921">081-848-8921</a></p>
-                           
-                                 
-                                </div>
-                                <div class="bottom-line">
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            <!--Card-1-->
-            <div class="card px-3 col-12 col-md-6">
-                <div class="card-wrapper media-container-row media-container-row">
-                    <div class="card-box">
-                        <div class="top-line pb-1">
-                            <h4 class="card-title mbr-fonts-style display-6">
-                                ป้อมรปภ</h4>
-                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5"><a href="callto:0863402152">097-049-8033</a></p>
-                        </div>
-                        <div class="bottom-line">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Card-2-->
-            <div class="card px-3 col-12 col-md-6">
-                <div class="card-wrapper media-container-row media-container-row">
-                    <div class="card-box">
-                        <div class="top-line pb-3">
-                            <h4 class="card-title mbr-fonts-style display-6">ตำรวจ</h4>
-                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">
-                                <a href="callto:191">  191</a></p>
-                            
-                        </div>
-                        <div class="bottom-line">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Card-3-->
-            <div class="card px-3 col-12 col-md-6">
-                <div class="card-wrapper media-container-row media-container-row">
-                    <div class="card-box">
-                        <div class="top-line pb-3">
-                            <h4 class="card-title mbr-fonts-style display-6">การไฟฟ้า</h4>
-                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">
-                                <a href="callto:1129"> 1129</a></p>
-                            
-                        </div>
-                        <div class="bottom-line">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Card-4-->
-            <div class="card px-3 col-12 col-md-6">
-                <div class="card-wrapper media-container-row media-container-row">
-                    <div class="card-box">
-                        <div class="top-line pb-3">
-                            
-                            <h4 class="card-title mbr-fonts-style display-6">
-                                ดับเพลิง-ไฟใหม้</h4>
-                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5"><a href="callto:199">199</a></p>
-                        </div>
-                        <div class="bottom-line">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Card-5-->
-            <div class="card px-3 col-12 col-md-6">
-                <div class="card-wrapper media-container-row media-container-row">
-                    <div class="card-box">
-                        <div class="top-line pb-3">
-                            <h4 class="card-title mbr-fonts-style display-6">แพทย์ฉุกเฉิน</h4>
-                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5"><a href="callto:199">1669</a></p>
-                          
-                        </div>
-                        <div class="bottom-line">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Card-6-->
-            <div class="card px-3 col-12 col-md-6">
-                <div class="card-wrapper media-container-row media-container-row">
-                    <div class="card-box">
-                        <div class="top-line pb-3">
-                            <h4 class="card-title mbr-fonts-style display-6">คนสวน-ช่าง</h4>
-                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-5">
-                                ไม่ระบุ</p>
-                           
-                        </div>
-                        <div class="bottom-line">
-                            
-                        </div>
-                    </div>
-                </div>
-            </div>
-    
-            <!--Card-9-->
-            
-            <!--Card-10-->
-            
-            <!--Card-11-->
-            
-            <!--Card-12-->
+                    <% }) %>
+          
+                
+                    <% } %>
             
         </div>
     </div>

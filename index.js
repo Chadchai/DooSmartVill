@@ -59,11 +59,20 @@ memberpage: function(req, res){
   });
   },
   contact: function(req, res){
-          
-    res.render('contact.ejs', {
-      title: "Main Page"
-      ,message: ''
-  });
+    let getcontactlist = "SELECT * FROM contact_info"
+    db.query(getcontactlist, (err, result) => {
+      if (err) {
+          return res.status(500).send(err);
+      } else {
+        //console.log(result);
+       res.render('contact.ejs', {
+           title: "List of Contact"
+           ,message: '', contactlist:result,
+       });
+  
+      }
+  
+   });
   },
   contact1: function(req, res){
           
