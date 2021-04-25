@@ -35,6 +35,8 @@
             ข่าวประชาสัมพันธ์</h2>
         
         <div class="media-container-row pt-5 ">
+            <% if (newslist.length > 0) {%> 
+                <% newslist.forEach((news, index) => { %>
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-wrapper ">
                     <div class="card-img">
@@ -42,81 +44,40 @@
                         <div class="mbr-section-btn text-center">
                             <!-- <a href="/member" class="btn btn-primary display-4">Learn More</a> -->
                         </div>
-                        <img src="assets/images/background1.jpg" alt="Mobirise">
+                        <% if (news.image_name == '' || news.image_name == null ) { %>
+                            <img src="assets/images/background1.jpg" style="max-width:100%;height:200px" alt="Mobirise">
+                             <% } else { %>
+                              <img src="https://res.cloudinary.com/hiuscvdu2/image/upload/v159281582/<%= news.image_name %>" style="max-width:100%;height:200px" alt="Mobirise">
+                    
+                            
+                            <% } %>    
                     </div>
                     <div class="card-box">
                         <h4 class="card-title mbr-fonts-style display-5">
-                            แจ้งการประชุมหมู่บ้านวันที่ 2 ก.พ.
+                            <%= news.news_topic %>
                         </h4>
                         <p class="mbr-text mbr-fonts-style align-left display-4">
-                        มาร่วมประชุม เลือกประธานคนใหม่เพื่อหมู่บ้านของเรา ที่สวนกลางหมู่บ้านในวันที่ 2 กุมพาพันธ์ เวลา 9:00 น.   
+                            <p id="details_<%= news.news_id %>" class="shrinkable"><%= news.news_details %></p>
+                     <p id="details1_<%= news.news_id %>" style="display:none"><%= news.news_details %></p>
                         
                         </p>
                     </div>
                 </div>
             </div>
-            <div class="card p-3 col-12 col-md-6 col-lg-4">
-                <div class="card-wrapper">
-                    <div class="card-img">
-                        <div class="mbr-overlay"></div>
-                        <div class="mbr-section-btn text-center">
-                            <!-- <a href="/member" class="btn btn-primary display-4">Learn More</a> -->
-                        </div>
-                        <img src="assets/images/background2.jpg" alt="Mobirise">
-                    </div>
-                    <div class="card-box">
-                        <h4 class="card-title mbr-fonts-style display-5">
-                            วันที่ 20 กุมพาพันธ์ จะมีการฉีดฆ่ายุง
-                        </h4>
-                        <p class="mbr-text mbr-fonts-style display-4">
-                         รบกวนเก็บอาหาร ปิดบ้านให้มิดชิด   
-                        
-                        </p>
-                    </div>
-                </div>
-            </div>
+            <% }) %>
+          
+                
+            <% } %>
 
-            <div class="card p-3 col-12 col-md-6 col-lg-4">
-                <div class="card-wrapper">
-                    <div class="card-img">
-                        <div class="mbr-overlay"></div>
-                        <div class="mbr-section-btn text-center">
-                            <!-- <a href="/member" class="btn btn-primary display-4">Learn More</a> -->
-                        </div>
-                        <img src="assets/images/background3.jpg" alt="Mobirise">
-                    </div>
-                    <div class="card-box">
-                        <h4 class="card-title mbr-fonts-style display-5">
-                            วันอังคารที่ 18 กุมพาพันธ์ นี้ ไม่มีรถมาเก็บขยะ
-                        </h4>
-                        <p class="mbr-text mbr-fonts-style display-4">
-                        รถเก็บจะมาวันพุธแทน    
-                        </p>
-                    </div>
-                </div>
-            </div>
+         
 
             
         </div>
     </div>
 </section>
 
-<section class="engine"><a href="https://mobirise.info/s">free bootstrap themes</a></section><section once="footers" class="cid-rNnyIJRFpo" id="footer6-x">
 
-    
-
-    
-
-    <div class="container">
-        <div class="media-container-row align-center mbr-white">
-            <div class="col-12">
-                <p class="mbr-text mb-0 mbr-fonts-style display-7">
-                    © Copyright 2020 DoSmart Village - All Rights Reserved
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
+<%- include('partials/custfooter.ejs') %>
 
 
 <script src="assets/web/assets/jquery/jquery.min.js"></script>
@@ -133,6 +94,39 @@
     
 <!-- Template Main JS File -->
 <script src="assets/js/member1.js"></script>
-  
+ 
+<script>
+    function showMore(id){
+    document.getElementById(id+'Overflow').className='';
+    document.getElementById(id+'MoreLink').className='hidden';
+    document.getElementById(id+'LessLink').className='text-primary';
+}
+
+function showLess(id){
+    document.getElementById(id+'Overflow').className='hidden';
+    document.getElementById(id+'MoreLink').className='text-primary';
+    document.getElementById(id+'LessLink').className='hidden';
+}
+
+var len = 100;
+var shrinkables = document.getElementsByClassName('shrinkable');
+if (shrinkables.length > 0) {
+
+    for (var i = 0; i < shrinkables.length; i++){
+        var fullText = shrinkables[i].innerHTML;
+        console.log(fullText);
+        if(fullText.length > len){
+            // var trunc = fullText.substring(0, len).replace(/\w+$/, '');
+            var trunc = fullText.substring(0, len);
+            var remainder = "";
+            var id = shrinkables[i].id;
+           
+            remainder = fullText.substring(len, fullText.length);
+            shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" class="text-primary" href="#!" onclick="showMore(\''+ id + '\');">ดูเพิ่มเติม</a><a class="hidden text-primary" href="#!" id="' + id + 'LessLink" onclick="showLess(\''+ id + '\');">ย่อ</a>';
+            //console.log(shrinkables[i].innerHTML);
+          }
+    }
+}
+</script>
 </body>
 </html>

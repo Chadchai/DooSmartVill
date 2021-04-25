@@ -90,11 +90,25 @@ memberpage: function(req, res){
   });
   },
   news: function(req, res){
+    let getnewslist = "SELECT *,DATE_FORMAT(post_date, '%d-%m-%Y') AS post_date,DATE_FORMAT(post_date, '%Y-%m-%d') AS post_date1,DATE_FORMAT(expired_date, '%Y-%m-%d') AS expired_date1 FROM news_info"
+    db.query(getnewslist, (err, result) => {
+      if (err) {
+          return res.status(500).send(err);
+      } else {
+        //console.log(result);
+  
+      
+       res.render('news.ejs', {
+           title: "List of News"
+           ,message: '', newslist:result,
+       });
+  
+      }
+  
+   });
+
           
-    res.render('news.ejs', {
-      title: "Main Page"
-      ,message: ''
-  });
+ 
   },
 
 
