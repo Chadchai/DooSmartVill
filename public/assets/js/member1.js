@@ -1,16 +1,7 @@
-
-window.scrollTo(0,1);
-  //document.body.requestFullscreen();
-
 var houseid = localStorage.getItem("HouseID", houseid);
-//console.log(localStorage.getItem("HouseID",houseid));
-if (houseid == null) {
- 
- 
- houseid= document.getElementById("house_id").value;
- localStorage.setItem("HouseID", houseid);
-} 
+var villagename = localStorage.getItem("villagename", villagename);
 
+document.getElementById("villagename1").innerHTML = villagename;
 if (houseid !== null) {
 
  
@@ -27,7 +18,7 @@ if (houseid !== null) {
 function logout()
      {
 localStorage.clear();
-window.location.href="/login";
+window.location.href="/" + villagename + "/login";
 //console.log(storeid);
      }
 

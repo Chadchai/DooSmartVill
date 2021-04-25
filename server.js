@@ -84,7 +84,7 @@ app.get('/contact1', contact1);
 app.get('/member', memberpage);
 app.get('/:village_name/loginadmin', loginadmin);
 // For User
-app.get('/login', login);
+app.get('/:village_name/login', login);
 app.post('/checkuser',checkusr);
 app.get('/post', news);
 app.get('/uploadslip', uploadslip);
@@ -104,6 +104,8 @@ app.get('/getcarlist', getcarlist);
 app.post('/updatecar',updatecar);
 app.post('/cancelreceipt',cancelreceipt);
 app.get('/getvoidreceipt', getvoidreceipt);
+
+
 //const PORT1 = process.env.PORT || 3000;
 //http.listen(app.get('port'));
 app.listen(PORT, () => {

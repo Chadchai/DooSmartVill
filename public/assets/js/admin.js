@@ -7,6 +7,8 @@ var token1 = localStorage.getItem("token1");
   var role = localStorage.getItem("role");
 var villagename = localStorage.getItem("villagename") ;
 
+document.getElementById("villagename").innerHTML = villagename;
+document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+ villagename;
 // console.log("token = "+ token1);
 
   //Check token

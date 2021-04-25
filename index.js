@@ -45,7 +45,7 @@ module.exports = {
         //custid1= result[0].emp_id;
     res.render('mainpage.ejs', {
       title: "iDesign2020"
-      ,message: '',count1:result[0].count,role1:'',adminname:'',empname:empname,token1:token,villagename:'',
+      ,message: '',count1:result[0].count,role1:'',adminname:'',empname:empname,token1:token,villagename:'',fullname:'',
     });
   };
 
@@ -55,7 +55,7 @@ memberpage: function(req, res){
           
     res.render('member.ejs', {
       title: "Main Page"
-      ,message: '',houseno:''
+      ,message: '',houseno:'',villagename:'',
   });
   },
   contact: function(req, res){
@@ -73,10 +73,11 @@ memberpage: function(req, res){
   });
   },
   login: function(req, res){
-          
+    let villagename = req.params.village_name;
+
     res.render('login.ejs', {
       title: "Login Page"
-      ,message: ''
+      ,message: '',villagename:villagename,
   });
   },
   loginadmin: function(req, res){
@@ -1503,8 +1504,9 @@ incomeexpense1: function(req, res){
 checkusr: function(req, res){
   let username = req.body.houseno;
   let password = req.body.password;
+  let villagename = req.body.village_name;
 
-  let checkpwd = "SELECT * FROM `house_info` WHERE house_no ='" + username + "' AND password ='" + password + "'";
+  let checkpwd = "SELECT * FROM `house_info` WHERE house_no ='" + username + "' AND password ='" + password + "' AND village_name = '" + villagename +"'";
 // console.log(checkpwd);
   db.query(checkpwd, (err, result) => {
     if (err) {
@@ -1513,14 +1515,14 @@ checkusr: function(req, res){
       
       res.render('login.ejs', {
         title: "Login"
-        ,message: '!!ชื่อ username หรือ password ไม่ถูกต้อง'
+        ,message: '!!ชื่อ username หรือ password ไม่ถูกต้อง',villagename:'',
     });
 
       } else {
         
         res.render('member.ejs', {
           title: "Login"
-          ,message: '',houseno:result[0].house_no
+          ,message: '',houseno:result[0].house_no,villagename:villagename,
       });
       }
 
@@ -1916,6 +1918,7 @@ checkadmin: function(req, res){
           id: username,
           id1: result[0].emp_id,
           role:result[0].role,
+          name:result[0].name,
           village:result[0].village_name,
           iat: new Date().getTime(),//มาจากคำว่า issued at time (สร้างเมื่อ),
           exp: new Date().getTime() + (4*60*60*1000),

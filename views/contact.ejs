@@ -22,54 +22,7 @@
   
 </head>
 <body>
-    <section class="menu cid-rNnuKRzwV6" once="menu" id="menu1-0">
-
-    
-
-        <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm bg-color transparent">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-            </button>
-            <div class="menu-logo">
-                <div class="navbar-brand">
-                    
-                    <span class="navbar-caption-wrap"><a class="navbar-caption text-white display-5" href="/member">DoSmartVill</a></span>
-                </div>
-            </div>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item">
-                        <a id="post1" class="nav-link link text-white display-4" href="/login">
-                            <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>ประกาศหมู่บ้าน</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="invoice1" class="nav-link link text-white display-4" href="/login">
-                            <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
-                            ดูยอดต้องชำระ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a id="receipt1" class="nav-link link text-white display-4" href="/login">
-                            <span class="mbri-search mbr-iconfont mbr-iconfont-btn"></span>
-                            ใบเสร็จรับเงิน</a>
-                    </li>
-                    <li class="nav-item"><a id="report1" class="nav-link link text-white display-4" href="/login"><span class="mbri-cash mbr-iconfont mbr-iconfont-btn"></span>
-                            
-                        ดูรายงานรับ-จ่าย</a></li>
-                            <li class="nav-item">
-                                <a id="contact1" class="nav-link link text-white display-4" href="/login"><span class="mbri-cash mbr-iconfont mbr-iconfont-btn"></span>
-                            
-                                เบอร์โทรฉุกเฉิน</a></li>
-                            <li class="nav-item"><a class="nav-link link text-white display-4" onclick="logout()"><span class="mbri-cash mbr-iconfont mbr-iconfont-btn"></span>
-                            
-                            ออกจากระบบ</a></li></ul>
-                
-            </div>
-        </nav>
-    </section>
+    <%- include('partials/custheader.ejs') %>
   <section class="services3 cid-rP4EoNg4yR" id="services3-v">
     <!---->
     
@@ -239,29 +192,8 @@
         </div>
     </div>
 </section>
-<script>
-    var houseid = localStorage.getItem("HouseID", houseid);
-    // change link
-    document.getElementById("post1").href = "/post";
-        document.getElementById("invoice1").href = "/invoiceform/" + houseid;
-          document.getElementById("receipt1").href = "/getmyreceiptlist/" + houseid;
-          document.getElementById("report1").href = "/incomeexpense1";
-          document.getElementById("contact1").href = "/contact";
-          document.getElementById("post2").href = "/post";
-        document.getElementById("invoice2").href = "/invoiceform/" + houseid;
-          document.getElementById("receipt2").href = "/getmyreceiptlist/" + houseid;
-          document.getElementById("report2").href = "/incomeexpense1";
-          document.getElementById("contact2").href = "/contact";
-    // end change link
-    </script>
-<script>
-    function logout()
-        {
-localStorage.clear();
-window.location.href="/login";
-//console.log(storeid);
-        }
-</script>
+
+
 
 <script src="assets/web/assets/jquery/jquery.min.js"></script>
 <script src="assets/popper/popper.min.js"></script>
@@ -274,6 +206,7 @@ window.location.href="/login";
 <script src="assets/parallax/jarallax.min.js"></script>
 <script src="assets/smoothscroll/smooth-scroll.js"></script>
 <script src="assets/theme/js/script.js"></script>
-  
+  <!-- Template Main JS File -->
+<script src="assets/js/member1.js"></script>
 </body>
 </html>
