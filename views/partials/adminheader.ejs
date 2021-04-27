@@ -28,7 +28,7 @@
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <!-- <h6 class="collapse-header" style="font-weight: bold;color: black;">ระบบการจอง:</h6> -->
-              <a class="collapse-item" href="/pendingapprove" style="font-weight:bold;">ออกใบแจ้งหนี้ประจำเดือน</a>
+              <a class="collapse-item" type="button" data-toggle="modal" data-target="#confirmtoinv"  style="font-weight:bold;">ออกใบแจ้งหนี้ประจำเดือน</a>
               <a class="collapse-item" href="/advanceinvoice" style="font-weight:bold;">ออกใบแจ้งหนี้ล่วงหน้า</a>
               <a class="collapse-item" href="/getinvoicelist" style="font-weight:bold;">ดูรายการหนี้คงค้าง</a>
               <a class="collapse-item" href="/getallinvoice" style="font-weight:bold;">พิมพ์ใบแจ้งหนี้ทั้งหมด</a>
@@ -160,7 +160,7 @@
             <span>Tables</span></a>
         </li> -->
         <li class="nav-item ">
-          <a class="nav-link" data-toggle="modal" data-target="#logoutModal">
+          <a class="nav-link" type="button" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-fw fa-sign-out-alt"></i>
             <span style="color:white;font-size:medium">ออกจากระบบ</span></a>
         </li>
@@ -313,7 +313,25 @@
             </ul>
   
           </nav>
-
+          
+                      <!-- Confirm to invoice-->
+  <div class="modal fade" id="confirmtoinv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">ยืนยันที่จะออกแจ้งหนี้ของเดือนนี้?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
+          <a class="btn btn-primary text-white" href="/create1moinv">ยืนยัน</a>
+        </div>
+      </div>
+    </div>
+  </div>
             <!-- Logout Modal-->
   <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

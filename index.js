@@ -497,7 +497,7 @@ memberpage: function(req, res){
     "FROM `invoice_info` " +
     "LEFT JOIN `house_info` " + 
     "ON invoice_info.house_no = house_info.house_no " +
-    "WHERE invoice_info.house_no = '104/" + houseid + "' AND payment_type IS NOT NULL AND (invoice_type = 'ค่าส่วนกลาง' || invoice_type ='ค่าจอดรถ' || invoice_type ='รายได้อื่นๆ' )  " +
+    "WHERE invoice_info.house_no = '104/" + houseid + "' AND payment_type <> '' AND (invoice_type = 'ค่าส่วนกลาง' || invoice_type ='ค่าจอดรถ' || invoice_type ='รายได้อื่นๆ' )  " +
     "GROUP BY receipt_no" ;  
    //console.log(getreceiptlist);
         var today = new Date();
@@ -1243,7 +1243,7 @@ receiptform: function(req, res){
   let getreceiptlist =  "SELECT *,(DATE_FORMAT(payment_date,'%d/%m/%Y')) AS transfer_date,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าส่วนกลาง' ORDER BY invoice_period";
   let getreceiptlist1 =  "SELECT *,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
   let getsum =  "SELECT SUM(amount) AS t_amount, SUM(actual_pay) AS t_pay,Abs(SUM(lastmonth)) AS t_lastmonth,SUM(lastmonth) AS t_lastmonth1, SUM(balance) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
-  
+   //console.log(getreceiptlist);
   db.query(getownername1, (err, result) => {
     //console.log(result);
       if (err || result == "") {
@@ -1269,7 +1269,7 @@ receiptform: function(req, res){
                     } else {
                       receiptdate = new Date(result1[0].receipt_date);
                     }
-                    
+                    //console.log(receiptdate);
           
            var c_year1 = receiptdate.getFullYear()+543;
            var month = new Array();
