@@ -136,54 +136,6 @@
 </section>
 
 <%- include('partials/custfooter.ejs') %>
-<script>
-      
-    var houseid = localStorage.getItem("HouseID", houseid);
-   
-    var houseid1 =  document.getElementById("house_id").value;
-    //console.log("houseid =" + houseid);
-    //console.log("houseid1 =" + houseid1);
-    var role = localStorage.getItem("Role", role);
-    //console.log("role =" + role);
-    if (role !== 'admin') {
-        
-        if (houseid !== houseid1) {
-//         localStorage.clear();
- window.location.href="/login";
-// console.log("houseid =" + houseid);
-//     console.log("houseid1 =" + houseid1);
-    }
-} 
-    if (houseid == null) {
-        
-        
-        houseid= document.getElementById("house_id").value;
-        localStorage.setItem("HouseID", houseid);
-    } 
-    
-    if (houseid !== null) {
-    
-        
-        document.getElementById("post1").href = "/post";
-        document.getElementById("invoice1").href = "/invoiceform/" + houseid;
-          document.getElementById("receipt1").href = "/getmyreceiptlist/" + houseid;
-          document.getElementById("report1").href = "/incomeexpense1";
-          document.getElementById("contact1").href = "/contact";
-          document.getElementById("post2").href = "/post";
-        document.getElementById("invoice2").href = "/invoiceform/" + houseid;
-          document.getElementById("receipt2").href = "/getmyreceiptlist/" + houseid;
-          document.getElementById("report2").href = "/incomeexpense1";
-          document.getElementById("contact2").href = "/contact";
-    
-    }
-    function logout()
-            {
-    localStorage.clear();
-    window.location.href="/login";
-    //console.log(storeid);
-            }
-    
-    </script>
 
 <script src="assets/web/assets/jquery/jquery.min.js"></script>
 <script src="assets/popper/popper.min.js"></script>
@@ -197,5 +149,6 @@
 <script src="assets/smoothscroll/smooth-scroll.js"></script>
 <script src="assets/theme/js/script.js"></script>
   
+<script src="assets/js/member.js"></script>
 </body>
 </html>
