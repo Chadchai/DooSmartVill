@@ -18,7 +18,7 @@ document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+
        var token2 = document.getElementById("token3").value;
        var empname2= document.getElementById("emp_name1").value;  
        var role2= document.getElementById("role").value; 
-       var villagename= document.getElementById("villagename").value; 
+       villagename= document.getElementById("villagename").value; 
        var fullname = document.getElementById("fullname").value; 
        if (token2 !== null && token2 !== '')  {
           
@@ -31,14 +31,12 @@ document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+
 
 
 } else {
-  window.location.href="/adminlogin";
+  window.location.href= "/"+villagename+"/loginadmin";
 
 } 
 
    
-  } 
-
-  if (token1 !== null && token1 !=='' )  {
+  } else   {
       var base64Url = token1.split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
@@ -47,12 +45,16 @@ document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+
   var obj = JSON.parse(jsonPayload);
   var now = new Date();
   var expired = new Date(obj.exp );
-  //console.log(obj.id);
+  console.log(obj.villagename);
+villagename = obj.village;
+ //window.location.href="/";
   document.getElementById("username").innerHTML = "คุณ "+  obj.id;
+  document.getElementById("villagename").innerHTML = obj.village;
+document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+ obj.village;
 //   document.getElementById("editinfo").href = "/editemployee1/" + obj.id1;
   role = obj.role;
   //console.log(role);
-}
+} 
   function logout()
   {
     localStorage.removeItem('token1');
