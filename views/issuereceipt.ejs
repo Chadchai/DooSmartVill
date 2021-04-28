@@ -81,7 +81,7 @@
                                   <div class="dragArea row">
                                     <div class="col-md-3  form-group" data-for="name">
                                       <label for="name-form1-h" class="form-control-label mbr-fonts-style display-7">บ้านเลขที่</label>
-                                       <input type="้house_no" name="house_no" data-form-field="Name" required="required" class="form-control  display-7 align-right" id="house_no" value="<%= houseno %>">
+                                       <input type="้house_no" name="house_no" data-form-field="Name" required="required" class="form-control  display-7" id="house_no" value="<%= houseno %>">
                                      
                                     
                                        <!-- <select class="form-control display-7" name="name" data-form-field="Name" id="sel1">
@@ -99,7 +99,7 @@
                                   </div>
                                       <div class="col-md-3  form-group" data-for="email">
                                           <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่ออกใบเสร็จ</label>
-                                          <input type="date" name="receiptdate" data-form-field="Email" required="required" class="form-control display-7 align-right" id="receiptdate">
+                                          <input type="date" name="receiptdate" data-form-field="Email" required="required" class="form-control display-7" id="receiptdate">
                                       </div>
                                       
                                       <div data-for="phone" class="col-md-4  form-group">
@@ -110,15 +110,15 @@
                                    
                                       <div data-for="number" class="col-md-3  form-group">
                                           <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">รับชำระเงินจริง(บาท)</label>
-                                          <input type="number"  step="0.01" name="actual_pay" data-form-field="Phone" class="form-control "  style="background-color: yellow;" id="actual_pay" required onchange="calbalance()" >
+                                          <input type="number"  step="0.01" name="actual_pay" data-form-field="Phone" class="form-control align-right"  style="background-color: yellow;" id="actual_pay" required onchange="calbalance()" >
                                       </div>
                                       <div data-for="number" class="col-md-3  form-group">
                                           <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ยอดค้างหรือชำระเกินยกมา(บาท)</label>
-                                          <input type="number"  step="0.01" name="lastremain" data-form-field="Phone" class="form-control " value="<%= balance %>" id="lastremain" readonly >
+                                          <input type="number"  step="0.01" name="lastremain" data-form-field="Phone" class="form-control align-right" value="<%= balance %>" id="lastremain" readonly >
                                       </div>
                                       <div data-for="number" class="col-md-3  form-group">
                                           <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ยอดคงเหลือสุทธิ(บาท)</label>
-                                          <input type="number"  step="0.01" name="remain" data-form-field="Phone" class="form-control " id="remain" readonly>
+                                          <input type="number"  step="0.01" name="remain" data-form-field="Phone" class="form-control align-right" id="remain" readonly>
                                       </div>
                                       <div data-for="number" class="col-md-7  form-group" style="border-style: solid;;border-radius: 10px;border-color: lightgrey;">
                                           <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เลือกรายการชำระเงิน</label>
@@ -343,19 +343,29 @@
   // get admin name
   var fullname = localStorage.getItem("fullname");
   document.getElementById("receiver").value = "คุณ " +fullname;
+  
+  var lastremain =  Number(document.getElementById("lastremain").value);
+  document.getElementById("lastremain").value = lastremain.toFixed(2)
+  if (lastremain <0 ){
+   
+    document.getElementById("lastremain").style = "color:red"
+  } else {
+    document.getElementById("lastremain").style = "color:black"
+  }
+
   function calbalance() {
       document.getElementById("remain").value =0;
-    var lastremain =  Number(document.getElementById("lastremain").value);
+    lastremain =  Number(document.getElementById("lastremain").value);
     var remain =   Number(document.getElementById("remain").value);
     var payperinvoice =   Number(document.getElementById("t_amount").value);
     var actualpay = Number(document.getElementById("actual_pay").value);
     var netremain = actualpay - payperinvoice +lastremain + remain;
     document.getElementById("remain").value = netremain.toFixed(2);
     if (netremain <0) {
-      document.getElementById("remain").style = "background-color:red"
+      document.getElementById("remain").style = "color:red"
 
     } else {
-      document.getElementById("remain").style = "background-color:white"
+      document.getElementById("remain").style = "color:black"
     }
   }
 

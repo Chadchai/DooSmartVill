@@ -82,8 +82,9 @@
                     </td>
                     <td class="body-item mbr-fonts-style display-7">
 
-                      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm align-right text-white" onclick="cancelreceipt('<%= receipt.receipt_no %>','<%= receipt.house_no %>','<%= receipt.t_amount1 %>','<%= receipt.id %>','<%= receipt.lastmonth %>','<%= receipt.owner_name %>')"><i class="fas fa-edit">ยกเลิก</i></a>
-                                
+                      <% if (receipt.receipt_date == receipt.today) {%>
+                      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm align-right text-white" onclick="cancelreceipt('<%= receipt.receipt_no %>','<%= receipt.house_no %>','<%= receipt.t_amount1 %>','<%= receipt.id %>','<%= receipt.lastmonth %>','<%= receipt.owner_name %>','<%= receipt.payment_type %>')"><i class="fas fa-edit">ยกเลิก</i></a>
+                      <% } %>          
       
                     </td>
                   </tr>
@@ -172,6 +173,12 @@
                    
                         </div>
                         <div class="col-12"> 
+                          <h6 class="modal-title text-primary" >ประเภทการชำระเงิน </h6>
+                          <input type="text" name="payment_type"  id="payment_type"  class="form-control" readonly> 
+                    
+                     
+                          </div>
+                        <div class="col-12"> 
                           <h6 class="modal-title text-primary" >ยอดเงินค้างชำระยกมา </h6>
                         
                           <input type="text" name="prev_month"  id="prev_month"  class="form-control" readonly> 
@@ -215,8 +222,8 @@
   <script src="assets/js/demo/datatables-demo.js"></script>
 
   <script>
-function cancelreceipt(receiptno,houseno,amount,id,lastmonth,ownername) {
-      console.log(ownername);
+function cancelreceipt(receiptno,houseno,amount,id,lastmonth,ownername,paymenttype) {
+     //console.log("paymenttype" +paymenttype);
      
       document.getElementById("receipt_id").value = id;
 document.getElementById("ownername").value = ownername;
@@ -224,6 +231,7 @@ document.getElementById("receipt_no").value = receiptno;
 document.getElementById("prev_month").value = lastmonth;
 document.getElementById("homeno").value = houseno;
 document.getElementById("amount").value = amount;
+document.getElementById("payment_type").value = paymenttype;
 
 $("#cancelreceipt").modal();
 };

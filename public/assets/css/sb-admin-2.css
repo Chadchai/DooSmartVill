@@ -11140,3 +11140,6 @@ body.sidebar-toggled footer.sticky-footer {
 .hidden {
   display: none;
 }
+.align-right{
+  text-align: right;
+}

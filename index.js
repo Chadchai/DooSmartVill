@@ -373,7 +373,7 @@ memberpage: function(req, res){
   },
   getreceiptlist: function(req, res){
     
-    let getreceiptlist = "SELECT invoice_info.house_no,invoice_info.id,FORMAT(SUM(invoice_info.actual_pay),-2) AS t_amount,MAX(invoice_info.invoice_month) AS remark,invoice_info.payment_type,invoice_info.receipt_no,house_info.owner_name,DATE_FORMAT(invoice_info.receipt_date, '%d-%m-%Y') AS receipt_date,invoice_info.lastmonth,SUM(invoice_info.actual_pay) as t_amount1 " +  
+    let getreceiptlist = "SELECT invoice_info.house_no,invoice_info.id,FORMAT(SUM(invoice_info.actual_pay),-2) AS t_amount,MAX(invoice_info.invoice_month) AS remark,invoice_info.payment_type AS payment_type,invoice_info.receipt_no,house_info.owner_name,DATE_FORMAT(invoice_info.receipt_date, '%d-%m-%Y') AS receipt_date,invoice_info.lastmonth,SUM(invoice_info.actual_pay) as t_amount1,DATE_FORMAT(CURDATE(), '%d-%m-%Y') AS today " +  
     "FROM `invoice_info` " +
     "LEFT JOIN `house_info` " + 
     "ON invoice_info.house_no = house_info.house_no " +
@@ -745,10 +745,13 @@ receiptpayment: function(req, res){
               var monthcode = "RE" +c_year.toString() + c_month1.toString();
               //console.log(invid);
              
-                let getlastrcvno = "SELECT COUNT(DISTINCT receipt_no) AS count FROM invoice_info WHERE receipt_no LIKE '" + monthcode +"%'"
-               // var createinvoice;
+                let getlastrcvno = " SELECT COUNT(DISTINCT receipt_no) AS count FROM (SELECT receipt_no FROM invoice_info WHERE receipt_no LIKE '" + monthcode +"%' UNION SELECT receipt_no FROM void_info WHERE receipt_no LIKE '"+monthcode +"%') AS TABLE1" 
+               
+                 
+                
+                // var createinvoice;
                   //console.log(c_month);
-               // console.log(getlastrcvno);
+                //console.log(getlastrcvno);
         db.query(getlastrcvno, (err, result) => {
           if (err) {
             return res.status(500).send(err);
@@ -1979,7 +1982,7 @@ todaysummary: function(req, res){
   let todaypettycash = "SELECT FORMAT((20000-SUM(expense_amount)),0) AS todaypettycash FROM expense_info WHERE MONTH(expense_date) = MONTH(CURDATE()) AND YEAR(expense_date) = YEAR(CURDATE()) AND payment_type = 'เงินสด'" ; 
   
    //console.log(todaypettycash);
-  //console.log(incomebymonth);
+  //console.log(todaycash);
  // console.log(expensebytype);
   db.query(todayincome, (err, result) => {
     if (err) {
@@ -2321,13 +2324,14 @@ cancelreceipt: function(req, res){
   let receiptid = req.body.receipt_id;
   let houseno = req.body.homeno;
   let rcvno = req.body.receipt_no;
+  let paymenttype = req.body.payment_type;
   let ownername = req.body.ownername;
   let voidreason = req.body.void_reason;
   let tamount= Number(req.body.amount);
 
  // console.log(rcvno);
   //console.log(houseno);
-  let savevoidinfo = "INSERT INTO `void_info` (receipt_no,house_no,owner_name,void_amount,void_reason) VALUES ('" + rcvno + "', '" + houseno +"' , '" + ownername  + "' , " + tamount  + " , '" + voidreason  + "')" ;
+  let savevoidinfo = "INSERT INTO `void_info` (receipt_no,house_no,owner_name,void_amount,payment_type,void_reason) VALUES ('" + rcvno + "', '" + houseno +"' , '" + ownername  + "' , " + tamount  + " , '" + paymenttype +"' , '" + voidreason  + "')" ;
  // console.log(savevoidinfo);
   let cancelreceipt = "UPDATE `invoice_info` SET payment_type='',transfer_no='',payment_date='',receipt_date='',receiver_name='',remark='',actual_pay = 0,balance=0,lastmonth=0 WHERE receipt_no ='" + rcvno +"'";
   //console.log(cancelreceipt);
