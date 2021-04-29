@@ -1,6 +1,7 @@
 
 var houseid = localStorage.getItem("HouseID", houseid);
 var villagename = localStorage.getItem("villagename", villagename);
+var custid = localStorage.getItem("custid", custid);
 //console.log(localStorage.getItem("HouseID",houseid));
 
 
@@ -12,6 +13,8 @@ houseid= document.getElementById("house_id").value;
 localStorage.setItem("HouseID", houseid);
 villagename= document.getElementById("villagename").value; 
 localStorage.setItem("villagename", villagename);
+custid= document.getElementById("cust_id").value; 
+localStorage.setItem("custid", custid);
 } 
 
 
@@ -34,6 +37,7 @@ document.getElementById("invoice2").href = "/invoiceform/" + houseid;
  document.getElementById("slip").href = "/uploadslip";
  document.getElementById("report2").href = "/incomeexpense1";
  document.getElementById("contact2").href = "/contact";
+ document.getElementById("sendcomment").href = "/comment";
  document.getElementById("changepwd1").href = "/changepwd/" + houseid;
 
 

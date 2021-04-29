@@ -40,6 +40,7 @@ const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expens
 const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./");
 const {receiptoldpayment,contact,contact1,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1,getvotelist} = require("./");
 const {getcontactlist,addcontact,updatecontact,deletecontact,getnewslist,addnews,updatenews,deletenews,getalert,getcarlist,updatecar,cancelreceipt,getvoidreceipt,changepwd,newpassword} = require("./")
+const {comment,getcommentlist,sendcomment} = require("./")
 
 app.get('/', index);
 app.get('/getreceiptlist', getreceiptlist);
@@ -106,6 +107,10 @@ app.post('/cancelreceipt',cancelreceipt);
 app.get('/getvoidreceipt', getvoidreceipt);
 app.get('/changepwd/104/:house_no', changepwd);
 app.post('/newpassword',newpassword); 
+
+app.get('/comment', comment);
+app.post('/sendcomment',sendcomment); 
+app.get('/getcommentlist', getcommentlist);
 
 
 //const PORT1 = process.env.PORT || 3000;

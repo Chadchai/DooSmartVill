@@ -73,21 +73,27 @@
                             <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่</label>
                             <input type="date" name="slip_date" data-form-field="Email" required="required" class="form-control display-7 align-right" id="slip_date">
                         </div>
+
+                        <div class="col-md-4  form-group" >
+                            <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">หัวข้อ</label>
+                            <input type="text" name="comment_topic" data-form-field="Email" required="required" class="form-control display-7" id="slip_date">
+                        </div>
                         
                         <div data-for="message" class="col-md-12 form-group">
-                            <label for="message-form1-h" class="form-control-label mbr-fonts-style display-7">บันทึกช่วยจำ</label>
+                            <label for="message-form1-h" class="form-control-label mbr-fonts-style display-7">ความเห็นหรือข้อร้องเรียน</label>
                             <textarea name="details" data-form-field="Message" class="form-control display-7" id="details"></textarea>
                             <input type="hidden" name="houseno" data-form-field="Message" class="form-control display-7" id="houseno"></input>
+                            <input type="hidden" name="cust_id" data-form-field="Message" class="form-control display-7" id="cust_id"></input>
                        
                         </div>
-                        <div data-for="message" class="col-md-12 form-group">
+                        <!-- <div data-for="message" class="col-md-12 form-group">
                             <label for="slip-img"><b>รูปสลิปการโอน</b></label><br>
                             <input type="file" name="image" id="image" class="form-control display-7" required  >
-                        </div>
+                        </div> -->
                        
                         
                         <div class="col-md-12 input-group-btn align-center">
-                            <button type="submit" class="btn btn-primary btn-form display-4" >ส่งสลิป</button>
+                            <button type="submit" class="btn btn-primary btn-form display-4" >ส่งความเห็น</button>
                             <button type="button" class="btn btn-primary btn-form display-4" style="border-radius: 30px;" onclick="window.history.back()">ยกเลิก</button>
                                                   
                         </div>
@@ -145,8 +151,8 @@
 
 <script>
     var houseid1 = localStorage.getItem("HouseID", houseid1);
-console.log(localStorage.getItem("HouseID",houseid1));
-
+//console.log(localStorage.getItem("HouseID",houseid1));
+var custid = localStorage.getItem("custid", custid);
 //
  var today = new Date();
     var dd = today.getDate();
@@ -163,7 +169,8 @@ console.log(localStorage.getItem("HouseID",houseid1));
     //console.log(today);
     document.getElementById("slip_date").value = today;
     document.getElementById("houseno").value = houseid1;
-    document.getElementById("details").value = "Slip โอนเงิน บ้านเลขที่ "+ houseid1;
+    document.getElementById("cust_id").value = custid;
+ 
    
 </script>
 

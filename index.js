@@ -55,7 +55,7 @@ memberpage: function(req, res){
           
     res.render('member.ejs', {
       title: "Main Page"
-      ,message: '',houseno:'',villagename:'',
+      ,message: '',houseno:'',villagename:'',custid:'',
   });
   },
   contact: function(req, res){
@@ -1545,10 +1545,22 @@ checkusr: function(req, res){
     });
 
       } else {
-        
+
+        const payload = {
+          id: username,
+          id1: result[0].id,
+          houseno:result[0].house_no,
+          village:result[0].village_name,
+          iat: new Date().getTime(),//มาจากคำว่า issued at time (สร้างเมื่อ),
+          exp: new Date().getTime() + (4*60*60*1000),
+       };
+       const SECRET = "MY_SECRET_KEY"; //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
+    var token = jwt.encode(payload, SECRET);
+          
+       
         res.render('member.ejs', {
           title: "Login"
-          ,message: '',houseno:result[0].house_no,villagename:villagename,
+          ,message: '',houseno:result[0].house_no,villagename:villagename,custid:result[0].id,token:token,
       });
       }
 
@@ -2391,4 +2403,52 @@ getvoidreceipt: function(req, res){
      }
   });
 },
+comment: function(req, res){
+          
+  res.render('comments.ejs', {
+    title: "Send comment"
+    ,message: ''
+});
+},
+sendcomment: (req, res) => {
+  let topic = req.body.comment_topic;
+  let memo = req.body.details;
+  let houseid = req.body.houseno;
+  let custid = req.body.cust_id;
+
+ 
+let savecomment = "INSERT INTO comment_info (cust_id,house_no,comment_topic,comment_details) VALUES ("+ custid + ",'" + houseid + "','" + topic + "','" + memo + "')";
+
+ db.query(savecomment, (err, result) => {
+   if (err) {
+       return res.status(500).send(err);
+   } else {
+  
+     res.render('member.ejs', {
+       title: "Main Page"
+       ,message:'ส่งความเห็นให้นิติบุคคลเรียบร้อยแล้ว',houseno:houseid,villagename:'',custid:'',
+   });
+
+   }
+ });
+
+},
+getcommentlist: function(req, res){
+     
+              
+  let getcommentlist = "SELECT * , DATE_FORMAT(comment_date, '%d-%m-%Y') AS comment_date FROM comment_info ORDER BY comment_id DESC ";
+//console.log(getexpense1);
+  db.query(getcommentlist, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.render('commentlist.ejs', {
+          title: "See slip list"
+          ,message: '',commentlist:result
+        })
+}
+});
+},
+
 }
