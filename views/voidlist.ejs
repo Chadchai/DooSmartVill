@@ -51,7 +51,9 @@
                     <tr class="table-heads ">
                         <th class="head-item mbr-fonts-style display-7">ใบเสร็จเลขที่</th>  <th class="head-item mbr-fonts-style display-7" style="width: 13%;">วันที่ยกเลิก</th>
                         <th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th><th class="head-item mbr-fonts-style display-7">
-                            ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th><th class="head-item mbr-fonts-style display-7">หมายเหตุ</th>
+                            ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7" style="text-align: center;">จำนวนรวม</th>
+                            <th class="head-item mbr-fonts-style display-7" style="text-align: center;">ชำระเป็น</th>
+                            <th class="head-item mbr-fonts-style display-7">หมายเหตุ</th>
 <!--   
                             <th class="head-item mbr-fonts-style display-7">ยกเลิก</th> -->
                           </tr>
@@ -59,7 +61,9 @@
                   <tfoot>
                     <tr >
                         <th class="head-item mbr-fonts-style display-7">ใบเสร็จเลขที่</th> <th class="head-item mbr-fonts-style display-7" style="width: 13%;">วันที่ยกเลิก</th><th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th><th class="head-item mbr-fonts-style display-7">
-                           ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th>
+                           ชื่อเจ้าของบ้าน</th>
+                           <th class="head-item mbr-fonts-style display-7" style="text-align: center;">จำนวนรวม</th>
+                           <th class="head-item mbr-fonts-style display-7" style="text-align: center;">ชำระเป็น</th>
                            <th class="head-item mbr-fonts-style display-7">หมายเหตุ</th>
                           
                            <!-- <th class="head-item mbr-fonts-style display-7">ยกเลิก</th> -->
@@ -75,7 +79,8 @@
                     
                     <td class="body-item mbr-fonts-style display-7"><%= receipt.house_no %></td>
                     <td class="body-item mbr-fonts-style display-7"><%= receipt.owner_name %></td>
-                    <td class="body-item mbr-fonts-style display-7 align-center"><%= receipt.void_amount %></td>
+                    <td class="body-item mbr-fonts-style display-7 align-center" style="text-align: center;"><%= receipt.void_amount %></td>
+                    <td class="body-item mbr-fonts-style display-7 align-center" style="text-align: center;"><%= receipt.payment_type %></td>
                     <td class="body-item mbr-fonts-style display-7"><%= receipt.void_reason %></td>
                 
                     <!-- <td class="body-item mbr-fonts-style display-7">

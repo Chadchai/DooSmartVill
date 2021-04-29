@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html  >
+<head>
+  <!-- Site made with Mobirise Website Builder v4.11.4, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <base href="/">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.11.4, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo2.png" type="image/x-icon">
+  <meta name="description" content="Site Maker Description">
+  
+  <title>ข้อคิดเห็น</title>
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <style>
+
+            .loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #3498db; /* Blue */
+            border-radius: 50%;
+            padding-left: 30px;
+            width: 200px;
+            height: 200px;
+            animation: spin 2s linear infinite;
+            }
+
+            @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+            }
+  </style>
+  
+  
+</head>
+<body>
+    <%- include('partials/custheader.ejs') %>
+
+<section class="engine"><a href="https://mobirise.info/c">site builder</a></section><section class="mbr-section form1 cid-rNt7JSD08c" id="form1-h">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-12 col-lg-8">
+                <h2 class="mbr-section-title align-center pb-3 mbr-fonts-style display-2">
+                    ข้อคิดเห็น/ร้องเรียน</h2>
+                
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="media-container-column col-lg-8" data-form-type="formoid">
+               
+
+                <!---Formbuilder Form--->
+                <form name="sendcomment" action="/sendcomment" method="POST" enctype="multipart/form-data"  onsubmit="return validateForm()" class="mbr-form form-with-styler">
+                    <div class="row">
+                        
+                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="dragArea row">
+                       
+                        <div class="col-md-4  form-group" data-for="email">
+                            <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่</label>
+                            <input type="date" name="slip_date" data-form-field="Email" required="required" class="form-control display-7 align-right" id="slip_date">
+                        </div>
+                        
+                        <div data-for="message" class="col-md-12 form-group">
+                            <label for="message-form1-h" class="form-control-label mbr-fonts-style display-7">บันทึกช่วยจำ</label>
+                            <textarea name="details" data-form-field="Message" class="form-control display-7" id="details"></textarea>
+                            <input type="hidden" name="houseno" data-form-field="Message" class="form-control display-7" id="houseno"></input>
+                       
+                        </div>
+                        <div data-for="message" class="col-md-12 form-group">
+                            <label for="slip-img"><b>รูปสลิปการโอน</b></label><br>
+                            <input type="file" name="image" id="image" class="form-control display-7" required  >
+                        </div>
+                       
+                        
+                        <div class="col-md-12 input-group-btn align-center">
+                            <button type="submit" class="btn btn-primary btn-form display-4" >ส่งสลิป</button>
+                            <button type="button" class="btn btn-primary btn-form display-4" style="border-radius: 30px;" onclick="window.history.back()">ยกเลิก</button>
+                                                  
+                        </div>
+
+                    </div>
+                   
+                </form><!---Formbuilder Form--->
+              
+            </div>
+        </div>
+    </div>
+</section>
+
+           <!-- Modal Update Receipt Status-->
+
+           <div class="modal fade" id="openloading" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content align-center" style="height:100px;">
+               
+                <div class="modal-content align-center" style="height:400px;">
+                <div class="loader"></div>
+                <h4 class="modal-title align-center"> กำลังอัพโหลดใบเสร็จ</h4>
+            </div>
+            <!-- <div class="modal-footer align-center">
+                 
+               
+            </div>  -->
+          
+
+              </div>
+                            </div>
+                      
+          
+                        </div>
+
+<%- include('partials/custfooter.ejs') %>
+
+<script>
+    function validateForm() {
+        var x = document.forms["uploadform"]["image"].value;
+    // var x = document.getElementById('image').value;
+        console.log(x);
+        if ( x ==  null) {
+        alert("กรุณาเลือก slip ที่ต้องการ upload");
+        return false;
+      } else {
+        $("#openloading").modal()
+
+      }
+    }
+</script>
+
+
+<script>
+    var houseid1 = localStorage.getItem("HouseID", houseid1);
+console.log(localStorage.getItem("HouseID",houseid1));
+
+//
+ var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    
+    var yyyy = today.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    } 
+    if (mm < 10) {
+      mm = '0' + mm;
+    } 
+    var today = yyyy + '-' + mm + '-' + dd ;
+    //console.log(today);
+    document.getElementById("slip_date").value = today;
+    document.getElementById("houseno").value = houseid1;
+    document.getElementById("details").value = "Slip โอนเงิน บ้านเลขที่ "+ houseid1;
+   
+</script>
+
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/tether/tether.min.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/dropdown/js/nav-dropdown.js"></script>
+  <script src="assets/dropdown/js/navbar-dropdown.js"></script>
+  <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  
+  <script src="assets/js/member.js"></script>
+  
+</body>
+</html>

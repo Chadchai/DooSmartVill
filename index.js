@@ -1541,7 +1541,7 @@ checkusr: function(req, res){
       
       res.render('login.ejs', {
         title: "Login"
-        ,message: '!!ชื่อ username หรือ password ไม่ถูกต้อง',villagename:'',
+        ,message: '!!ชื่อ username หรือ password ไม่ถูกต้อง',villagename:villagename,
     });
 
       } else {
