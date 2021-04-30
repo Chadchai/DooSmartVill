@@ -83,7 +83,7 @@
                     <td class="body-item mbr-fonts-style display-7">
 
                       <% if (receipt.receipt_date == receipt.today) {%>
-                      <a class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm align-right text-white" onclick="cancelreceipt('<%= receipt.receipt_no %>','<%= receipt.house_no %>','<%= receipt.t_amount1 %>','<%= receipt.id %>','<%= receipt.lastmonth %>','<%= receipt.owner_name %>','<%= receipt.payment_type %>')"><i class="fas fa-edit">ยกเลิก</i></a>
+                      <a class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm align-right text-white" onclick="cancelreceipt('<%= receipt.receipt_no %>','<%= receipt.house_no %>','<%= receipt.t_amount1 %>','<%= receipt.id %>','<%= receipt.lastmonth %>','<%= receipt.owner_name %>','<%= receipt.payment_type %>')"><i class="fas fa-edit">ยกเลิก</i></a>
                       <% } %>          
       
                     </td>
@@ -152,18 +152,18 @@
                   <div class="row"> 
                     <div class="col-12"> 
                   <h6 class="modal-title text-primary" >หมายเลขใบเสร็จ: </h6>
-                  <input type="text" name="receipt_no"  id="receipt_no"  class="form-control" readonly> 
+                  <input type="text" name="receipt_no" required  id="receipt_no"  class="form-control" readonly> 
              
                 
                   </div>
                   <div class="col-12"> 
                       <h6 class="modal-title text-primary" >บ้านเลขที่: </h6>
-                      <input type="text" name="homeno"  id="homeno"  class="form-control"> 
+                      <input type="text" name="homeno" readonly  id="homeno"  class="form-control"> 
                       <input type="hidden" name="receipt_id"  id="receipt_id"  class="form-control" readonly> 
                       </div>
                       <div class="col-12"> 
                         <h6 class="modal-title text-primary" >ชื่อเจ้าของบ้าน: </h6>
-                        <input type="text" name="ownername"  id="ownername"  class="form-control"> 
+                        <input type="text" name="ownername" readonly  id="ownername"  class="form-control"> 
                       
                         </div>
                       <div class="col-12"> 

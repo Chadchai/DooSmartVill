@@ -1560,7 +1560,7 @@ checkusr: function(req, res){
        
         res.render('member.ejs', {
           title: "Login"
-          ,message: '',houseno:result[0].house_no,villagename:villagename,custid:result[0].id,token:token,
+          ,message: '',houseno:result[0].house_no,villagename:result[0].village_name,custid:result[0].id,token:token,
       });
       }
 
@@ -1973,7 +1973,7 @@ checkadmin: function(req, res){
             else {
     res.render('mainpage.ejs', {
       title: "DoSmartVill"
-      ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,empname:empname,token1:token,villagename:villagename,
+      ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,empname:empname,token1:token,villagename:result[0].village_name,
     });
     //console.log(result[0].role);
   };

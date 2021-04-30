@@ -134,7 +134,8 @@
                                             </div>
                                           <% } %>
                                   </div>
-                                  <div data-for="number" class="col-md-3  form-group">
+                          
+                                  <div data-for="number" class="col-md-4  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ออกล่วงหน้ากี่เดือน</label>
                                       <select class="form-control display-7" name="adv_month" data-form-field="Name" id="adv_month" style="text-align: center;">
                                           <option value="1"> 1 เดือน </option>
@@ -146,10 +147,33 @@
                                           <option value="12"> 12 เดือน </option>
                                         </select>
                                   </div>
-                               
-                                  <div data-for="message" class="col-md-12 form-group">
+
+                                  
+                                  <div data-for="number" class="col-md-4  form-group" style="border-style: solid;border-radius: 10px;border-color:lightgray;">
+                                    <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7" style="padding: 5px;">เลือกส่วนลด</label>
+                                  
+                                    <div class="checkbox" onchange="showbox()" >
+                                      <input type="radio" id="discount1" name="discount" checked value="0">
+                                      <label for="discount1">0%</label><br>
+                                      <input type="radio" id="discount2" name="discount" value="0.02">
+                                      <label for="discount2">2%</label><br>
+                                      <input type="radio" id="discount3" name="discount" value="0.03">
+                                      <label for="discount3">3%</label><br>
+                                      <input type="radio" id="discount5" name="discount" value="0.05">
+                                      <label for="discount5">5%</label><br>
+                                      <input type="radio" id="discount10" name="discount" value="0.1">
+                                      <label for="discount10">10%</label><br>
+                                      <input type="radio" id="other" name="discount"  value="other">
+                                    
+                                      <label for="other">อื่นๆ โปรดระบุ( บาท )</label>
+                                      <input type="number" step="0.25" name="o_discount" readonly  data-form-field="Phone" class="form-control display-7 align-center" id="other_disc" style="text-align: center;">
+                                     <br>
+                                      </div>
+                                     
+                                </div>
+                                  <div data-for="message" class="col-md-8 form-group">
                                       <label for="message-form1-h" class="form-control-label mbr-fonts-style display-7">หมายเหตุ</label>
-                                      <textarea rows="2" name="remark" class="form-control display-4" id="remark" ></textarea>
+                                      <textarea rows="6" name="remark" class="form-control display-4" id="remark" ></textarea>
                                   </div>
                                  
                                   <div class="col-md-12 input-group-btn align-center" style="text-align: center;margin-top: 30px;">
@@ -257,6 +281,17 @@
     </script>
     
     <script>
+function showbox(){
+  
+  if (document.getElementById("other").checked == true) {
+        document.getElementById("other_disc").readOnly = false;
+         
+        console.log("It's work");
+      } else {
+        document.getElementById("other_disc").readOnly = true; 
+      }
+}
+      
     
     function getonwername()
             {

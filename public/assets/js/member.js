@@ -44,7 +44,10 @@ document.getElementById("invoice2").href = "/invoiceform/" + houseid;
 }
 function logout()
    {
-localStorage.clear();
+      localStorage.removeItem('HouseID');
+      localStorage.removeItem('custid');
+      
+
 window.location.href="/" + villagename + "/login";
 //console.log(storeid);
    }

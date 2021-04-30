@@ -7,7 +7,7 @@
             <!-- <img class="img-profile rounded-circle" src="assets/images/badminton1.png"> -->
              <i class="fas fa-home"></i> 
           </div>
-          <div id="villagename" class="sidebar-brand-text mx-3">idesign2020 <sup></sup></div>
+          <div id="villagename" class="sidebar-brand-text mx-3">Idesign2020 <sup></sup></div>
         </a>
   
      
@@ -28,7 +28,7 @@
           <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <!-- <h6 class="collapse-header" style="font-weight: bold;color: black;">ระบบการจอง:</h6> -->
-              <a class="collapse-item" type="button" data-toggle="modal" data-target="#confirmtoinv"  style="font-weight:bold;">ออกใบแจ้งหนี้ประจำเดือน</a>
+              <a class="collapse-item text-danger" type="button" data-toggle="modal" data-target="#confirmtoinv"  style="font-weight:bold;">ออกใบแจ้งหนี้ประจำเดือน</a>
               <a class="collapse-item" href="/advanceinvoice" style="font-weight:bold;">ออกใบแจ้งหนี้ล่วงหน้า</a>
               <a class="collapse-item" href="/getinvoicelist" style="font-weight:bold;">ดูรายการหนี้คงค้าง</a>
               <a class="collapse-item" href="/getallinvoice" style="font-weight:bold;">พิมพ์ใบแจ้งหนี้ทั้งหมด</a>
@@ -49,7 +49,7 @@
               <a class="collapse-item" href="/issuereceipt" style="font-weight:bold;">ออกใบเสร็จรับเงิน</a>
               <a class="collapse-item" href="/oldcommonfee" style="font-weight:bold;">ออกใบเสร็จย้อนหลัง</a>
               <a class="collapse-item" href="/getreceiptlist" style="font-weight:bold;">ดูใบเสร็จรับเงินย้อนหลัง</a>
-              <a class="collapse-item" href="/getallreceiptlist" style="font-weight:bold;">ดูใบเสร็จรับเงินย้อนหลังทั้งหมด</a>
+              <a class="collapse-item" href="/getallreceiptlist" style="font-weight:bold;">ดูใบเสร็จย้อนหลังทั้งหมด</a>
               <a class="collapse-item" href="/getvoidreceipt" style="font-weight:bold;">ดูใบเสร็จรับเงินที่ยกเลิก</a>
             </div>
           </div>
@@ -109,6 +109,7 @@
         <h6 class="collapse-header">ข้อมูลลูกบ้าน:</h6>
         <a class="collapse-item" href="/gethouselist">ข้อมูลลูกบ้าน</a>
         <a class="collapse-item" href="/getcarlist">ข้อมูลทะเบียนรถ</a>
+        <a class="collapse-item" href="/getcommentlist">กล่องรับข้อเสนอแนะ</a>
        
         <!-- <a class="collapse-item" href="forgot-password.ejs">Forgot Password</a> -->
         <!-- <div class="collapse-divider"></div>
@@ -228,7 +229,7 @@
               <!-- Nav Item - Alerts -->
               <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-dollar-sign" style="margin-right: 15px;"></i>
+                  <i class="fas fa-dollar-sign text-primary" style="margin-right: 15px;"></i>
                   <!-- Counter - Alerts -->
                   <span id="todayslip" class="badge badge-danger badge-counter" style="font-size: medium"></span>
                 </a>
@@ -253,7 +254,7 @@
               </li>
               <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fas fa-bell fa-fw" style="margin-right: 15px;"></i>
+                  <i class="fas fa-bell fa-fw text-primary" style="margin-right: 15px;"></i>
                   <!-- Counter - Alerts -->
                   <span id="todayalert" class="badge badge-danger badge-counter" style="font-size: medium"></span>
                 </a>
@@ -292,7 +293,7 @@
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                   <a class="dropdown-item" href="#">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                    ข้อมูลส่วนตัว
+                    เปลี่ยน Password
                   </a>
                   <!-- <a class="dropdown-item" href="#">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -319,15 +320,15 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">ยืนยันที่จะออกแจ้งหนี้ของเดือนนี้?</h5>
+          <h5 class="modal-title text-danger" id="exampleModalLabel">ใบแจ้งหนี้จะออกผ่านระบบ ทุกวันที่ 5 ของทุกเดือน <br>ยืนยันที่จะออกแจ้งหนี้ของเดือนนี้?</h5>
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         
         <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">ยกเลิก</button>
-          <a class="btn btn-primary text-white" href="/create1moinv">ยืนยัน</a>
+          <button class="btn btn-secondary " type="button" data-dismiss="modal">ยกเลิก</button>
+          <a class="btn btn-danger text-white" href="/create1moinv">ยืนยัน</a>
         </div>
       </div>
     </div>
