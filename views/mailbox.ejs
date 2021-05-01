@@ -78,12 +78,12 @@
                       <td class="body-item mbr-fonts-style display-7 align-center" style="width: 7%;text-align: center;">
                         <a class=".btn-circle" type="button" style="color: blue;"  onclick="showSlip('<%= slip.image_name %>','<%= slip.memo %>')">ดูรูป</a></td>
                         <% if (slip.status == "ได้รับสลิปแล้ว") {%>
-                      <td class="body-item mbr-fonts-style display-7" style="text-align: center;width: 12%;"><button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color: orange;" id=button_<%= slip.id %>  data-toggle="modal" data-target="#updateStatus1" onclick=updateStatus(<%= slip.id %>) ><%= slip.status %></button></td>
+                      <td class="body-item mbr-fonts-style display-7" style="text-align: center;width: 12%;"><button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color: orange;" id="button_<%= slip.id %>"  data-toggle="modal" data-target="#updateStatus1" onclick=updateStatus(<%= slip.id %>) ><%= slip.status %></button></td>
                       <% } else if (slip.status == "ส่ง slip แล้ว")  { %>
-                        <td class="body-item mbr-fonts-style display-7" style="text-align: center;width: 12%;"><button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color: red;" id=button1_<%= slip.id %>  data-toggle="modal" data-target="#updateStatus" onclick=updateStatus(<%= slip.id %>) ><%= slip.status %></button></td>
+                        <td class="body-item mbr-fonts-style display-7" style="text-align: center;width: 12%;"><button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color: red;" id="button1_<%= slip.id %>"  data-toggle="modal" data-target="#updateStatus" onclick=updateStatus(<%= slip.id %>) ><%= slip.status %></button></td>
                        
                         <% } else { %>
-                          <td class="body-item mbr-fonts-style display-7" style="text-align: center;width: 12%;"><button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color:#3c9148 ;" id=button2_<%= slip.id %>   ><%= slip.status %></button></td>
+                          <td class="body-item mbr-fonts-style display-7" style="text-align: center;width: 12%;"><button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color:#3c9148 ;" id="button2_<%= slip.id %>"><%= slip.status %></button></td>
                        
                           <% } %>
                           <td class="body-item mbr-fonts-style display-7" style="text-align: center;">
@@ -226,6 +226,16 @@
 }
 </script>
 
+<script>
+  function updateStatus(slipId) {
+  
+      document.getElementById("slip_id").value = slipId;
+      document.getElementById("slip_id1").value = slipId;
+      
+     // document.getElementById("button_"+slipId).style.color = "green";
+  }
+  
+  </script>
 
   <!-- Bootstrap core JavaScript-->
   <script src="assets/vendor/jquery/jquery.min.js"></script>

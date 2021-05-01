@@ -45,7 +45,7 @@ module.exports = {
         //custid1= result[0].emp_id;
     res.render('mainpage.ejs', {
       title: "iDesign2020"
-      ,message: '',count1:result[0].count,role1:'',adminname:'',empname:empname,token1:token,villagename:'',fullname:'',
+      ,message: '',count1:result[0].count,role1:'',adminname:'',empname:empname,token1:token,villagename:'',fullname:'',villageid:'',
     });
   };
 
@@ -536,26 +536,27 @@ memberpage: function(req, res){
             
     res.render('advanceinvoice.ejs', {
       title: "Issue Invoice in Advance"
-      ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',houseno:'',carqty:0 ,periodid:'',commonfee:'',parkfee:''
+      ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',houseno:'',carqty:0 ,periodid:'',commonfee:'',parkfee:'',houseid:'',villageid:'',
   });
   },
   getownername: function(req, res){
     let houseid = req.params.house_no;
+    let villageid = req.params.village_id;
     //console.log(houseid);
-    let getownername1 = "SELECT *  FROM `house_info` WHERE house_no = '104/" + houseid + "'";
+    let getownername1 = "SELECT *  FROM `house_info` WHERE house_no = '104/" + houseid + "' AND village_id =" + villageid;
  // console.log(getownername1);
     db.query(getownername1, (err, result) => {
       //console.log(result);
         if (err || result == "") {
             res.render('advanceinvoice.ejs', {
                 title: "Issue Invoice in Advance"
-                ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',carqty:0,houseno:'104/'+ houseid,periodid:'',commonfee:'',parkfee:''
+                ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',carqty:0,houseno:'104/'+ houseid,periodid:'',commonfee:'',parkfee:'',houseid:'',
               })
         } else {
             
     res.render('advanceinvoice.ejs', {
       title: "Issue Invoice in Advance"
-      ,message: '',ownername:result[0].owner_name,carqty:result[0].parking_qty,houseno:'104/'+ houseid,periodid:result[0].invoice_period,commonfee:result[0].common_fee,parkfee:result[0].parking_fee
+      ,message: '',ownername:result[0].owner_name,carqty:result[0].parking_qty,houseno:'104/'+ houseid,periodid:result[0].invoice_period,commonfee:result[0].common_fee,parkfee:result[0].parking_fee,houseid:result[0].id,
     })
 }
   });
@@ -613,14 +614,21 @@ memberpage: function(req, res){
   });
   },
   createadvanceinvoice: function(req, res){
+    let villageid = req.body.village_id;
     let houseid = req.body.house_no;
     let invdate = req.body.inv_date;
     let periodid = req.body.period_id;
-    let commonfee = req.body.common_fee;
+    let commonfee = Number(req.body.common_fee);
     let parkfee = req.body.parking_fee;
     let advmonth = Number(req.body.adv_month);
     let remark = req.body.remark;
-
+    let discount = Number(req.body.discount);
+    let other = Number(req.body.o_discount);
+    if (discount == 100){  
+      commonfee = other;
+  } else {
+    commonfee = Math.floor(commonfee*(1-discount));
+  }
     var today = new Date();
     var c_date = today.getDate();
     var c_month = today.getMonth()+1;
@@ -668,13 +676,13 @@ memberpage: function(req, res){
 
                         }
                         
-                        let createinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ('" + invoiceno +"-1', '" + houseid + "' , 'ค่าส่วนกลาง', '"+ newperiod + "',"+ commonfee + ",'"+ thismonth1 + "' )";
+                        let createinvoice= "INSERT INTO `invoice_info` (`village_id`,`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES (" + villageid + ",'" + invoiceno +"-1', '" + houseid + "' , 'ค่าส่วนกลาง', '"+ newperiod + "',"+ commonfee + ",'"+ thismonth1 + "' )";
                         //console.log(createinvoice);
                    
                        let updateinvoiceperiod = "UPDATE `house_info` SET `invoice_period`= "+ newperiod + " WHERE  `house_no`='"+ houseid + "'";
                       //result1[i].parking_qty;
                       if (parkfee >0 ){
-                        let createparkinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ('" + invoiceno +"-2', '" + houseid + "' , 'ค่าจอดรถ', '"+ newperiod + "',"+ parkfee + ",'"+ thismonth1 +  "' )";
+                        let createparkinvoice= "INSERT INTO `invoice_info` (`village_id`,`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ("+ villageid + ",'" + invoiceno +"-2', '" + houseid + "' , 'ค่าจอดรถ', '"+ newperiod + "',"+ parkfee + ",'"+ thismonth1 +  "' )";
                         //console.log(createinvoice);
                         db.query(createparkinvoice, (err, result4) => {
                             if (err) {
@@ -1188,7 +1196,7 @@ invoiceform: function(req, res){
         
         res.render('invoiceform.ejs', {
           title: "invoiceform"
-          ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount:'',invoicedate:'',ownername:'',houseno:'',invoicelist:'',oldamount:'',laneno:''
+          ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount:'',invoicedate:'',ownername:'',houseno:'',invoicelist:'',oldamount:'',laneno:'',villageid:'',
       });
         
       } else {
@@ -1199,7 +1207,7 @@ invoiceform: function(req, res){
            // console.log(getpendinginvoice);
             res.render('invoiceform.ejs', {
               title: "invoiceform"
-              ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount1:result[0].remain,invoicedate:'',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist:'',oldamount:result[0].remain1.toLocaleString()
+              ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount1:result[0].remain,invoicedate:'',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist:'',oldamount:result[0].remain1.toLocaleString(),villageid:result[0].village_id,
           });
           } else {
           db.query(getpendinginvoice, (err, result1) => {
@@ -1227,7 +1235,7 @@ invoiceform: function(req, res){
  var invoicedate1 = invoicedate.getDate() +" " +month[invoicedate.getMonth()] + " " + c_year1.toString() ;
   res.render('invoiceform.ejs', {
     title: "invoiceform"
-    ,message: '',ownername:result[0].owner_name,oldamount1:result[0].remain,laneno:result[0].lane_no,oldamount:result[0].remain1,houseno:'104/'+ houseid,invoicelist: result1,periodid:result[0].invoice_period,invoiceno:result1[0].invoice_no,invoicedate: invoicedate1,totalamount:result2[0].t_amount.toLocaleString()
+    ,message: '',ownername:result[0].owner_name,oldamount1:result[0].remain,laneno:result[0].lane_no,oldamount:result[0].remain1,houseno:'104/'+ houseid,invoicelist: result1,periodid:result[0].invoice_period,invoiceno:result1[0].invoice_no,invoicedate: invoicedate1,totalamount:result2[0].t_amount.toLocaleString(),villageid:result[0].village_id,
 });
               }
             });
@@ -1973,7 +1981,7 @@ checkadmin: function(req, res){
             else {
     res.render('mainpage.ejs', {
       title: "DoSmartVill"
-      ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,empname:empname,token1:token,villagename:result[0].village_name,
+      ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,empname:empname,token1:token,villagename:result[0].village_name,villageid:result[0].village_id,
     });
     //console.log(result[0].role);
   };
@@ -2447,6 +2455,41 @@ getcommentlist: function(req, res){
           title: "See slip list"
           ,message: '',commentlist:result
         })
+}
+});
+},
+
+clearadvanceinv : function(req, res){
+  let villageid = req.body.village_id;
+  let houseno = req.body.house_no;
+  var today = new Date();
+  
+  var c_month = today.getMonth();
+  var c_year = today.getFullYear();
+
+  let getperiod = "SELECT period_id,period_mo,status  FROM `invoice_period` WHERE MONTH(period_mo) ='" + c_month + "' AND YEAR(period_mo) ='"+ c_year +"'";
+  
+ //console.log(getperiod);
+db.query(getperiod, (err, result1) => {
+  if (err) {
+    return res.status(500).send(err);
+  } else {
+    let deleteadvinv = "DELETE FROM `invoice_info` WHERE village_id =" + villageid + " AND house_no ='" + houseno +"' AND invoice_period >  "+ result1[0].period_id ;
+   // console.log(deleteadvinv);
+  db.query(deleteadvinv, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        let updateperiod = "UPDATE house_info SET  invoice_period =  "+ result1[0].period_id + " WHERE village_id =" + villageid + " AND house_no ='" + houseno + "'";
+        db.query(updateperiod, (err, result2) => {
+          if (err) {
+            return res.status(500).send(err);
+          } else {
+        res.redirect('/invoiceform/'+houseno);
+}
+});
+}
+});
 }
 });
 },

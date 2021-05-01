@@ -40,7 +40,7 @@ const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expens
 const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./");
 const {receiptoldpayment,contact,contact1,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1,getvotelist} = require("./");
 const {getcontactlist,addcontact,updatecontact,deletecontact,getnewslist,addnews,updatenews,deletenews,getalert,getcarlist,updatecar,cancelreceipt,getvoidreceipt,changepwd,newpassword} = require("./")
-const {comment,getcommentlist,sendcomment} = require("./")
+const {comment,getcommentlist,sendcomment,clearadvanceinv} = require("./")
 
 app.get('/', index);
 app.get('/getreceiptlist', getreceiptlist);
@@ -48,7 +48,7 @@ app.get('/issuereceipt', issuereceipt);
 app.get('/receiptform/104/:house_no/:receiptno', receiptform);
 app.get('/getrcpowner/104/:house_no',getrcpowner);
 app.get('/advanceinvoice', advanceinvoice);
-app.get('/getownername/104/:house_no', getownername);
+app.get('/getownername/:village_id/104/:house_no', getownername);
 app.get('/getinvoicelist', getinvoicelist);
 app.get('/invoiceform/104/:house_no', invoiceform);
 app.get('/getsliplist', getsliplist);
@@ -111,7 +111,7 @@ app.post('/newpassword',newpassword);
 app.get('/comment', comment);
 app.post('/sendcomment',sendcomment); 
 app.get('/getcommentlist', getcommentlist);
-
+app.post('/clearadvanceinv',clearadvanceinv);
 
 //const PORT1 = process.env.PORT || 3000;
 //http.listen(app.get('port'));

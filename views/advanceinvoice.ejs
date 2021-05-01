@@ -83,7 +83,8 @@
                                   <div class="col-md-4  form-group" data-for="name">
                                       <label for="name-form1-h" class="form-control-label mbr-fonts-style display-7">บ้านเลขที่</label>
                                        <input type="้house_no" name="house_no" data-form-field="Name" required="required" class="form-control display-7" id="house_no" value="<%= houseno %>" >
-                                      
+                                       <!-- <input type="้hidden" name="house_id" data-form-field="Name" required="required" class="form-control display-7" id="house_id" value="<%= houseid %>" >
+                                       -->
                                           <!-- <select class="form-control display-7" name="name" data-form-field="Name" id="sel1">
                                           <option>ค่ารักษาความปลอดภัย</option>
                                           <option>ค่าจ้างพนักงาน</option>
@@ -108,6 +109,7 @@
                                       <input type="hidden" name="period_id" data-form-field="Phone" class="form-control display-7" id="phone-form1-h" value="<%= periodid %>">
                                       <input type="hidden" name="common_fee" data-form-field="Phone" class="form-control display-7" id="phone-form1-h" value="<%= commonfee %>">
                                       <input type="hidden" name="parking_fee" data-form-field="Phone" class="form-control display-7" id="phone-form1-h" value="<%= parkfee %>">
+                                      <input type="hidden" name="village_id" data-form-field="Phone" class="form-control display-7" id="village_id" >
                                  
                                   </div>
                                   <div data-for="number" class="col-md-3  form-group">
@@ -163,9 +165,11 @@
                                       <label for="discount5">5%</label><br>
                                       <input type="radio" id="discount10" name="discount" value="0.1">
                                       <label for="discount10">10%</label><br>
-                                      <input type="radio" id="other" name="discount"  value="other">
-                                    
-                                      <label for="other">อื่นๆ โปรดระบุ( บาท )</label>
+                                      
+                                      <input type="radio" id="other" name="discount"  value="100">
+                                      <label for="other">อื่นๆ โปรดระบุ </label>
+                           
+                                      <label for="other">ค่าส่วนกลางต่อเดือนหลังหักส่วนลด(บาท)</label>
                                       <input type="number" step="0.25" name="o_discount" readonly  data-form-field="Phone" class="form-control display-7 align-center" id="other_disc" style="text-align: center;">
                                      <br>
                                       </div>
@@ -291,12 +295,14 @@ function showbox(){
         document.getElementById("other_disc").readOnly = true; 
       }
 }
-      
-    
+var villageid = localStorage.getItem("villageid") ;
+document.getElementById("village_id").value = villageid;
     function getonwername()
             {
+             
                 var house_no= document.getElementById("house_no").value;
-    window.location.href="/getownername/" + house_no;
+                
+    window.location.href="/getownername/"+ villageid + "/" + house_no;
     //console.log(storeid);
             }
     </script>

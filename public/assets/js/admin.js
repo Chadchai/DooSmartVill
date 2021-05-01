@@ -6,6 +6,7 @@ var token1 = localStorage.getItem("token1");
   var fullname1 = localStorage.getItem("fullname");
   var role = localStorage.getItem("role");
 var villagename = localStorage.getItem("villagename") ;
+var villageid = localStorage.getItem("villageid") ;
 
 document.getElementById("villagename").innerHTML = villagename;
 document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+ villagename;
@@ -19,6 +20,7 @@ document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+
        var empname2= document.getElementById("emp_name1").value;  
        var role2= document.getElementById("role").value; 
        villagename= document.getElementById("villagename").value; 
+       villageid= document.getElementById("villageid").value; 
        var fullname = document.getElementById("fullname").value; 
        if (token2 !== null && token2 !== '')  {
           
@@ -27,6 +29,7 @@ document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+
         localStorage.setItem("role", role2);
         localStorage.setItem("fullname", fullname);
         localStorage.setItem("villagename", villagename);
+        localStorage.setItem("villageid", villageid);
         window.location.href="/";
 
 
