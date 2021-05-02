@@ -22,28 +22,36 @@
   
   <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
   <style type="text/css">
-  #content {
-    display: table;
+  .print:last-child {
+     page-break-after: auto;
 }
-      #pageFooter {
-          display: table-footer-group;
-      }
-
-      #pageFooter:after {
-          counter-increment: page;
-          content: counter(page);
-      }
+ html, body {
+    height:99%; 
+    margin: 0 !important; 
+    padding: 0 !important;
+  
+  
+    page-break-after: avoid;
+  }
    
       @media print
       {
           #non-printable { display: none; }
-          #printable { display: block;background-color: white; }
-          /* #printable1{ display: block; } */
+          .non-printable1 { display: none; }
+          .footer1 {display:none;}
+          #printable { display: block;}
+      
       }
       @page {
-          size: A4;
-          margin: 0;
+               
+                margin: 10px;
+            }
+    
+      .item{
+        color:black;
+        font-size: large;
       }
+      
       </style>       
 </head>
 
@@ -67,7 +75,7 @@
     <%- include('partials/adminheader.ejs') %>
 
         <!-- Begin Page Content -->
-        <div class="container-fluid" style="min-height:75%;">
+        <div class="container-fluid" >
 
           <!-- Page Heading -->
           <div id="non-printable">
@@ -102,9 +110,10 @@
                         <br>
                         
                         <% } %>
-                <div id="printable" style="width:98%;background-color: white;color: black;">
-                  <div class="invoice-box" style="color: black;" >
-                    <table cellpadding="0" cellspacing="0" style="border-style: solid;border-color: black;padding: 15px;min-height: 170mm;">
+                <div id="printable" style="width:96%;background-color: white;color: black;margin-bottom: 20px;">
+                  <div class="invoice-box" style="color: black;"  >
+                    
+                    <table cellpadding="0" cellspacing="0" style="border-style: solid;border-color: black;padding: 0px;height: 190mm;">
                         <tr class="top">
                             <td colspan="2">
                           
@@ -116,7 +125,7 @@
                                             </td>
                                     
                                           
-                                        <td style="margin-top: -20px;">
+                                        <td class="item" style="margin-top: -20px;color:black">
                                             เลขที่ใบแจ้งหนี้: INV<%= house.invoice_no %>
                                             <br> วันที่ออก: <%= house.invoicedate %>
                                             <br>  นิติบุคคลหมู่บ้านไอน์ดีไซน์ บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">171-272623-1 </a> 
@@ -142,10 +151,10 @@
                         </tr>
                         
                         <tr class="information "  >
-                            <td colspan="2 " class="align-right" style="height:20px;" >
+                            <td  colspan="2 " class="align-right" style="height:30px;padding-top: 0px;" >
                                 <table>
                                     <tr>
-                                        <td>
+                                        <td class="item">
                                             
                                          <a style="font-weight: bold;"> <%= house.owner_name %><br></a>
                                             บ้านเลขที่ <a style="font-weight: bold;font-size: large;"><%= house.house_no %></a> ซอยที่ <a style="font-weight: bold;font-size: large;"><%= house.lane_no %></a><br>
@@ -169,7 +178,7 @@
                             <% invoicelist.forEach((invoice, index1) => { %>
                         <% if (house.house_no == invoice.house_no) {%>
                             <% if (invoice.START !== invoice.END) {%>
-                            <tr class="item" style="font-size: medium;">
+                            <tr class="item" style="font-size: large;">
                            
                                 <td>
                                   <%= invoice.invoice_type %> เดือน <%= invoice.START %> - <%= invoice.END %>  ( <%= invoice.amount1 %> บาท/เดือน  )
@@ -180,7 +189,7 @@
                                    
                             </tr>
                             <% } else {%>
-                                <tr class="item" style="font-size: medium;">
+                                <tr class="item" style="font-size: large;">
                            
                                     <td>
                                       <%= invoice.invoice_type %> เดือน <%= invoice.START %>  ( <%= invoice.amount1 %> บาท/เดือน  )
@@ -194,7 +203,7 @@
                             <% invoicelist1.forEach((invoice1, index2) => { %>
                             <% if (invoice.house_no == invoice1.house_no) {%>
                                 <% if (invoice1.START !== invoice1.END) {%>
-                                <tr class="item" style="font-size: medium;">
+                                <tr class="item" style="font-size: large;">
                                
                                     <td>
                                       <%= invoice1.invoice_type %> เดือน <%= invoice1.START %> - <%= invoice1.END %>  ( <%= invoice1.amount1 %> บาท/เดือน  )
@@ -206,7 +215,7 @@
                                        
                                 </tr>
                                 <% } else {%>
-                                    <tr class="item" style="font-size: medium;">
+                                    <tr class="item" style="font-size: large;">
                                
                                         <td>
                                           <%= invoice1.invoice_type %> เดือน <%= invoice1.START %> ( <%= invoice1.amount1 %> บาท/เดือน  )
@@ -226,7 +235,7 @@
                         <% } %>
         
                         <% }) %>
-                        <tr class="item" style="font-size: medium;">
+                        <tr class="item" style="font-size: large;">
                             <% if (house.remain1  > 0) {%>
                                 <td >
                                     ยอดเงินชำระไว้เกินยกมา:
@@ -250,7 +259,7 @@
                                         </td>
                                         <% } %>
                         </tr>
-                        <tr class="total " style="font-size: large;">
+                        <tr class="total item" style="font-size: large;">
                           
                             <td colspan="2" style="text-align: right;">
                                 รวมที่ต้องชำระทั้งสิ้น: <%= house.t_amount %> บาท
@@ -279,13 +288,13 @@
                         
                         <tr class="information " >
                           <td colspan="2 ">
-                              <table style="margin-top:-20px">
+                              <table style="margin-top:0px">
                                   <tr>
         
                                     <td>
                                  
                                    </td>
-                                      <td>
+                                      <td class="item">
                                         
                                          ผู้ออกใบแจ้งหนี้<br>
                                          <br>
@@ -296,28 +305,35 @@
                                       
                                   </tr>
                               </table>
-                              <p class="align-center" style="font-size:medium;margin-top: -10px;text-align: center;"> ******ใบแจ้งหนี้นี้อยู่ในระหว่างการพัฒนาระบบ หากพบข้อมูลไม่ถูกต้องให้ติดต่อนิติบุคคลในเวลาทำการ*******</p> 
+                              <p class="align-center" style="font-size:medium;margin-top: 20px;text-align: center;"> ******หากพบข้อมูลไม่ถูกต้องให้ติดต่อนิติบุคคลในเวลาทำการ ขออภัยหากท่านชำระเงินก่อนได้ใบแจ้งชำระเงินนี้*******</p> 
                      
                           </td>
                       </tr>
                     </table>
         
                 </div>
-            </div>
-            
+              </div>
+          
             <% }) %>
                    
                         
             <% } %>
          
-                     
+          </div>
       <!-- End of Main Content -->
 
        <!-- Footer -->
-       <%- include('partials/adminfooter.ejs') %>
+   <!-- Footer -->
+ <footer id="footer1"  class=" footer1 sticky-footer bg-white">
+  <div class="container my-auto">
+    <div class="copyright text-center my-auto">
+      <span>Copyright &copy; DooSmartVill 2020</span>
+    </div>
+  </div>
+</footer>
        <!-- End of Footer -->
 
-    </div>
+    
     <!-- End of Content Wrapper -->
 
   </div>
@@ -328,24 +344,7 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-          <a class="btn btn-primary" href="login.ejs">Logout</a>
-        </div>
-      </div>
-    </div>
-  </div>
+
 
   <!-- Bootstrap core JavaScript-->
   <script src="assets/vendor/jquery/jquery.min.js"></script>

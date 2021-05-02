@@ -35,12 +35,12 @@ app.set('views', __dirname + '/views/'); // set express to look in this folder t
 //แต่ถ้าไม่ได้กำหนดไว้ เราจะใช้ค่า 8080 แทน
 const PORT = process.env.PORT || 7000
 
-const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,getsliplist,updateslipstatus,getinvoicesform} = require("./");
+const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,invoiceform1,getsliplist,updateslipstatus,getinvoicesform} = require("./");
 const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./");
 const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./");
 const {receiptoldpayment,contact,contact1,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1,getvotelist} = require("./");
 const {getcontactlist,addcontact,updatecontact,deletecontact,getnewslist,addnews,updatenews,deletenews,getalert,getcarlist,updatecar,cancelreceipt,getvoidreceipt,changepwd,newpassword} = require("./")
-const {comment,getcommentlist,sendcomment,clearadvanceinv} = require("./")
+const {comment,getcommentlist,sendcomment,clearadvanceinv,getnewslist1,addpettycash} = require("./")
 
 app.get('/', index);
 app.get('/getreceiptlist', getreceiptlist);
@@ -51,6 +51,7 @@ app.get('/advanceinvoice', advanceinvoice);
 app.get('/getownername/:village_id/104/:house_no', getownername);
 app.get('/getinvoicelist', getinvoicelist);
 app.get('/invoiceform/104/:house_no', invoiceform);
+app.get('/invoiceform1/104/:house_no', invoiceform1);
 app.get('/getsliplist', getsliplist);
 app.post('/updateslipstatus',updateslipstatus);
 app.get('/getallinvoice', getinvoicesform);
@@ -77,7 +78,7 @@ app.post('/saveincome',saveincome);
 app.post('/saveslip',saveSlip);
 app.post('/checkadmin',checkadmin);
 app.post('/receiptpayment',receiptpayment); 
-app.get('/create1moinv', createinvoice1month);
+app.post('/create1moinv', createinvoice1month);
 app.get('/getrcp1/104/:house_no',getrcpowner1);
 app.post('/receiptoldpayment',receiptoldpayment);
 app.get('/contact', contact);
@@ -111,8 +112,9 @@ app.post('/newpassword',newpassword);
 app.get('/comment', comment);
 app.post('/sendcomment',sendcomment); 
 app.get('/getcommentlist', getcommentlist);
-app.post('/clearadvanceinv',clearadvanceinv);
-
+app.post('/clearadvanceinv',clearadvanceinv); addpettycash
+app.get('/getnewslist1', getnewslist1);
+app.post('/addpettycash',addpettycash);
 //const PORT1 = process.env.PORT || 3000;
 //http.listen(app.get('port'));
 app.listen(PORT, () => {

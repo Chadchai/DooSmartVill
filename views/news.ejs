@@ -33,13 +33,13 @@
     <div class="container">
         <h2 class="mbr-section-title pb-3 align-center mbr-fonts-style display-2">
             ข่าวประชาสัมพันธ์</h2>
-            <div class="col-md-12">
-        <div class="media-container-row pt-5 ">
+            <div class="col-md-12" style="padding-bottom: 0px 0px 5px 5px;">
+        <div class="media-container-row pt-1 ">
             <% if (newslist.length > 0) {%> 
                 <% newslist.forEach((news, index) => { %>
-            <div class="card p-3 col-12 col-md-6 col-lg-4">
+            <div class="card p-1 col-12 col-md-6 col-lg-4" style="padding:0px 0px 5px 15px;">
                 <div class="card-wrapper " >
-                    <div class="card-img" style="border-radius:25px 25px 0px 0px;">
+                    <div class="card-img" style="border-radius:10px 10px 0px 0px;">
                         <div class="mbr-overlay"></div>
                         <div class="mbr-section-btn text-center">
                             <!-- <a href="/member" class="btn btn-primary display-4">Learn More</a> -->
@@ -47,7 +47,7 @@
                         <% if (news.image_name == '' || news.image_name == null ) { %>
                             <img src="assets/images/background1.jpg" style="max-width:100%;height:200px" alt="Mobirise">
                              <% } else { %>
-                              <img src="https://res.cloudinary.com/hiuscvdu2/image/upload/v159281582/<%= news.image_name %>" style="max-width:100%;height:200px" alt="Mobirise">
+                              <img src="<%= news.image_name %>" style="max-width:100%;height:200px" alt="Mobirise">
                     
                             
                             <% } %>    
@@ -58,8 +58,7 @@
                         </h4>
                         <p class="mbr-text mbr-fonts-style align-left display-4">
                             <p id="details_<%= news.news_id %>" class="shrinkable"><%= news.news_details %></p>
-                     <p id="details1_<%= news.news_id %>" style="display:none"><%= news.news_details %></p>
-                        
+                       
                         </p>
                     </div>
                 </div>
@@ -109,25 +108,29 @@ function showLess(id){
     document.getElementById(id+'LessLink').className='hidden';
 }
 
-var len = 100;
-var shrinkables = document.getElementsByClassName('shrinkable');
-if (shrinkables.length > 0) {
 
-    for (var i = 0; i < shrinkables.length; i++){
-        var fullText = shrinkables[i].innerHTML;
-        console.log(fullText);
-        if(fullText.length > len){
-            // var trunc = fullText.substring(0, len).replace(/\w+$/, '');
-            var trunc = fullText.substring(0, len);
-            var remainder = "";
-            var id = shrinkables[i].id;
-           
-            remainder = fullText.substring(len, fullText.length);
-            shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" class="text-primary" href="#!" onclick="showMore(\''+ id + '\');">ดูเพิ่มเติม</a><a class="hidden text-primary" href="#!" id="' + id + 'LessLink" onclick="showLess(\''+ id + '\');">ย่อ</a>';
-            //console.log(shrinkables[i].innerHTML);
-          }
-    }
-}
 </script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    var len = 100;
+    axios
+  .get("/getnewslist1")
+  .then(response => {
+    console.log("ok");
+    
+    var newslist = response.data;
+    console.log(newslist);
+    for (i = 0; i < newslist.length; i++) {
+      document.getElementById("details_"+newslist[i].news_id).innerHTML = newslist[i].news_details ;
+      
+    }
+
+  
+})
+  .catch(err => {
+    console.error(err);
+  })
+
+  </script>
 </body>
 </html>

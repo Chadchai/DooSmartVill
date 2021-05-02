@@ -186,7 +186,7 @@ memberpage: function(req, res){
   });
   },
   createinvoice1month: function(req, res){
-
+var villageid = req.body.village_id;
     var today = new Date();
     var c_date = today.getDate();
     var c_month = today.getMonth()+1;
@@ -217,8 +217,8 @@ memberpage: function(req, res){
     } 
     else {
         var periodid = result[0].period_id;
-        let gethouselist = "SELECT * FROM `house_info` WHERE invoice_period < " + result[0].period_id + " OR invoice_period IS NULL " ;
-        //console.log(gethouselist);
+        let gethouselist = "SELECT * FROM `house_info` WHERE invoice_period < " + result[0].period_id + " OR invoice_period IS NULL AND village_id =" + villageid ;
+        console.log(gethouselist);
         db.query(gethouselist, (err, result1) => {
             if (err) {
                 return res.status(500).send(err);
@@ -230,12 +230,12 @@ memberpage: function(req, res){
                     for (i=0;i<result1.length;i++) {
                         invoiceno = c_year.toString() + c_month.toString() + c_date.toString() + i.toString();
                         //console.log(invoiceno);
-                        let createinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ('" + invoiceno +"-1', '" + result1[i].house_no + "' , 'ค่าส่วนกลาง', '"+ periodid + "',"+ result1[i].common_fee + ",'"+ thismonth + "' )";
+                        let createinvoice= "INSERT INTO `invoice_info` (`village_id`,`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ("+ villageid + ",'" + invoiceno +"-1', '" + result1[i].house_no + "' , 'ค่าส่วนกลาง', '"+ periodid + "',"+ result1[i].common_fee + ",'"+ thismonth + "' )";
                         //console.log(createinvoice);
-                       let updateinvoiceperiod = "UPDATE `house_info` SET `invoice_period`= "+ periodid + " WHERE  `house_no`='"+ result1[i].house_no + "'";
+                       let updateinvoiceperiod = "UPDATE `house_info` SET `invoice_period`= "+ periodid + " WHERE  `house_no`='"+ result1[i].house_no + "' AND village_id ="+ villageid;
                       //result1[i].parking_qty;
                       if (result1[i].parking_qty >0 ){
-                        let createparkinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ('" + invoiceno +"-2', '" + result1[i].house_no + "' , 'ค่าจอดรถ', '"+ periodid + "',"+ result1[i].parking_fee + ",'"+ thismonth +  "' )";
+                        let createparkinvoice= "INSERT INTO `invoice_info` (`village_id`,`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES ("+ villageid + ",'" + invoiceno +"-2', '" + result1[i].house_no + "' , 'ค่าจอดรถ', '"+ periodid + "',"+ result1[i].parking_fee + ",'"+ thismonth +  "' )";
                         //console.log(createinvoice);
                         db.query(createparkinvoice, (err, result4) => {
                             if (err) {
@@ -331,7 +331,7 @@ memberpage: function(req, res){
   },
   getinvoicelist: function(req, res){
     
-    let getinvoicelist = "SELECT invoice_info.house_no,invoice_info.id,SUM(invoice_info.amount) AS t_amount,invoice_info.invoice_month AS remark,invoice_info.payment_type,house_info.owner_name " +  
+    let getinvoicelist = "SELECT invoice_info.house_no,invoice_info.id,ROUND(SUM(invoice_info.amount),2) AS t_amount,invoice_info.invoice_month AS remark,invoice_info.payment_type,house_info.owner_name " +  
     "FROM `invoice_info` " +
     "LEFT JOIN `house_info` " + 
     "ON invoice_info.house_no = house_info.house_no " +
@@ -618,16 +618,16 @@ memberpage: function(req, res){
     let houseid = req.body.house_no;
     let invdate = req.body.inv_date;
     let periodid = req.body.period_id;
-    let commonfee = Number(req.body.common_fee);
+    let commonfee1 = Number(req.body.common_fee);
     let parkfee = req.body.parking_fee;
     let advmonth = Number(req.body.adv_month);
     let remark = req.body.remark;
     let discount = Number(req.body.discount);
     let other = Number(req.body.o_discount);
     if (discount == 100){  
-      commonfee = other;
+      commonfee1 = other;
   } else {
-    commonfee = Math.floor(commonfee*(1-discount));
+    commonfee1 = Number(commonfee1*(1-discount)).toFixed(2);
   }
     var today = new Date();
     var c_date = today.getDate();
@@ -676,7 +676,7 @@ memberpage: function(req, res){
 
                         }
                         
-                        let createinvoice= "INSERT INTO `invoice_info` (`village_id`,`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES (" + villageid + ",'" + invoiceno +"-1', '" + houseid + "' , 'ค่าส่วนกลาง', '"+ newperiod + "',"+ commonfee + ",'"+ thismonth1 + "' )";
+                        let createinvoice= "INSERT INTO `invoice_info` (`village_id`,`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES (" + villageid + ",'" + invoiceno +"-1', '" + houseid + "' , 'ค่าส่วนกลาง', '"+ newperiod + "',"+ commonfee1 + ",'"+ thismonth1 + "' )";
                         //console.log(createinvoice);
                    
                        let updateinvoiceperiod = "UPDATE `house_info` SET `invoice_period`= "+ newperiod + " WHERE  `house_no`='"+ houseid + "'";
@@ -1196,7 +1196,7 @@ invoiceform: function(req, res){
         
         res.render('invoiceform.ejs', {
           title: "invoiceform"
-          ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount:'',invoicedate:'',ownername:'',houseno:'',invoicelist:'',oldamount:'',laneno:'',villageid:'',
+          ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount:'',invoicedate:'',ownername:'',houseno:'',invoicelist:'',oldamount:'',laneno:'',villageid:'',periodid:'',commonfee:'',
       });
         
       } else {
@@ -1207,7 +1207,7 @@ invoiceform: function(req, res){
            // console.log(getpendinginvoice);
             res.render('invoiceform.ejs', {
               title: "invoiceform"
-              ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount1:result[0].remain,invoicedate:'',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist:'',oldamount:result[0].remain1.toLocaleString(),villageid:result[0].village_id,
+              ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount1:result[0].remain,invoicedate:'',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist:'',oldamount:result[0].remain1.toLocaleString(),villageid:result[0].village_id,periodid:result[0].invoice_period,commonfee:result[0].common_fee,
           });
           } else {
           db.query(getpendinginvoice, (err, result1) => {
@@ -1235,7 +1235,72 @@ invoiceform: function(req, res){
  var invoicedate1 = invoicedate.getDate() +" " +month[invoicedate.getMonth()] + " " + c_year1.toString() ;
   res.render('invoiceform.ejs', {
     title: "invoiceform"
-    ,message: '',ownername:result[0].owner_name,oldamount1:result[0].remain,laneno:result[0].lane_no,oldamount:result[0].remain1,houseno:'104/'+ houseid,invoicelist: result1,periodid:result[0].invoice_period,invoiceno:result1[0].invoice_no,invoicedate: invoicedate1,totalamount:result2[0].t_amount.toLocaleString(),villageid:result[0].village_id,
+    ,message: '',ownername:result[0].owner_name,oldamount1:result[0].remain,laneno:result[0].lane_no,oldamount:result[0].remain1,houseno:'104/'+ houseid,invoicelist: result1,periodid:result[0].invoice_period,invoiceno:result1[0].invoice_no,invoicedate: invoicedate1,totalamount:result2[0].t_amount.toLocaleString(),villageid:result[0].village_id,periodid:result[0].invoice_period,commonfee:result[0].common_fee,
+});
+              }
+            });
+}
+})
+}
+});
+  
+},
+invoiceform1: function(req, res){
+  let houseid = req.params.house_no;
+  //console.log(houseid);
+  let getownername1 = "SELECT *, FORMAT(Abs(remain),0) AS remain1  FROM `house_info` WHERE house_no = '104/" + houseid + "'";
+  let getpendinginvoice =  "SELECT * FROM `invoice_info` WHERE house_no ='104/" + houseid + "' AND (payment_type = '' OR payment_type IS NULL) ";
+  let getsum =  "SELECT SUM(amount)-house_info.remain AS t_amount,(DATE_FORMAT(MAX(invoice_info.invoice_date),'%d %b %Y')) AS invoice_date1,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM `invoice_info` " +
+ "LEFT JOIN house_info " + 
+  "ON invoice_info.house_no = house_info.house_no "+
+  "WHERE invoice_info.house_no ='104/"+ houseid  + "' AND (invoice_info.payment_type = '' OR invoice_info.payment_type IS NULL)";
+   //console.log(getsum);
+  db.query(getownername1, (err, result) => {
+    //console.log(result.length);
+      if (err || result.length == 0 ) {
+        
+        res.render('invoiceform1.ejs', {
+          title: "invoiceform"
+          ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount:'',invoicedate:'',ownername:'',houseno:'',invoicelist:'',oldamount:'',laneno:'',villageid:'',periodid:'',commonfee:'',
+      });
+        
+      } else {
+        //console.log(result[0].remain);
+        db.query(getsum, (err, result2) => {
+          //console.log(result2);
+          if (err || result2[0].t_amount == null) {
+           // console.log(getpendinginvoice);
+            res.render('invoiceform1.ejs', {
+              title: "invoiceform"
+              ,message: 'ไม่มีค่าส่วนกลางค้างชำระ',invoiceno:'',oldamount1:result[0].remain,invoicedate:'',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist:'',oldamount:result[0].remain1.toLocaleString(),villageid:result[0].village_id,periodid:result[0].invoice_period,commonfee:result[0].common_fee,
+          });
+          } else {
+          db.query(getpendinginvoice, (err, result1) => {
+            
+              if (err || result1 == "" ) {
+          
+                return res.status(500).send(err);
+              } else {
+           var invoicedate = new Date(result2[0].invoice_date1);
+           var c_year1 = invoicedate.getFullYear()+543;
+           var month = new Array();
+           month[0] = "มกราคม";
+           month[1] = "กุมภาพันธ์";
+           month[2] = "มีนาคม";
+           month[3] = "เมษายน";
+           month[4] = "พฤษภาคม";
+           month[5] = "มิถุนายน";
+           month[6] = "กรกฎาคม";
+           month[7] = "สิงหาคม";
+           month[8] = "กันยายน";
+           month[9] = "ตุลาคม";
+           month[10] = "พฤศจิกายน";
+           month[11] = "ธันวาคม";
+
+ var invoicedate1 = invoicedate.getDate() +" " +month[invoicedate.getMonth()] + " " + c_year1.toString() ;
+  res.render('invoiceform1.ejs', {
+    title: "invoiceform"
+    ,message: '',ownername:result[0].owner_name,oldamount1:result[0].remain,laneno:result[0].lane_no,oldamount:result[0].remain1,houseno:'104/'+ houseid,invoicelist: result1,periodid:result[0].invoice_period,invoiceno:result1[0].invoice_no,invoicedate: invoicedate1,totalamount:result2[0].t_amount.toLocaleString(),villageid:result[0].village_id,periodid:result[0].invoice_period,commonfee:result[0].common_fee,
 });
               }
             });
@@ -1251,9 +1316,9 @@ receiptform: function(req, res){
  // let houseid = req.params.house_no;
   //console.log(houseid);
   let getownername1 = "SELECT *  FROM `house_info` WHERE house_no ='104/" + houseid + "'";
-  let getreceiptlist =  "SELECT *,(DATE_FORMAT(payment_date,'%d/%m/%Y')) AS transfer_date,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าส่วนกลาง' ORDER BY invoice_period";
-  let getreceiptlist1 =  "SELECT *,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
-  let getsum =  "SELECT SUM(amount) AS t_amount, SUM(actual_pay) AS t_pay,Abs(SUM(lastmonth)) AS t_lastmonth,SUM(lastmonth) AS t_lastmonth1, SUM(balance) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
+  let getreceiptlist =  "SELECT *,(DATE_FORMAT(payment_date,'%d/%m/%Y')) AS transfer_date,invoice_period,amount AS amount1,FORMAT(SUM(amount),2) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าส่วนกลาง' ORDER BY invoice_period";
+  let getreceiptlist1 =  "SELECT *,invoice_period,amount AS amount1,FORMAT(SUM(amount),2) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
+  let getsum =  "SELECT SUM(amount) AS t_amount, FORMAT(SUM(actual_pay),2) AS t_pay,Abs(SUM(lastmonth)) AS t_lastmonth,FORMAT(SUM(lastmonth),2) AS t_lastmonth1, FORMAT(SUM(balance),2) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
    //console.log(getreceiptlist);
   db.query(getownername1, (err, result) => {
     //console.log(result);
@@ -1300,6 +1365,7 @@ receiptform: function(req, res){
  var receiptdate1 = receiptdate.getDate() +" " +month[receiptdate.getMonth()] + " " + c_year1.toString() ;
   var netremain = Number(result2[0].t_pay) - Number(result2[0].t_amount);
   var totaltopay = Number(result2[0].t_amount) - Number(result2[0].t_lastmonth1);
+  totaltopay = totaltopay.toFixed(2);
 var paymenttype = result1[0].payment_type;
 if (paymenttype == null ) {
   paymenttype = result3[0].payment_type;
@@ -1334,17 +1400,15 @@ receiptform1: function(req, res){
   let receiptno1 = req.params.receiptno;
   let houseid = req.params.house_no;
  // let houseid = req.params.house_no;
-  
+  //console.log(houseid);
   let getownername1 = "SELECT *  FROM `house_info` WHERE house_no ='104/" + houseid + "'";
-  //console.log(getownername1);
-  
-  let getreceiptlist =  "SELECT *,(DATE_FORMAT(payment_date,'%d/%m/%Y')) AS transfer_date,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type <>'ค่าส่วนกลาง' AND invoice_type <>'ค่าจอดรถ' ORDER BY invoice_period";
-  //let getreceiptlist1 =  "SELECT *,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
-  let getsum =  "SELECT SUM(amount) AS t_amount, SUM(actual_pay) AS t_pay,Abs(SUM(lastmonth)) AS t_lastmonth,SUM(lastmonth) AS t_lastmonth1, SUM(balance) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
-  //console.log(getreceiptlist);
+  let getreceiptlist =  "SELECT *,(DATE_FORMAT(payment_date,'%d/%m/%Y')) AS transfer_date,invoice_period,amount AS amount1,FORMAT(SUM(amount),2) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าส่วนกลาง' ORDER BY invoice_period";
+  let getreceiptlist1 =  "SELECT *,invoice_period,amount AS amount1,FORMAT(SUM(amount),2) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
+  let getsum =  "SELECT SUM(amount) AS t_amount, FORMAT(SUM(actual_pay),2) AS t_pay,Abs(SUM(lastmonth)) AS t_lastmonth,FORMAT(SUM(lastmonth),2) AS t_lastmonth1, FORMAT(SUM(balance),2) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
+    //console.log(getreceiptlist);
   db.query(getownername1, (err, result) => {
     //console.log(result);
-      if (err ) {
+      if (err || result == "") {
         return res.status(500).send(err);
       } else {
         db.query(getsum, (err, result2) => {
@@ -1353,10 +1417,22 @@ receiptform1: function(req, res){
           } else {
           db.query(getreceiptlist, (err, result1) => {
               if (err || result1 == "") {
-               // console.log(result1);
+                //console.log(result1);
                return res.status(500).send(err);
               } else {
-           var receiptdate = new Date(result1[0].receipt_date);
+                db.query(getreceiptlist1, (err,result3) => {
+                  if (err || result1 == "") {
+                    //console.log(result1[0].receipt_date);
+                   return res.status(500).send(err);
+                  } else {
+                    var receiptdate;
+                    if (result1[0].receipt_date == null) {
+                      receiptdate = new Date(result3[0].receipt_date);
+                    } else {
+                      receiptdate = new Date(result1[0].receipt_date);
+                    }
+                    //console.log(receiptdate);
+          
            var c_year1 = receiptdate.getFullYear()+543;
            var month = new Array();
            month[0] = "มกราคม";
@@ -1371,27 +1447,38 @@ receiptform1: function(req, res){
            month[9] = "ตุลาคม";
            month[10] = "พฤศจิกายน";
            month[11] = "ธันวาคม";
+
  var receiptdate1 = receiptdate.getDate() +" " +month[receiptdate.getMonth()] + " " + c_year1.toString() ;
-  //var netremain = Number(result2[0].t_pay) - Number(result2[0].t_amount);
+  var netremain = Number(result2[0].t_pay) - Number(result2[0].t_amount);
   var totaltopay = Number(result2[0].t_amount) - Number(result2[0].t_lastmonth1);
+  totaltopay = totaltopay.toFixed(2);
 var paymenttype = result1[0].payment_type;
+if (paymenttype == null ) {
+  paymenttype = result3[0].payment_type;
+  
+}
+//console.log(paymenttype);
 var transferno = result1[0].transfer_no;
 var transferdate = result1[0].transfer_date;
-if (result.length >0 ){
+  var lastmonth;
+  if (result2[0].t_lastmonth == null) {
+    lastmonth = 0;
+    lastmonth1 = 0;
+  } else {
+    lastmonth = result2[0].t_lastmonth;
+    lastmonth1 = result2[0].t_lastmonth1;
+  }
+
  res.render('receiptform1.ejs', {
     title: "receiptform"
-    ,message: '',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist: result1,periodid:result[0].invoice_period,receiptno:result1[0].receipt_no,receiptdate: receiptdate1,totalamount:totaltopay.toLocaleString(),totalpay:result2[0].t_pay.toLocaleString(),invoicemonth:result1[0].invoice_month,paymenttype:paymenttype,transferno:transferno,transferdate:transferdate,
+    ,message: '',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist: result1,invoicelist1: result3,periodid:result[0].invoice_period,receiptno:receiptno1,receiptdate: receiptdate1,totalamount:totaltopay.toLocaleString(),totalpay:result2[0].t_pay.toLocaleString(),netdiff:result2[0].t_balance.toLocaleString(),netdiff1:result2[0].t_balance,lastbalance:lastmonth.toLocaleString(),lastbalance1:lastmonth1,invoicemonth:result1[0].invoice_month,paymenttype:paymenttype,transferno:transferno,transferdate:transferdate
 });
-} else {
-  res.render('receiptform1.ejs', {
-    title: "receiptform"
-    ,message: '',ownername:result1[0].remark,laneno:'',houseno:'',invoicelist: result1,periodid:'',receiptno:result1[0].receipt_no,receiptdate: receiptdate1,totalamount:totaltopay.toLocaleString(),totalpay:result2[0].t_pay.toLocaleString(),invoicemonth:result1[0].invoice_month,paymenttype:paymenttype,transferno:transferno,transferdate:transferdate,
-});
-}
  }
 });
 }
 })
+}
+});
 }
 });
 },
@@ -1750,15 +1837,12 @@ let getinvoicelist1 = "SELECT invoice_info.house_no,invoice_info.id,invoice_info
 "WHERE payment_type = '' OR payment_type IS NULL AND invoice_type ='ค่าจอดรถ' " +
 "GROUP BY house_no " +
 " ORDER BY invoice_info.id DESC";
-//console.log(getinvoicelist);
+//console.log(gethouselist);
      db.query(gethouselist, (err, result) => {
      if (err) {
          return res.status(500).send(err);
      } else {
-     
-     
-
-     }
+   
      db.query(getinvoicelist, (err, result1) => {
       if (err) {
           return res.status(500).send(err);
@@ -1771,14 +1855,19 @@ let getinvoicelist1 = "SELECT invoice_info.house_no,invoice_info.id,invoice_info
         res.render('allinvoiceforms.ejs', {
           title: "all invoiceform"
           ,message: '',houselist:result,invoicelist:result1,invoicelist1:result2
-     });
+    
+        });
  
       }
+      
     });
  
   }
    });
-  });
+  }
+      
+});
+  
 },
 getsliplist: function(req, res){
      
@@ -1999,8 +2088,7 @@ todaysummary: function(req, res){
   let todaytransfer = "SELECT FORMAT(SUM(actual_pay),0) AS todaytransfer FROM invoice_info WHERE receipt_date = CURDATE() AND payment_type = 'เงินโอน'" ;
   let todaycash = "SELECT FORMAT(SUM(actual_pay),0) AS todaycash FROM invoice_info WHERE receipt_date = CURDATE() AND payment_type = 'เงินสด'" ; 
   let todayexpense = "SELECT FORMAT(SUM(expense_amount),0) AS todayexpense FROM expense_info WHERE expense_date = CURDATE() AND payment_type = 'เงินสด'" ; 
-  let todaypettycash = "SELECT FORMAT((20000-SUM(expense_amount)),0) AS todaypettycash FROM expense_info WHERE MONTH(expense_date) = MONTH(CURDATE()) AND YEAR(expense_date) = YEAR(CURDATE()) AND payment_type = 'เงินสด'" ; 
-  
+  let getsumpettycash = "SELECT *,SUM(petty_amount) AS petty_amount FROM pettycash_info WHERE YEAR(petty_date) = YEAR(CURDATE()) AND MONTH(petty_date) = MONTH(CURDATE())"
    //console.log(todaypettycash);
   //console.log(todaycash);
  // console.log(expensebytype);
@@ -2020,23 +2108,35 @@ todaysummary: function(req, res){
           if (err) {
               return res.status(500).send(err);
           } 
+          db.query(getsumpettycash, (err, result5) => {
+            if (err) {
+                return res.status(500).send(err);
+            } else{
+            let thismonthpettycash = Number(result5[0].petty_amount);
+
+          let todaypettycash = "SELECT FORMAT((SUM(expense_amount)),2) AS sumexpense FROM expense_info WHERE MONTH(expense_date) = MONTH(CURDATE()) AND YEAR(expense_date) = YEAR(CURDATE()) AND payment_type = 'เงินสด'" ; 
+          
           db.query(todaypettycash, (err, result4) => {
             if (err) {
                 return res.status(500).send(err);
-            } 
+            }
+
+
             var todaypettycash1;
-            if (result4[0].todaypettycash == null) {
-              todaypettycash1 = 20000;
+            if (result4[0].sumexpense == null) {
+              todaypettycash1 = thismonthpettycash;
             } else {
-              todaypettycash1 = result4[0].todaypettycash ;
+              todaypettycash1 = thismonthpettycash - Number(result4[0].sumexpense).toFixed(2) ;
             }
           //console.log(result4[0].todaypettycash);
           res.render('dailyincome.ejs', {
             title: "Today Income"
-            ,message: '',todayincome: result[0].todayincome,todaytransfer: result1[0].todaytransfer,todaycash: result2[0].todaycash,todayexpense: result3[0].todayexpense,todaypettycash: todaypettycash1,
+            ,message: '',todayincome: result[0].todayincome,todaytransfer: result1[0].todaytransfer,todaycash:thismonthpettycash.toLocaleString(),todayexpense: result3[0].todayexpense,todaypettycash: todaypettycash1.toLocaleString(),
         });
 
         });
+      }
+    });
       });
       });
     });
@@ -2187,7 +2287,7 @@ addnews: function(req, res){
   var today = new Date();
   var minute = today.getMinutes();
 
- 
+  let filelink;
     let filename,filename1;
     //console.log(req.files);
     //console.log(slipdate1);
@@ -2211,15 +2311,13 @@ addnews: function(req, res){
        
         
      });
-  
+    
      cloudinary.v2.uploader.upload(`public/assets/images/${image_name}`, {public_id: filename } ,
-     function(error, result) {console.log(result, error)});
-    }
-  } else {
-    message = "Invalid File format. Only 'gif', 'jpg' and 'png' images are allowed.";
-  
-  }
-  let addNews = "INSERT INTO `news_info` (village_id, post_type,news_topic,news_details,post_date,expired_date,image_name) VALUES (" + villageno + ", '" + posttype +"' , '" + posttopic  + "' , '" + details  + "' , '" + postdate  + "' , '" + expirydate  + "' , '" + filename1 + "')" ;
+     function(error, result) {console.log(result, error);
+      
+      console.log("filelink =" + result.secure_url);
+     
+      let addNews = "INSERT INTO `news_info` (village_id, post_type,news_topic,news_details,post_date,expired_date,image_name) VALUES (" + villageno + ", '" + posttype +"' , '" + posttopic  + "' , '" + details  + "' , '" + postdate  + "' , '" + expirydate  + "' , '" + result.secure_url + "')" ;
   //console.log(addNews);
   
 
@@ -2231,6 +2329,15 @@ addnews: function(req, res){
         res.redirect('/getnewslist');
 }
 });
+    });
+    }
+  } else {
+    message = "Invalid File format. Only 'gif', 'jpg' and 'png' images are allowed.";
+  
+  }
+ 
+
+  
 },
 updatenews: function(req, res){
   let posttype = req.body.post_type1;
@@ -2462,9 +2569,10 @@ getcommentlist: function(req, res){
 clearadvanceinv : function(req, res){
   let villageid = req.body.village_id;
   let houseno = req.body.house_no;
+  let lastestperiodid = Number(req.body.period_id);
   var today = new Date();
   
-  var c_month = today.getMonth();
+  var c_month = today.getMonth()+1;
   var c_year = today.getFullYear();
 
   let getperiod = "SELECT period_id,period_mo,status  FROM `invoice_period` WHERE MONTH(period_mo) ='" + c_month + "' AND YEAR(period_mo) ='"+ c_year +"'";
@@ -2474,14 +2582,30 @@ db.query(getperiod, (err, result1) => {
   if (err) {
     return res.status(500).send(err);
   } else {
-    let deleteadvinv = "DELETE FROM `invoice_info` WHERE village_id =" + villageid + " AND house_no ='" + houseno +"' AND invoice_period >  "+ result1[0].period_id ;
-   // console.log(deleteadvinv);
+    let countinvtodelete = "SELECT COUNT(DISTINCT invoice_period) AS counttodelete FROM `invoice_info` WHERE village_id =" + villageid + " AND house_no ='" + houseno +"' AND invoice_period >  "+ result1[0].period_id + " AND (payment_type = '' OR payment_type IS null)" ;
+    //console.log(countinvtodelete);
+  db.query(countinvtodelete, (err, result0) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+
+    let deleteadvinv = "DELETE FROM `invoice_info` WHERE village_id =" + villageid + " AND house_no ='" + houseno +"' AND invoice_period >  "+ result1[0].period_id + " AND (payment_type = '' OR payment_type IS null)" ;
+    //console.log(deleteadvinv);
   db.query(deleteadvinv, (err, result) => {
       if (err) {
         return res.status(500).send(err);
       } else {
-        let updateperiod = "UPDATE house_info SET  invoice_period =  "+ result1[0].period_id + " WHERE village_id =" + villageid + " AND house_no ='" + houseno + "'";
-        db.query(updateperiod, (err, result2) => {
+        let updateperiod;
+        //console.log("delete ")
+         if (lastestperiodid > Number(result1[0].period_id)){
+           lastestperiodid = lastestperiodid - Number(result0[0].counttodelete);
+          updateperiod = "UPDATE house_info SET  invoice_period =  "+ lastestperiodid + " WHERE village_id =" + villageid + " AND house_no ='" + houseno + "'";
+       
+         } else {
+          updateperiod = "UPDATE house_info SET  invoice_period =  "+ result1[0].period_id + " WHERE village_id =" + villageid + " AND house_no ='" + houseno + "'";
+      
+         }
+         db.query(updateperiod, (err, result2) => {
           if (err) {
             return res.status(500).send(err);
           } else {
@@ -2492,6 +2616,40 @@ db.query(getperiod, (err, result1) => {
 });
 }
 });
+}
+});
 },
+getnewslist1: function(req, res){
+     
+              
+  let getnewslist = "SELECT *  FROM news_info";
+//console.log(getexpense1);
+let jsonData;
+  db.query(getnewslist, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        jsonData = JSON.parse(JSON.stringify(result));
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(jsonData));
+      }
+});
+},
+addpettycash: function(req, res){
+  let pettycashamount = req.body.petty_amount;
+  let adminname = req.body.admin_name;
+  let villageno = req.body.village_id;
+  let addpettycash = "INSERT INTO `pettycash_info` (village_id,petty_amount,admin_name) VALUES (" + villageno + " , " + pettycashamount + ", '" + adminname + "')" ;
+// console.log(saveexpense1);
+  db.query(addpettycash, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/todaysummary');
+}
+});
+}
 
 }

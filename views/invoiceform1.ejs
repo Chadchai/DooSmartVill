@@ -50,15 +50,13 @@ incoming API request.
         
         <div class="row" id="non-printable">
           
-            <div class="col-md-9">
-            <a type="button" class="btn btn-primary btn-form display-4" style="border-radius: 30px;" href="/getinvoicelist">กลับ</a>
+            <div class="col-md-6 col-7">
+            <a type="button" class="btn-sm btn-primary btn-form display-4" style="border-radius: 30px;" onclick="window.history.back()">กลับ</a>
             </div>
-            <div class="col-md-3">
-            <button type="button" class="btn btn-danger btn-form display-4" style="border-radius: 30px;" onclick="clearadvance()">ลบใบแจ้งหนี้ล่วงหน้า</button>
+            <div class="col-md-6 col-5">
+            <button type="button" id="printpdf" class="btn-sm btn-primary btn-form display-4" style="border-radius: 30px;display:none" onclick="printJS('printable', 'html');"> <span class="mbri-save"></span> บันทึก</button>
+
         </div>
-            <button type="button" id="printpdf" class="btn btn-primary btn-form display-4" style="border-radius: 30px;display:none" onclick="printJS('printable', 'html');"> <span class="mbri-save"></span> บันทึก</button>
-
-
     </div>
     
         <div id="printable" >

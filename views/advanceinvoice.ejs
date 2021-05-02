@@ -109,7 +109,7 @@
                                       <input type="hidden" name="period_id" data-form-field="Phone" class="form-control display-7" id="phone-form1-h" value="<%= periodid %>">
                                       <input type="hidden" name="common_fee" data-form-field="Phone" class="form-control display-7" id="phone-form1-h" value="<%= commonfee %>">
                                       <input type="hidden" name="parking_fee" data-form-field="Phone" class="form-control display-7" id="phone-form1-h" value="<%= parkfee %>">
-                                      <input type="hidden" name="village_id" data-form-field="Phone" class="form-control display-7" id="village_id" >
+                                      <input type="hidden" name="village_id" data-form-field="Phone" class="form-control display-7" id="village_id1" >
                                  
                                   </div>
                                   <div data-for="number" class="col-md-3  form-group">
@@ -165,7 +165,6 @@
                                       <label for="discount5">5%</label><br>
                                       <input type="radio" id="discount10" name="discount" value="0.1">
                                       <label for="discount10">10%</label><br>
-                                      
                                       <input type="radio" id="other" name="discount"  value="100">
                                       <label for="other">อื่นๆ โปรดระบุ </label>
                            
@@ -296,7 +295,7 @@ function showbox(){
       }
 }
 var villageid = localStorage.getItem("villageid") ;
-document.getElementById("village_id").value = villageid;
+document.getElementById("village_id1").value = villageid;
     function getonwername()
             {
              

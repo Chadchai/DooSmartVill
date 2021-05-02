@@ -415,15 +415,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@media print
-{
-   
-   
-     #printable { display:inline;background-color: white;margin-left: 3%; } ;
-     #non-printable { display: none; };
-    /* #printable1{ display: block; } */
-    
-}
+
 
 @media (max-width: 768px) {
   #hero h1 {

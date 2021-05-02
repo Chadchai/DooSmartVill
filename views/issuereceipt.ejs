@@ -287,9 +287,9 @@
     </script>
 <script>
   function validateForm() {
-    var x = Number(document.forms["receiptform"]["actual_pay"].value);
-    var y = Number(document.forms["receiptform"]["t_amount"].value);
-    var z = Number(document.forms["receiptform"]["remain"].value);
+    var x = Number(document.forms["receiptform"]["actual_pay"].value).toFixed(2);
+    var y = Number(document.forms["receiptform"]["t_amount"].value).toFixed(2);
+    var z = Number(document.forms["receiptform"]["remain"].value).toFixed(2);
       
       if ( y == 0) {
       alert("กรุณาเลือกรายการที่จะชำระเงิน");
@@ -357,7 +357,7 @@
       document.getElementById("remain").value =0;
     lastremain =  Number(document.getElementById("lastremain").value);
     var remain =   Number(document.getElementById("remain").value);
-    var payperinvoice =   Number(document.getElementById("t_amount").value);
+    var payperinvoice =   Number(document.getElementById("t_amount").value).toFixed(2);
     var actualpay = Number(document.getElementById("actual_pay").value);
     var netremain = actualpay - payperinvoice +lastremain + remain;
     document.getElementById("remain").value = netremain.toFixed(2);
@@ -402,7 +402,7 @@
                   invoiceidlist.indexOf(invid) !== -1 ? invoiceidlist.splice(invoiceidlist.indexOf(invid),1): console.log("-1");
                   document.getElementById('invoicelist').value = invoiceidlist;
               }
-              document.getElementById('t_amount').value = totalsum;
+              document.getElementById('t_amount').value = totalsum.toFixed(2);
 
            
     document.getElementById("remain").value =0;

@@ -1,5 +1,5 @@
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion non-printable1" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -139,7 +139,7 @@
      <li class="nav-item ">
        <a class="nav-link" href="/getnewslist">
          <i class="fas fa-fw fa-tachometer-alt"></i>
-         <span style="color:white;font-size:medium">แจ้งข่าวสารให้ลูกบ้าน</span></a>
+         <span style="color:white;font-size:medium">แจ้งข่าวสารให้สมาชิก</span></a>
      </li>
   
      <!-- Divider -->
@@ -321,15 +321,24 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title text-danger" id="exampleModalLabel">ใบแจ้งหนี้จะออกผ่านระบบ ทุกวันที่ 5 ของทุกเดือน <br>ยืนยันที่จะออกแจ้งหนี้ของเดือนนี้?</h5>
+        
           <button class="close" type="button" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
+        <form id="status1"  action="/create1moinv" method="post" enctype="multipart/form-data">
         
-        <div class="modal-footer">
-          <button class="btn btn-secondary " type="button" data-dismiss="modal">ยกเลิก</button>
-          <a class="btn btn-danger text-white" href="/create1moinv">ยืนยัน</a>
-        </div>
+          <input type="hidden" name="village_id" data-form-field="Phone" class="form-control display-7" id="village_id" >
+         
+     
+         <div class="modal-footer" >
+               
+                 <button type="submit" class="btn btn-primary">ยืนยัน</button>
+             <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+         
+         </div>
+     </form>
+      
       </div>
     </div>
   </div>

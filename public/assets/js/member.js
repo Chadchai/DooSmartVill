@@ -27,12 +27,12 @@ if (houseid !== null) {
 
 
 document.getElementById("post1").href = "/post";
-document.getElementById("invoice1").href = "/invoiceform/" + houseid;
+document.getElementById("invoice1").href = "/invoiceform1/" + houseid;
  document.getElementById("receipt1").href = "/getmyreceiptlist/" + houseid;
  document.getElementById("report1").href = "/incomeexpense1";
  document.getElementById("contact1").href = "/contact";
  document.getElementById("post2").href = "/post";
-document.getElementById("invoice2").href = "/invoiceform/" + houseid;
+document.getElementById("invoice2").href = "/invoiceform1/" + houseid;
  document.getElementById("receipt2").href = "/getmyreceiptlist/" + houseid;
  document.getElementById("slip").href = "/uploadslip";
  document.getElementById("report2").href = "/incomeexpense1";
