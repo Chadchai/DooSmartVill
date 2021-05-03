@@ -34,7 +34,7 @@
 
 </style>
 
-<body id="page-top" onload="startTime()">
+<body id="page-top" >
 
   <!-- Page Wrapper -->
   <div id="wrapper">
@@ -70,7 +70,7 @@
                   </div>
                   <div class="container" style="background-color: white;width: 100%;">
                     <div class="row justify-content-center">
-                      <div class="media-container-column col-lg-8" data-form-type="formoid">
+                      <div class="media-container-column col-lg-10" data-form-type="formoid">
                           <!---Formbuilder Form--->
                           <form name="receiptform" action="/receiptoldpayment" onsubmit="return validateForm()" method="POST" class="mbr-form form-with-styler">
                               <div class="row">
@@ -93,30 +93,30 @@
                                         </select> -->
                                   </div>
                                   <div class="col-md-1">
-                                    <br>
-                                   <button type="button" class="btn btn-success btn-sm display-4" style="border-radius: 5px;margin-left: -20px;margin-top: 10px;" onclick="getonwername()" >ค้นหา</button>
+                                    
+                                   <button type="button" class="btn btn-success btn display-4" style="border-radius: 5px;margin-left: -20px;margin-top: 30px;" onclick="getonwername()" >ค้นหา</button>
                              
                                   </div>
-                                  <div class="col-md-6  form-group" data-for="email">
+                                  <div class="col-md-4  form-group" data-for="email">
                                       <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่ออกใบเสร็จ</label>
                                       <input type="date" name="receiptdate" data-form-field="Email" required="required" class="form-control display-7 align-right" id="receiptdate">
                                   </div>
                                   
-                                  <div data-for="phone" class="col-md-4  form-group">
+                                  <div data-for="phone" class="col-md-12  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ชื่อเจ้าบ้าน</label>
-                                      <input type="owner_name" name="owner_name" data-form-field="Phone" class="form-control display-7" id="owner_name" value="<%= ownername %>">
+                                      <input type="owner_name" name="owner_name" data-form-field="Phone" class="form-control display-7" id="owner_name" value="<%= ownername %>" readonly>
                                   </div>
                                   
                                
-                                  <div data-for="number" class="col-md-3  form-group">
+                                  <div data-for="number" class="col-md-4  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ชำระจริง(บาท)</label>
                                       <input type="number" name="actual_pay" data-form-field="Phone" class="form-control display-7 align-right"  style="background-color: yellow;" id="actual_pay" onchange="calbalance()" >
                                   </div>
-                                  <div data-for="number" class="col-md-2  form-group">
+                                  <div data-for="number" class="col-md-4  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ยกมา(บาท)</label>
                                       <input type="number" name="lastremain" data-form-field="Phone" class="form-control dislay-7 align-right " value="<%= balance %>" id="lastremain" readonly >
                                   </div>
-                                  <div data-for="number" class="col-md-3  form-group">
+                                  <div data-for="number" class="col-md-4  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ยอดคงเหลือ(บาท)</label>
                                       <input type="double" name="remain" data-form-field="Phone" class="form-control dislay-7 align-right " id="remain" readonly>
                                   </div>
@@ -125,20 +125,25 @@
                                   <div data-for="number" class="col-md-6  form-group" style="border-style: solid;;border-radius: 10px;border-color: lightgray;">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เงินสด/เงินโอน</label>
                                       <!-- <input type="number" name="phone" data-form-field="Phone" class="form-control display-7" id="phone-form1-h"> -->
-                                      <div class="radio">
-                                          <label><input type="radio" name="payment_type" id= "payment_type1" value="เงินสด" checked>เงินสด</label>
+                                      <div class="radio" >
+                                          <label><input type="radio" name="payment_type" id= "payment_type1" onchange="checkpayment()" value="เงินสด" checked> เงินสด</label>
                                         </div>
                                         <div class="radio">
-                                          <label><input type="radio" name="payment_type" id= "payment_type2" value="เงินโอน">เงินโอน</label>
+                                          <label><input type="radio" name="payment_type" id= "payment_type2" onchange="checkpayment()" value="เงินโอน"> เงินโอน</label>
+                                         
+                                         
+                                        </div>
+                                        <div class="radio">
+                                          <label><input type="radio" name="payment_type" id= "payment_type3" onchange="checkpayment()" value="เช็ค"> เช็ค</label>
                                          
                                          
                                         </div>
                                   
                                   </div>
                                   <div data-for="number" class="col-md-6  form-group">
-                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เลขที่การโอน/เลขที่บัญชี/เลขที่ใบเสร็จ</label>
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เลขที่การโอน/เลขที่บัญชี/เลขที่ใบเสร็จ/เลขที่เช็ค</label>
                                       <input type="hidden" name="invoicelist" data-form-field="Phone" class="form-control display-7" id="invoicelist">
-                                      <input type="text" name="transfer_no" data-form-field="Phone" class="form-control display-7 align-right" id="transfer_no">
+                                      <input type="text" readonly name="transfer_no" data-form-field="Phone" class="form-control display-7 align-right" id="transfer_no">
                                  
                                   </div>
                                   <div data-for="number" class="col-md-4  form-group">
@@ -222,6 +227,15 @@
   <script src="assets/js/demo/chart-area-demo.js"></script>
   <script src="assets/js/demo/chart-pie-demo.js"></script>
   <script>
+    function checkpayment(){
+      if ((document.forms["receiptform"]["payment_type"].value == "เงินโอน" || document.forms["receiptform"]["payment_type"].value == "เช็ค" )) {
+      document.getElementById("transfer_no").readOnly = false;
+
+    } else {
+      document.getElementById("transfer_no").readOnly = true;
+      
+    }
+    }
     function validateForm() {
       var x = Number(document.forms["receiptform"]["actual_pay"].value);
      
@@ -229,8 +243,18 @@
         alert("กรุณาใส่จำนวนเงินที่ต้องการชำระ");
         return false;
       }
-     
+      if ((document.forms["receiptform"]["payment_type"].value == "เงินโอน" || document.forms["receiptform"]["payment_type"].value == "เช็ค" ) && document.forms["receiptform"]["transfer_no"].value == "") {
+            alert("กรุณาใส่หมายเลขการโอน");
+            document.forms["receiptform"]["payment_type"].style = "border-color:red;border-width: thick;"
+            return false;
+        } else {
+            document.forms["receiptform"]["payment_type"].style = "border-color:white;"
+        }
     }
+    
+   
+        
+    
     </script>
 <script>
 

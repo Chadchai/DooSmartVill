@@ -99,7 +99,7 @@ memberpage: function(req, res){
   });
   },
   news: function(req, res){
-    let getnewslist = "SELECT *,DATE_FORMAT(post_date, '%d-%m-%Y') AS post_date,DATE_FORMAT(post_date, '%Y-%m-%d') AS post_date1,DATE_FORMAT(expired_date, '%Y-%m-%d') AS expired_date1 FROM news_info"
+    let getnewslist = "SELECT *,DATE_FORMAT(post_date, '%d-%m-%Y') AS post_date,DATE_FORMAT(post_date, '%Y-%m-%d') AS post_date1,DATE_FORMAT(expired_date, '%Y-%m-%d') AS expired_date1 FROM news_info ORDER BY news_id DESC"
     db.query(getnewslist, (err, result) => {
       if (err) {
           return res.status(500).send(err);
@@ -850,6 +850,7 @@ receiptpayment: function(req, res){
               let transferno = req.body.transfer_no;
               let transferdate = req.body.transfer_date;
               let houseno = req.body.house_no;
+              let villageid = req.body.village_id;
               var today = new Date();
               var c_date = today.getDate();
               var c_month = ("0" + (today.getMonth() + 1)).slice(-2);
@@ -861,7 +862,7 @@ receiptpayment: function(req, res){
   //console.log(invid);
             var receiptno;
             let periodid = 0;
-            let getlastrcvno = "SELECT COUNT(DISTINCT receipt_no) AS count FROM invoice_info WHERE receipt_no LIKE '" + monthcode +"%'"
+            let getlastrcvno = " SELECT COUNT(DISTINCT receipt_no) AS count FROM (SELECT receipt_no FROM invoice_info WHERE receipt_no LIKE '" + monthcode +"%' UNION SELECT receipt_no FROM void_info WHERE receipt_no LIKE '"+monthcode +"%') AS TABLE1" 
             var createinvoice;
               //console.log(c_month);
             //console.log(getlastrcvno);
@@ -872,8 +873,8 @@ receiptpayment: function(req, res){
                 let no = ("00" + (Number(result[0].count)+1)).slice(-3);;
                 receiptno = "RE" +c_year.toString() + c_month.toString()+ no;
                 //console.log(receiptno);
-                createinvoice= "INSERT INTO `invoice_info` (`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month,payment_type,transfer_no,payment_date,receipt_date,receiver_name,receipt_no,remark,actual_pay) VALUES ('" + 
-            invoiceno +"','"+houseno +"' , '"+ incometype +"','"+ periodid + "',"+ amount + ",'" + detail + "','"+ receipttype + "','"+ transferno +"','" + transferdate +"','" +  incomedate + "','" +  rcvname + "','" +  receiptno + "','"+ payername + "'," +  amount + ")";
+                createinvoice= "INSERT INTO `invoice_info` (`village_id`,`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month,payment_type,transfer_no,payment_date,receipt_date,receiver_name,receipt_no,remark,actual_pay) VALUES (" + 
+            +villageid + ",'"+invoiceno +"','"+houseno +"' , '"+ incometype +"','"+ periodid + "',"+ amount + ",'" + detail + "','"+ receipttype + "','"+ transferno +"','" + transferdate +"','" +  incomedate + "','" +  rcvname + "','" +  receiptno + "','"+ payername + "'," +  amount + ")";
            // console.log(createinvoice);
             db.query(createinvoice, (err, result) => {
                       if (err) {
@@ -1183,9 +1184,9 @@ pendingpayment: function(req, res){
 invoiceform: function(req, res){
   let houseid = req.params.house_no;
   //console.log(houseid);
-  let getownername1 = "SELECT *, FORMAT(Abs(remain),0) AS remain1  FROM `house_info` WHERE house_no = '104/" + houseid + "'";
-  let getpendinginvoice =  "SELECT * FROM `invoice_info` WHERE house_no ='104/" + houseid + "' AND (payment_type = '' OR payment_type IS NULL) ";
-  let getsum =  "SELECT SUM(amount)-house_info.remain AS t_amount,(DATE_FORMAT(MAX(invoice_info.invoice_date),'%d %b %Y')) AS invoice_date1,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM `invoice_info` " +
+  let getownername1 = "SELECT *, FORMAT(Abs(remain),2) AS remain1  FROM `house_info` WHERE house_no = '104/" + houseid + "'";
+  let getpendinginvoice =  "SELECT *,FORMAT(amount,2) AS amount FROM `invoice_info` WHERE house_no ='104/" + houseid + "' AND (payment_type = '' OR payment_type IS NULL) ";
+  let getsum =  "SELECT FORMAT(SUM(amount)-house_info.remain,2) AS t_amount,(DATE_FORMAT(MAX(invoice_info.invoice_date),'%d %b %Y')) AS invoice_date1,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM `invoice_info` " +
  "LEFT JOIN house_info " + 
   "ON invoice_info.house_no = house_info.house_no "+
   "WHERE invoice_info.house_no ='104/"+ houseid  + "' AND (invoice_info.payment_type = '' OR invoice_info.payment_type IS NULL)";
@@ -1403,9 +1404,9 @@ receiptform1: function(req, res){
   //console.log(houseid);
   let getownername1 = "SELECT *  FROM `house_info` WHERE house_no ='104/" + houseid + "'";
   let getreceiptlist =  "SELECT *,(DATE_FORMAT(payment_date,'%d/%m/%Y')) AS transfer_date,invoice_period,amount AS amount1,FORMAT(SUM(amount),2) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าส่วนกลาง' ORDER BY invoice_period";
-  let getreceiptlist1 =  "SELECT *,invoice_period,amount AS amount1,FORMAT(SUM(amount),2) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
-  let getsum =  "SELECT SUM(amount) AS t_amount, FORMAT(SUM(actual_pay),2) AS t_pay,Abs(SUM(lastmonth)) AS t_lastmonth,FORMAT(SUM(lastmonth),2) AS t_lastmonth1, FORMAT(SUM(balance),2) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
-    //console.log(getreceiptlist);
+  let getreceiptlist1 =  "SELECT *,invoice_period,FORMAT(amount,2) AS amount1,FORMAT(SUM(amount),2) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
+  let getsum =  "SELECT SUM(amount) AS t_amount, FORMAT(SUM(actual_pay),2) AS t_pay,FORMAT(Abs(SUM(lastmonth)),2) AS t_lastmonth,SUM(lastmonth) AS t_lastmonth1, SUM(balance) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
+   //console.log(getreceiptlist1);
   db.query(getownername1, (err, result) => {
     //console.log(result);
       if (err || result == "") {
@@ -1431,7 +1432,7 @@ receiptform1: function(req, res){
                     } else {
                       receiptdate = new Date(result1[0].receipt_date);
                     }
-                    //console.log(receiptdate);
+                    
           
            var c_year1 = receiptdate.getFullYear()+543;
            var month = new Array();
@@ -1451,7 +1452,7 @@ receiptform1: function(req, res){
  var receiptdate1 = receiptdate.getDate() +" " +month[receiptdate.getMonth()] + " " + c_year1.toString() ;
   var netremain = Number(result2[0].t_pay) - Number(result2[0].t_amount);
   var totaltopay = Number(result2[0].t_amount) - Number(result2[0].t_lastmonth1);
-  totaltopay = totaltopay.toFixed(2);
+  
 var paymenttype = result1[0].payment_type;
 if (paymenttype == null ) {
   paymenttype = result3[0].payment_type;
@@ -1471,7 +1472,7 @@ var transferdate = result1[0].transfer_date;
 
  res.render('receiptform1.ejs', {
     title: "receiptform"
-    ,message: '',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist: result1,invoicelist1: result3,periodid:result[0].invoice_period,receiptno:receiptno1,receiptdate: receiptdate1,totalamount:totaltopay.toLocaleString(),totalpay:result2[0].t_pay.toLocaleString(),netdiff:result2[0].t_balance.toLocaleString(),netdiff1:result2[0].t_balance,lastbalance:lastmonth.toLocaleString(),lastbalance1:lastmonth1,invoicemonth:result1[0].invoice_month,paymenttype:paymenttype,transferno:transferno,transferdate:transferdate
+    ,message: '',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist: result1,invoicelist1: result3,periodid:result[0].invoice_period,receiptno:receiptno1,receiptdate: receiptdate1,totalamount:totaltopay.toLocaleString(undefined, {minimumFractionDigits: 2}),totalpay:result2[0].t_pay.toLocaleString(),netdiff:result2[0].t_balance.toLocaleString(undefined, {minimumFractionDigits: 2}),netdiff1:result2[0].t_balance,lastbalance:lastmonth.toLocaleString(),lastbalance1:lastmonth1,invoicemonth:result1[0].invoice_month,paymenttype:paymenttype,transferno:transferno,transferdate:transferdate
 });
  }
 });
@@ -1479,6 +1480,71 @@ var transferdate = result1[0].transfer_date;
 })
 }
 });
+}
+});
+},
+receiptform2: function(req, res){
+  let receiptno1 = req.params.receiptno;
+  let houseid = req.params.house_no;
+ // let houseid = req.params.house_no;
+  
+  let getownername1 = "SELECT *  FROM `house_info` WHERE house_no ='104/" + houseid + "'";
+  //console.log(getownername1);
+  
+  let getreceiptlist =  "SELECT *,(DATE_FORMAT(payment_date,'%d/%m/%Y')) AS transfer_date,invoice_period,amount AS amount1,FORMAT(SUM(amount),2) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type <>'ค่าส่วนกลาง' AND invoice_type <>'ค่าจอดรถ' ORDER BY invoice_period";
+  //let getreceiptlist1 =  "SELECT *,invoice_period,amount AS amount1,FORMAT(SUM(amount),0) AS amount,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM  `invoice_info` WHERE receipt_no = '" + receiptno1 + "' AND invoice_type ='ค่าจอดรถ' ORDER BY invoice_period";
+  let getsum =  "SELECT FORMAT(SUM(amount),2) AS t_amount, FORMAT(SUM(actual_pay),2) AS t_pay,FORMAT(Abs(SUM(lastmonth)),2) AS t_lastmonth,SUM(lastmonth) AS t_lastmonth1, FORMAT(SUM(balance),2) AS t_balance FROM `invoice_info` WHERE receipt_no = '" + receiptno1 + "'";
+  //console.log(getsum);
+  db.query(getownername1, (err, result) => {
+    //console.log(result);
+      if (err ) {
+        return res.status(500).send(err);
+      } else {
+        db.query(getsum, (err, result2) => {
+          if (err) {
+              return res.status(500).send(err);
+          } else {
+          db.query(getreceiptlist, (err, result1) => {
+              if (err || result1 == "") {
+               // console.log(result1);
+               return res.status(500).send(err);
+              } else {
+           var receiptdate = new Date(result1[0].receipt_date);
+           var c_year1 = receiptdate.getFullYear()+543;
+           var month = new Array();
+           month[0] = "มกราคม";
+           month[1] = "กุมภาพันธ์";
+           month[2] = "มีนาคม";
+           month[3] = "เมษายน";
+           month[4] = "พฤษภาคม";
+           month[5] = "มิถุนายน";
+           month[6] = "กรกฎาคม";
+           month[7] = "สิงหาคม";
+           month[8] = "กันยายน";
+           month[9] = "ตุลาคม";
+           month[10] = "พฤศจิกายน";
+           month[11] = "ธันวาคม";
+ var receiptdate1 = receiptdate.getDate() +" " +month[receiptdate.getMonth()] + " " + c_year1.toString() ;
+  //var netremain = Number(result2[0].t_pay) - Number(result2[0].t_amount);
+  var totaltopay = Number(result2[0].t_amount) - Number(result2[0].t_lastmonth1);
+var paymenttype = result1[0].payment_type;
+var transferno = result1[0].transfer_no;
+var transferdate = result1[0].transfer_date;
+if (result.length >0 ){
+ res.render('receiptform2.ejs', {
+    title: "receiptform"
+    ,message: '',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist: result1,periodid:result[0].invoice_period,receiptno:result1[0].receipt_no,receiptdate: receiptdate1,totalamount:totaltopay.toLocaleString(),totalpay:result2[0].t_pay.toLocaleString(),invoicemonth:result1[0].invoice_month,paymenttype:paymenttype,transferno:transferno,transferdate:transferdate,
+});
+} else {
+  res.render('receiptform2.ejs', {
+    title: "receiptform"
+    ,message: '',ownername:result1[0].remark,laneno:'',houseno:'',invoicelist: result1,periodid:'',receiptno:result1[0].receipt_no,receiptdate: receiptdate1,totalamount:totaltopay.toLocaleString(),totalpay:result2[0].t_pay.toLocaleString(),invoicemonth:result1[0].invoice_month,paymenttype:paymenttype,transferno:transferno,transferdate:transferdate,
+});
+}
+ }
+});
+}
+})
 }
 });
 },
@@ -2260,7 +2326,7 @@ deletecontact: function(req, res){
 });
 },
 getnewslist: function(req, res){
-  let getnewslist = "SELECT *,DATE_FORMAT(post_date, '%d-%m-%Y') AS post_date,DATE_FORMAT(post_date, '%Y-%m-%d') AS post_date1,DATE_FORMAT(expired_date, '%Y-%m-%d') AS expired_date1 FROM news_info"
+  let getnewslist = "SELECT *,DATE_FORMAT(post_date, '%d-%m-%Y') AS post_date,DATE_FORMAT(post_date, '%Y-%m-%d') AS post_date1,DATE_FORMAT(expired_date, '%Y-%m-%d') AS expired_date1 FROM news_info ORDER BY news_id DESC"
   db.query(getnewslist, (err, result) => {
     if (err) {
         return res.status(500).send(err);
@@ -2622,7 +2688,7 @@ db.query(getperiod, (err, result1) => {
 getnewslist1: function(req, res){
      
               
-  let getnewslist = "SELECT *  FROM news_info";
+  let getnewslist = "SELECT *  FROM news_info ORDER BY news_id DESC";
 //console.log(getexpense1);
 let jsonData;
   db.query(getnewslist, (err, result) => {
@@ -2650,6 +2716,13 @@ addpettycash: function(req, res){
         res.redirect('/todaysummary');
 }
 });
-}
+},
+createletter: function(req, res){
+          
+  res.render('followupletter.ejs', {
+    title: "Contact Admin Page"
+    ,message: ''
+});
+},
 
 }

@@ -43,8 +43,8 @@
           <div class="row">
             <% if (newslist.length > 0) {%> 
                   <% newslist.forEach((news, index) => { %>
-            <div class="col-lg-3 ">
-                <div class="card shadow mb-4">
+            <div class="col-lg-3 " >
+                <div class="card shadow mb-4" >
                   <div class="card-header bg-success py-3">
                     <div class="row">
                     <div class="col-10 ">
@@ -75,13 +75,18 @@
                    
                   </div>
                     </div>
-                    <div class="container">
+                    <div class="container" style="max-height: 200px;overflow-y: hidden;" >
                       <h5 >วันที่ประกาศ: <b class="text-primary" style="text-align: right;"><%= news.post_date %></b></h5>
                       <p id="details0_<%= news.news_id %>" style="display:none"><%= news.news_details %></p>
-                      <p id="details_<%= news.news_id %>" class="shrinkable"></p>
+                      <p id="details_<%= news.news_id %>" class="shrinkable" ></p>
                      <p id="details1_<%= news.news_id %>" style="display:none"></p>
                     </div>
+                    <div class="col-md-12" style="text-align: center;margin-bottom:20px;">
+                      <a class="d-none d-sm-inline-block btn btn btn-success shadow-sm align-right text-white" onclick="viewnews('<%= news.news_id %>','<%= news.post_type %>','<%= news.post_date1 %>','<%= news.expired_date1 %>','<%= news.news_topic %>','<%= news.image_name %>')"><i class="fas fa-eye"></i> ดูรายละเอียด</a>
+                    </div>
                 </div>
+               
+                
               </div>
         
             <% }) %>
@@ -256,6 +261,43 @@
         </form>
         </div>
       </div>
+           <!-- view News Modal-->
+ <div class="modal fade" id="newsmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document" >
+    <div id="postbox" class="modal-content" style="width: 700px;" >
+     
+   
+      <div class="modal-header">
+        <div class="row col-8">
+        <h3 id="type1" class=" modal-title  font-weight-bold text-primary "></h3>
+      </div>
+      <div class="col-4">
+        <h6 id="newsdate" class="m-3 text-primary text-lg" ></h6>
+      </div>
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <h4 id="topic1" class="modal-title  text-primary " style="margin-left: 10px;"></h4><br>
+     <div class="col-md-12" style="text-align: center;">
+      <img id="image1" style="width:400px;max-height: 300px;">
+    </div>       
+     
+      <div class="modal-body" >
+      <div id="details1" >
+     
+  
+        
+          </div>
+        </div>
+   
+      <div class="modal-footer">
+        <button class="btn btn-secondary" type="button" data-dismiss="modal">ปิด</button>
+      </div>
+    </div>
+    </div>
+  </div>
+
 
   <script>
 
@@ -270,6 +312,19 @@ function updatenews(id,posttype,postdate,expirydate,topicname) {
   
   //document.getElementById("image1").value = imagename;
     $("#updatenews").modal();
+};
+function viewnews(id,posttype,postdate,expirydate,topicname,imagename) {
+
+document.getElementById("type1").innerHTML = "  ประเภท: "+ posttype;
+document.getElementById("topic1").innerHTML = "  เรื่อง: "+topicname;
+document.getElementById("newsdate").innerHTML = "  วันที่: "+ postdate;
+document.getElementById("post_date1").innerHTML = postdate;
+document.getElementById("image1").src = imagename;
+document.getElementById("details1").innerHTML = document.getElementById("details1_"+id).innerHTML;
+
+
+//document.getElementById("image1").value = imagename;
+  $("#newsmodal").modal();
 };
 
 
@@ -304,25 +359,8 @@ function showLess(id){
     document.getElementById(id+'LessLink').className='hidden';
 }
 
-var len = 10;
-var shrinkables = document.getElementsByClassName('shrinkable');
-if (shrinkables.length > 0) {
 
-    for (var i = 0; i < shrinkables.length; i++){
-        var fullText = shrinkables[i].innerHTML;
-        console.log(fullText);
-        if(fullText.length > len){
-            // var trunc = fullText.substring(0, len).replace(/\w+$/, '');
-            var trunc = fullText.substring(0, len);
-            var remainder = "";
-            var id = shrinkables[i].id;
-           
-            remainder = fullText.substring(len, fullText.length);
-            shrinkables[i].innerHTML = '<span>' + trunc + '<span class="hidden" id="' + id + 'Overflow">'+ remainder +'</span></span>&nbsp;<a id="' + id + 'MoreLink" class="text-danger" href="#!" onclick="showMore(\''+ id + '\');">ดูเพิ่มเติม</a><a class="hidden text-danger" href="#!" id="' + id + 'LessLink" onclick="showLess(\''+ id + '\');">ย่อ</a>';
-            //console.log(shrinkables[i].innerHTML);
-          }
-    }
-}
+
 
 
   

@@ -71,7 +71,7 @@
                     <div class="row justify-content-center">
                       <div class="media-container-column col-lg-8" data-form-type="formoid">
                           <!---Formbuilder Form--->
-                          <form action="/saveincome" method="POST" class="mbr-form form-with-styler">
+                          <form name="incomeform" action="/saveincome" onsubmit="return validateForm()" method="POST" class="mbr-form form-with-styler">
                               <div class="row">
                                   
                                   <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
@@ -82,6 +82,7 @@
                                   <div class="col-md-4  form-group" data-for="email">
                                       <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่</label>
                                       <input type="date" name="income_date" data-form-field="Email" required="required" class="form-control display-7 align-right" id="income_date">
+                                      <input type="hidden" name="village_id" data-form-field="Email" required="required" class="form-control display-7 align-right" id="village_id1">
                                   </div>
                                   <div data-for="phone" class="col-md-3  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">บ้านเลขที่<a style="color: red;">(โปรดระบุ)</a></label>
@@ -111,10 +112,15 @@
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เงินสด/เงินโอน</label>
                                       <!-- <input type="number" name="phone" data-form-field="Phone" class="form-control display-7" id="phone-form1-h"> -->
                                       <div class="radio" > 
-                                          <label><input type="radio" name="receipt_type" id= "receipt_type1" value="เงินสด" required>เงินสด</label>
+                                          <label><input type="radio" name="receipt_type" id= "receipt_type1" value="เงินสด" required> เงินสด</label>
                                         </div>
                                         <div class="radio">
-                                          <label><input type="radio" name="receipt_type" id= "receipt_type2" value="เงินโอน" required>เงินโอน</label>
+                                          <label><input type="radio" name="receipt_type" id= "receipt_type2" value="เงินโอน" required> เงินโอน</label>
+                                         
+                                         
+                                        </div>
+                                        <div class="radio">
+                                          <label><input type="radio" name="receipt_type" id= "receipt_type3" value="เช็ค" required> เช็ค</label>
                                          
                                          
                                         </div>
@@ -217,7 +223,8 @@
     // get admin name
   var fullname = localStorage.getItem("fullname");
   document.getElementById("receiver_name").value = "คุณ " +fullname;
-  
+  var villageid = localStorage.getItem("villageid");
+  document.getElementById("village_id1").value = villageid;
     var today = new Date();
        var dd = today.getDate();
        var mm = today.getMonth() + 1; //January is 0!
@@ -235,6 +242,22 @@
        document.getElementById("transfer_date").value = today;
     
    </script>
+   <script>
+    function validateForm() {
+     
+      if (document.forms["incomeform"]["receipt_type"].checked== false) {
+        alert("กรุณาเลือกประเภทชำระเงิน (เงินสดหรือเงินโอน)");
+        return false;
+    } 
+    if ((document.forms["incomeform"]["receipt_type"].value == "เงินโอน" || document.forms["incomeform"]["receipt_type"].value == "เช็ค" ) && document.forms["incomeform"]["transfer_no"].value == "") {
+            alert("กรุณาใส่หมายเลขการโอน");
+            document.forms["incomeform"]["transfer_no"].style = "border-color:red;border-width: thick;"
+            return false;
+        } else {
+            document.forms["incomeform"]["transfer_no"].style = "border-color:white;"
+        }
+    }
+    </script>
 
 </body>
 

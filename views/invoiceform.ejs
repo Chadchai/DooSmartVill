@@ -162,7 +162,7 @@ incoming API request.
                     <%} else {%>
                         <td>
                         
-                            <%= invoice.invoice_type %> เดือน <%= invoice.invoice_month %> (ค่าส่วนกลางต่อเดือน <%= commonfee %> บาท -ส่วนลด <%= Math.floor((commonfee-invoice.amount)*100/commonfee) %>%)
+                            <%= invoice.invoice_type %> เดือน <%= invoice.invoice_month %> (ค่าส่วนกลางต่อเดือน <%= commonfee %> บาท -ส่วนลด <%= Math.round((commonfee-invoice.amount)*100/commonfee) %>%)
                           </td>
                           <td>
                             <%= invoice.amount %> บาท
@@ -287,7 +287,7 @@ incoming API request.
         
                     <input type="hidden" name="village_id"  id="village_id"  class="form-control" value="<%= villageid%>">  
                     <input type="hidden" name="house_no"  id="house_no"  class="form-control" value="<%= houseno %>">
-                    <input type="text" name="period_id"  id="period_id"  class="form-control" value="<%= periodid %>">
+                    <input type="hidden" name="period_id"  id="period_id"  class="form-control" value="<%= periodid %>">
                
                    <div class="modal-footer" >
                          

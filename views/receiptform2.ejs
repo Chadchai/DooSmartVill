@@ -64,15 +64,16 @@
 
           <!-- Page Heading -->
           <div id="non-printable">
-
-          <div class="d-sm-flex align-items-center justify-content-between mb-4 col-md-8">
-            <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="window.history.back()"><i class="fas fa-angle-double-left fa-sm text-white-50"></i> กลับ</a>
+            
+          <div class="d-sm-flex align-items-center justify-content-between mb-4 col-md-8 ">
+            <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " onclick="window.history.back()"><i class="fas fa-angle-double-left fa-sm text-white-50"></i> กลับ</a>
       
             <h1 class="h3 mb-0 text-gray-800" style="color: blue;"><div id="txt"></div></h1>
            
             <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="window.print()"><i class="fas fa-print fa-sm text-white-50"></i> พิมพ์ใบเสร็จ</a>  <!-- <h1 class="h3 mb-0 text-gray-800" style="color: blue;"><div id="txt"></div></h1> -->
             <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
           </div>
+       
         </div>
           <!-- Content Row -->
 
@@ -148,154 +149,65 @@
                                      จำนวนเงิน
                                   </td>
                               </tr>
-                              <% if (invoicelist.length > 0) {%>
+                              <% if (invoicelist.length >0) {%>
                                 <% invoicelist.forEach((invoice, index) => { %>
                               <tr class="item" style="font-size: medium;">
-                                  <% if (invoice.invoice_month == 'ชำระค่าส่วนกลางค้างจ่ายสะสม') {%>
-                                  <td>
-                                     <!-- <%= invoice.invoice_month %> -->
-                                  </td>
-                                  <td>
-              
-                                  </td>
+                      
+                                      <% if (invoice.invoice_month !== null) {%>
+                                 
+                                      <td>
+                                          <%= invoice.invoice_type %> - <%= invoice.invoice_month %>
+                                       </td>
+                                       <td>
+                                          <%= invoice.amount %> บาท 
+                                       </td>
+                                
+                                
                                   <% } else { %>
-                                      <% if (invoice.invoice_type !== null) {%>
-                                      <% if (invoice.START == invoice.END ) {%>
-                                          <td>
-                                              <%= invoice.invoice_type %> เดือน <%= invoice.START %> 
-                                           </td>
-                                           <td>
-                                              <%= invoice.amount %> บาท 
-                                           </td>
-                                           <% } else { %>
-                                              <td>
-                                                  <%= invoice.invoice_type %> เดือน <%= invoice.START %> - <%= invoice.END %>  ( <%= invoice.amount1 %> บาท/เดือน  )
-                                               </td>
-                                               <td>
-                                                  <%= invoice.amount %> บาท 
-                                               </td>
-                                           <% } %>
-                                     
-                                           <% } %>
+                                      <td>
+                                          <%= invoice.invoice_type %> 
+                                       </td>
+                                       <td>
+                                          <%= invoice.amount %> บาท 
+                                       </td>
+              
                                   <% } %>
-                                 
                               </tr>
-                              <% if (invoicelist1.length > 0) {%>
-                                  <% invoicelist1.forEach((invoice1, index1) => { %>
-                                      <tr class="item" style="font-size: medium;">
-                                          <% if (invoice1.invoice_type !== null) {%>
-                                          <% if (invoice1.START == invoice1.END ) {%>
-                                              <td>
-                                                  <%= invoice1.invoice_type %> เดือน <%= invoice1.START %>
-                                               </td>
-                                               <td>
-                                                  <%= invoice1.amount %> บาท 
-                                               </td>
-                                               <% } else { %>
-                                                  <td>
-                                                      <%= invoice1.invoice_type %> เดือน <%= invoice1.START %> - <%= invoice1.END %> ( <%= invoice1.amount1 %> บาท/เดือน  )
-                                                   </td>
-                                                   <td>
-                                                      <%= invoice1.amount %> บาท 
-                                                   </td>
-                                               <% } %>
-                                    
-                                               <% } %>
-                              </tr>
-                                      
-                                      <% }) %>
-                                      <% } %>
+                          
                               <% }) %>
-                            
-                            <% if (lastbalance1 < 0) {%>
-                            <tr class="item" style="font-size: medium;">
-                         
-                              <td>
-                                  เงินค้างชำระเมื่อสิ้นมกราคม 63 ยกมา
+                              <% } %>
+                                     
+                                  
+                                  
+                                      
+                             
+                                      <td>
+                                          รับเงินมาทั้งสิ้น:
+                                        
+                                      </td>
+                  
+                                  <td   style="text-align: right;font-size: medium;font-weight: bold;">
+                                 <%= totalpay %> บาท
                               </td>
-                              <td >
-                                  <%= lastbalance %> บาท
-                              </td >
-                          </tr>
-                          <% } else if (lastbalance1 > 0) { %>
-                              <tr class="item " style="font-size: medium;">
-                                  <td>
-                                      เงินชำระไว้เกินเดือนที่แล้ว
-                                  </td>
-                                  <td  style="text-align: right;">
-                                       <%= lastbalance %> บาท
-                                  </td>
-                              </tr>
-                              <% } else {%>
-                                  <td></td>
-                                  <td></td>
-                                  <% }%>
-                              <% if (invoicemonth == 'ชำระค่าส่วนกลางค้างจ่ายสะสม') {%>
-                              <tr class="item" style="font-size: medium;">
-                                 
+                             
+                          </tr> 
+                          <tr>
                               <td>
+                                 ประเภทการชำระเงิน:
+                                   
+                                 <% if (paymenttype == 'เงินโอน') {%> 
+                                  <a style="font-weight: bold;"> <%= paymenttype %> </a> เลขที่การโอน: <%= transferno %>
+                                 <% } else {%>
+                                    <a style="font-weight: bold;">  <%= paymenttype %>  </a>  
+                                   <% }%> 
+                              </td>
+                              <td style="text-align: right;font-size: medium;">
                                 
                               </td>
-                                  <td  style="text-align: right;">
-                                   
-                                  </td>
-                                 
-                              </tr>
-                              <% } else {%>
-                                  <tr class="item" style="font-size: medium;">
-                                 
-                                      <td>
-                                          รวมที่ต้องชำระทั้งสิ้น
-                                      </td>
-                                          <td  style="text-align: right;">
-                                             <%= totalamount %> บาท
-                                          </td>
-                                         
-                                      </tr>
-                              <% }%>
-                              <td>
-                                  ชำระเป็น: <a style="font-weight: bold;"> <%= paymenttype %> </a>
-                              </td>
-                           
-                                  <td style="text-align: right;font-size: medium;font-weight: bold;">
-                                  รับเงินมาทั้งสิ้น: <%= totalpay %> บาท
-                              </td>
-                            
-                          </tr> 
-                          <tr >
-                            
-                                  <% if (paymenttype == 'เงินโอน') {%> 
-                                      <td>
-                                 เลขที่การโอน: <%= transferno %> โอนวันที่: <%= transferdate %>
-                              </td>
-                                <% } else {%>
-                                  <td>
-                                  </td>
-                                  <% }%> 
-                             
-               
-                              <% if (netdiff1 < 0) {%>
-                                  <td style="text-align: right;font-size: medium;font-weight: bold;">
-                                      ยอดเงินค้างชำระยกไป: <%= netdiff %> บาท
-                                  </td>
-                                  <% } else {%>
-                                      <td  style="text-align: right;font-size: medium;font-weight: bold;">
-                                          ยอดเงินชำระไว้เกินยกไป: <%= netdiff %> บาท
-                                      </td>
-                                      <% } %>
-                          
                           </tr>
-                          
-                              <% } else { %>
-                             
-                                <td>
-                                  ไม่มีค่าส่วนกลางค้างจ่าย
-                              </td>
-                              <td>
-                              
-                              </td> 
-                                <% } %>
-                              <tr class="information "  style="margin-top: -100px;">
+                      
+                           
+                                  <tr class="item" style="font-size: medium;">
                                 <td colspan="2" style="margin-top: -100px;">
                                     <table>
                                         <tr>
@@ -388,154 +300,65 @@
                                จำนวนเงิน
                             </td>
                         </tr>
-                        <% if (invoicelist.length > 0) {%>
+                        <% if (invoicelist.length >0) {%>
                           <% invoicelist.forEach((invoice, index) => { %>
                         <tr class="item" style="font-size: medium;">
-                            <% if (invoice.invoice_month == 'ชำระค่าส่วนกลางค้างจ่ายสะสม') {%>
-                            <td>
-                               <!-- <%= invoice.invoice_month %> -->
-                            </td>
-                            <td>
-        
-                            </td>
+                
+                                <% if (invoice.invoice_month !== null) {%>
+                           
+                                <td>
+                                    <%= invoice.invoice_type %> - <%= invoice.invoice_month %>
+                                 </td>
+                                 <td>
+                                    <%= invoice.amount %> บาท 
+                                 </td>
+                          
+                          
                             <% } else { %>
-                                <% if (invoice.invoice_type !== null) {%>
-                                <% if (invoice.START == invoice.END ) {%>
-                                    <td>
-                                        <%= invoice.invoice_type %> เดือน <%= invoice.START %> 
-                                     </td>
-                                     <td>
-                                        <%= invoice.amount %> บาท 
-                                     </td>
-                                     <% } else { %>
-                                        <td>
-                                            <%= invoice.invoice_type %> เดือน <%= invoice.START %> - <%= invoice.END %>  ( <%= invoice.amount1 %> บาท/เดือน  )
-                                         </td>
-                                         <td>
-                                            <%= invoice.amount %> บาท 
-                                         </td>
-                                     <% } %>
-                               
-                                     <% } %>
+                                <td>
+                                    <%= invoice.invoice_type %> 
+                                 </td>
+                                 <td>
+                                    <%= invoice.amount %> บาท 
+                                 </td>
+        
                             <% } %>
-                           
                         </tr>
-                        <% if (invoicelist1.length > 0) {%>
-                            <% invoicelist1.forEach((invoice1, index1) => { %>
-                                <tr class="item" style="font-size: medium;">
-                                    <% if (invoice1.invoice_type !== null) {%>
-                                    <% if (invoice1.START == invoice1.END ) {%>
-                                        <td>
-                                            <%= invoice1.invoice_type %> เดือน <%= invoice1.START %>
-                                         </td>
-                                         <td>
-                                            <%= invoice1.amount %> บาท 
-                                         </td>
-                                         <% } else { %>
-                                            <td>
-                                                <%= invoice1.invoice_type %> เดือน <%= invoice1.START %> - <%= invoice1.END %> ( <%= invoice1.amount1 %> บาท/เดือน  )
-                                             </td>
-                                             <td>
-                                                <%= invoice1.amount %> บาท 
-                                             </td>
-                                         <% } %>
-                              
-                                         <% } %>
-                        </tr>
-                                
-                                <% }) %>
-                                <% } %>
+                    
                         <% }) %>
-                      
-                      <% if (lastbalance1 < 0) {%>
-                      <tr class="item" style="font-size: medium;">
-                   
-                        <td>
-                            เงินค้างชำระเมื่อสิ้นมกราคม 63 ยกมา
+                        <% } %>
+                               
+                            
+                            
+                                
+                       
+                                <td>
+                                    รับเงินมาทั้งสิ้น:
+                                  
+                                </td>
+            
+                            <td   style="text-align: right;font-size: medium;font-weight: bold;">
+                           <%= totalpay %> บาท
                         </td>
-                        <td >
-                            <%= lastbalance %> บาท
-                        </td >
-                    </tr>
-                    <% } else if (lastbalance1 > 0) { %>
-                        <tr class="item " style="font-size: medium;">
-                            <td>
-                                เงินชำระไว้เกินเดือนที่แล้ว
-                            </td>
-                            <td  style="text-align: right;">
-                                 <%= lastbalance %> บาท
-                            </td>
-                        </tr>
-                        <% } else {%>
-                            <td></td>
-                            <td></td>
-                            <% }%>
-                        <% if (invoicemonth == 'ชำระค่าส่วนกลางค้างจ่ายสะสม') {%>
-                        <tr class="item" style="font-size: medium;">
-                           
+                       
+                    </tr> 
+                    <tr>
                         <td>
+                           ประเภทการชำระเงิน:
+                             
+                           <% if (paymenttype == 'เงินโอน') {%> 
+                            <a style="font-weight: bold;"> <%= paymenttype %> </a> เลขที่การโอน: <%= transferno %>
+                           <% } else {%>
+                              <a style="font-weight: bold;">  <%= paymenttype %>  </a>  
+                             <% }%> 
+                        </td>
+                        <td style="text-align: right;font-size: medium;">
                           
                         </td>
-                            <td  style="text-align: right;">
-                             
-                            </td>
-                           
-                        </tr>
-                        <% } else {%>
-                            <tr class="item" style="font-size: medium;">
-                           
-                                <td>
-                                    รวมที่ต้องชำระทั้งสิ้น
-                                </td>
-                                    <td  style="text-align: right;">
-                                       <%= totalamount %> บาท
-                                    </td>
-                                   
-                                </tr>
-                        <% }%>
-                        <td>
-                            ชำระเป็น: <a style="font-weight: bold;"> <%= paymenttype %> </a>
-                        </td>
-                     
-                            <td style="text-align: right;font-size: medium;font-weight: bold;">
-                            รับเงินมาทั้งสิ้น: <%= totalpay %> บาท
-                        </td>
-                      
-                    </tr> 
-                    <tr >
-                      
-                            <% if (paymenttype == 'เงินโอน') {%> 
-                                <td>
-                           เลขที่การโอน: <%= transferno %> โอนวันที่: <%= transferdate %>
-                        </td>
-                          <% } else {%>
-                            <td>
-                            </td>
-                            <% }%> 
-                       
-         
-                        <% if (netdiff1 < 0) {%>
-                            <td style="text-align: right;font-size: medium;font-weight: bold;">
-                                ยอดเงินค้างชำระยกไป: <%= netdiff %> บาท
-                            </td>
-                            <% } else {%>
-                                <td  style="text-align: right;font-size: medium;font-weight: bold;">
-                                    ยอดเงินชำระไว้เกินยกไป: <%= netdiff %> บาท
-                                </td>
-                                <% } %>
-                    
                     </tr>
-                    
-                        <% } else { %>
-                       
-                          <td>
-                            ไม่มีค่าส่วนกลางค้างจ่าย
-                        </td>
-                        <td>
-                        
-                        </td> 
-                          <% } %>
-                        <tr class="information "  style="margin-top: -100px;">
+                
+                     
+                            <tr class="item" style="font-size: medium;">
                           <td colspan="2" style="margin-top: -100px;">
                               <table>
                                   <tr>
@@ -565,7 +388,6 @@
         
                 </div>
             </div>
-      
         <!-- /.container-fluid -->
 
       </div>

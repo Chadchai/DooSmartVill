@@ -36,11 +36,11 @@ app.set('views', __dirname + '/views/'); // set express to look in this folder t
 const PORT = process.env.PORT || 7000
 
 const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,invoiceform1,getsliplist,updateslipstatus,getinvoicesform} = require("./");
-const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./");
+const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,receiptform2,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./");
 const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./");
 const {receiptoldpayment,contact,contact1,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1,getvotelist} = require("./");
 const {getcontactlist,addcontact,updatecontact,deletecontact,getnewslist,addnews,updatenews,deletenews,getalert,getcarlist,updatecar,cancelreceipt,getvoidreceipt,changepwd,newpassword} = require("./")
-const {comment,getcommentlist,sendcomment,clearadvanceinv,getnewslist1,addpettycash} = require("./")
+const {comment,getcommentlist,sendcomment,clearadvanceinv,getnewslist1,addpettycash,createletter} = require("./")
 
 app.get('/', index);
 app.get('/getreceiptlist', getreceiptlist);
@@ -60,6 +60,7 @@ app.get('/oldcommonfee', oldcommonfee);
 app.get('/income', income);
 app.get('/getreceiptlist1', getreceiptlist1);
 app.get('/receiptform1/104/:house_no/:receiptno', receiptform1);
+app.get('/receiptform2/104/:house_no/:receiptno', receiptform2);
 app.get('/expense', expense);
 app.get('/getexpenselist', getexpenselist);
 app.get('/incomeexpense', incomeexpense);
@@ -115,6 +116,7 @@ app.get('/getcommentlist', getcommentlist);
 app.post('/clearadvanceinv',clearadvanceinv); addpettycash
 app.get('/getnewslist1', getnewslist1);
 app.post('/addpettycash',addpettycash);
+app.get('/createletter',createletter );
 //const PORT1 = process.env.PORT || 3000;
 //http.listen(app.get('port'));
 app.listen(PORT, () => {

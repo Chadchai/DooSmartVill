@@ -1,0 +1,268 @@
+<!DOCTYPE.html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <base href="/">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>หนังสือติดตามทวงถาม</title>
+
+  <!-- Custom fonts for this template-->
+  <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Kanit:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+ <link href="assets/css/sb-admin-2.css" rel="stylesheet">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+  <style type="text/css">
+
+@media print
+      {
+          #non-printable { display: none; }
+          .non-printable1 { display: none; }
+          .footer1 {display:none;}
+          #printable { display: block;overflow: visible !important;}
+          .page { page-break-after:always;size: A4; }
+          .watermark {
+        display: inline;
+        position: fixed !important;
+        opacity: 0.25;
+        font-size: 3em;
+        width: 100%;
+        text-align: center;
+        z-index: 1000;
+        top:700x;
+        right:5px;
+        color: red;
+    }
+  
+
+      }
+     
+      @page:last {
+  /* No margin on the first page. */
+  display: none;
+}
+      </style>       
+</head>
+
+<style>
+.blink {
+  animation: blinker 1s step-start infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+</style>
+
+<body id="page-top" >
+
+  <!-- Page Wrapper -->
+  <div id="wrapper">
+    <%- include('partials/adminheader.ejs') %>
+
+
+
+        <!-- Begin Page Content -->
+        <div class="container-fluid" style="min-height:75%;">
+
+          <!-- Page Heading -->
+          <div id="non-printable">
+            
+          <div class="row d-sm-flex align-items-center justify-content-between mb-4 col-md-10 ">
+            <div class="col-md-2">
+            <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm " onclick="window.history.back()"><i class="fas fa-angle-double-left fa-sm text-white-50"></i> กลับ</a>
+          </div>
+          
+            <div class="col-md-4">
+ 
+              <input type="้house_no" name="house_no" data-form-field="Name" required="required" placeholder="บ้านเลขที่" class="form-control  display-7" id="house_no" >
+                    </div>
+            <div class="col-md-3">
+              <a  class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm" onclick="window.print()"><i class="fas fa-print fa-sm text-white-50"></i> สร้างหนังสือ</a>  <!-- <h1 class="h3 mb-0 text-gray-800" style="color: blue;"><div id="txt"></div></h1> -->
+   
+            </div>
+            <div class="col-md-3">
+            <a  class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" onclick="window.print()"><i class="fas fa-print fa-sm text-white-50"></i> พิมพ์หนังสือติดตาม</a>  <!-- <h1 class="h3 mb-0 text-gray-800" style="color: blue;"><div id="txt"></div></h1> -->
+          </div>
+            <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a> -->
+          </div>
+       
+        </div>
+          <!-- Content Row -->
+
+
+          <!-- Content Row -->
+
+                     <!-- Color System -->
+                 
+                      <div id="non-printable">
+                      <!-- <button type="button" class="btn btn-primary btn-form display-4" style="border-radius: 30px;" onclick="window.history.back()">กลับ</button> -->
+                        <button type="button" id="printpdf" class="btn btn-primary btn-form display-4" style="border-radius: 30px;display:none" onclick="printJS('printable', 'html')"><span class="mbri-save"></span> บันทึก</button>
+                  
+                    </div>
+                    <div id="printable page" >
+                     
+                      <div class="watermark">เอกสารสำคัญ</div>
+                      <div class="invoice-box" style="width:100%;margin-top: 30px;background-color: white;margin-left: -30px;" >
+                          <table cellpadding="0" cellspacing="0" style="padding: 15px;min-height: 140mm;color: black;">
+                            <tr class="top">
+                              <td >
+                                <img src="assets/images/idesign3.png" style="width:100%; max-width:220px;" />
+                         
+                              </td>
+                              <td >
+                                <p style="text-align: right;">&nbsp;</p>
+<p style="text-align: right;"><span style="font-size: 18pt;"><span style="line-height: 107%; font-family: 'Cordia New', sans-serif;">นิติบุคคลหมุ่บ้านจัดสรรไอ</span><span style="line-height: 107%; font-family: Calibri, sans-serif;">-</span><span style="line-height: 107%; font-family: 'Cordia New', sans-serif;">ดีไซน์(วงแหวน-รามอินทรา)</span></span></p>
+<p style="text-align: right;"><span style="font-size: 18pt;"><span style="line-height: 107%; font-family: 'Cordia New', sans-serif;">เบอร์โทร 02-007-4638</span> </span></p>
+                              </td>
+                          </tr>
+                          
+                            <tr class="information ">
+                              <td colspan="2 ">
+                                <div style="margin-left: 20px;" >
+                                  <p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="color: black;">วันที่ &nbsp;17 &nbsp;เมษายน &nbsp;2563 </span></span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;">&nbsp;</p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><strong><span style="color: black;">เรื่อง</span></strong><span style="color: black;"> ขอติดตามทวงถามหนี้ ค่าบริการสาธารณะหมู่บ้านจัดสรรไอ</span><span style="color: black;">-</span><span style="color: black;">ดีไซน์ ค้างชำระ <strong>(ฉบับที่1)</strong></span></span></p>
+
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><strong><span style="color: black;">เรียน</span></strong><span style="color: black;"> ท่านเจ้าของกรรมสิทธิ์ที่ดินพร้อมสิ่งปลูกสร้างบ้านเลขที่ </span><strong><span style="font-family: AngsanaUPC, serif; color: black;">104/</span></strong><strong><span style="font-family: AngsanaUPC, serif; color: black;">121 </span></strong><span style="color: black;">หมู่บ้านจัดสรรไอ</span><span style="color: black;">-</span><span style="color: black;">ดีไซน์(วงแหวน</span><span style="color: black;">-</span><span style="color: black;">รามอินทรา)</span></span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;">&nbsp;</span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ตามที่นิติบุคคลหมู่บ้านจัดสรรไอ</span><span style="color: black;">-</span><span style="color: black;">ดีไซน์(วงแหวน</span><span style="color: black;">-</span><span style="color: black;">รามอินทรา) ได้เรียกเก็บค่าบริการสาธารณะจากท่าน ในฐานะเจ้าของที่ดินกรรมสิทธิ์สิ่งปลูกสร้าง<strong> <u>ซึ่งกำหนดให้ชำระค่าส่วนกลางทุกวันที่ 30 ของทุกเดือน </u></strong>ปรากฏว่า ณ ปัจจุบันท่านผิดชำระค่าสาธารณูปโภคเป็นเวลามากกว่า 6 เดือน</span></span></p>
+<br>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ดังนั้น นิติบุคคลหมู่บ้านจัดสรรไอ</span><span style="color: black;">-</span><span style="color: black;">ดีไซน์(วงแหวน-รามอินทรา) จึงใคร่ขอให้ท่านได้โปรดชำระเงินค่าบริการสาธารณะที่ค้างชำระดังกล่าว <strong>พร้อมค่าปรับ 10 </strong></span><strong><span style="color: black;">% </span></strong><strong><span style="color: black;">ตามกฏข้อบังคับหมู่บ้านฯ ให้แล้วเสร็จภายใน</span></strong><span style="color: black;"> <strong><u>วันที่ 30 เมษายน 2563</u></strong> <strong>หากครบกำหนดแล้วท่านยังเพิกเฉยไม่ชำระหนี้ นิติบุคคลหมู่บ้านจัดสรรไอ-ดีไซน์(วงแหวน-รามอินทรา)มีความจำเป็นต้องดำเนินการตามกฏหมายกับท่านต่อไป</strong> ตามรายละเอียดดังนี้</span></span></p>
+<br>
+<p style="background: white; margin-right: 0in; margin-left: 0in; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><strong><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong><strong><span style="color: black;">บ้านเลขที่&nbsp; 104/121 ชื่อ คุณดวงฤดี&nbsp; มณีรัตน์ โฉนดเลขที่ 80937&nbsp; เนื้อที่ 21.3&nbsp; ตร.วา</span></strong></span></p>
+<table class="MsoTableGrid" style="border-collapse: collapse; border: none;" border="1" cellspacing="0" cellpadding="0">
+<tbody>
+<tr>
+<td style="width: 332.75pt; border: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;" valign="top">
+<p style="margin-right: 0in; margin-left: 0in; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt; color: #000000;">ค่าสาธารณูปโภคตั้งแต่ปี 2557-เมษายน 2563</span></p>
+</td>
+<td style="width: 2.25in; border: solid windowtext 1.0pt; border-left: none; padding: 0in 5.4pt 0in 5.4pt;" valign="top">
+<p style="text-align: right; margin-right: 0in; margin-left: 0in; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt; color: #000000;">39,620.00 &nbsp;บาท</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 332.75pt; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;" valign="top">
+<p style="margin-right: 0in; margin-left: 0in; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt; color: #000000;">ค่าปรับตามข้อบังคับ 10%</span></p>
+</td>
+<td style="width: 2.25in; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;" valign="top">
+<p style="text-align: right; margin-right: 0in; margin-left: 0in; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt; color: #000000;">3,962.00 &nbsp;บาท</span></p>
+</td>
+</tr>
+<tr>
+<td style="width: 332.75pt; border: solid windowtext 1.0pt; border-top: none; padding: 0in 5.4pt 0in 5.4pt;" valign="top">
+<p style="margin-right: 0in; margin-left: 0in; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt; color: #000000;">รวมเป็นเงินทั้งสิ้น&nbsp; (สี่หมื่นสามพันห้าร้อยแปดสิบสองบาท)</span></p>
+</td>
+<td style="width: 2.25in; border-top: none; border-left: none; border-bottom: solid windowtext 1.0pt; border-right: solid windowtext 1.0pt; padding: 0in 5.4pt 0in 5.4pt;" valign="top">
+<p style="text-align: right; margin-right: 0in; margin-left: 0in; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt; color: #000000;">&nbsp;&nbsp; 43,582.00 &nbsp;บาท</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><strong><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></strong></span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="color: black; font-size: 18pt;">ท่านสามารถชำระเงินผ่านบัญชีธนาคารดังนี้</span></p>
+<p style="margin: 0in 0in 4.5pt 0.5in; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>ธนาคารไทยพาณิชย์จำกัด ชื่อบัญชี นิติบุคคลหมู่บ้านจัดสรรไอ</strong></span><strong><span style="color: black;">-</span></strong><strong><span style="color: black;">ดีไซน์(วงแหวน-รามอินทรา) </span></strong></span></p>
+<p style="margin: 0in 0in 4.5pt 0.5in; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><strong><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; เลขที่บัญชี 171-272623-1 สาขา แฟชั่นไอส์แลนด์&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ประเภท ออมทรัพย์</span></strong></span></p>
+<p style="margin: 0in 0in 4.5pt 0.5in; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><strong>&nbsp;</strong></span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ทั้งนี้เมื่อท่านชำระค่าส่วนกลางดังกล่าวแล้ว โปรดเก็บหลักฐานชำระเงินและตรวจสอบความถูกต้องหลังการชำระเงินทุกครั้ง และนำมายื่นที่ นิติบุคคลฯ หรือ<u> </u></span><strong><u><span style="color: black;">E-mail :</span></u></strong><u><span style="color: black;"> </span></u><span style="color: black;"><a style="color: #0563c1; text-decoration: underline;" href="mailto:niti.idesign2020@gmail.com%20เพื่อ"><strong>niti.idesign2020@gmail.com</strong> เพื่อ</a></span><span style="color: black;">ดำเนินการออกใบเสร็จรับเงิน หลังจากทราบผลการชำระเงินจากธนาคารไทยพาณิชย์และนิติบุคคลฯได้ตรวจสอบการโอนเงินในบัญชีเรียบร้อยแล้ว</span></span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="color: black; font-size: 18pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ท่านสามารถสอบถามข้อมูลเพิ่มเติมได้ที่ คุณชัยรงค์ สุทธิชัยวรกุล (ผู้จัดการหมู่บ้านฯ) โทร.02-007-4638 ทุกวันในเวลาทำการ</span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;">&nbsp;</span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;</span><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;</span><span style="color: black;">จึงเรียนมาเพื่อโปรดดำเนินการ และขอขอบพระคุณท่านที่ให้ความร่วมมือมา ณ โอกาสนี้ด้วย</span></span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="color: black; font-size: 18pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p style="margin: 0in 0in 4.5pt 4in; text-indent: 0.5in; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="color: black; font-size: 18pt;">&nbsp;&nbsp;&nbsp; &nbsp;ขอแสดงความนับถือ</span></p>
+<p style="margin: 0in 0in 4.5pt 1.5in; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="color: black; font-size: 18pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></p>
+<p style="margin: 0in 0in 4.5pt 1.5in; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="color: black; font-size: 18pt;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp _______________________</span></p>
+<p style="margin: 0in 0in 4.5pt 4in; text-indent: 0.5in; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="color: black; font-size: 18pt;">&nbsp;&nbsp;&nbsp; นายมั่งมี ศรีสุข</span></p>
+<p style="margin: 0in 0in 4.5pt; background: white; font-size: 14pt; font-family: 'Angsana New', serif;"><span style="font-size: 18pt;"><span style="color: black;">&nbsp;&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="color: black;">&nbsp;&nbsp;&nbsp;(ผู้จัดการนิติบุคคลหมู่บ้านจัดสรรไอ</span><span style="color: black;">-</span><span style="color: black;">ดีไซน์(วงแหวน</span><span style="color: black;">-</span><span style="color: black;">รามอินทรา)</span></span></p>
+                                </div>
+</td>
+</tr>
+
+                            
+                          
+                          </table>
+                          
+                      </div>
+                   
+                  </div>
+
+        <!-- /.container-fluid -->
+
+      </div>
+      <!-- End of Main Content -->
+
+      <!-- Footer -->
+      <footer id="footer1" class="footer1 sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Copyright &copy; DooSmartVill 2020</span>
+          </div>
+        </div>
+      </footer>
+      <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+  </div>
+  <!-- End of Page Wrapper -->
+
+  <!-- Scroll to Top Button-->
+  <a class="scroll-to-top rounded " href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="login.ejs">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript-->
+  <script src="assets/vendor/jquery/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="assets/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="assets/vendor/chart.js/Chart.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="assets/js/demo/chart-area-demo.js"></script>
+  <script src="assets/js/demo/chart-pie-demo.js"></script>
+
+   
+   <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
+</body>
+
+</html>
