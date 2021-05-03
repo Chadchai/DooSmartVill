@@ -263,7 +263,7 @@
                   <h2 class="dropdown-header" style="font-size: larger;">
                   รายการแจ้งเตือน
                   </h2>
-                  <a class="dropdown-item d-flex align-items-center" href="/getsliplist">
+                  <a class="dropdown-item d-flex align-items-center" href="/getcommentlist">
                     <div class="mr-3">
                       <div class="icon-circle bg-danger">
                         <i class="fas fa-file-alt text-white"></i>
@@ -377,6 +377,7 @@ axios
    document.getElementById("date1").innerHTML = today1;
    document.getElementById("date2").innerHTML = today1;
     let todayslip = alert[0][0].nopendingslip;
+    let todayfeedback = alert[1][0].nofeedback;
   
     if (todayslip > 0 ){
      
@@ -387,9 +388,21 @@ axios
 
     } else {
       document.getElementById("todayslip").style= "display:none";
+
       document.getElementById("waittoreceipt").innerHTML = "ไม่มี รายการ รอออกใบเสร็จวันนี้";
 
     } 
+
+    if (todayfeedback > 0){
+
+      document.getElementById("todayalert").innerHTML= " " + todayfeedback + "+";
+      document.getElementById("myalert").innerHTML = "มี " + todayfeedback  +" รายการ ที่ลูกบ้านร้องเรียนมา";
+    } else {
+      document.getElementById("todayalert").style= "display:none";
+
+document.getElementById("myalert").innerHTML = "ไม่มี รายการ รอออกใบเสร็จวันนี้";
+
+    }
     
    // console.log("response: ", todaypost[i].details);
   

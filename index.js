@@ -494,11 +494,11 @@ var villageid = req.body.village_id;
   getmyreceiptlist: function(req, res){
     let houseid = req.params.house_no;
     let getreceiptlist = "SELECT invoice_info.house_no,invoice_info.id,SUM(invoice_info.amount) AS t_amount,MAX(invoice_info.invoice_month) AS remark,invoice_info.payment_type,invoice_info.receipt_no,invoice_info.invoice_type,house_info.owner_name " +  
-    "FROM `invoice_info` " +
+    "FROM `invoice_info`" +
     "LEFT JOIN `house_info` " + 
     "ON invoice_info.house_no = house_info.house_no " +
     "WHERE invoice_info.house_no = '104/" + houseid + "' AND payment_type <> '' AND (invoice_type = 'ค่าส่วนกลาง' || invoice_type ='ค่าจอดรถ' || invoice_type ='รายได้อื่นๆ' )  " +
-    "GROUP BY receipt_no" ;  
+    "GROUP BY receipt_no ORDER BY invoice_info.id DESC" ;  
    //console.log(getreceiptlist);
         var today = new Date();
         //var c_month = today.getMonth()+1;
@@ -1885,7 +1885,7 @@ newpassword: function(req, res){
 
 getinvoicesform: function(req, res){
   
-  let gethouselist = "SELECT invoice_info.house_no,(DATE_FORMAT(MAX(invoice_info.invoice_date),'%d %b %Y')) AS invoicedate,FORMAT(SUM(invoice_info.amount)-house_info.remain,0) AS t_amount,invoice_info.invoice_month AS remark,invoice_info.invoice_no,house_info.owner_name,FORMAT(Abs(house_info.remain), 0) AS remain,house_info.remain AS remain1,house_info.lane_no " +  
+  let gethouselist = "SELECT invoice_info.house_no,(DATE_FORMAT(MAX(invoice_info.invoice_date),'%d %b %Y')) AS invoicedate,FORMAT(SUM(invoice_info.amount)-house_info.remain,2) AS t_amount,invoice_info.invoice_month AS remark,invoice_info.invoice_no,house_info.owner_name,FORMAT(Abs(house_info.remain), 2) AS remain,house_info.remain AS remain1,house_info.lane_no " +  
     "FROM `invoice_info` " +
     "LEFT JOIN `house_info` " + 
     "ON invoice_info.house_no = house_info.house_no " +
@@ -1893,12 +1893,12 @@ getinvoicesform: function(req, res){
     "GROUP BY house_no" +
   " ORDER BY house_info.lane_no ASC";
 
-  let getinvoicelist = "SELECT invoice_info.house_no,invoice_info.id,invoice_info.amount AS amount1,FORMAT(SUM(invoice_info.amount),0) AS amount,GROUP_CONCAT(invoice_info.invoice_month ORDER BY invoice_info.id ASC SEPARATOR '+') AS remark,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',1) AS START, SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',-1) AS END ,invoice_info.invoice_type " +  
+  let getinvoicelist = "SELECT invoice_info.house_no,invoice_info.id,FORMAT(invoice_info.amount,2) AS amount1,FORMAT(SUM(invoice_info.amount),2) AS amount,GROUP_CONCAT(invoice_info.invoice_month ORDER BY invoice_info.id ASC SEPARATOR '+') AS remark,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',1) AS START, SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',-1) AS END ,invoice_info.invoice_type " +  
   "FROM `invoice_info` " +
   "WHERE (payment_type = '' OR payment_type IS NULL) AND invoice_type ='ค่าส่วนกลาง' " +
   "GROUP BY house_no " +
 " ORDER BY invoice_info.id DESC";
-let getinvoicelist1 = "SELECT invoice_info.house_no,invoice_info.id,invoice_info.amount AS amount1,FORMAT(SUM(invoice_info.amount),0) AS amount,GROUP_CONCAT(invoice_info.invoice_month ORDER BY invoice_info.id ASC SEPARATOR '+') AS remark,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',1) AS START, SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',-1) AS END, invoice_info.invoice_type " +  
+let getinvoicelist1 = "SELECT invoice_info.house_no,invoice_info.id,FORMAT(invoice_info.amount,2) AS amount1,FORMAT(SUM(invoice_info.amount),2) AS amount,GROUP_CONCAT(invoice_info.invoice_month ORDER BY invoice_info.id ASC SEPARATOR '+') AS remark,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',1) AS START, SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',-1) AS END, invoice_info.invoice_type " +  
 "FROM `invoice_info` " +
 "WHERE payment_type = '' OR payment_type IS NULL AND invoice_type ='ค่าจอดรถ' " +
 "GROUP BY house_no " +
@@ -2180,7 +2180,7 @@ todaysummary: function(req, res){
             } else{
             let thismonthpettycash = Number(result5[0].petty_amount);
 
-          let todaypettycash = "SELECT FORMAT((SUM(expense_amount)),2) AS sumexpense FROM expense_info WHERE MONTH(expense_date) = MONTH(CURDATE()) AND YEAR(expense_date) = YEAR(CURDATE()) AND payment_type = 'เงินสด'" ; 
+          let todaypettycash = "SELECT SUM(expense_amount) AS sumexpense FROM expense_info WHERE MONTH(expense_date) = MONTH(CURDATE()) AND YEAR(expense_date) = YEAR(CURDATE()) AND payment_type = 'เงินสด'" ; 
           
           db.query(todaypettycash, (err, result4) => {
             if (err) {
@@ -2192,9 +2192,9 @@ todaysummary: function(req, res){
             if (result4[0].sumexpense == null) {
               todaypettycash1 = thismonthpettycash;
             } else {
-              todaypettycash1 = thismonthpettycash - Number(result4[0].sumexpense).toFixed(2) ;
+              todaypettycash1 = thismonthpettycash - Number(result4[0].sumexpense) ;
             }
-          //console.log(result4[0].todaypettycash);
+          console.log("SUM EXPENSE" + Number(result4[0].sumexpense));
           res.render('dailyincome.ejs', {
             title: "Today Income"
             ,message: '',todayincome: result[0].todayincome,todaytransfer: result1[0].todaytransfer,todaycash:thismonthpettycash.toLocaleString(),todayexpense: result3[0].todayexpense,todaypettycash: todaypettycash1.toLocaleString(),
@@ -2458,16 +2458,22 @@ getalert: function(req, res){
 }
 let today1 = GetFormattedDate(new Date());
  let todayslip = "SELECT COUNT(id) AS nopendingslip FROM slip_info WHERE status <> 'ออกใบเสร็จแล้ว'";
-     
+ let todayfeedback = "SELECT COUNT(comment_id) AS nofeedback FROM comment_info";    
  //console.log(todaypost);
                        let jsonData = [];
                        db.query(todayslip, (err, result) => {
                          //console.log(result);
                            if (err ) {
                                return res.status(500).send(err);
-                           } else { 
+                           } else {
+                            db.query(todayfeedback, (err, result1) => {
+                              //console.log(result);
+                                if (err ) {
+                                    return res.status(500).send(err);
+                                } else { 
                            
                              jsonData[0] = JSON.parse(JSON.stringify(result));
+                             jsonData[1] = JSON.parse(JSON.stringify(result1));
                           
                              res.setHeader('Content-Type', 'application/json');
                              res.send(JSON.stringify(jsonData));
@@ -2476,6 +2482,9 @@ let today1 = GetFormattedDate(new Date());
                      }
  
                    });
+                  }
+ 
+                });
                        
 },
 getcarlist: function(req, res){
