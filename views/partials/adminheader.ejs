@@ -1,5 +1,6 @@
+
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion non-printable1" id="accordionSidebar">
+    <ul  class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion non-printable1" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -20,7 +21,7 @@
         </div>
   
         <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
+        <li id="leftbar1" class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-cog"></i>
             <span style="color: white;font-size: medium;">ออกใบแจ้งหนี้</span>
@@ -30,15 +31,15 @@
               <!-- <h6 class="collapse-header" style="font-weight: bold;color: black;">ระบบการจอง:</h6> -->
               <a class="collapse-item text-danger" type="button" data-toggle="modal" data-target="#confirmtoinv"  style="font-weight:bold;">ออกใบแจ้งหนี้ประจำเดือน</a>
               <a class="collapse-item" href="/advanceinvoice" style="font-weight:bold;">ออกใบแจ้งหนี้ล่วงหน้า</a>
-              <a class="collapse-item" href="/getinvoicelist" style="font-weight:bold;">ดูรายการหนี้คงค้าง</a>
-              <a class="collapse-item" href="/getallinvoice" style="font-weight:bold;">พิมพ์ใบแจ้งหนี้ทั้งหมด</a>
-              <a class="collapse-item" href="/getsliplist" style="font-weight:bold;">กล่องรับสลิปการโอน</a>
+              <a id="invoicelist" class="collapse-item" href="/getinvoicelist" style="font-weight:bold;">ดูรายการหนี้คงค้าง</a>
+              <a class="collapse-item" id="allinvoice" href="/getallinvoice" style="font-weight:bold;">พิมพ์ใบแจ้งหนี้ทั้งหมด</a>
+              <a class="collapse-item" id="sliplist" href="/getsliplist/0" style="font-weight:bold;">กล่องรับสลิปการโอน</a>
             </div>
           </div>
         </li>
   
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
+        <li id="leftbar2" class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities1" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-wrench"></i>
             <span style="font-size: medium;color: white;">ออกใบเสร็จรับเงิน</span>
@@ -47,15 +48,15 @@
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header" style="font-weight:bold;" >เลือกรายการ</h6>
               <a class="collapse-item" href="/issuereceipt" style="font-weight:bold;">ออกใบเสร็จรับเงิน</a>
-              <a class="collapse-item" href="/oldcommonfee" style="font-weight:bold;">ออกใบเสร็จย้อนหลัง</a>
-              <a class="collapse-item" href="/getreceiptlist" style="font-weight:bold;">ดูใบเสร็จรับเงินย้อนหลัง</a>
-              <a class="collapse-item" href="/getallreceiptlist" style="font-weight:bold;">ดูใบเสร็จย้อนหลังทั้งหมด</a>
+              <a class="collapse-item" id="oldcommonfee" href="/oldcommonfee" style="font-weight:bold;">ออกใบเสร็จย้อนหลัง</a>
+              <a class="collapse-item" id="receiptlist" href="/getreceiptlist" style="font-weight:bold;">ดูใบเสร็จรับเงินย้อนหลัง</a>
+              <a class="collapse-item" id="allreceipt" href="/getallreceiptlist" style="font-weight:bold;">ดูใบเสร็จย้อนหลังทั้งหมด</a>
               <a class="collapse-item" href="/getvoidreceipt" style="font-weight:bold;">ดูใบเสร็จรับเงินที่ยกเลิก</a>
             </div>
           </div>
         </li>
         <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item">
+        <li id="leftbar3" class="nav-item">
           <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2" aria-expanded="true" aria-controls="collapseUtilities">
             <i class="fas fa-fw fa-wrench"></i>
             <span style="font-size: medium;color: white;">บันทึกรายรับ-จ่ายอื่นๆ</span>
@@ -63,10 +64,10 @@
           <div id="collapseUtilities2" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <h6 class="collapse-header" style="font-weight:bold;" >เลือกรายการ</h6>
-              <a class="collapse-item" href="/income" style="font-weight:bold;">บันทึกรายรับ</a>
-              <a class="collapse-item" href="/expense" style="font-weight:bold;">บันทึกรายจ่าย</a>
-              <a class="collapse-item" href="/getreceiptlist1" style="font-weight:bold;">ดูประวัติรายรับอืนๆ</a>
-              <a class="collapse-item" href="/getexpenselist" style="font-weight:bold;">ดูรายการรายจ่าย</a>
+              <a class="collapse-item" id="income" href="/income" style="font-weight:bold;">บันทึกรายรับ</a>
+              <a class="collapse-item" id="expense" href="/expense" style="font-weight:bold;">บันทึกรายจ่าย</a>
+              <a class="collapse-item" id="otherreceipt" href="/getreceiptlist1" style="font-weight:bold;">ดูประวัติรายรับอืนๆ</a>
+              <a class="collapse-item" id="expenselist" href="/getexpenselist" style="font-weight:bold;">ดูรายการรายจ่าย</a>
               
              
             </div>
@@ -95,11 +96,11 @@
         <hr class="sidebar-divider">
   
         <!-- Heading -->
-        <div class="sidebar-heading">
+        <div id ="headeremp" class="sidebar-heading">
           ข้อมูลลูกบ้านและพนักงาน
         </div>
   <!-- Nav Item - Pages Collapse Menu -->
-  <li class="nav-item">
+  <li id="leftbar4" class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
       <i class="fas fa-fw fa-user-tie"></i>
       <span style="color:white;font-size:medium">ข้อมูลลูกบ้าน</span>
@@ -107,7 +108,7 @@
     <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">ข้อมูลลูกบ้าน:</h6>
-        <a class="collapse-item" href="/gethouselist">ข้อมูลลูกบ้าน</a>
+        <a class="collapse-item" id="houselist" href="/gethouselist">ข้อมูลลูกบ้าน</a>
         <a class="collapse-item" href="/getcarlist">ข้อมูลทะเบียนรถ</a>
         <a class="collapse-item" href="/getcommentlist">กล่องรับข้อเสนอแนะ</a>
        
@@ -136,7 +137,7 @@
      <hr class="sidebar-divider my-0">
   
      <!-- Nav Item - Dashboard -->
-     <li class="nav-item ">
+     <li id="leftbar5" class="nav-item ">
        <a class="nav-link" href="/getnewslist">
          <i class="fas fa-fw fa-tachometer-alt"></i>
          <span style="color:white;font-size:medium">แจ้งข่าวสารให้สมาชิก</span></a>
@@ -146,7 +147,7 @@
      <hr class="sidebar-divider my-0">
   
      <!-- Nav Item - Dashboard -->
-     <li class="nav-item ">
+     <li id="leftbar6" class="nav-item ">
       <a class="nav-link" href="/getcontactlist">
         <i class="fas fa-fw fa-phone-alt"></i>
         <span style="color:white;font-size:medium">เบอร์โทรติดต่อฉุกเฉิน</span></a>
@@ -227,7 +228,7 @@
               </li>
   
               <!-- Nav Item - Alerts -->
-              <li class="nav-item dropdown no-arrow mx-1">
+              <li id="alertslip" class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fas fa-dollar-sign text-primary" style="margin-right: 15px;"></i>
                   <!-- Counter - Alerts -->
@@ -238,7 +239,7 @@
                   <h2 class="dropdown-header" style="font-size: larger;">
                     สลิปรอออกใบเสร็จ
                   </h2>
-                  <a class="dropdown-item d-flex align-items-center" href="/getsliplist">
+                  <a id="sliplist2" class="dropdown-item d-flex align-items-center" href="/getsliplist/0">
                     <div class="mr-3">
                       <div class="icon-circle bg-primary">
                         <i class="fas fa-file-alt text-white"></i>
@@ -291,7 +292,7 @@
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" onclick="changepassword()">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     เปลี่ยน Password
                   </a>
@@ -360,10 +361,102 @@
       </div>
     </div>
   </div>
+
+   <!-- Add New Contact-->
+   <div class="modal fade" id="changepassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <form id="admininfo" action="/changeadminpassword" method="post" onsubmit="return validateForm()"  >
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title text-primary" id="exampleModalLabel">เปลี่ยน Password</h4>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          
+                <div class="row"> 
+                  <div class="col-12"> 
+                <h6 class="modal-title text-primary" >Username </h6>
+                <input type="text" name="user_name1"  id="user_name1"  class="form-control" readonly> 
+                </div>
+                <div class="col-12"> 
+                    <h6 class="modal-title text-primary" >Password: </h6>
+                    <input type="password" name="password1"  id="password1"  class="form-control"> 
+                   
+                    </div>
+                    <div class="col-12"> 
+                      <h6 class="modal-title text-primary" > ใส่ Password อีกครั้ง: </h6>
+                      <input type="password" name="password2"  id="password2"  class="form-control"> 
+                      <input type="hidden" name="village_id1"  id="village_id1"  class="form-control"> 
+                      </div>
+            </div>
+           
+
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" style="width:100px" class="btn btn-success">บันทึก</button>
+            <button type="button" style="width:100px" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
+         
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
   <script src="assets/js/admin.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-     
+  
+  
+
   <script>
+    var role = localStorage.getItem("role");
+//console.log("Role =" + role);
+if (role == 'Committee') {
+  
+  document.getElementById("leftbar1").style = "display:none";
+  document.getElementById("leftbar2").style = "display:none";
+  document.getElementById("leftbar3").style = "display:none";
+  document.getElementById("leftbar4").style = "display:none";
+  document.getElementById("leftbar5").style = "display:none";
+  document.getElementById("leftbar6").style = "display:none";
+  document.getElementById("alertslip").style = "display:none";
+  document.getElementById("headeremp").style = "display:none";
+} 
+  </script>
+
+  <script>
+    function validateForm() {
+   if ( document.forms["admininfo"]["password1"].value !== document.forms["admininfo"]["password2"].value) {
+       alert("Password ไม่ตรงกัน");
+      
+       return false;
+     }
+   } 
+    var villageid1 = localStorage.getItem("villageid") ;
+    function changepassword() {
+      
+    document.getElementById("user_name1").value = empname;
+    document.getElementById("village_id1").value = villageid1;
+   
+
+    $("#changepassword").modal();
+};
+// let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token1 });
+
+ document.getElementById("houselist").href = "/gethouselist/Bearer " + token1;
+ document.getElementById("receiptlist").href = "/getreceiptlist/Bearer " + token1;
+ document.getElementById("sliplist").href = "/getsliplist/0/Bearer " + token1;
+ document.getElementById("sliplist2").href = "/getsliplist/0/Bearer " + token1;
+ document.getElementById("allinvoice").href = "/getallinvoice/Bearer " + token1;
+ document.getElementById("allreceipt").href = "/getallreceiptlist/Bearer " + token1;
+ document.getElementById("invoicelist").href = "/getinvoicelist/Bearer " + token1;
+ document.getElementById("oldcommonfee").href = "/oldcommonfee/Bearer " + token1;
+ document.getElementById("income").href = "/income/Bearer " + token1;
+ document.getElementById("expense").href = "/expense/Bearer " + token1; 
+ document.getElementById("otherreceipt").href = "/getreceiptlist1/Bearer " + token1;
+ document.getElementById("expenselist").href = "/getexpenselist/Bearer " + token1;
+
 axios
   .get("/getalert")
   .then(response => {
@@ -400,7 +493,7 @@ axios
     } else {
       document.getElementById("todayalert").style= "display:none";
 
-document.getElementById("myalert").innerHTML = "ไม่มี รายการ รอออกใบเสร็จวันนี้";
+document.getElementById("myalert").innerHTML = "ไม่มีการแจ้งเรื่องร้องเรียนวันนี้";
 
     }
     

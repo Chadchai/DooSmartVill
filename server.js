@@ -6,6 +6,7 @@ const mysql = require('mysql');
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const http = require('http').createServer(app);
+const jwt = require('jsonwebtoken');
 
 const db = mysql.createConnection ({
     host: 'ijj1btjwrd3b7932.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
@@ -40,38 +41,58 @@ const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,receip
 const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./");
 const {receiptoldpayment,contact,contact1,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1,getvotelist} = require("./");
 const {getcontactlist,addcontact,updatecontact,deletecontact,getnewslist,addnews,updatenews,deletenews,getalert,getcarlist,updatecar,cancelreceipt,getvoidreceipt,changepwd,newpassword} = require("./")
-const {comment,getcommentlist,sendcomment,clearadvanceinv,getnewslist1,addpettycash,createletter} = require("./")
+const {comment,getcommentlist,sendcomment,clearadvanceinv,getnewslist1,addpettycash,createletter,updatecommentstatus,getmycommentlist,loadparkingfeeinfo,getinfoletter,getmycommentlist1,changeadminpassword} = require("./")
+
+const authenticateJWT = (req, res, next) => {
+  const authHeader = req.params.token;
+  const accessTokenSecret = "MY_SECRET_KEY";
+  if (authHeader) {
+      const token = authHeader.split(' ')[1];
+
+      jwt.verify(token, accessTokenSecret, (err, user) => {
+          if (err) {
+              return res.sendStatus(403);
+          }
+
+          req.user = user;
+          next();
+      });
+  } else {
+      res.sendStatus(401);
+  }
+};
 
 app.get('/', index);
-app.get('/getreceiptlist', getreceiptlist);
+app.get('/getreceiptlist/:token',authenticateJWT, getreceiptlist);
+app.get('/getreceiptlist2/', getreceiptlist);
 app.get('/issuereceipt', issuereceipt);
 app.get('/receiptform/104/:house_no/:receiptno', receiptform);
 app.get('/getrcpowner/104/:house_no',getrcpowner);
 app.get('/advanceinvoice', advanceinvoice);
 app.get('/getownername/:village_id/104/:house_no', getownername);
-app.get('/getinvoicelist', getinvoicelist);
+app.get('/getinvoicelist/:token',authenticateJWT, getinvoicelist);
 app.get('/invoiceform/104/:house_no', invoiceform);
 app.get('/invoiceform1/104/:house_no', invoiceform1);
-app.get('/getsliplist', getsliplist);
+app.get('/getsliplist/:condition/:token',authenticateJWT, getsliplist);
 app.post('/updateslipstatus',updateslipstatus);
-app.get('/getallinvoice', getinvoicesform);
-app.get('/getallreceiptlist', getallreceiptlist);
-app.get('/oldcommonfee', oldcommonfee);
-app.get('/income', income);
-app.get('/getreceiptlist1', getreceiptlist1);
+app.get('/getallinvoice/:token',authenticateJWT, getinvoicesform);
+app.get('/getallreceiptlist/:token',authenticateJWT, getallreceiptlist);
+app.get('/oldcommonfee/:token',authenticateJWT, oldcommonfee);
+app.get('/income/:token', authenticateJWT,income);
+app.get('/getreceiptlist1/:token',authenticateJWT, getreceiptlist1);
 app.get('/receiptform1/104/:house_no/:receiptno', receiptform1);
 app.get('/receiptform2/104/:house_no/:receiptno', receiptform2);
-app.get('/expense', expense);
-app.get('/getexpenselist', getexpenselist);
+app.get('/expense/:token',authenticateJWT ,expense);
+app.get('/getexpenselist/:token',authenticateJWT, getexpenselist);
 app.get('/incomeexpense', incomeexpense);
 app.get('/todaysummary', todaysummary);
 app.get('/pendingpayment', pendingpayment);
-app.get('/gethouselist', gethouselist);
+app.get('/gethouselist/:token',authenticateJWT, gethouselist);
 app.get('/gethouseinfo/104/:house_no', gethouseinfo);
 app.post('/loadexpense',loadexpense);
-app.post('/loadincome',loadincome);
+app.post('/loadincome/:token',authenticateJWT,loadincome);
 app.get('/loadpending',loadpending);
-app.get('/loadhouseinfo',loadhouseinfo);
+app.get('/loadhouseinfo/:token',authenticateJWT,loadhouseinfo);
 app.post('/updatehouseinfo',updatehouseinfo);
 app.post('/createadvinv',createadvanceinvoice);
 app.post('/saveexpense',saveexpense);
@@ -113,10 +134,16 @@ app.post('/newpassword',newpassword);
 app.get('/comment', comment);
 app.post('/sendcomment',sendcomment); 
 app.get('/getcommentlist', getcommentlist);
-app.post('/clearadvanceinv',clearadvanceinv); addpettycash
+app.post('/clearadvanceinv',clearadvanceinv); 
 app.get('/getnewslist1', getnewslist1);
 app.post('/addpettycash',addpettycash);
 app.get('/createletter',createletter );
+app.post('/updatecommentstatus',updatecommentstatus);
+ app.post('/getinfoletter',getinfoletter);
+app.get('/parkingfeeinfo',loadparkingfeeinfo);changeadminpassword
+app.post('/changeadminpassword',changeadminpassword);
+app.get('/getmycommentlist/:cust_id', getmycommentlist);
+app.get('/getmycommentlist1/:cust_id', getmycommentlist1);
 //const PORT1 = process.env.PORT || 3000;
 //http.listen(app.get('port'));
 app.listen(PORT, () => {

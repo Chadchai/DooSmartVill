@@ -106,5 +106,23 @@
 <script src="assets/theme/js/script.js"></script>
   
 <script src="assets/js/member1.js"></script>
+<script>
+     var houseid = localStorage.getItem("HouseID", houseid);
+    var houseid1 =  document.getElementById("house_id").value;
+    
+    //console.log("houseid =" + houseid);
+   // console.log("houseid1 =" + houseid1);
+  
+    //console.log("role =" + role);
+  
+        if (houseid !== houseid1) {
+//         localStorage.clear();
+ window.location.href="/" + villagename + "/login";
+// console.log("houseid =" + houseid);
+//     console.log("houseid1 =" + houseid1);
+    } 
+
+    
+</script>
 </body>
 </html>

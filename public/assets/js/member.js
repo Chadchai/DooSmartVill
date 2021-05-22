@@ -39,6 +39,7 @@ document.getElementById("invoice2").href = "/invoiceform1/" + houseid;
  document.getElementById("contact2").href = "/contact";
  document.getElementById("comment2").href = "/comment";
  document.getElementById("sendcomment").href = "/comment";
+ document.getElementById("commentstatus").href = "/getmycommentlist/"+ custid;
  document.getElementById("changepwd1").href = "/changepwd/" + houseid;
 
 

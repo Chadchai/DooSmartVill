@@ -142,7 +142,8 @@
                                   <div data-for="number" class="col-md-6  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เลขที่การโอน</label>
                                        <input type="text" name="transfer_no" data-form-field="Phone" class="form-control display-7 align-right" id="transfer_no">
-                                 
+                                       <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token">
+                               
                                   </div>
                                   
                                   <div data-for="phone" class="col-md-6  form-group">
@@ -243,6 +244,7 @@
     
    </script>
    <script>
+     document.getElementById("token").value = token1;
     function validateForm() {
      
       if (document.forms["incomeform"]["receipt_type"].checked== false) {

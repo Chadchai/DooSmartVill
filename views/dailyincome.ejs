@@ -86,7 +86,7 @@
                  
                   </div>
                   <div class="col-auto">
-                    <i class="fas fa-users fa-3x text-gray-300"></i>
+                    <i class="fas fa-users fa-2x text-gray-300"></i>
                   </div>
                 </div>
                 <p class="mt-3 mb-0 text-muted text-sm">
@@ -121,22 +121,47 @@
             </div>
           </div>
          
-          <div class="col-md-6 mb-4 " >
+          <div class="col-md-3 mb-4 " >
             
               <div class="card border-left-danger shadow h-100 py-2" style="background-color: white;">
                 <div class="card-body">
                   <div class="row">
                     <div class="col align-center">
-                      <h5 class="h2 card-title text-uppercase text-muted mb-1">รายจ่ายวันนี้(บาท)</h6><br>
+                      <h5 class="h4 card-title text-uppercase text-muted mb-1">จ่ายเงินสดวันนี้ (บาท)</h6><br>
                         <% if (todayexpense !== null) {%>
-                      <span id="sum3" class="h1 font-weight-bold mb-0 align-center"><%= todayexpense %></span>
+                      <span id="sum3" class="h2 font-weight-bold mb-0 align-center"><%= todayexpense %></span>
                       <% } else {%>
-                        <span id="sum0" class="h1 font-weight-bold mb-0 align-center">0</span>
+                        <span id="sum0" class="h2 font-weight-bold mb-0 align-center">0</span>
                        
                         <% }%>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-5x text-gray-300"></i>
+                      <i class="fas fa-dollar-sign fa-3x text-gray-300"></i>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-muted text-sm">
+                    <!-- <span class="text-warning mr-2"><i class="fas fa-arrow-down"></i> 1.10%</span>
+                    <span class="text-nowrap">Since yesterday</span> -->
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-4 " >
+            
+              <div class="card border-left-danger shadow h-100 py-2" style="background-color: white;">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col align-center">
+                      <h5 class="h4 card-title text-uppercase text-muted mb-1">จ่ายเงินสดเดือนนี้ (บาท)</h6><br>
+                        <% if (thismonthexpense !== null) {%>
+                      <span id="sum3" class="h2 font-weight-bold mb-0 align-center"><%= thismonthexpense %></span>
+                      <% } else {%>
+                        <span id="sum0" class="h2 font-weight-bold mb-0 align-center">0</span>
+                       
+                        <% }%>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-dollar-sign fa-3x text-gray-300"></i>
                     </div>
                   </div>
                   <p class="mt-3 mb-0 text-muted text-sm">
@@ -152,8 +177,8 @@
                   <div class="row">
                     <div class="col align-center">
                       <h6 class="h4 card-title text-uppercase text-muted mb-0">เงินสดย่อยเดือนนี้รับมา(บาท)</h6><br>
-                      <% if (todaycash !== null) {%>
-                      <span id="sum2" class="h2 font-weight-bold mb-0 "><%= todaycash %></span>
+                      <% if (thismonthpettycash !== null) {%>
+                      <span id="sum2" class="h2 font-weight-bold mb-0 "><%= thismonthpettycash %></span>
                       <% } else {%>
                         <span id="sum0" class="h2 font-weight-bold mb-0 align-center">0</span>
                        

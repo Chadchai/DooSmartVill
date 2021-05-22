@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="assets/dropdown/css/style.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
   <style>
 
             .loader {
@@ -78,11 +79,12 @@
                             <label for="message-form1-h" class="form-control-label mbr-fonts-style display-7">บันทึกช่วยจำ</label>
                             <textarea name="details" data-form-field="Message" class="form-control display-7" id="details"></textarea>
                             <input type="hidden" name="houseno" data-form-field="Message" class="form-control display-7" id="houseno"></input>
-                       
+                            <input type="hidden" name="villagename5" data-form-field="Message" class="form-control display-7" id="villagename5"></input>
+                            <input type="hidden" name="custid5" data-form-field="Message" class="form-control display-7" id="custid5"></input>
                         </div>
                         <div data-for="message" class="col-md-12 form-group">
                             <label for="slip-img"><b>รูปสลิปการโอน</b></label><br>
-                            <input type="file" name="image" id="image" class="form-control display-7" required accept="image/png,image/jpg,image/jpeg" >
+                            <input type="file" name="image" id="image" class="form-control display-7" required accept="image/svg,image/png,image/jpg,image/jpeg" >
                         </div>
                        
                         
@@ -144,8 +146,13 @@
 
 
 <script>
-    var houseid1 = localStorage.getItem("HouseID", houseid1);
-console.log(localStorage.getItem("HouseID",houseid1));
+    var houseid1 = localStorage.getItem("HouseID");
+
+    var villagename1 = localStorage.getItem("villagename");
+var custid1 = localStorage.getItem("custid");
+document.getElementById("villagename5").value = villagename1;
+document.getElementById("custid5").value = custid1;
+//console.log(localStorage.getItem("HouseID",houseid1));
 
 //
  var today = new Date();
@@ -176,8 +183,7 @@ console.log(localStorage.getItem("HouseID",houseid1));
   <script src="assets/dropdown/js/navbar-dropdown.js"></script>
   <script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
   <script src="assets/theme/js/script.js"></script>
-  
-  <script src="assets/js/member.js"></script>
+  <script src="assets/js/member1.js"></script>
   
 </body>
 </html>

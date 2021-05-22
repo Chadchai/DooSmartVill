@@ -4,6 +4,7 @@
 <head>
 
   <meta charset="utf-8">
+  <base href="/">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -184,7 +185,8 @@
                           <h6 class="modal-title text-primary" >ยอดเงินค้างชำระยกมา </h6>
                         
                           <input type="text" name="prev_month"  id="prev_month"  class="form-control" readonly> 
-                     
+                          <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token">
+                                    
                           </div>
                           <div class="col-12"> 
                             <h6 class="modal-title text-primary" >เหตุผลในการยกเลิก</h6>
@@ -224,6 +226,7 @@
   <script src="assets/js/demo/datatables-demo.js"></script>
 
   <script>
+     document.getElementById("token").value = token1;
 function cancelreceipt(receiptno,houseno,amount,id,lastmonth,ownername,paymenttype) {
      //console.log("paymenttype" +paymenttype);
      

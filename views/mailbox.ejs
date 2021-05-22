@@ -4,6 +4,7 @@
 <head>
 
   <meta charset="utf-8">
+  <base href="/">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -41,9 +42,33 @@
 
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="col-12 card-header py-3">
+              <div class="row">
+            <div class="col-8 ">
+           
                 <h4 class="m-0 font-weight-bold text-primary">กล่องรับสลิปเงินโอน</h4>  
             </div>
+            <div class="col-4 row " style="text-align: right;">
+                 
+              <% if (condition == 0) {%>
+                <div class="btn-group btn-group-toggle" >
+
+                 <label class="btn btn-secondary active " ><a name="score" id= "unissue" href="/getsliplist/0" style="color:white" > ยังไม่ได้ออกใบเสร็จ </a></label>
+                 <label class="btn btn-primary"><a name="score" id= "all" href="/getsliplist/1" style="color:white">ดูทั้งหมด</a></label>
+                 
+                
+                </div>
+              
+                  <%} else {%>
+                    <div class="btn-group btn-group-toggle" >
+                   
+                      <label class="btn  btn-primary " ><a name="score" id= "unissue1" href="/getsliplist/0" style="color:white" > ยังไม่ได้ออกใบเสร็จ </a></label>
+                      <label class="btn btn-secondary active "><a name="score" id= "all1" href="/getsliplist/1" style="color:white">ดูทั้งหมด</a></label>         </div>
+              <%} %>
+     
+            </div>
+            </div>
+          </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -76,7 +101,7 @@
                       <td class="body-item mbr-fonts-style display-7"><%= slip.house_no %></td>
                       <td class="body-item mbr-fonts-style display-7 "><%= slip.memo %></td>
                       <td class="body-item mbr-fonts-style display-7 align-center" style="width: 7%;text-align: center;">
-                        <a class=".btn-circle" type="button" style="color: blue;"  onclick="showSlip('<%= slip.image_name %>','<%= slip.memo %>')">ดูรูป</a></td>
+                        <a class=".btn-circle" type="button" style="color: blue;"  onclick="showSlip('<%= slip.image_name %>','<%= slip.memo %>','<%= slip.id %>')">ดูรูป</a></td>
                         <% if (slip.status == "ได้รับสลิปแล้ว") {%>
                       <td class="body-item mbr-fonts-style display-7" style="text-align: center;width: 12%;"><button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color: orange;" id="button_<%= slip.id %>"  data-toggle="modal" data-target="#updateStatus1" onclick=updateStatus(<%= slip.id %>) ><%= slip.status %></button></td>
                       <% } else if (slip.status == "ส่ง slip แล้ว")  { %>
@@ -217,16 +242,34 @@
       </div>
     </div>
 <script>
-  function showSlip(imagename,memo){
-  document.getElementById("slipLabel").innerHTML = memo ;
-  document.getElementById("slipurl").src = "http://res.cloudinary.com/hv0f4acfj/image/upload/v1581784081/" + imagename;
+  function showSlip(imagename,memo,id){
+    if (id >= 1467){
+      document.getElementById("slipLabel").innerHTML = memo ;
+  document.getElementById("slipurl").src = imagename;
   
+
+    } else {
+      document.getElementById("slipLabel").innerHTML = memo ;
+  document.getElementById("slipurl").src = "http://res.cloudinary.com/hv0f4acfj/image/upload/" + imagename;
+  
+    }
+ 
   $("#slipimage").modal();
   
 }
 </script>
 
 <script>
+  if (document.getElementById("unissue") !== null){
+ document.getElementById("unissue").href = "/getsliplist/0/Bearer " + token1;
+ document.getElementById("all").href = "/getsliplist/1/Bearer " + token1;
+  }
+ if (document.getElementById("unissue1") !== null){
+  document.getElementById("unissue1").href = "/getsliplist/0/Bearer " + token1;
+ document.getElementById("all1").href = "/getsliplist/1/Bearer " + token1;
+ }
+
+
   function updateStatus(slipId) {
   
       document.getElementById("slip_id").value = slipId;

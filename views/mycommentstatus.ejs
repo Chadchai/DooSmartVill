@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html  >
+<head>
+  <!-- Site made with Mobirise Website Builder v4.11.4, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <base href="/">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.11.4, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+  <meta name="description" content="">
+  
+  <title>My Comment Status</title>
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
+  
+</head>
+<body>
+    <%- include('partials/custheader.ejs') %>
+  <section class="services3 cid-rP4EoNg4yR" id="services3-v" style="min-height: 650px;">
+    <!---->
+    
+    <!---->
+    <!--Overlay-->
+    
+    <!--Container-->
+    <div class="container">
+        <div class="row">
+            <!--Titles-->
+            <div class="title pb-5 col-12">
+                <h2 class="align-left mbr-fonts-style display-1">ข้อร้องเรียน</h2>
+                
+            </div>
+            <!--Card-1-->
+            <% if (mycommentlist.length > 0) {%>
+                <% mycommentlist.forEach((mycomment, index) => { %>
+            <div class="card px-3 col-12 col-md-6">
+                <div class="card-wrapper media-container-row media-container-row">
+                    <div class="card-box">
+                        <div class="top-line pb-1">
+                            <h5 class="card-title mbr-fonts-style display-7">
+                                <p class="card-title cost mbr-fonts-style m-0 display-7 " style="text-align: left;">วันที่: <%= mycomment.comment_date %></p> <br>
+                                <%= mycomment.comment_topic %> - <%= mycomment.comment_details %> </h5>
+
+                             
+
+                           
+                                         </div>
+                        <div class="bottom-line">
+                            <p class="card-title cost mbr-fonts-style m-0 display-7 " style="text-align: left;">สถานะ: <%= mycomment.status %></p>
+                            <p class="card-title cost mbr-fonts-style m-0 display-7 align-left" style="text-align: left;">หมายเหตุ: <%= mycomment.remark %></p>
+                           
+             <!-- <input type="hidden" id = "cust_id" name="cust_id"  class="form-control align-right"  value="<%= mycomment.house_no %>" > -->
+                   
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+            <% } else { %>
+                <div class="card px-3 col-12 col-md-6">
+                    <div class="card-wrapper media-container-row media-container-row">
+                        <div class="card-box">
+                            <div class="top-line pb-1">
+                                <h4 class="card-title mbr-fonts-style display-7">
+                                 ไม่มีความเห็นของเรา  </h4>
+                                </div>
+                            <div class="bottom-line">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            <!--Card-9-->
+            
+            <!--Card-10-->
+            
+            <!--Card-11-->
+            
+            <!--Card-12-->
+            
+        </div>
+    </div>
+</section>
+
+<%- include('partials/custfooter.ejs') %>
+
+<script src="assets/web/assets/jquery/jquery.min.js"></script>
+<script src="assets/popper/popper.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/tether/tether.min.js"></script>
+<script src="assets/dropdown/js/nav-dropdown.js"></script>
+<script src="assets/dropdown/js/navbar-dropdown.js"></script>
+<script src="assets/touchswipe/jquery.touch-swipe.min.js"></script>
+<script src="assets/vimeoplayer/jquery.mb.vimeo_player.js"></script>
+<script src="assets/parallax/jarallax.min.js"></script>
+<script src="assets/smoothscroll/smooth-scroll.js"></script>
+<script src="assets/theme/js/script.js"></script>
+  
+<script src="assets/js/member1.js"></script>
+</body>
+</html>

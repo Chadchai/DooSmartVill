@@ -1,10 +1,11 @@
 const fs = require('fs');
 var express = require('express');
 //const Blob = require('blob');
-
+const THBText = require('thai-baht-text') ;// for ES5
 const http = require('http');
 const readline = require('readline');
-const jwt = require("jwt-simple");
+ const jwt = require("jwt-simple");
+//const jwt = require('jsonwebtoken');
 //ใช้ในการ decode jwt ออกมา
 
 //สร้าง Strategy
@@ -270,7 +271,9 @@ var villageid = req.body.village_id;
 });
    
   },
+
   gethouselist: function(req, res){
+
     let gethouselist = "SELECT * FROM house_info"
     db.query(gethouselist, (err, result) => {
       if (err) {
@@ -279,7 +282,7 @@ var villageid = req.body.village_id;
         //console.log(result);
        res.render('houselist.ejs', {
            title: "Main Page"
-           ,message: '',houselist:result
+           ,message: '',houselist:result,
        });
 
       }
@@ -314,6 +317,7 @@ var villageid = req.body.village_id;
     let parkingfee = Number(req.body.parking_fee);
     let lockno = req.body.lock_no;
     let remark = req.body.remark;
+    let token = req.body.token;
     
     let updateinfo = "UPDATE house_info SET lane_no ='" + laneno + "', owner_name ='" +ownername +"', common_fee = "+ commonfee + " , parking_qty = "+ parkingqty + ", parking_fee = " + parkingfee + ", lock_no = '" + lockno + "', remark = '" + remark +"' WHERE house_no = '" + houseid +"'"
 
@@ -323,7 +327,7 @@ var villageid = req.body.village_id;
           return res.status(500).send(err);
       } else {
         //console.log(result);
-        res.redirect('/gethouselist');
+        res.redirect('/gethouselist/Bearer ' + token);
 
       }
 
@@ -719,8 +723,10 @@ receiptpayment: function(req, res){
               let receivername = req.body.receiver;
               let receiptdate = req.body.receiptdate;
               let remark = req.body.remark;
+              let token = req.body.token;
               let actual_pay = req.body.actual_pay;
-              let lastremain=req.body.lastremain;;
+              let lastremain=req.body.lastremain;
+           console.log(invid);
               let remain = req.body.remain;
               if (lastremain == ''){
                 lastremain = 0;
@@ -777,7 +783,7 @@ receiptpayment: function(req, res){
               
                 }
                 //console.log(updatepayment);
-               // console.log(updatebalance);
+                //console.log(updatebalance);
         db.query(updatepayment, (err, result) => {
          if (err) {
              return res.status(500).send(err);
@@ -786,16 +792,19 @@ receiptpayment: function(req, res){
            if (err) {
                return res.status(500).send(err);
            } 
+          
          
          });
+         
        });
-    
+       
               }
-              res.redirect('/getreceiptlist');
+              res.redirect('/getreceiptlist/Bearer ' +token);
             }
+            
             }); 
             
-               
+            
       
               
                          
@@ -804,7 +813,8 @@ receiptpayment: function(req, res){
               let expensetype = req.body.expense_type;
               let expensedate = req.body.expense_date;
               let companyname = req.body.company_name;
-              let amount = req.body.amount;
+              let token = req.body.token;
+               let amount = req.body.amount;
               let rcvname = req.body.receiver_name;
               let detail = req.body.detail;
               let paymenttype = req.body.payment_type;
@@ -815,7 +825,7 @@ receiptpayment: function(req, res){
                     return res.status(500).send(err);
                   } else {
                       
-                    res.redirect('/getexpenselist');
+                    res.redirect('/getexpenselist/Bearer ' + token);
           }
             });
             },
@@ -841,7 +851,7 @@ receiptpayment: function(req, res){
               
               let incomedate = req.body.income_date;
               let incometype = req.body.income_type;
-              
+              let token =req.body.token;
               let amount = req.body.income_amount;
               let payername = req.body.payer_name;
               let rcvname = req.body.receiver_name;
@@ -880,7 +890,7 @@ receiptpayment: function(req, res){
                       if (err) {
                         return res.status(500).send(err);
                      } else {
-                      res.redirect('/getreceiptlist1');
+                      res.redirect('/getreceiptlist1/Bearer ' + token);
                      }
               });
             }
@@ -1745,6 +1755,7 @@ receiptoldpayment: function(req, res){
   let actualpay = req.body.actual_pay;
   let lastremain=req.body.lastremain;;
   let remain = req.body.remain;
+  let token = req.body.token;
   if (lastremain == ''){
     lastremain = 0;
   } else {
@@ -1802,7 +1813,7 @@ receiptoldpayment: function(req, res){
  });
 };
 
-    res.redirect('/getreceiptlist');
+    res.redirect('/getreceiptlist/Bearer ' + token);
 
   }); 
              
@@ -1816,6 +1827,8 @@ saveSlip: (req, res) => {
   var c_min = today.getMinutes();
   var c_date = today.getDate();
   var c_month = today.getMonth();
+  var villagename = req.body.villagename5;
+  var custid = req.body.custid5;
   let filename;
   //console.log(houseid);
 if (typeof req.files.image !== "undefined"){
@@ -1839,26 +1852,34 @@ let image_name1 = uploadedFile.name.split('.')[0];
    });
 
    cloudinary.v2.uploader.upload(`public/assets/images/${image_name}`, {public_id: filename } ,
-   function(error, result) {console.log(result, error)});
+   function(error, result) {console.log(result, error)
+    //console.log("filelink =" + result.secure_url);
+    let saveslip = "INSERT INTO slip_info (house_no,memo,image_name,status) VALUES ('" + houseid + "','" + memo + "','" + result.secure_url + "','ส่ง slip แล้ว')";
+
+    db.query(saveslip, (err, result) => {
+      if (err) {
+          return res.status(500).send(err);
+      } else {
+     
+        res.render('member.ejs', {
+          title: "Main Page"
+          ,message:'ส่งสลิปให้นิติบุคคลเรียบร้อยแล้ว',houseno:houseid,villagename:villagename,houseid:houseid,custid:custid,
+      });
+  
+    
   }
+});
+});
+
 } else {
   message = "Invalid File format. Only 'gif', 'jpg' and 'png' images are allowed.";
 
 }
-let saveslip = "INSERT INTO slip_info (house_no,memo,image_name,status) VALUES ('" + houseid + "','" + memo + "','" + filename + "','ส่ง slip แล้ว')";
 
- db.query(saveslip, (err, result) => {
-   if (err) {
-       return res.status(500).send(err);
-   } else {
-  
-     res.render('member.ejs', {
-       title: "Main Page"
-       ,message:'ส่งสลิปให้นิติบุคคลเรียบร้อยแล้ว',houseno:houseid
-   });
+
 
    }
- });
+
 
 },
 newpassword: function(req, res){ 
@@ -1936,9 +1957,16 @@ let getinvoicelist1 = "SELECT invoice_info.house_no,invoice_info.id,FORMAT(invoi
   
 },
 getsliplist: function(req, res){
-     
+     let condition = req.params.condition;
+     let getslip;
+     if (condition == 0 ){
+      getslip = "SELECT * , DATE_FORMAT(slip_date, '%d-%m-%Y') AS slip_date1 FROM slip_info WHERE status <> 'ออกใบเสร็จแล้ว' ORDER BY slip_date DESC ";
+     } else {
+      getslip = "SELECT * , DATE_FORMAT(slip_date, '%d-%m-%Y') AS slip_date1 FROM slip_info ORDER BY slip_date DESC ";
+
+     }
               
-  let getslip = "SELECT * , DATE_FORMAT(slip_date, '%d-%m-%Y') AS slip_date1 FROM slip_info ORDER BY slip_date DESC ";
+ 
 //console.log(getexpense1);
   db.query(getslip, (err, result) => {
       if (err) {
@@ -1947,7 +1975,7 @@ getsliplist: function(req, res){
           
         res.render('mailbox.ejs', {
           title: "See slip list"
-          ,message: '',sliplist:result
+          ,message: '',sliplist:result,condition:condition,
         })
 }
 });
@@ -1963,7 +1991,7 @@ updateslipstatus: function(req, res){
         return res.status(500).send(err);
       } else {
           
-        res.redirect('/getsliplist');
+        res.redirect('/getsliplist/0');
 }
 });
 },
@@ -2158,6 +2186,7 @@ todaysummary: function(req, res){
    //console.log(todaypettycash);
   //console.log(todaycash);
  // console.log(expensebytype);
+ let thismonthpettycash;
   db.query(todayincome, (err, result) => {
     if (err) {
         return res.status(500).send(err);
@@ -2170,6 +2199,7 @@ todaysummary: function(req, res){
         if (err) {
             return res.status(500).send(err);
         }
+        //console.log(result2[0].todaycash);
         db.query(todayexpense, (err, result3) => {
           if (err) {
               return res.status(500).send(err);
@@ -2178,7 +2208,7 @@ todaysummary: function(req, res){
             if (err) {
                 return res.status(500).send(err);
             } else{
-            let thismonthpettycash = Number(result5[0].petty_amount);
+            thismonthpettycash = Number(result5[0].petty_amount);
 
           let todaypettycash = "SELECT SUM(expense_amount) AS sumexpense FROM expense_info WHERE MONTH(expense_date) = MONTH(CURDATE()) AND YEAR(expense_date) = YEAR(CURDATE()) AND payment_type = 'เงินสด'" ; 
           
@@ -2188,16 +2218,18 @@ todaysummary: function(req, res){
             }
 
 
-            var todaypettycash1;
-            if (result4[0].sumexpense == null) {
+            var todaypettycash1,thismonthexpense1;
+            if (result4[0].sumexpense == null || result4[0].sumexpense == '') {
               todaypettycash1 = thismonthpettycash;
+              thismonthexpense1 = 0;
             } else {
               todaypettycash1 = thismonthpettycash - Number(result4[0].sumexpense) ;
+              thismonthexpense1 = result4[0].sumexpense.toLocaleString();
             }
-          console.log("SUM EXPENSE" + Number(result4[0].sumexpense));
+         // console.log("SUM EXPENSE" + Number(result4[0].sumexpense));
           res.render('dailyincome.ejs', {
             title: "Today Income"
-            ,message: '',todayincome: result[0].todayincome,todaytransfer: result1[0].todaytransfer,todaycash:thismonthpettycash.toLocaleString(),todayexpense: result3[0].todayexpense,todaypettycash: todaypettycash1.toLocaleString(),
+            ,message: '',todayincome: result[0].todayincome,todaytransfer: result1[0].todaytransfer,todaycash:result2[0].todaycash,thismonthpettycash:thismonthpettycash.toLocaleString(),todayexpense: result3[0].todayexpense,todaypettycash: todaypettycash1.toLocaleString(),thismonthexpense:thismonthexpense1,
         });
 
         });
@@ -2381,7 +2413,7 @@ addnews: function(req, res){
      cloudinary.v2.uploader.upload(`public/assets/images/${image_name}`, {public_id: filename } ,
      function(error, result) {console.log(result, error);
       
-      console.log("filelink =" + result.secure_url);
+      
      
       let addNews = "INSERT INTO `news_info` (village_id, post_type,news_topic,news_details,post_date,expired_date,image_name) VALUES (" + villageno + ", '" + posttype +"' , '" + posttopic  + "' , '" + details  + "' , '" + postdate  + "' , '" + expirydate  + "' , '" + result.secure_url + "')" ;
   //console.log(addNews);
@@ -2458,7 +2490,7 @@ getalert: function(req, res){
 }
 let today1 = GetFormattedDate(new Date());
  let todayslip = "SELECT COUNT(id) AS nopendingslip FROM slip_info WHERE status <> 'ออกใบเสร็จแล้ว'";
- let todayfeedback = "SELECT COUNT(comment_id) AS nofeedback FROM comment_info";    
+ let todayfeedback = "SELECT COUNT(comment_id) AS nofeedback FROM comment_info WHERE status = 'รอการตรวจสอบ'";    
  //console.log(todaypost);
                        let jsonData = [];
                        db.query(todayslip, (err, result) => {
@@ -2530,7 +2562,7 @@ cancelreceipt: function(req, res){
   let ownername = req.body.ownername;
   let voidreason = req.body.void_reason;
   let tamount= Number(req.body.amount);
-
+  let token = req.body.token;
  // console.log(rcvno);
   //console.log(houseno);
   let savevoidinfo = "INSERT INTO `void_info` (receipt_no,house_no,owner_name,void_amount,payment_type,void_reason) VALUES ('" + rcvno + "', '" + houseno +"' , '" + ownername  + "' , " + tamount  + " , '" + paymenttype +"' , '" + voidreason  + "')" ;
@@ -2552,7 +2584,7 @@ cancelreceipt: function(req, res){
           if (err) {
             return res.status(500).send(err);
           } else {
-        res.redirect('/getreceiptlist');
+        res.redirect('/getreceiptlist/Bearer ' + token);
 }
 });
 }
@@ -2607,7 +2639,7 @@ sendcomment: (req, res) => {
   let custid = req.body.cust_id;
 
  
-let savecomment = "INSERT INTO comment_info (cust_id,house_no,comment_topic,comment_details) VALUES ("+ custid + ",'" + houseid + "','" + topic + "','" + memo + "')";
+let savecomment = "INSERT INTO comment_info (cust_id,house_no,comment_topic,comment_details,status) VALUES ("+ custid + ",'" + houseid + "','" + topic + "','" + memo + "','รอการตรวจสอบ')";
 
  db.query(savecomment, (err, result) => {
    if (err) {
@@ -2727,11 +2759,130 @@ addpettycash: function(req, res){
 });
 },
 createletter: function(req, res){
-          
+ 
   res.render('followupletter.ejs', {
     title: "Contact Admin Page"
-    ,message: ''
+    ,message: '',ownername:'',landno:'',houseno:'',area:'',letterno:'',finepercent:'',expirydate:'',totaltopay:'',fineamount:'',totaltext:'',totalwithfine:'',
 });
 },
+updatecommentstatus: function(req, res){
+  let commentid = req.body.comment_id; 
+  let status = req.body.comment_status;    
+  let remark = req.body.remark;                   
+  let updatecomment = "UPDATE comment_info SET status = '" + status+ "',remark ='"+ remark + "' WHERE comment_id = " + commentid;
+//console.log(getexpense1);
+  db.query(updatecomment, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/getcommentlist');
+}
+});
+},
+getmycommentlist: function(req, res){
+  let custid = req.params.cust_id;
+  let getreceiptlist = "SELECT *,DATE_FORMAT(comment_date, '%d-%m-%Y') AS comment_date From comment_info WHERE cust_id = " + custid + " ORDER BY comment_id DESC";  
+ //console.log(getreceiptlist);
+ 
+   db.query(getreceiptlist, (err, result) => {
+     if (err) {
+         return res.status(500).send(err);
+     } else {
+       //console.log(result);
+      res.render('mycommentstatus.ejs', {
+          title: "My Comment List"
+          ,message: '',mycommentlist:result,
+      });
+
+     }
+
+  });
+},
+getinfoletter: function(req, res){
+ 
+  let houseno = req.body.house_no;
+  let villageno = req.body.village_no;
+  let letterno = req.body.letter_no;
+  let landno = req.body.land_no;
+  let finepercent = Number(req.body.fine_percent);
+  let expirydate = req.body.expiry_date;
+ 
+ // let houseid = req.params.house_no;
+  //console.log(houseid);
+  let getownername1 = "SELECT *  FROM `house_info` WHERE house_no ='" + houseno + "' AND village_id = " + villageno;
+  let getsumbalance = "SELECT SUM(amount) AS remain FROM invoice_info WHERE house_no ='" + houseno + "' AND village_id = " + villageno + " AND (payment_type IS NULL OR payment_type = '') ";
+  db.query(getownername1, (err, result) => {
+    //console.log(getsumbalance);
+      if (err || result == "") {
+        return res.status(500).send(err);
+      } 
+      db.query(getsumbalance, (err, result1) => {
+        //console.log(result);
+          if (err || result1 == "") {
+            return res.status(500).send(err);
+          } 
+
+
+          let totaltopay = Math.abs(Number(result[0].remain)) + Math.abs(Number(result1[0].remain));
+          
+          let fineamount = totaltopay*finepercent/100;
+
+          let totalwithfine = totaltopay + fineamount;
+
+         let totalwithfine1 = totalwithfine.toFixed(2);
+
+          let totaltext = THBText(totalwithfine1);
+           
+         // console.log(totaltext); 
+    
+ res.render('followupletter.ejs', {
+    title: "followupletter"
+    ,message: '',ownername:result[0].owner_name,landno:landno,houseno:houseno,area:result[0].area,finepercent:finepercent,totaltopay:totaltopay.toLocaleString(undefined, {minimumFractionDigits: 2}),totaltext:totaltext,expirydate:expirydate,fineamount:fineamount.toLocaleString(undefined, {minimumFractionDigits: 2}),totalwithfine:totalwithfine.toLocaleString(undefined, {minimumFractionDigits: 2}),letterno:letterno,
+});
+ });
+ 
+});
+
+},
+getmycommentlist1: function(req, res){
+  let custid = req.params.cust_id;
+  let getreceiptlist = "SELECT *,DATE_FORMAT(comment_date, '%d-%m-%Y') AS comment_date From comment_info WHERE cust_id = " + custid + " ORDER BY comment_id DESC";  
+ //console.log(getreceiptlist);
+ 
+   db.query(getreceiptlist, (err, result) => {
+     if (err) {
+         return res.status(500).send(err);
+     } else {
+       //console.log(result);
+      let jsonData = JSON.parse(JSON.stringify(result));
+       res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify(jsonData));
+                             
+
+     }
+
+  });
+},
+changeadminpassword: function(req, res){
+  let username  = req.body.user_name1;
+   let password = req.body.password1;
+   let villageid = req.body.village_id1;
+   let updateadminpassword = "UPDATE admin SET password = '"+ password +"' WHERE username = '" + username + "' AND village_id = " + villageid ;                       
+   //console.log(updateuserinfo);
+       db.query(updateadminpassword, (err, result) => {
+         //console.log(result);
+           if (err || result == "") {
+               return res.status(500).send(err);
+           } else { 
+             res.redirect('/');
+         }
+
+       });
+
+
+},
+
+
 
 }

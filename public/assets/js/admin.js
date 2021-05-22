@@ -49,7 +49,7 @@ document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+
   var obj = JSON.parse(jsonPayload);
   var now = new Date();
   var expired = new Date(obj.exp );
-  console.log(obj.villagename);
+  //console.log(obj.villagename);
 villagename = obj.village;
  //window.location.href="/";
   document.getElementById("username").innerHTML = "คุณ "+  obj.id;

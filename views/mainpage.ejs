@@ -67,21 +67,21 @@
                  
                       <!-- Approach -->
                       <div class="col-lg-3 ">
-              <div class="card shadow mb-4">
+              <div id="group1" class="card shadow mb-4">
                 <div class="card-header bg-success py-3">
                   <h6 class="m-0 font-weight-bold text-gray-100 text-lg">ออกใบแจ้งหนี้</h6>
                 </div>
                 <div class="card-body " >
                   <a class="btn btn-danger" type="button" data-toggle="modal" data-target="#confirmtoinv" >  <div class="text-white large">- ออกใบแจ้งหนี้ประจำเดือน</div></a>
                   <a href="/advanceinvoice" > <div class="text-white-10 large">- ออกใบแจ้งหนี้ล่วงหน้า</div></a>
-                   <a href="/getinvoicelist" ><div class="text-white-10 large">- ดูรายการหนี้คงค้าง</div></a>
-                   <a href="/getallinvoice" ><div class="text-white-10 large">- พิมพ์ใบแจ้งหนี้ทั้งหมด</div></a>
-                   <a href="/getsliplist" ><div class="text-white-10 large">- กล่องรับสลิปการโอน</div></a>
+                   <a id="invoicelist1" href="/getinvoicelist" ><div class="text-white-10 large">- ดูรายการหนี้คงค้าง</div></a>
+                   <a id="allinvoice1" href="/getallinvoice" ><div class="text-white-10 large">- พิมพ์ใบแจ้งหนี้ทั้งหมด</div></a>
+                   <a id="sliplist1" href="/getsliplist/0" ><div class="text-white-10 large">- กล่องรับสลิปการโอน</div></a>
                    <a href="/createletter" ><div class="text-white-10 large">- ออกหนังสือติดตาม</div></a>
                   </div>
               </div>
             </div>
-            <div class="col-lg-3 ">
+            <div id="group2" class="col-lg-3 ">
               <div class="card shadow mb-4">
                 <div class="card-header bg-success py-3">
                   <h6 class="m-0 font-weight-bold text-gray-100 text-lg">ออกใบเสร็จรับเงิน</h6>
@@ -89,31 +89,31 @@
                 <div class="card-body " >
                  
                   <a href="/" > <div class="text-white-10 large"  ><a href="/issuereceipt" >- ออกใบเสร็จรับเงิน</a></div>
-                  <a href="/oldcommonfee" ><div class="text-white-10 large">- ออกใบเสร็จชำระเงินย้อนหลัง</div></a>
-                  <a href="/getreceiptlist" ><div class="text-white-10 large">- ดูใบเสร็จรับเงินย้อนหลัง 1 เดือน</div></a>
-                  <a href="/getallreceiptlist" > <div class="text-white-10 large">- ดูใบเสร็จย้อนหลังทั้งหมด</div></a>
+                  <a id="oldcommonfee1" href="/oldcommonfee" ><div class="text-white-10 large">- ออกใบเสร็จชำระเงินย้อนหลัง</div></a>
+                  <a id="receiptlist1" href="/getreceiptlist" ><div class="text-white-10 large">- ดูใบเสร็จรับเงินย้อนหลัง 1 เดือน</div></a>
+                  <a id="allreceipt1" href="/getallreceiptlist" > <div class="text-white-10 large">- ดูใบเสร็จย้อนหลังทั้งหมด</div></a>
                   <a href="/getvoidreceipt" > <div class="text-white-10 large">- ดูใบเสร็จรับเงินที่ยกเลิก</div></a>
 
                   </div>
               </div>
             </div>
 
-            <div class="col-lg-3 ">
+            <div id="group3" class="col-lg-3 ">
               <div class="card shadow mb-4">
                 <div class="card-header bg-success py-3">
                   <h6 class="m-0 font-weight-bold text-gray-100 text-lg">บันทึกรายรับ-จ่ายอื่นๆ</h6>
                 </div>
                 <div class="card-body " >
                  
-                  <a href="/income" ><div class="text-white-10 large"  >- บันทึกรายรับอื่นๆ</div></a>
-                  <a href="/expense" > <div class="text-white-10 large">- บันทึกรายจ่าย</div></a>
-                    <a href="/getreceiptlist1" ><div class="text-white-10 large">- ดูประวัติรายรับอืนๆ</div></a>
-                      <a href="/getexpenselist" > <div class="text-white-10 large">- ดูรายการรายจ่าย</div></a>
+                  <a id="income1" href="/income" ><div class="text-white-10 large"  >- บันทึกรายรับอื่นๆ</div></a>
+                  <a id="expense1" href="/expense" > <div class="text-white-10 large">- บันทึกรายจ่าย</div></a>
+                    <a id="allreceipt11" href="/getreceiptlist1" ><div class="text-white-10 large">- ดูประวัติรายรับอืนๆ</div></a>
+                      <a id="allexpense1" href="/getexpenselist" > <div class="text-white-10 large">- ดูรายการรายจ่าย</div></a>
                <br>
                   </div>
               </div>
             </div>
-            <div class="col-lg-3 ">
+            <div id="group4" class="col-lg-3 ">
               <div class="card shadow mb-4">
                 <div class="card-header bg-success py-3">
                   <h6 class="m-0 font-weight-bold text-gray-100 text-lg">ดูรายงานสรุป</h6>
@@ -129,7 +129,7 @@
                   </div>
               </div>
             </div>
-            <div class="col-lg-3 ">
+            <div id="group5" class="col-lg-3 ">
               <div class="card shadow mb-4">
                 <div class="card-header bg-success py-3">
                   <h6 class="m-0 font-weight-bold text-gray-100 text-lg">ข้อมูลลูกบ้าน</h6>
@@ -137,7 +137,7 @@
                 <div class="card-body " >
                  
                 
-                  <a href="/gethouselist" ><div class="text-white-10 large"  >- ข้อมูลลูกบ้าน</div></a>
+                  <a id="houselist1" href="/gethouselist" ><div class="text-white-10 large"  >- ข้อมูลลูกบ้าน</div></a>
                   
                   <a href="/getcarlist" > <div class="text-white-10 large">- ข้อมูลทะเบียนรถ</div></a>
                   <a href="/getcommentlist" ><div class="text-white-10 large">- กล่องรับข้อเสนอแนะ/ร้องเรียน</div></a>
@@ -146,7 +146,7 @@
                   </div>
               </div>
             </div>
-            <div class="col-lg-3 ">
+            <div id="group6" class="col-lg-3 ">
               <div class="card shadow mb-4">
                 <div class="card-header bg-success py-3">
                   <h6 class="m-0 font-weight-bold text-gray-100 text-lg">Back up ข้อมูล</h6>
@@ -156,9 +156,9 @@
                   <a href="" data-toggle="modal" data-target="#incomeperiod" ><div class="text-white-10 large">- ข้อมูลรายรับ</div></a>
                   <a href="" data-toggle="modal" data-target="#expenseperiod" ><div class="text-white-10 large"  >- ข้อมูลรายจ่าย</div></a>
                   <a href="/loadpending" > <div class="text-white-10 large">- ข้อมูลสรุปยอดคงค้าง</div></a>
-                  <a href="/loadhouseinfo" > <div class="text-white-10 large">- ข้อมูลลูกบ้าน</div></a>
+                  <a id="loadhouse1" href="/loadhouseinfo" > <div class="text-white-10 large">- ข้อมูลลูกบ้าน</div></a>
+                  <a href="/parkingfeeinfo" > <div class="text-white-10 large">- ข้อมูลรายรับค่าจอดรถ</div></a>
                     <br>
-                 
                   </div>
               </div>
             </div>
@@ -194,7 +194,7 @@
        
               <h4 class="modal-title">ข้อมูลรายรับระหว่างวันที่</h4>
       </div> 
-      <form id="status1"  action="/loadincome" method="post" style="padding:10px">
+      <form id="loadincome1" name="loadincome1"  action="/loadincome" method="post" style="padding:10px">
           <div class="dragArea row">
               <div data-for="number" class="col-md-12  form-group" style="text-align: center;">
                   <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เลือกช่วงเวลา</label>
@@ -284,7 +284,7 @@
        
               <h4 class="modal-title">ข้อมูลยอดค่าใช้จ่ายระหว่างวันที่</h4>
       </div> 
-      <form id="status1"  action="/loadexpense" method="post"  style="padding:10px">
+      <form name="status1" id="status1"  action="/loadexpense" method="post"  style="padding:10px">
           <div class="dragArea row">
                      
           <div class="col-md-6  form-group" data-for="email">
@@ -334,7 +334,15 @@
   <!-- Page level custom scripts -->
   <script src="assets/js/demo/chart-area-demo.js"></script>
   <script src="assets/js/demo/chart-pie-demo.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="assets/js/checkrole.js"></script>
+  
+  
   <script>
+
+
+
     var x = screen.width;
     
        if (x<800) {
@@ -390,6 +398,8 @@
           document.getElementById("showperiod").style.display = "none";
        }
       }
+
+
      
     
       var today = new Date();

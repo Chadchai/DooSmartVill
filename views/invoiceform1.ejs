@@ -53,6 +53,7 @@ incoming API request.
             <div class="col-md-6 col-7">
             <a type="button" class="btn-sm btn-primary btn-form display-4" style="border-radius: 30px;" onclick="window.history.back()">กลับ</a>
             </div>
+            
             <div class="col-md-6 col-5">
             <button type="button" id="printpdf" class="btn-sm btn-primary btn-form display-4" style="border-radius: 30px;display:none" onclick="printJS('printable', 'html');"> <span class="mbri-save"></span> บันทึก</button>
 
@@ -342,15 +343,16 @@ gadget.openPrintDialog();
 
     var houseid = localStorage.getItem("HouseID", houseid);
     var houseid1 =  document.getElementById("house_id").value;
-    //console.log("houseid =" + houseid);
-   // console.log("houseid1 =" + houseid1);
+    
+    console.log("houseid =" + houseid);
+    console.log("houseid1 =" + houseid1);
     var role = localStorage.getItem("role", role);
     //console.log("role =" + role);
-    if (role !== 'admin') {
+    if (role !== 'admin' || role ==null) {
         
         if (houseid !== houseid1) {
 //         localStorage.clear();
- window.location.href="/loginadmin";
+ window.location.href="/" + villagename + "/login";;
 // console.log("houseid =" + houseid);
 //     console.log("houseid1 =" + houseid1);
     } 

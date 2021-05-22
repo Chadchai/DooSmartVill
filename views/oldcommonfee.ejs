@@ -111,7 +111,9 @@
                                   <div data-for="number" class="col-md-4  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ชำระจริง(บาท)</label>
                                       <input type="number" name="actual_pay" data-form-field="Phone" class="form-control display-7 align-right"  style="background-color: yellow;" id="actual_pay" onchange="calbalance()" >
-                                  </div>
+                                      <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token">
+                                    
+                                    </div>
                                   <div data-for="number" class="col-md-4  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ยกมา(บาท)</label>
                                       <input type="number" name="lastremain" data-form-field="Phone" class="form-control dislay-7 align-right " value="<%= balance %>" id="lastremain" readonly >
@@ -227,6 +229,7 @@
   <script src="assets/js/demo/chart-area-demo.js"></script>
   <script src="assets/js/demo/chart-pie-demo.js"></script>
   <script>
+     document.getElementById("token").value = token1;
     function checkpayment(){
       if ((document.forms["receiptform"]["payment_type"].value == "เงินโอน" || document.forms["receiptform"]["payment_type"].value == "เช็ค" )) {
       document.getElementById("transfer_no").readOnly = false;
