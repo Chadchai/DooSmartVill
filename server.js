@@ -59,7 +59,31 @@ const authenticateJWT = (req, res, next) => {
       });
   } else {
       res.sendStatus(401);
+      
   }
+};
+const authenticateJWT1 = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    const accessTokenSecret = "MY_SECRET_KEY";
+//console.log(authHeader);
+    if (authHeader) {
+        const token = authHeader.split(' ')[1];
+
+        jwt.verify(token, accessTokenSecret, (err, user) => {
+            if (err) {
+                return res.sendStatus(403);
+            }
+
+            req.user = user;
+            next();
+        });
+    } else {
+        res.sendStatus(401);
+        res.writeHead(404, {'Content-Type': 'text/plain'});                    // <- redirect
+res.write("Looked everywhere, but couldn't find that page at all!\n"); // <- content!
+res.end(); 
+        
+    }
 };
 
 app.get('/', index);
@@ -123,7 +147,7 @@ app.get('/getnewslist', getnewslist);
 app.post('/addnews',addnews);
 app.post('/updatenews',updatenews);
 app.post('/deletenews',deletenews);
-app.get('/getalert', getalert);
+app.get('/getalert',authenticateJWT1, getalert);
 app.get('/getcarlist', getcarlist);
 app.post('/updatecar',updatecar);
 app.post('/cancelreceipt',cancelreceipt);

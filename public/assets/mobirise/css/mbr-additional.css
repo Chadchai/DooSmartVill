@@ -1123,7 +1123,7 @@ section.lazy-placeholder:after {
   flex-direction: row;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  padding-top: 4rem;
+  padding-top: 1rem;
 }
 .cid-rNnuSnTqu5 .icons-media-container .mbr-iconfont {
   font-size: 60px;
@@ -3606,6 +3606,7 @@ section.lazy-placeholder:after {
     flex-shrink: 0;
     -webkit-flex-shrink: 0;
   }
+ 
 }
 .cid-rNxU0yc7CD .navbar-collapse {
   flex-basis: auto;
@@ -3688,6 +3689,12 @@ section.lazy-placeholder:after {
   .cid-rNnuSnTqu5 .mbr-text {
     margin-top: 40px;
 }
+
 }
 
-
+ @media (max-width: 900px) {
+  #button-group{
+  padding-top: 1rem;
+  
+ }
+}

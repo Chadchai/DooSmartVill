@@ -618,8 +618,9 @@ var villageid = req.body.village_id;
   });
   },
   createadvanceinvoice: function(req, res){
-    let villageid = req.body.village_id;
+    let villageid = req.body.village_id1;
     let houseid = req.body.house_no;
+    let token = req.body.token;
     let invdate = req.body.inv_date;
     let periodid = req.body.period_id;
     let commonfee1 = Number(req.body.common_fee);
@@ -681,7 +682,7 @@ var villageid = req.body.village_id;
                         }
                         
                         let createinvoice= "INSERT INTO `invoice_info` (`village_id`,`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month) VALUES (" + villageid + ",'" + invoiceno +"-1', '" + houseid + "' , 'ค่าส่วนกลาง', '"+ newperiod + "',"+ commonfee1 + ",'"+ thismonth1 + "' )";
-                        //console.log(createinvoice);
+                       // console.log(createinvoice);
                    
                        let updateinvoiceperiod = "UPDATE `house_info` SET `invoice_period`= "+ newperiod + " WHERE  `house_no`='"+ houseid + "'";
                       //result1[i].parking_qty;
@@ -710,7 +711,7 @@ var villageid = req.body.village_id;
                     });
 
                     }
-                    res.redirect('/getinvoicelist');
+                    res.redirect('/getinvoicelist/Bearer ' + token);
                    
             },
 receiptpayment: function(req, res){
@@ -726,7 +727,7 @@ receiptpayment: function(req, res){
               let token = req.body.token;
               let actual_pay = req.body.actual_pay;
               let lastremain=req.body.lastremain;
-           console.log(invid);
+           //console.log(invid);
               let remain = req.body.remain;
               if (lastremain == ''){
                 lastremain = 0;
@@ -1982,7 +1983,8 @@ getsliplist: function(req, res){
 },
 updateslipstatus: function(req, res){
   let slipid = req.body.slip_id; 
-  let status = req.body.status;    
+  let status = req.body.status;
+  let token = req.body.token3; 
                    
   let updateslip = "UPDATE slip_info SET status = '" + status+ "' WHERE id =" + slipid;
 //console.log(getexpense1);
@@ -1991,7 +1993,7 @@ updateslipstatus: function(req, res){
         return res.status(500).send(err);
       } else {
           
-        res.redirect('/getsliplist/0');
+        res.redirect('/getsliplist/0/Bearer ' + token);
 }
 });
 },
@@ -2162,7 +2164,15 @@ checkadmin: function(req, res){
                 return res.status(500).send(err);
             } 
             else {
-    res.render('mainpage.ejs', {
+              
+           
+              let updatelogin = "INSERT INTO log_info (username,village_name) VALUES ('"+ username + "','" + villagename + "')" 
+              db.query(updatelogin, (err, result2) => {
+                if (err) {
+                    return res.status(500).send(err);
+                } 
+                else {
+              res.render('mainpage.ejs', {
       title: "DoSmartVill"
       ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,empname:empname,token1:token,villagename:result[0].village_name,villageid:result[0].village_id,
     });
@@ -2170,10 +2180,9 @@ checkadmin: function(req, res){
   };
 
   });
+}
+});
       }
-
-
-
 });
 },
 todaysummary: function(req, res){

@@ -20,7 +20,9 @@
   <link rel="stylesheet" href="assets/theme/css/style.css">
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
   <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="print-js/dist/print.css">
 
+        <script src="node_modules\print-js\dist\print.js"></script>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
 
         <style type="text/css">
@@ -39,12 +41,18 @@
             </style>       
     </head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://www.google.com/cloudprint/client/cpgadget.js"></script>
+    <!-- <script src="https://www.google.com/cloudprint/client/cpgadget.js"></script> -->
     <body>
-        <div id="non-printable">
-            <button type="button" class="btn btn-primary btn-form display-4" style="border-radius: 30px;" onclick="window.history.back()">กลับ</button>
-            <button type="button" id="printpdf" class="btn btn-primary btn-form display-4" style="border-radius: 30px;display:none" onclick="printJS('printable', 'html')"><span class="mbri-save"></span> บันทึก</button>
-      
+        <div id="non-printable ">
+            <div class="row col-12">
+            <div class="col-md-5 col-7">
+            <button type="button" class="btn-sm btn-primary btn-form display-4" style="border-radius: 30px;" onclick="window.history.back()">กลับ</button>
+        </div>
+            <div class="col-md-5 col-5">
+                <button type="button" id="printpdf" class="btn-sm btn-primary btn-form display-4" style="border-radius: 30px" onclick= window.print();> บันทึก</button>
+    
+            </div>
+        </div>
         </div>      
         <div id="printable">
             <div class="invoice-box" style="width:98%" >
@@ -292,7 +300,7 @@
     var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
        if (x<800) {
          document.getElementById('head').style = "margin-top:-10px";
-         document.getElementById('printable1').style.display = "none";
+        //  document.getElementById('printable1').style.display = "none";
          document.getElementById('printpdf').style= "display:in-line;border-radius: 30px;";
          if (iOS == true) {
             document.getElementById('printable').style = "width:95%";

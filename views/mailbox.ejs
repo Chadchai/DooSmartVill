@@ -181,7 +181,8 @@
         
        <input type="hidden" name="slip_id"  id="slip_id"  class="form-control">  
        <input type="hidden" name="status"  id="status"  class="form-control" value="ได้รับสลิปแล้ว">
-  
+       <input type="hidden" name="token3" data-form-field="Phone" class="form-control display-7" id="token3">
+                                    
       <div class="modal-footer" >
             
               <button type="submit" class="btn-sm btn-primary">ยืนยัน</button>
@@ -209,7 +210,8 @@
         
        <input type="hidden" name="slip_id"  id="slip_id1"  class="form-control">  
        <input type="hidden" name="status"  id="status"  class="form-control" value="ออกใบเสร็จแล้ว">
-  
+       <input type="hidden" name="token3" data-form-field="Phone" class="form-control display-7" id="token4">
+     
       <div class="modal-footer" >
             
               <button type="submit" class="btn-sm btn-primary">ยืนยัน</button>
@@ -242,6 +244,8 @@
       </div>
     </div>
 <script>
+  document.getElementById("token3").value = token1;
+  document.getElementById("token4").value = token1;
   function showSlip(imagename,memo,id){
     if (id >= 1467){
       document.getElementById("slipLabel").innerHTML = memo ;

@@ -458,7 +458,10 @@ if (role == 'Committee') {
  document.getElementById("expenselist").href = "/getexpenselist/Bearer " + token1;
 
 axios
-  .get("/getalert")
+  .get("/getalert",{
+ headers: {
+   Authorization: 'Bearer ' + token1 //the token is a variable which holds the token
+ }})
   .then(response => {
     console.log("ok");
     
@@ -505,7 +508,14 @@ document.getElementById("myalert").innerHTML = "ไม่มีการแจ�
    
   })
   .catch(err => {
-    console.error(err)
+    console.error(err);
+   
+     localStorage.removeItem('token1');
+     localStorage.removeItem('empname');
+     localStorage.removeItem('fullname');
+     localStorage.removeItem('role');
+    window.location.replace('/'+villagename + '/loginadmin');
+  
   });
 
   </script>
