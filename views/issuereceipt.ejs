@@ -99,7 +99,7 @@
                                   </div>
                                       <div class="col-md-3  form-group" data-for="email">
                                           <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่ออกใบเสร็จ</label>
-                                          <input type="date" name="receiptdate" data-form-field="Email" required="required" class="form-control display-7" id="receiptdate">
+                                          <input type="date" name="receiptdate" data-form-field="Email" required="required" readonly class="form-control display-7" id="receiptdate">
                                       </div>
                                       
                                       <div data-for="phone" class="col-md-4  form-group">
@@ -169,7 +169,7 @@
                                       <div data-for="phone" class="col-md-4  form-group">
                                           <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ชื่อผู้รับเงิน</label>
                                           <input type="text" name="receiver" data-form-field="Phone" class="form-control display-7" value="คุณ ชัยรงค์ สุทธิชัยวรกุล" id="receiver">
-                                          <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token">
+                                          <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token2">
                                                                    
                                         </div>    
                                 
@@ -256,12 +256,18 @@
    </script>
 
 <script>
-  document.getElementById("token").value = token1;
+  //console.log(token1);
+  document.getElementById("token2").value = token1;
+
   function validateForm() {
     var x = Number(document.forms["receiptform"]["actual_pay"].value);
     var y = Number(document.forms["receiptform"]["t_amount"].value);
     var z = Number(document.forms["receiptform"]["remain"].value);
-      
+    var w = Number(document.forms["receiptform"]["lastremain"].value);
+    if (w<0) {
+      w=0;
+     
+    } 
       if ( y == 0) {
       alert("กรุณาเลือกรายการที่จะชำระเงิน");
       document.forms["receiptform"]["t_amount"].style = "border-color:red;border-width: thick;"
@@ -277,7 +283,7 @@
    // console.log("actual pay ="+ x);
    // console.log("total to pay ="+ y);
   //  console.log("remain ="+ z);
-     if (x < y && z < 0) {
+     if ((x+w) < y && z < 0) {
       alert("ชำระเงินน้อยกว่าค่าส่วนกลางหรือรายการที่เลือก");
       document.forms["receiptform"]["actual_pay"].style = "border-color:red;border-width: thick;background-color: yellow;"
       return false;

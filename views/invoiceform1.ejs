@@ -359,7 +359,17 @@ gadget.openPrintDialog();
 
     } 
 
-   
+    var custid = localStorage.getItem("custid");
+       var villagename = localStorage.getItem("villagename");
+ if (custid== null ){
+     logout();
+ }
+       function logout()
+     {
+localStorage.clear();
+window.location.href="/idesign2020/login";
+//console.log(storeid);
+     }
     
 
 </script>

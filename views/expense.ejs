@@ -105,7 +105,7 @@
                                     <div data-for="phone" class="col-md-12  form-group">
                                       <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7 ">ชื่อร้าน/บริษัท/หน่วยงานราชการ</label>
                                       <input type="text" name="company_name" data-form-field="Phone" class="form-control display-7 " value="" id="company_name" >
-                                      <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token">
+                                      <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token2">
                                     
                                     </div>
                                     <div data-for="message" class="col-md-12 form-group">
@@ -141,8 +141,8 @@
                                     <div class="col-md-12 input-group-btn align-center" style="text-align: center;margin-top: 20px;">
                                         <button type="submit" class="btn btn-success btn-form display-4" style="width: 150px;margin: 10px;"">บันทึก</button>
                                         <button type="button" class="btn btn-warning btn-form display-4"style="width: 150px;margin: 10px;"" onclick="window.history.back()">ยกเลิก</button>
-                                        <button type="button" class="btn btn-info btn-form display-4" style="width: 150px;" onclick="window.location.href='/getexpenselist'">ดูรายการ</button>
-                                    
+                                        <!-- <button type="button" class="btn btn-info btn-form display-4" style="width: 150px;" onclick="window.location.href='/getexpenselist'">ดูรายการ</button>
+                                     -->
                                     </div>
                                 </div>
                             </form><!---Formbuilder Form--->
@@ -207,7 +207,7 @@
   <script src="assets/js/demo/chart-pie-demo.js"></script>
   <script>
 // get admin name
-document.getElementById("token").value = token1;
+document.getElementById("token2").value = token1;
 var fullname = localStorage.getItem("fullname");
   document.getElementById("receiver_name").value = "คุณ " +fullname;
   

@@ -83,7 +83,7 @@
                                   <div class="col-md-4  form-group" data-for="name">
                                       <label for="name-form1-h" class="form-control-label mbr-fonts-style display-7">บ้านเลขที่</label>
                                        <input type="้house_no" name="house_no" data-form-field="Name" required="required" class="form-control display-7" id="house_no" value="<%= houseno %>" >
-                                       <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token">
+                                       <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token2">
                                     
                                        <!-- <input type="้hidden" name="house_id" data-form-field="Name" required="required" class="form-control display-7" id="house_id" value="<%= houseid %>" >
                                        -->
@@ -265,7 +265,7 @@
   <script>
     var villageid2 = localStorage.getItem("villageid") ;
 document.getElementById("village_id11").value = villageid2;
-document.getElementById("token").value = token1;
+document.getElementById("token2").value = token1;
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!

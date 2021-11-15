@@ -50,9 +50,9 @@
 
                                 <% if (receipt.invoice_type == "ค่าส่วนกลาง" || receipt.invoice_type == "ค่าจอดรถ" ) {%>
 
-                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-6"><a href="/receiptform/<%= receipt.house_no %>/<%= receipt.receipt_no %>"><%= receipt.remark %></a></p>
+                            <p class="mbr-text card-title cost mbr-fonts-style m-0 display-6"><a href="/receiptform3/<%= receipt.house_no %>/<%= receipt.receipt_no %>/<%= mytoken %>"><%= receipt.remark %></a></p>
                             <% } else { %>
-                                <p class="mbr-text card-title cost mbr-fonts-style m-0 display-6"><a href="/receiptform1/<%= receipt.house_no %>/<%= receipt.receipt_no %>"><%= receipt.remark %></a></p>
+                                <p class="mbr-text card-title cost mbr-fonts-style m-0 display-6"><a href="/receiptform1/<%= receipt.house_no %>/<%= receipt.receipt_no %>/<%= mytoken %>"><%= receipt.remark %></a></p>
                              
                                 <% } %>
                         </div>

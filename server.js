@@ -36,16 +36,18 @@ app.set('views', __dirname + '/views/'); // set express to look in this folder t
 //แต่ถ้าไม่ได้กำหนดไว้ เราจะใช้ค่า 8080 แทน
 const PORT = process.env.PORT || 7000
 
-const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,invoiceform,invoiceform1,getsliplist,updateslipstatus,getinvoicesform} = require("./");
+const {index,issuereceipt,getreceiptlist,receiptform,getrcpowner,advanceinvoice,getownername,getinvoicelist,getinvoicelist1,invoiceform,invoiceform1,getsliplist,updateslipstatus,getinvoicesform} = require("./");
 const {getallreceiptlist,oldcommonfee,income,getreceiptlist1,receiptform1,receiptform2,expense,getexpenselist,incomeexpense,todaysummary,pendingpayment,gethouselist,gethouseinfo} = require("./");
 const {loadincome,loadexpense,loadpending,loadhouseinfo,updatehouseinfo,createadvanceinvoice,saveexpense,saveincome,saveSlip,checkadmin,receiptpayment,createinvoice1month,getrcpowner1} = require("./");
 const {receiptoldpayment,contact,contact1,memberpage,loginadmin,login,checkusr,news,uploadslip,getmyreceiptlist,incomeexpense1,getvotelist} = require("./");
 const {getcontactlist,addcontact,updatecontact,deletecontact,getnewslist,addnews,updatenews,deletenews,getalert,getcarlist,updatecar,cancelreceipt,getvoidreceipt,changepwd,newpassword} = require("./")
-const {comment,getcommentlist,sendcomment,clearadvanceinv,getnewslist1,addpettycash,createletter,updatecommentstatus,getmycommentlist,loadparkingfeeinfo,getinfoletter,getmycommentlist1,changeadminpassword} = require("./")
+const {comment,getcommentlist,getparcellist,sendcomment,clearadvanceinv,getnewslist1,addpettycash,createletter,updatecommentstatus,getmycommentlist,loadparkingfeeinfo,getinfoletter,getmycommentlist1,changeadminpassword} = require("./")
+const {updateparcelstatus,pendingparcel,newparcel,addparcel,getpendingparcel,updatepickup,getuseralert,listparcel,getpendingbyhouse,otherinvoice,issueotherinvoice,receiptform4} = require("./")
+
 
 const authenticateJWT = (req, res, next) => {
   const authHeader = req.params.token;
-  const accessTokenSecret = "MY_SECRET_KEY";
+  const accessTokenSecret = "IDESIGN2020";
   if (authHeader) {
       const token = authHeader.split(' ')[1];
 
@@ -53,7 +55,7 @@ const authenticateJWT = (req, res, next) => {
           if (err) {
               return res.sendStatus(403);
           }
-
+//onsole.log (user);
           req.user = user;
           next();
       });
@@ -64,7 +66,7 @@ const authenticateJWT = (req, res, next) => {
 };
 const authenticateJWT1 = (req, res, next) => {
     const authHeader = req.headers.authorization;
-    const accessTokenSecret = "MY_SECRET_KEY";
+    const accessTokenSecret = "IDESIGN2020";
 //console.log(authHeader);
     if (authHeader) {
         const token = authHeader.split(' ')[1];
@@ -86,26 +88,27 @@ res.end();
     }
 };
 
-app.get('/', index);
-app.get('/getreceiptlist/:token',authenticateJWT, getreceiptlist);
+app.get('/admin/:token',authenticateJWT,index);
+app.get('/getreceiptlist3/:token',authenticateJWT, getreceiptlist);
 app.get('/getreceiptlist2/', getreceiptlist);
 app.get('/issuereceipt', issuereceipt);
-app.get('/receiptform/104/:house_no/:receiptno', receiptform);
+app.get('/receiptform3/104/:house_no/:receiptno/:token',authenticateJWT, receiptform);
 app.get('/getrcpowner/104/:house_no',getrcpowner);
 app.get('/advanceinvoice', advanceinvoice);
 app.get('/getownername/:village_id/104/:house_no', getownername);
 app.get('/getinvoicelist/:token',authenticateJWT, getinvoicelist);
 app.get('/invoiceform/104/:house_no', invoiceform);
-app.get('/invoiceform1/104/:house_no', invoiceform1);
+app.get('/invoiceform1/104/:house_no/:token',authenticateJWT, invoiceform1);
 app.get('/getsliplist/:condition/:token',authenticateJWT, getsliplist);
 app.post('/updateslipstatus',updateslipstatus);
 app.get('/getallinvoice/:token',authenticateJWT, getinvoicesform);
-app.get('/getallreceiptlist/:token',authenticateJWT, getallreceiptlist);
+app.get('/getallreceiptlist1/:token',authenticateJWT, getallreceiptlist);
 app.get('/oldcommonfee/:token',authenticateJWT, oldcommonfee);
 app.get('/income/:token', authenticateJWT,income);
 app.get('/getreceiptlist1/:token',authenticateJWT, getreceiptlist1);
-app.get('/receiptform1/104/:house_no/:receiptno', receiptform1);
+app.get('/receiptfor3/104/:house_no/:receiptno', receiptform1);
 app.get('/receiptform2/104/:house_no/:receiptno', receiptform2);
+app.get('/receiptform4/104/:house_no/:receiptno', receiptform4);
 app.get('/expense/:token',authenticateJWT ,expense);
 app.get('/getexpenselist/:token',authenticateJWT, getexpenselist);
 app.get('/incomeexpense', incomeexpense);
@@ -136,7 +139,7 @@ app.get('/:village_name/login', login);
 app.post('/checkuser',checkusr);
 app.get('/post', news);
 app.get('/uploadslip', uploadslip);
-app.get('/getmyreceiptlist/104/:house_no', getmyreceiptlist);
+app.get('/getmyreceiptlist/104/:house_no/:mytoken', getmyreceiptlist);
 app.get('/incomeexpense1', incomeexpense1);
 app.get('/getvotelist', getvotelist);
 app.get('/getcontactlist', getcontactlist);
@@ -163,12 +166,36 @@ app.get('/getnewslist1', getnewslist1);
 app.post('/addpettycash',addpettycash);
 app.get('/createletter',createletter );
 app.post('/updatecommentstatus',updatecommentstatus);
- app.post('/getinfoletter',getinfoletter);
+ app.post('/getinfoletter',getinfoletter);  
 app.get('/parkingfeeinfo',loadparkingfeeinfo);changeadminpassword
 app.post('/changeadminpassword',changeadminpassword);
 app.get('/getmycommentlist/:cust_id', getmycommentlist);
 app.get('/getmycommentlist1/:cust_id', getmycommentlist1);
+app.get('/getparcellist/:status', getparcellist);
+app.post('/updateparcelstatus',updateparcelstatus);
+app.get('/:villagename/pendingparcel', pendingparcel);
+app.get('/:villagename/newparcel', newparcel);
+app.post('/addparcel',addparcel);updatepickup
+app.get('/getpendingparcel/:villagename', getpendingparcel);
+app.get('/getpendingbyhouse/:villagename/:houseno/:houseno1', getpendingbyhouse);
+app.post('/updatepickup',updatepickup);
+app.get('/getuseralert/:village_id/:cust_id/104/:house_no', getuseralert);
+app.get('/listparcel',listparcel);
+app.get('/otherinvoice', otherinvoice);
+app.post('/issueotherinvoice',issueotherinvoice); 
+app.get('/getinvoicelist1/:token',authenticateJWT, getinvoicelist1);
+
+app.get('/robots.txt', function (req, res, next) {
+    res.type('text/plain')
+    res.send("User-agent: * \n Disallow: / \n Disallow: /receiptform \n Disallow: /getallreceiptlist\n Disallow: /invoicelist \nSitemap: https://www.dosmartvill.com/sitemap.xml");
+});
+app.get('/googledf2b6534621fe73a.html', function (req, res, next) {
+    res.type('text/plain')
+    res.send("google-site-verification: googledf2b6534621fe73a.html");
+});
+
 //const PORT1 = process.env.PORT || 3000;
+
 //http.listen(app.get('port'));
 app.listen(PORT, () => {
   console.log(`Server is running on port : ${PORT}`)

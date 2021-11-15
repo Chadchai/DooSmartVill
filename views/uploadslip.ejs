@@ -80,6 +80,7 @@
                             <textarea name="details" data-form-field="Message" class="form-control display-7" id="details"></textarea>
                             <input type="hidden" name="houseno" data-form-field="Message" class="form-control display-7" id="houseno"></input>
                             <input type="hidden" name="villagename5" data-form-field="Message" class="form-control display-7" id="villagename5"></input>
+                            <input type="hidden" name="village_id" data-form-field="Message" class="form-control display-7" id="village_id"></input>
                             <input type="hidden" name="custid5" data-form-field="Message" class="form-control display-7" id="custid5"></input>
                         </div>
                         <div data-for="message" class="col-md-12 form-group">
@@ -149,9 +150,10 @@
     var houseid1 = localStorage.getItem("HouseID");
 
     var villagename1 = localStorage.getItem("villagename");
-var custid1 = localStorage.getItem("custid");
+
 document.getElementById("villagename5").value = villagename1;
 document.getElementById("custid5").value = custid1;
+document.getElementById("village_id").value = villageid1;
 //console.log(localStorage.getItem("HouseID",houseid1));
 
 //

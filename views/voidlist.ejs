@@ -53,6 +53,7 @@
                         <th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th><th class="head-item mbr-fonts-style display-7">
                             ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7" style="text-align: center;">จำนวนรวม</th>
                             <th class="head-item mbr-fonts-style display-7" style="text-align: center;">ชำระเป็น</th>
+                            <th class="head-item mbr-fonts-style display-7 align-center">พิมพ์ใบเสร็จ</th>
                             <th class="head-item mbr-fonts-style display-7">หมายเหตุ</th>
 <!--   
                             <th class="head-item mbr-fonts-style display-7">ยกเลิก</th> -->
@@ -64,6 +65,7 @@
                            ชื่อเจ้าของบ้าน</th>
                            <th class="head-item mbr-fonts-style display-7" style="text-align: center;">จำนวนรวม</th>
                            <th class="head-item mbr-fonts-style display-7" style="text-align: center;">ชำระเป็น</th>
+                           <th class="head-item mbr-fonts-style display-7 align-center">พิมพ์ใบเสร็จ</th>
                            <th class="head-item mbr-fonts-style display-7">หมายเหตุ</th>
                           
                            <!-- <th class="head-item mbr-fonts-style display-7">ยกเลิก</th> -->
@@ -81,6 +83,11 @@
                     <td class="body-item mbr-fonts-style display-7"><%= receipt.owner_name %></td>
                     <td class="body-item mbr-fonts-style display-7 align-center" style="text-align: center;"><%= receipt.void_amount %></td>
                     <td class="body-item mbr-fonts-style display-7 align-center" style="text-align: center;"><%= receipt.payment_type %></td>
+                    <td class="body-item mbr-fonts-style display-7 align-center" style="text-align: center;">
+                      <a class=".btn-circle"  href="/receiptform4/<%= receipt.house_no %>/<%= receipt.receipt_no %>">พิมพ์</a>
+                                   
+      
+                    </td>
                     <td class="body-item mbr-fonts-style display-7"><%= receipt.void_reason %></td>
                 
                     <!-- <td class="body-item mbr-fonts-style display-7">

@@ -53,13 +53,21 @@
                             <% } %>    
                     </div>
                     <div class="card-box">
-                        <h4 class="card-title mbr-fonts-style display-5">
+                        <div style="text-align:left;padding-top: 10px">
+                            <h7 class=" mbr-fonts-style mb-1" style="font-size: smaller">
+                                วันที่ประกาศ:  <%= news.post_date %>
+                              </h7>
+                        </div>
+                        <p class="card-title mbr-fonts-style display-5" style="font-weight: bold;">
                             <%= news.news_topic %>
-                        </h4>
+                        </p>
+                       
+                     
                         <p class="mbr-text mbr-fonts-style align-left display-4">
                             <p id="details_<%= news.news_id %>" class="shrinkable"><%= news.news_details %></p>
                        
                         </p>
+                       
                     </div>
                 </div>
             </div>

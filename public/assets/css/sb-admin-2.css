@@ -11137,9 +11137,24 @@ body.sidebar-toggled footer.sticky-footer {
   background-size: cover;
  
 }
+.parallax1 {
+  /* The image used */
+    /* Set a specific height */
+  min-height: 500px;
+background-color: #00A19D;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+ 
+}
 .hidden {
   display: none;
 }
 .align-right{
   text-align: right;
+}
+.bg-custom{
+  background-color: #38A3A5;
 }

@@ -26,29 +26,13 @@ cloudinary.config({
 module.exports = {
  
   index: function(req, res){
-          let getcount = "SELECT COUNT(id) AS count FROM slip_info WHERE status <> 'ออกใบเสร็จแล้ว'"
-          db.query(getcount, (err, result) => {
-            if (err) {
-                return res.status(500).send(err);
-            } 
-            else {
-              const payload = {
-                id: result[0].username,
-                id1: result[0].emp_id,
-                role:result[0].role,
-                iat: new Date().getTime(),//มาจากคำว่า issued at time (สร้างเมื่อ),
-                exp: new Date().getTime() + (4*60*60*1000),
-             };
-             const SECRET = "MY_SECRET_KEY"; //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
-          var token = jwt.encode(payload, SECRET);
-                token1 =token;
-        empname = result[0].username;
+       // let token = req.params.token;
+             
         //custid1= result[0].emp_id;
     res.render('mainpage.ejs', {
       title: "iDesign2020"
-      ,message: '',count1:result[0].count,role1:'',adminname:'',empname:empname,token1:token,villagename:'',fullname:'',villageid:'',
-    });
-  };
+      ,message: '',count1:'',role1:'',adminname:'',empname:'',token1:'',villagename:'',fullname:'',villageid:'',
+    
 
   });
   },
@@ -56,7 +40,7 @@ memberpage: function(req, res){
           
     res.render('member.ejs', {
       title: "Main Page"
-      ,message: '',houseno:'',villagename:'',custid:'',
+      ,message: '',houseno:'',villagename:'',custid:'',villageid:'',mytoken:'',
   });
   },
   contact: function(req, res){
@@ -194,6 +178,8 @@ var villageid = req.body.village_id;
     var c_year = today.getFullYear();
     var c_year1 = today.getFullYear()+543;
     var month = new Array();
+    var token = req.body.token;
+    
     month[0] = "มกราคม";
     month[1] = "กุมภาพันธ์";
     month[2] = "มีนาคม";
@@ -219,7 +205,7 @@ var villageid = req.body.village_id;
     else {
         var periodid = result[0].period_id;
         let gethouselist = "SELECT * FROM `house_info` WHERE invoice_period < " + result[0].period_id + " OR invoice_period IS NULL AND village_id =" + villageid ;
-        console.log(gethouselist);
+        //console.log(gethouselist);
         db.query(gethouselist, (err, result1) => {
             if (err) {
                 return res.status(500).send(err);
@@ -262,7 +248,7 @@ var villageid = req.body.village_id;
                     }
                     
                 } else {
-                    res.redirect('/getinvoicelist');
+                    res.redirect('/getinvoicelist/Bearer ' + token);
 
                 }
             }
@@ -497,6 +483,7 @@ var villageid = req.body.village_id;
   },
   getmyreceiptlist: function(req, res){
     let houseid = req.params.house_no;
+    let mytoken = req.params.mytoken;
     let getreceiptlist = "SELECT invoice_info.house_no,invoice_info.id,SUM(invoice_info.amount) AS t_amount,MAX(invoice_info.invoice_month) AS remark,invoice_info.payment_type,invoice_info.receipt_no,invoice_info.invoice_type,house_info.owner_name " +  
     "FROM `invoice_info`" +
     "LEFT JOIN `house_info` " + 
@@ -528,7 +515,7 @@ var villageid = req.body.village_id;
          //console.log(result);
         res.render('myreceiptlist.ejs', {
             title: "Main Page"
-            ,message: 'ออกใบแจ้งหนี้เดือนนี้ไปแล้ว ออกซ้ำ',receiptlist:result, monthyear:n
+            ,message: 'ออกใบแจ้งหนี้เดือนนี้ไปแล้ว ออกซ้ำ',receiptlist:result, monthyear:n,mytoken:mytoken,
         });
 
        }
@@ -800,7 +787,7 @@ receiptpayment: function(req, res){
        });
        
               }
-              res.redirect('/getreceiptlist/Bearer ' +token);
+              res.redirect('/getreceiptlist3/Bearer ' +token);
             }
             
             }); 
@@ -1559,6 +1546,65 @@ if (result.length >0 ){
 }
 });
 },
+receiptform4: function(req, res){
+  let receiptno1 = req.params.receiptno;
+  let houseid = req.params.house_no;
+ // let houseid = req.params.house_no;
+  //console.log(houseid);
+  let getownername1 = "SELECT *  FROM `house_info` WHERE house_no ='104/" + houseid + "'";
+   let getvoidreceiptinfo = "SELECT * FROM void_info WHERE receipt_no ='"+ receiptno1 + "'"
+ 
+   //console.log(getvoidreceiptinfo);
+  db.query(getownername1, (err, result) => {
+    //console.log(result);
+      if (err || result == "") {
+        return res.status(500).send(err);
+      } else {
+        
+                db.query(getvoidreceiptinfo, (err,result1) => {
+                  if (err || result1 == "") {
+                    //console.log(result1[0].receipt_date);
+                   return res.status(500).send(err);
+                  } else {
+                    var receiptdate;
+                    if (result1[0].void_date == null) {
+                      receiptdate = new Date(result3[0].void_date);
+                    } else {
+                      receiptdate = new Date(result1[0].void_date);
+                    }
+                    
+          
+           var c_year1 = receiptdate.getFullYear()+543;
+           var month = new Array();
+           month[0] = "มกราคม";
+           month[1] = "กุมภาพันธ์";
+           month[2] = "มีนาคม";
+           month[3] = "เมษายน";
+           month[4] = "พฤษภาคม";
+           month[5] = "มิถุนายน";
+           month[6] = "กรกฎาคม";
+           month[7] = "สิงหาคม";
+           month[8] = "กันยายน";
+           month[9] = "ตุลาคม";
+           month[10] = "พฤศจิกายน";
+           month[11] = "ธันวาคม";
+
+ var receiptdate1 = receiptdate.getDate() +" " +month[receiptdate.getMonth()] + " " + c_year1.toString() ;
+
+
+//console.log(paymenttype);
+
+
+ res.render('receiptform3.ejs', {
+    title: "receiptform"
+    ,message: '',ownername:result[0].owner_name,laneno:result[0].lane_no,houseno:'104/'+ houseid,invoicelist: result1,totalpay:result1[0].void_amount.toLocaleString(),paymenttype:result1[0].payment_type,receiptno:result1[0].receipt_no,receiptdate:receiptdate1,
+});
+ }
+
+});
+}
+});
+},
 incomeexpense1: function(req, res){
             
   let monthincome = "SELECT FORMAT(SUM(actual_pay),0) AS monthincome FROM invoice_info WHERE YEAR(receipt_date) = YEAR(CURDATE()) AND MONTH(receipt_date) = MONTH(CURDATE())" ;
@@ -1723,20 +1769,20 @@ checkusr: function(req, res){
           id1: result[0].id,
           houseno:result[0].house_no,
           village:result[0].village_name,
+          villageid:result[0].village_id,
           iat: new Date().getTime(),//มาจากคำว่า issued at time (สร้างเมื่อ),
           exp: new Date().getTime() + (4*60*60*1000),
        };
-       const SECRET = "MY_SECRET_KEY"; //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
+       const SECRET = "IDESIGN2020"; //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
     var token = jwt.encode(payload, SECRET);
           
        
         res.render('member.ejs', {
           title: "Login"
-          ,message: '',houseno:result[0].house_no,villagename:result[0].village_name,custid:result[0].id,token:token,
+          ,message: '',houseno:result[0].house_no,villagename:result[0].village_name,custid:result[0].id,mytoken:token,villageid:result[0].village_id,
       });
       }
 
-    //   res.render('menu.ejs', {
     //     title: "Logged in"
     //     ,status:"loggedin",storeid:result[0].store_id
     // });
@@ -1747,6 +1793,7 @@ checkusr: function(req, res){
 receiptoldpayment: function(req, res){
            
   let houseid = req.body.house_no;
+ 
   let paymenttype = req.body.payment_type;
   let transferno = req.body.transfer_no;
   let transferdate = req.body.transfer_date;
@@ -1814,7 +1861,7 @@ receiptoldpayment: function(req, res){
  });
 };
 
-    res.redirect('/getreceiptlist/Bearer ' + token);
+    res.redirect('/getreceiptlist3/Bearer ' + token);
 
   }); 
              
@@ -1822,6 +1869,7 @@ receiptoldpayment: function(req, res){
 
 saveSlip: (req, res) => {
   let transferdate = req.body.slip_date;
+  let villageid = req.body.village_id;
   let memo = req.body.details;
   let houseid = req.body.houseno;
   var today = new Date();
@@ -1864,7 +1912,7 @@ let image_name1 = uploadedFile.name.split('.')[0];
      
         res.render('member.ejs', {
           title: "Main Page"
-          ,message:'ส่งสลิปให้นิติบุคคลเรียบร้อยแล้ว',houseno:houseid,villagename:villagename,houseid:houseid,custid:custid,
+          ,message:'ส่งสลิปให้นิติบุคคลเรียบร้อยแล้ว',houseno:houseid,villagename:villagename,houseid:houseid,custid:custid,villageid:villageid,mytoken:'',
       });
   
     
@@ -1922,7 +1970,7 @@ getinvoicesform: function(req, res){
 " ORDER BY invoice_info.id DESC";
 let getinvoicelist1 = "SELECT invoice_info.house_no,invoice_info.id,FORMAT(invoice_info.amount,2) AS amount1,FORMAT(SUM(invoice_info.amount),2) AS amount,GROUP_CONCAT(invoice_info.invoice_month ORDER BY invoice_info.id ASC SEPARATOR '+') AS remark,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',1) AS START, SUBSTRING_INDEX(GROUP_CONCAT(invoice_month ORDER BY invoice_info.id ASC),',',-1) AS END, invoice_info.invoice_type " +  
 "FROM `invoice_info` " +
-"WHERE payment_type = '' OR payment_type IS NULL AND invoice_type ='ค่าจอดรถ' " +
+"WHERE (payment_type = '' OR payment_type IS NULL) AND invoice_type ='ค่าจอดรถ' " +
 "GROUP BY house_no " +
 " ORDER BY invoice_info.id DESC";
 //console.log(gethouselist);
@@ -2154,7 +2202,7 @@ checkadmin: function(req, res){
           iat: new Date().getTime(),//มาจากคำว่า issued at time (สร้างเมื่อ),
           exp: new Date().getTime() + (4*60*60*1000),
        };
-       const SECRET = "MY_SECRET_KEY"; //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
+       const SECRET = "IDESIGN2020"; //ในการใช้งานจริง คีย์นี้ให้เก็บเป็นความลับ
     var token = jwt.encode(payload, SECRET);
           token1 =token;
   empname = result[0].username;
@@ -2593,7 +2641,7 @@ cancelreceipt: function(req, res){
           if (err) {
             return res.status(500).send(err);
           } else {
-        res.redirect('/getreceiptlist/Bearer ' + token);
+        res.redirect('/getreceiptlist3/Bearer ' + token);
 }
 });
 }
@@ -2655,10 +2703,7 @@ let savecomment = "INSERT INTO comment_info (cust_id,house_no,comment_topic,comm
        return res.status(500).send(err);
    } else {
   
-     res.render('member.ejs', {
-       title: "Main Page"
-       ,message:'ส่งความเห็นให้นิติบุคคลเรียบร้อยแล้ว',houseno:houseid,villagename:'',custid:'',
-   });
+    res.redirect('/member');
 
    }
  });
@@ -2891,7 +2936,321 @@ changeadminpassword: function(req, res){
 
 
 },
+getparcellist: function(req, res){
+  let status = req.params.status;
+  let getparcellist;
+  if (status == 'pending'){
+    getparcellist = "SELECT * , DATE_FORMAT(rcv_date, '%d-%m-%Y') AS rcv_date, DATE_FORMAT(pickup_date, '%d-%m-%Y') AS pickup_date FROM package_info WHERE status = 'pending' ORDER BY id DESC ";
 
+  } else {
+    getparcellist = "SELECT * , DATE_FORMAT(rcv_date, '%d-%m-%Y') AS rcv_date, DATE_FORMAT(pickup_date, '%d-%m-%Y') AS pickup_date FROM package_info WHERE status = 'completed' ORDER BY id DESC ";
 
+  }
+ //console.log(getexpense1);
+  db.query(getparcellist, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.render('parcellist.ejs', {
+          title: "See slip list"
+          ,message: '',parcellist:result,status:status,
+        })
+}
+});
+},
+updateparcelstatus: function(req, res){
+  let parcelid = req.body.parcel_id; 
+  let houseno = req.body.house_no;    
+  let details = req.body.parcel_detail;
+  let status = req.body.status;
+  let remark = req.body.remark;                   
+  let updateparcel = "UPDATE package_info SET house_no = '" + houseno+ "',package_details ='"+ details + "',status = '" + status +"',remark = '"+ remark +  "' WHERE id = " + parcelid;
+console.log(updateparcel);
+  db.query(updateparcel, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+          
+        res.redirect('/getparcellist/pending');
+}
+});
+},
+addparcel: function(req, res){
+  let villagename = req.body.village_name;
+  let houseno = "104/" + req.body.house_no;    
+  let details = req.body.parcel_detail;
+ 
+ let getcustid = "SELECT * FROM house_info WHERE village_name = '"+ villagename + "' AND house_no ='" +houseno + "'";
+ 
+//console.log(addnewparcel);
+  db.query(getcustid, (err, result0) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        let addnewparcel = "INSERT INTO `package_info` (village_name,house_no,cust_id,package_details,status) VALUES ('" + villagename + "','" + houseno + "',"+ result0[0].id +" , '" + details + "','pending')" ;
+        //console.log(addnewparcel);
+        db.query(addnewparcel, (err, result) => {
+          if (err) {
+            return res.status(500).send(err);
+          } else {
+          
+        res.redirect('/' +villagename +"/pendingparcel");
+}
+});
+}
+});
+},
+pendingparcel: function(req, res){
+let villagename = req.params.villagename;
+          
+  res.render('pendingparcel.ejs', {
+    title: "Pending Parcel"
+    ,message: '',villagename:villagename,
+});
+},
+newparcel: function(req, res){
+  let villagename = req.params.villagename;
+            
+    res.render('newparcel.ejs', {
+      title: "Pending Parcel"
+      ,message: '',villagename:villagename,
+  });
+  },
+getpendingparcel: function(req, res){
+ 
+  let villagename = req.params.villagename;
+    let  getparcellist = "SELECT * , DATE_FORMAT(rcv_date, '%d-%m-%Y') AS rcv_date FROM package_info WHERE status = 'pending' AND village_name ='"+ villagename +"'GROUP BY house_no ORDER BY id DESC ";
+   
+   //console.log(getexpense1);
+    db.query(getparcellist, (err, result) => {
+        if (err) {
+          return res.status(500).send(err);
+        } else {
+          let jsonData = [];
+          jsonData[0] = JSON.parse(JSON.stringify(result));               
+          res.setHeader('Content-Type', 'application/json');
+          res.send(JSON.stringify(jsonData));
+          
+  }
+  });
+  },
+  getpendingbyhouse: function(req, res){
+ 
+    let villagename = req.params.villagename;
+    let houseno = req.params.houseno + "/" + req.params.houseno1;
+      let  getparcellist = "SELECT * , DATE_FORMAT(rcv_date, '%d-%m-%Y') AS rcv_date FROM package_info WHERE status = 'pending' AND village_name ='"+ villagename + "' AND house_no ='"+ houseno +"' ORDER BY id DESC ";
+     
+     //console.log(getparcellist);
+      db.query(getparcellist, (err, result) => {
+          if (err) {
+            return res.status(500).send(err);
+          } else {
+            let jsonData = [];
+            jsonData[0] = JSON.parse(JSON.stringify(result));               
+            res.setHeader('Content-Type', 'application/json');
+            res.send(JSON.stringify(jsonData));
+            
+    }
+    });
+    },
+updatepickup: function(req, res){
+    let houseid = req.body.house_no3; 
+    let villagename = req.body.village_name1; 
+    let pickupname = req.body.rcv_name;                    
+    let updateparcel = "UPDATE package_info SET status = 'completed', pickup_name ='"+ pickupname +"' WHERE house_no = '" + houseid + "' AND village_name ='"+ villagename + "' AND status ='pending'";
+  //console.log(updateparcel);
+    db.query(updateparcel, (err, result) => {
+        if (err) {
+          return res.status(500).send(err);
+        } else {
+            
+          res.redirect('/'+ villagename +"/pendingparcel");
+  }
+  });
+  },
+getuseralert: function(req, res){
+    let custid = req.params.cust_id;
+    let houseno = "104/" + req.params.house_no;
+    let villageid = req.params.village_id;
+    function GetFormattedDate(date1) {
+     var todayTime = new Date(date1);
+     var month = todayTime.getMonth() + 1;
+     var day = todayTime.getDate();
+     if (month < 10) {
+       month = '0' + month;
+     } 
+     if (day < 10) {
+       day = '0' + day;
+     } 
+     var year = todayTime.getFullYear();
+     return year + "-" + month + "-" + day;
+  }
+  let today1 = GetFormattedDate(new Date());
+   let pendingpackage = "SELECT COUNT(package_details) AS nopendingparcel FROM package_info WHERE status = 'pending' AND cust_id = "+ custid;
+   let todaynews = "SELECT COUNT(news_id) AS noofnews FROM news_info WHERE post_date <= '" + today1 + "' AND post_date >= DATE_ADD('"+ today1 +"', INTERVAL -3 DAY) AND village_id = " + villageid ;    
+   let checkslip = "SELECT COUNT(id) AS slipalert FROM slip_info WHERE slip_date <= '" + today1 + "' AND status = 'ส่ง slip แล้ว' AND house_no = '"+ houseno + "'" ;    
+   let checkreceipt = "SELECT COUNT(id) AS receiptalert FROM invoice_info WHERE receipt_date = '" + today1 + "' AND village_id = " + villageid + " AND house_no = '" + houseno + "'" ;    
+  // console.log(checkslip);
+  // console.log(checkreceipt);                  
+   //console.log(pendingpackage);
+                         let jsonData = [];
+                        
+                         db.query(pendingpackage, (err, result) => {
+                           console.log(result);
+                             if (err ) {
+                                 return res.status(500).send(err);
+                             } else {
+                               
+                              db.query(todaynews, (err, result1) => {
+                                //console.log(result);
+                                  if (err ) {
+                                      return res.status(500).send(err);
+                                  } else { 
+                                      
+                                    db.query(checkslip, (err, result2) => {
+                                      //console.log(result);
+                                        if (err ) {
+                                            return res.status(500).send(err);
+                                        } else { 
+                                          db.query(checkreceipt, (err, result3) => {
+                                            //console.log(result);
+                                              if (err ) {
+                                                  return res.status(500).send(err);
+                                              } else { 
+                             
+                               jsonData[0] = JSON.parse(JSON.stringify(result));
+                               jsonData[1] = JSON.parse(JSON.stringify(result1));
+                               jsonData[2] = JSON.parse(JSON.stringify(result2));
+                               jsonData[3] = JSON.parse(JSON.stringify(result3));
+                               res.setHeader('Content-Type', 'application/json');
+                               res.send(JSON.stringify(jsonData));
+                               
+                            
+                       }
+   
+                     });
+                    }
+   
+                  });
+                }
+   
+              });
+                    }
+   
+                  });
+                         
+  },
+listparcel: function(req, res){
+                
+      res.render('listparcelreact.ejs', {
+        title: "Pending Parcel"
+        ,message: '',
+    });
+    },
+otherinvoice: function(req, res){
+      
+  res.render('otherinvoice.ejs', {
+    title: "Other Invoice"
+    ,message: ''
+});
+},
+issueotherinvoice: function(req, res){         
+        
+      let token =req.body.token;
+      let amount = req.body.income_amount;
+       let issuename = req.body.issue_name;
+       let payername = req.body.payer_name;
+      let details = req.body.details;
+     
+      let villageid = req.body.village_id;
+      var today = new Date();
+      var c_date = today.getDate();
+      var c_month = ("0" + (today.getMonth() + 1)).slice(-2);
+      //console.log(houseno);
+      var c_year = today.getFullYear();
+     // var c_year1 = today.getFullYear()+543;
+      var invoiceno = "INV" +c_year.toString() + c_month.toString() + c_date.toString() + today.getSeconds().toString();
+      var monthcode = "RE" +c_year.toString() + c_month.toString();
+//console.log(invid);
+    var receiptno;
+    let periodid = 0;
+    let getlastrcvno = " SELECT COUNT(DISTINCT receipt_no) AS count FROM (SELECT receipt_no FROM invoice_info WHERE receipt_no LIKE '" + monthcode +"%' UNION SELECT receipt_no FROM void_info WHERE receipt_no LIKE '"+monthcode +"%') AS TABLE1" 
+    var createinvoice;
+      //console.log(c_month);
+    //console.log(getlastrcvno);
+    db.query(getlastrcvno, (err, result) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        let no = ("00" + (Number(result[0].count)+1)).slice(-3);;
+        receiptno = "RE" +c_year.toString() + c_month.toString()+ no;
+        //console.log(receiptno);
+        createinvoice= "INSERT INTO `invoice_info` (`village_id`,`invoice_no`, house_no,invoice_type,invoice_period,amount,invoice_month,receiver_name,remark) VALUES (" + 
+    +villageid + ",'"+invoiceno +"','"+ "104/XX" +"' , '"+ "รายได้อื่นๆ" +"','"+ 0 + "',"+ amount + ",'" + payername + "','" +  issuename + "','"+ details + "')";
+    console.log(createinvoice);
+    db.query(createinvoice, (err, result) => {
+              if (err) {
+                return res.status(500).send(err);
+             } else {
+              res.redirect('/getinvoicelist1/Bearer ' + token);
+             }
+      });
+    }
+    });
 
+    
+    //let saveincome1 = "INSERT INTO `income_info` ( income_date,income_amount,payer_name,receiver_name,details,receipt_type) VALUES ('" + incomedate + "' , " + amount + ", '" + payername + "' ,'" + rcvname + "','" + detail + "','" + receipttype + "')" ;
+   //console.log(saveexpense1);
+  //     db.query(saveincome1, (err, result) => {
+  //         if (err) {
+  //           return res.status(500).send(err);
+  //         } else {
+  //           receiptno = "RE" +c_year.toString() + c_month.toString();
+  //           res.redirect('/getincomelist');
+  // }
+  //   });
+    },
+  getinvoicelist1: function(req, res){
+    
+      let getinvoicelist = "SELECT invoice_info.invoice_no,invoice_info.house_no,invoice_info.id,ROUND(SUM(invoice_info.amount),2) AS t_amount,invoice_info.invoice_month AS remark,invoice_info.payment_type,house_info.owner_name " +  
+      "FROM `invoice_info` " +
+      "LEFT JOIN `house_info` " + 
+      "ON invoice_info.house_no = house_info.house_no " +
+      "WHERE payment_type = '' OR payment_type IS NULL AND invoice_info.invoice_period = 0 " +
+      "GROUP BY house_no" +
+    " ORDER BY invoice_info.id DESC";
+      //console.log(getinvoicelist);
+          var today = new Date();
+          //var c_month = today.getMonth()+1;
+          var c_year = today.getFullYear()+543;
+          var month = new Array();
+          month[0] = "มกราคม";
+          month[1] = "กุมภาพันธ์";
+          month[2] = "มีนาคม";
+          month[3] = "เมษายน";
+          month[4] = "พฤษภาคม";
+          month[5] = "มิถุนายน";
+          month[6] = "กรกฎาคม";
+          month[7] = "สิงหาคม";
+          month[8] = "กันยายน";
+          month[9] = "ตุลาคม";
+          month[10] = "พฤศจิกายน";
+          month[11] = "ธันวาคม";
+        
+          var n = month[today.getMonth()] + "-" + c_year.toString() ;
+       db.query(getinvoicelist, (err, result) => {
+         if (err) {
+             return res.status(500).send(err);
+         } else {
+           //console.log(result);
+          res.render('invoicelist1.ejs', {
+              title: "Main Page"
+              ,message: 'ออกใบแจ้งหนี้เดือนนี้ไปแล้ว ออกซ้ำ',invoicelist:result, monthyear:n
+          });
+  
+         }
+  
+      });
+    },
 }

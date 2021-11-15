@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>DooSmartVill - All receipt</title>
+  <title>DooSmartVill - Other Invoice List</title>
 
   <!-- Custom fonts for this template -->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -43,39 +43,50 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h4 class="m-0 font-weight-bold text-primary">ใบเสร็จรับเงินย้อนหลังทั้งหมด</h4>  
+                <h4 class="m-0 font-weight-bold text-primary">ใบแจ้งหนี้รายรับอื่นๆ</h4>  
             </div>
             <div class="card-body">
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr class="table-heads ">
-                      <th class="head-item mbr-fonts-style display-7" style="width: 13%;">วันที่</th>  <th class="head-item mbr-fonts-style display-7">ใบเสร็จเลขที่</th> <th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th><th class="head-item mbr-fonts-style display-7">
-                        ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th><th class="head-item mbr-fonts-style display-7">หมายเหตุ</th><th class="head-item mbr-fonts-style display-7">พิมพ์ใบเสร็จ</th>  </tr>
+                      <th class="head-item mbr-fonts-style display-7" style="text-align: center;">เลขที่ Invoice</th><th class="head-item mbr-fonts-style display-7">
+                        ชื่อรายการ</th><th class="head-item mbr-fonts-style display-7" style="text-align: center;">จำนวนรวม</th><th class="head-item mbr-fonts-style display-7">หมายเหตุ</th><th class="head-item mbr-fonts-style display-7" style="text-align: center;" >พิมพ์</th>
+                        <th class="head-item mbr-fonts-style display-7" style="text-align: center;">ชำระเงิน</th>
+                      </tr>
                   </thead>
                   <tfoot>
                     <tr >
-                      <th class="head-item mbr-fonts-style display-7" style="width: 13%;">วันที่</th>  <th class="head-item mbr-fonts-style display-7">ใบเสร็จเลขที่</th> <th class="head-item mbr-fonts-style display-7">บ้านเลขที่</th><th class="head-item mbr-fonts-style display-7">
-                        ชื่อเจ้าของบ้าน</th><th class="head-item mbr-fonts-style display-7">จำนวนรวม</th><th class="head-item mbr-fonts-style display-7">หมายเหตุ</th><th class="head-item mbr-fonts-style display-7">พิมพ์ใบเสร็จ</th>   </tr>
+                      <th class="head-item mbr-fonts-style display-7" style="text-align: center;">เลขที่ Invoice</th><th class="head-item mbr-fonts-style display-7">
+                        ชื่อรายการ</th><th class="head-item mbr-fonts-style display-7" style="text-align: center;">จำนวนรวม</th><th class="head-item mbr-fonts-style display-7">หมายเหตุ</th><th class="head-item mbr-fonts-style display-7" style="text-align: center;">พิมพ์</th>
+                        <th class="head-item mbr-fonts-style display-7" style="text-align: center;">ชำระเงิน</th>
+                      
+                      </tr>
                   </tfoot>
-                  <% if (receiptlist.length > 0) {%>
+                  <% if (invoicelist.length > 0) {%>
 
                     <tbody>
                       
                       
                       
-                      <% receiptlist.forEach((receipt, index) => { %>
+                      <% invoicelist.forEach((invoice, index) => { %>
                     <tr> 
                         
                         
-                      <td class="body-item mbr-fonts-style display-7"><%= receipt.receipt_date1 %></td>
-                      <td class="body-item mbr-fonts-style display-7"><%= receipt.receipt_no %></td>
-                      <td class="body-item mbr-fonts-style display-7"><%= receipt.house_no %></td>
-                      <td class="body-item mbr-fonts-style display-7"><%= receipt.owner_name %></td>
-                      <td class="body-item mbr-fonts-style display-7 align-center"><%= receipt.t_amount %></td>
-                      <td class="body-item mbr-fonts-style display-7"><%= receipt.remark %></td>
-                      <td class="body-item mbr-fonts-style display-7">
-                        <a class=".btn-circle" href="/receiptfor3/<%= receipt.house_no %>/<%= receipt.receipt_no %>">พิมพ์</a>
+                     
+                        
+                      <td class="body-item mbr-fonts-style display-7" style="text-align: center;"><%= invoice.invoice_no %></td>
+                      <td class="body-item mbr-fonts-style display-7"><%= invoice.remark %></td>
+                      
+                      <td class="body-item mbr-fonts-style display-7 align-center" style="text-align: center;"><%= invoice.t_amount %></td>
+                      <td class="body-item mbr-fonts-style display-7"><%= invoice.remark %></td>
+                      <td class="body-item mbr-fonts-style display-7" style="text-align: center;">
+                        <a class=".btn-circle" href="/invoiceform/<%= invoice.house_no %>" >พิมพ์</a>
+                                     
+        
+                      </td>
+                      <td class="body-item mbr-fonts-style display-7" style="text-align: center;">
+                        <a class=".btn-circle" href="/getrcpowner/<%= invoice.house_no %>" >ชำระเงิน</a>
                                      
         
                       </td>
@@ -96,9 +107,9 @@
       </div>
       <!-- End of Main Content -->
 
-      <!-- Footer -->
-      <%- include('partials/adminfooter.ejs') %>
-      <!-- End of Footer -->
+         <!-- Footer -->
+         <%- include('partials/adminfooter.ejs') %>
+         <!-- End of Footer -->
 
     </div>
     <!-- End of Content Wrapper -->
@@ -145,15 +156,8 @@
   <script src="assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
- 
+  <script src="assets/js/demo/datatables-demo.js"></script>
+
+</body>
 
 </html>
-<script>
-  // Call the dataTables jQuery plugin
-$(document).ready(function() {
-  $('#dataTable').DataTable({
-    "order": []
-});
-  
-});
-</script>

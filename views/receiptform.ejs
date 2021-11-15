@@ -313,6 +313,17 @@
       }
          //document.getElementById('myChart2').style = "border-style: solid;border-radius: 10px;border-color: white;padding:0px;background-color: white";
        } 
+       var custid = localStorage.getItem("custid");
+       var villagename = localStorage.getItem("villagename");
+ if (custid== null ){
+     logout();
+ }
+       function logout()
+     {
+localStorage.clear();
+window.location.href="/idesign2020/login";
+//console.log(storeid);
+     }
    
    </script>
    

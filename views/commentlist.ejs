@@ -74,10 +74,10 @@
                       <% commentlist.forEach((comment, index) => { %>
                     <tr> 
                         
-                      <td class="body-item mbr-fonts-style display-7" style="width: 12%;"><%= comment.comment_date %></td>
-                      <td class="body-item mbr-fonts-style display-7" style="width: 12%;"><%= comment.house_no %></td>
-                      <td class="body-item mbr-fonts-style display-7"><%= comment.comment_topic %></td>
-                      <td class="body-item mbr-fonts-style display-7 "><%= comment.comment_details %></td>
+                      <td class="body-item mbr-fonts-style display-7" style="width: 10%;"><%= comment.comment_date %></td>
+                      <td class="body-item mbr-fonts-style display-7" style="width: 8%;"><%= comment.house_no %></td>
+                      <td class="body-item mbr-fonts-style display-7" style="width: 15%;"><%= comment.comment_topic %></td>
+                      <td class="body-item mbr-fonts-style display-7 " style="width: 25%;"><%= comment.comment_details %></td>
                       <% if (comment.status == "รอการตรวจสอบ") {%>
                         <td class="body-item mbr-fonts-style display-7" style="text-align: center;width: 12%;"><button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color:red" id="status"  data-toggle="modal" data-target="#updateStatus1" onclick=updateStatus('<%= comment.comment_id %>') >รอการตรวจสอบ</button></td>
                         <% } else if (comment.status == "ได้รับเรื่องแล้ว")  { %>
@@ -95,7 +95,7 @@
                             <td class="body-item mbr-fonts-style display-7" style="text-align: center;width: 12%;"><button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" style="background-color:#3c9148 ;" id="status" onclick=updateStatus('<%= comment.comment_id %>') >ดำเนินการเรียบร้อยแล้ว</button></td>
                          
                             <% } %>
-                            <td class="body-item mbr-fonts-style display-7 "><%= comment.remark %></td>
+                            <td class="body-item mbr-fonts-style display-7 " style="width: 25%;"><%= comment.remark %></td>
                    
                     </tr>
                     <% }) %>

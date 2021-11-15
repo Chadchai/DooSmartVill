@@ -1,26 +1,68 @@
-
+<link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
       <!-- Content Wrapper -->
+      <style>
+  .badge {
+  position: absolute;
+  top: -10px;
+  right: -30px;
+  padding: 5px 5px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+      </style>
+      
       <section class="menu cid-rNnuKRzwV6" once="menu" id="menu1-0">
 
     
-
+        
         <nav class="navbar navbar-expand beta-menu navbar-dropdown align-items-center navbar-fixed-top navbar-toggleable-sm bg-color transparent">
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <div class="hamburger">
+                 
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                 </div>
             </button>
+            <ul class="notification-drop" >
+              <li class="item">
+                <i class="mbri-alert mbr-iconfont nav-right" style="color: white;position: absolute;font-size: 1.5rem;" aria-hidden="true"></i> <span id="noalert" class="btn__badge pulse-button ">0</span>     
+              
+                <ul class="notify-header" style="padding-left: 5px;">
+                  <h6 class="top-text-block" style="margin-bottom: 10px;">
+                    การแจ้งเตือน
+                  </h6>
+                  <li id="newpackage" class="top-text-block" style="color:#1597E5">
+                    
+                    <i class="fas fa-box-open"></i>  
+                   </li>
+                   <li id="todaynews"  class="top-text-block">
+                    <a href="/getnewslist">
+                    <i class="far fa-newspaper"></i> 
+                  </a>
+                   </li>
+                   <!-- <li id="todayreceipt" class="top-text-block">
+                    
+                    <i class="fas fa-receipt"></i> ใบเสร็จรับเงินของคุณออกแล้ว 
+                   </li> -->
+                </ul>
+              </li>
+            </ul>
+            <!-- <a href="/member"> <span class="mbri-letter mbr-iconfont mbr-iconfont-btn nav-right" style="color: white;position: absolute;right: 80px;top: 30px;font-size: 1.5rem;" ><span class="badge" style="font-size: 0.8rem;">+3</span></span> </a>  -->
             <div class="menu-logo">
                 <div class="navbar-brand">
                     
                     <span  class="navbar-caption-wrap"><a id="villagename1" class="navbar-caption text-white display-5" href="/member"></a></span>
-                </div>
+                  
+                  </div>
+              
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true"><li class="nav-item">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                  <li class="nav-item">
                         <a id="post1" class="nav-link link text-white display-4" href="/login">
                             <span class="mbri-home mbr-iconfont mbr-iconfont-btn"></span>ประกาศหมู่บ้าน</a>
                     </li>
@@ -48,7 +90,7 @@
                                 <li class="nav-item">
                                     <a id="changepwd1" class="nav-link link text-white display-4" href="/login"><span class="mbri-key"></span>
                                 
-                                    เปลี่ยน password</a></li>
+                                    แก้ไขเบอร์โทร/เปลี่ยน password</a></li>
                             <li class="nav-item"><a class="nav-link link text-white display-4" onclick="logout()"><span class="mbri-logout"></span>
                             
                             ออกจากระบบ</a></li>
@@ -76,7 +118,55 @@
       </div>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    let villageid1= localStorage.getItem("villageid");
+let custid1 = localStorage.getItem("custid");
+var houseid1 = localStorage.getItem("HouseID");
 
+axios
+.get("/getuseralert/"+ villageid1 + "/" + custid1 + "/"+ houseid1 )
+  .then(response => {
+   // console.log(assetno);
+    
+    var packagealert = response.data[0][0].nopendingparcel;
+    var newsalert = response.data[1][0].noofnews;
+   // console.log(response.data[0]);
+    //console.log(newsalert);
+
+    if (packagealert > 0 && newsalert == 0 ){ 
+      document.getElementById("newpackage").innerHTML = "<i class='fas fa-box-open'></i>  มีพัสดุส่งถึงคุณ จำนวน " + packagealert + " รายการ" ;
+      document.getElementById("todaynews").style = "display:none";
+      document.getElementById("noalert").innerHTML = "1";
+    } else if (packagealert == 0 && newsalert > 0 ) {
+      document.getElementById("todaynews").innerHTML = "  <a href='/post'><i class='far fa-newspaper'></i> มีประกาศวันนี้ </a> ";
+      document.getElementById("newpackage").style = "display:none";
+      document.getElementById("noalert").innerHTML = "1";
+    } else if (packagealert > 0 && newsalert > 0 ){ 
+      document.getElementById("todaynews").innerHTML =  "<a href='/post'><i class='far fa-newspaper'></i> มีประกาศวันนี้ </a> ";
+    
+      document.getElementById("newpackage").innerHTML = "<i class='fas fa-box-open'></i>  มีพัสดุส่งถึงคุณ จำนวน " + packagealert + " รายการ" ;
+      document.getElementById("noalert").innerHTML = "2";
+
+    } else {
+      document.getElementById("todaynews").style = "display:none";
+      document.getElementById("newpackage").style = "display:none";
+      document.getElementById("noalert").style = "display:none";
+
+    }
+
+    // $("#showinfobyasset").modal();
+
+  })
+  .catch(err => {
+    console.error(err);
+   // alert("ไม่มีพัสดุคงค้าง");
+   
+  
+  
+  });
+
+  </script>
 
 
  

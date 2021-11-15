@@ -4,6 +4,7 @@
 <head>
 
   <meta charset="utf-8">
+  <base href="/">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
@@ -341,13 +342,11 @@
   
   <script>
 
-
-
     var x = screen.width;
     
        if (x<800) {
-         document.getElementById('head1').style = "display:none";
-         document.getElementById('txt').style = "font-size:20px";
+        //  document.getElementById('head1').style = "display:none";
+        //  document.getElementById('txt').style = "font-size:20px";
         //  document.getElementById('accordionSidebar').style.width = "0px";;
          
        
@@ -364,6 +363,11 @@
       var h = today.getHours();
       var m = today.getMinutes();
       var s = today.getSeconds();
+      // Alert on 5th of each month 
+      // if (d == 5 ){
+      //   alert("แจ้งเพื่อโปรดชำระค่าบริการเช่า Server และฐานข้อมูลภายในวันที่ 5 ของทุกเดือน ขออภัยหากท่านทำการชำระเงินแล้ว");
+      // }
+
       var month = new Array();
            month[0] = "มกราคม";
            month[1] = "กุมภาพันธ์";

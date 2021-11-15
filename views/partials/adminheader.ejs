@@ -3,7 +3,7 @@
     <ul  class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion non-printable1" id="accordionSidebar">
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+        <a id="logo" class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
           <div class="sidebar-brand-icon rotate-n-15">
             <!-- <img class="img-profile rounded-circle" src="assets/images/badminton1.png"> -->
              <i class="fas fa-home"></i> 
@@ -153,6 +153,15 @@
         <span style="color:white;font-size:medium">เบอร์โทรติดต่อฉุกเฉิน</span></a>
      </li>
    <!-- Divider -->
+   <hr class="sidebar-divider my-0">
+   <!-- Divider -->
+   
+   <!-- Nav Item - Dashboard -->
+   <li id="leftbar6" class="nav-item ">
+    <a class="nav-link" href="/getparcellist/pending">
+      <i class="fas fa-box-open"></i>
+      <span style="color:white;font-size:medium">ดูรายการพัสดุ</span></a>
+   </li>
    <hr class="sidebar-divider my-0">
   
         <!-- Nav Item - Tables -->
@@ -330,8 +339,8 @@
         <form id="status1"  action="/create1moinv" method="post" enctype="multipart/form-data">
         
           <input type="hidden" name="village_id" data-form-field="Phone" class="form-control display-7" id="village_id" >
+          <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token" >
          
-     
          <div class="modal-footer" >
                
                  <button type="submit" class="btn btn-primary">ยืนยัน</button>
@@ -443,13 +452,13 @@ if (role == 'Committee') {
     $("#changepassword").modal();
 };
 // let headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token1 });
-
+document.getElementById("logo").href = "/admin/Bearer " + token1;
  document.getElementById("houselist").href = "/gethouselist/Bearer " + token1;
- document.getElementById("receiptlist").href = "/getreceiptlist/Bearer " + token1;
+ document.getElementById("receiptlist").href = "/getreceiptlist3/Bearer " + token1;
  document.getElementById("sliplist").href = "/getsliplist/0/Bearer " + token1;
  document.getElementById("sliplist2").href = "/getsliplist/0/Bearer " + token1;
  document.getElementById("allinvoice").href = "/getallinvoice/Bearer " + token1;
- document.getElementById("allreceipt").href = "/getallreceiptlist/Bearer " + token1;
+ document.getElementById("allreceipt").href = "/getallreceiptlist1/Bearer " + token1;
  document.getElementById("invoicelist").href = "/getinvoicelist/Bearer " + token1;
  document.getElementById("oldcommonfee").href = "/oldcommonfee/Bearer " + token1;
  document.getElementById("income").href = "/income/Bearer " + token1;
@@ -510,11 +519,11 @@ document.getElementById("myalert").innerHTML = "ไม่มีการแจ�
   .catch(err => {
     console.error(err);
    
-     localStorage.removeItem('token1');
-     localStorage.removeItem('empname');
-     localStorage.removeItem('fullname');
-     localStorage.removeItem('role');
-    window.location.replace('/'+villagename + '/loginadmin');
+    //  localStorage.removeItem('token1');
+    //  localStorage.removeItem('empname');
+    //  localStorage.removeItem('fullname');
+    //  localStorage.removeItem('role');
+    // window.location.replace('/'+villagename + '/loginadmin');
   
   });
 

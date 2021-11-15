@@ -4,6 +4,8 @@ var x = screen.width;
 var token1 = localStorage.getItem("token1");
   var empname = localStorage.getItem("empname");
 var role;
+var villagename = localStorage.getItem("villagename") ;
+document.getElementById("token5").value = token1;
 
 // console.log("token = "+ token1);
 
@@ -21,7 +23,7 @@ var role;
 
 
 } else {
-  window.location.href="/loginadmin";
+  logout();
 
 } 
 
@@ -65,7 +67,7 @@ var role;
     localStorage.removeItem('role');
 //document.getElementById("logout").style = "display:none";
 //localStorage.clear();
-window.location.href="/loginadmin";
+window.location.href= "/"+villagename+"/loginadmin";
 //console.log(storeid);\
   } 
 

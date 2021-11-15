@@ -10,7 +10,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>DooSmartVill - Other income</title>
+  <title>DooSmartVill - Issue Other Invoice</title>
 
   <!-- Custom fonts for this template-->
   <link href="assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -61,7 +61,7 @@
                       <div class="row justify-content-center">
                           <div class="title col-12 col-lg-12 " style="margin-top: 30px;">
                             <h1 class="m-0 font-weight-bold text-primary" style="text-align: center;"  >
-                              บันทึกรายรับประเภทอื่นๆ</h1>
+                              ออกใบแจ้งหนี้ประเภทอื่นๆ</h1>
                                   <br>
                               
                           </div>
@@ -71,7 +71,7 @@
                     <div class="row justify-content-center">
                       <div class="media-container-column col-lg-8" data-form-type="formoid">
                           <!---Formbuilder Form--->
-                          <form name="incomeform" action="/saveincome" onsubmit="return validateForm()" method="POST" class="mbr-form form-with-styler">
+                          <form name="invoiceform" action="/issueotherinvoice" onsubmit="return validateForm()" method="POST" class="mbr-form form-with-styler">
                               <div class="row">
                                   
                                   <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">
@@ -82,80 +82,43 @@
                                   <div class="col-md-4  form-group" data-for="email">
                                       <label for="email-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่</label>
                                       <input type="date" name="income_date" data-form-field="Email" required="required" class="form-control display-7 align-right" id="income_date">
-                                      <input type="hidden" name="village_id" data-form-field="Email" required="required" class="form-control display-7 align-right" id="village_id1">
+                                      <input type="hidden" name="village_id" data-form-field="Email" required="required" class="form-control display-7 align-right" id="village_id2">
                                   </div>
-                                  <div data-for="phone" class="col-md-3  form-group">
-                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">บ้านเลขที่<a style="color: red;">(โปรดระบุ)</a></label>
-                                      <input type="tel" name="house_no" data-form-field="Phone" class="form-control display-7 align-center" required id="house_no" value="104/XX">
-                                  </div>
-                                   
-                                  <div class="col-md-5  form-group" data-for="name">
-                                      <label for="name-form1-h" class="form-control-label mbr-fonts-style display-7">ประเภทรายรับ</label>
-                                
-                                      <!-- <input type="select" name="name" data-form-field="Name" required="required" class="form-control display-7" id="name-form1-h"> -->
-                                      <select class="form-control display-7" name="income_type" data-form-field="Name" id="income_type" required>
-                                          <option value="" disabled selected hidden >ระบุประเภทรายรับ</option>
-                                          <option>ค่าคีย์การ์ด</option>
-                                          <option>ค่าสติกเกอร์</option>
-                                          <option>รายได้อื่นๆ</option>
-                                        </select>
-                                  </div>
-                                  <div data-for="phone" class="col-md-12  form-group">
+                       
+                                  <div data-for="phone" class="col-md-8  form-group">
                                     <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ชื่อร้าน/บริษัท/หน่วยงานราชการ </label>
                                     <input type="tel" name="payer_name" data-form-field="Phone" class="form-control display-7" id="payer_name">
-                                </div> 
+                                    <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token2">
+                                 
+                               
+                                  </div> 
                                   <div data-for="message" class="col-md-12 form-group">
                                       <label for="message-form1-h" class="form-control-label mbr-fonts-style display-7">รายละเอียดเพิ่มเติม</label>
                                       <input type="tel" name="details" data-form-field="Message" class="form-control display-7" id="details"></input>
                                   </div>
-                                  <div data-for="number" class="col-md-4  form-group" style="border-style: solid;;border-radius: 10px;border-color: lightgray;">
-                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เงินสด/เงินโอน</label>
-                                      <!-- <input type="number" name="phone" data-form-field="Phone" class="form-control display-7" id="phone-form1-h"> -->
-                                      <div class="radio" > 
-                                          <label><input type="radio" name="receipt_type" id= "receipt_type1" value="เงินสด" required> เงินสด</label>
-                                        </div>
-                                        <div class="radio">
-                                          <label><input type="radio" name="receipt_type" id= "receipt_type2" value="เงินโอน" required> เงินโอน</label>
-                                         
-                                         
-                                        </div>
-                                        <div class="radio">
-                                          <label><input type="radio" name="receipt_type" id= "receipt_type3" value="เช็ค" required> เช็ค</label>
-                                         
-                                         
-                                        </div>
-                                        <div data-for="number" class="col-md-12  form-group">
-                                          <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">วันที่โอนเงิน</label>
-                                          <input type="date" name="transfer_date" data-form-field="Email" required="required" class="form-control display-7 align-right" id="transfer_date">
-                                      </div>
-                                      </div>
-                                      <div class="col-md-8">
+
+                                      <div class="col-md-12">
                                           <div class="row">
                                               <!-- <div data-for="number" class="col-md-2  form-group">
           
                                               </div> -->
-                                  <div data-for="number" class="col-md-7  form-group">
-                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">จำนวนเงิน</label>
+                                  <div data-for="number" class="col-md-6  form-group">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">จำนวนเงิน (บาท)</label>
                                       <input type="number" step="0.01" name="income_amount" data-form-field="Phone" class="form-control display-7 align-right" id="income_amount">
                                   </div>
                                  
-                                  <div data-for="number" class="col-md-6  form-group">
-                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">เลขที่การโอน</label>
-                                       <input type="text" name="transfer_no" data-form-field="Phone" class="form-control display-7 align-right" id="transfer_no">
-                                       <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token2">
                                
-                                  </div>
                                   
                                   <div data-for="phone" class="col-md-6  form-group">
-                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ชื่อผู้รับเงิน</label>
-                                      <input type="tel" name="receiver_name" data-form-field="Phone" class="form-control display-7 " value="คุณ ชัยรงค์ สุทธิชัยวรกุล" id="receiver_name">
+                                      <label for="phone-form1-h" class="form-control-label mbr-fonts-style display-7">ผู้ออกใบแจ้งหนี้</label>
+                                      <input type="tel" name="issue_name" data-form-field="Phone" class="form-control display-7 "  id="issue_name">
                                   </div>
                               </div>
                               </div>
                                  
                                   <div class="col-md-12 input-group-btn align-center" style="text-align: center;margin-top: 20px;">
-                                      <button type="submit" class="btn btn-success btn-form display-4" style="width: 150px;margin: 10px;"">บันทึก</button>
-                                      <button type="button" class="btn btn-warning btn-form display-4" style="width: 150px;margin: 10px;"" onclick="window.history.back()">ยกเลิก</button>
+                                      <button type="submit" class="btn btn-success btn-form display-4" style="width: 150px;margin: 10px;">บันทึก</button>
+                                      <button type="button" class="btn btn-warning btn-form display-4" style="width: 150px;margin: 10px;" onclick="window.history.back()">ยกเลิก</button>
                                        <!-- <button type="button" class="btn btn-info btn-form display-4" style="width: 150px;" onclick="window.location.href='/getreceiptlist1'">ดูรายการ</button> -->
                                   
                                   </div>
@@ -223,9 +186,10 @@
   <script>
     // get admin name
   var fullname = localStorage.getItem("fullname");
-  document.getElementById("receiver_name").value = "คุณ " +fullname;
+  
   var villageid = localStorage.getItem("villageid");
-  document.getElementById("village_id1").value = villageid;
+  console.log(villageid);
+  document.getElementById("village_id2").value = villageid;
     var today = new Date();
        var dd = today.getDate();
        var mm = today.getMonth() + 1; //January is 0!
@@ -238,9 +202,7 @@
          mm = '0' + mm;
        } 
        var today = yyyy + '-' + mm + '-' + dd ;
-       //console.log(today);
-       document.getElementById("income_date").value = today;
-       document.getElementById("transfer_date").value = today;
+
     
    </script>
    <script>

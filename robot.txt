@@ -1,0 +1,6 @@
+User-agent: Googlebot
+Disallow: /receiptform
+Disallow: /getallreceiptlist
+Disallow: /invoicelist
+
+Sitemap: https://www.dosmartvill.com/sitemap.xml

@@ -111,7 +111,7 @@
                                   <div data-for="message" class="col-md-3 form-group">
                                       <label for="message-form1-h" class="form-control-label mbr-fonts-style display-7">หมายเลขล็อค</label>
                                       <input type="tel" name="lock_no" data-form-field="Phone" class="form-control display-7" value="<%= house_info.lock_no %>" id="lock_no">
-                                      <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token">
+                                      <input type="hidden" name="token" data-form-field="Phone" class="form-control display-7" id="token2">
                                      
                                     </div>
                                   <div data-for="message" class="col-md-12 form-group">
@@ -188,7 +188,7 @@
   <script src="assets/js/demo/chart-area-demo.js"></script>
   <script src="assets/js/demo/chart-pie-demo.js"></script>
   <script>
-     document.getElementById("token").value = token1;
+     document.getElementById("token2").value = token1;
     var today = new Date();
        var dd = today.getDate();
        var mm = today.getMonth() + 1; //January is 0!

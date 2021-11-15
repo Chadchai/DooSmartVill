@@ -10,9 +10,12 @@ var villageid = localStorage.getItem("villageid") ;
 document.getElementById("village_id").value = villageid;
 document.getElementById("villagename").innerHTML = villagename;
 document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+ villagename;
+document.getElementById("token").value = token1;
+//document.getElementById("token5").value = token1;
 // console.log("token = "+ token1);
 
   //Check token
+  
    if (token1 == null || token1 =='' )  {
     
        var x = screen.width;
@@ -23,6 +26,7 @@ document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+
        villageid= document.getElementById("villageid").value; 
        var fullname = document.getElementById("fullname").value; 
        document.getElementById("village_id").value = villageid;
+
        if (token2 !== null && token2 !== '')  {
           
         localStorage.setItem("token1", token2);
@@ -31,7 +35,7 @@ document.getElementById("villagename1").innerHTML = "หมู่บ้าน "+
         localStorage.setItem("fullname", fullname);
         localStorage.setItem("villagename", villagename);
         localStorage.setItem("villageid", villageid);
-        window.location.href="/";
+        window.location.href="/admin/Bearer " + token2 ;
 
 
 } else {
