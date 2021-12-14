@@ -813,15 +813,22 @@ receiptpayment: function(req, res){
                     return res.status(500).send(err);
                   } else {
                       
-                    res.redirect('/getexpenselist/Bearer ' + token);
+                    res.redirect('/getexpenselist/0/Bearer ' + token);
           }
             });
             },
             getexpenselist: function(req, res){
               
-              
-              let getexpense1 = "SELECT *,FORMAT(expense_amount,2) AS expense_amount, DATE_FORMAT(expense_date, '%d-%m-%Y') AS exp_date1 FROM expense_info ORDER BY expense_date DESC";
-            //console.log(getexpense1);
+              let period = req.params.period;
+              let getexpense1;
+              if (period == 0) {
+                getexpense1 = "SELECT *,FORMAT(expense_amount,2) AS expense_amount, DATE_FORMAT(expense_date, '%d-%m-%Y') AS exp_date1 FROM expense_info WHERE MONTH(expense_date) = MONTH(CURDATE()) AND YEAR(expense_date) = YEAR(CURDATE()) ORDER BY expense_date DESC";
+                
+              } else {
+                getexpense1 = "SELECT *,FORMAT(expense_amount,2) AS expense_amount, DATE_FORMAT(expense_date, '%d-%m-%Y') AS exp_date1 FROM expense_info ORDER BY expense_date DESC";
+                
+              } 
+             
               db.query(getexpense1, (err, result) => {
                   if (err) {
                     return res.status(500).send(err);
