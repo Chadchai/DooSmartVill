@@ -44,7 +44,28 @@
           <!-- DataTales Example -->
           <div class="card shadow mb-4">
             <div class="card-header py-3">
+              <div class="row">
+                <div class="col-8 ">
                 <h4 class="m-0 font-weight-bold text-primary">รายการรายจ่ายของหมู่บ้าน</h4>  
+                </div>
+                <div class="col-4 row " style="text-align: right;">
+                 
+                  <% if (condition == 0) {%>
+                    <div class="btn-group btn-group-toggle" >
+    
+                     <label class="btn btn-secondary active " ><a name="score" id= "monthexpense" href="/getsliplist/0" style="color:white" > รายจ่ายเดือนนี้ </a></label>
+                     <label class="btn btn-primary"><a name="score" id= "all" href="/getsliplist/1" style="color:white">ดูทั้งหมด</a></label>
+                    </div>
+                  
+                      <%} else {%>
+                        <div class="btn-group btn-group-toggle" >
+                       
+                          <label class="btn  btn-primary " ><a name="score" id= "monthexpense1" href="/getsliplist/0" style="color:white" > รายจ่ายเดือนนี้ </a></label>
+                          <label class="btn btn-secondary active "><a name="score" id= "all1" href="/getsliplist/1" style="color:white">ดูทั้งหมด</a></label>         </div>
+                  <%} %>
+         
+                </div>
+              </div>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -52,15 +73,17 @@
                   <thead>
                     <tr class="table-heads ">
                       <th class="head-item mbr-fonts-style display-7">วันที่</th><th class="head-item mbr-fonts-style display-7">
-                        ประเภท</th><th class="head-item mbr-fonts-style display-7">รายละเอียด</th><th class="head-item mbr-fonts-style display-7">จำนวน(บาท)</th><th class="head-item mbr-fonts-style display-7">ผู้รับเงิน</th>
+                        ประเภท</th><th class="head-item mbr-fonts-style display-7">รายละเอียด</th><th class="head-item mbr-fonts-style display-7" style="text-align: center;">ชำระเป็น</th>
+                        <th class="head-item mbr-fonts-style display-7">จำนวน(บาท)</th><th class="head-item mbr-fonts-style display-7">ผู้รับเงิน</th>
                       </tr>
            
                         
                   </thead>
                   <tfoot>
                     <tr >
-                      <th class="head-item mbr-fonts-style display-7" style="width: 10%;">วันที่</th><th class="head-item mbr-fonts-style display-7">
-                        ประเภท</th><th class="head-item mbr-fonts-style display-7">รายละเอียด</th><th class="head-item mbr-fonts-style display-7">จำนวน(บาท)</th><th class="head-item mbr-fonts-style display-7">ผู้รับเงิน</th>
+                      <th class="head-item mbr-fonts-style display-7" style="width: 10%;">วันที่</th>
+                      <th class="head-item mbr-fonts-style display-7" style="width: 12%;">ประเภท</th><th class="head-item mbr-fonts-style display-7">รายละเอียด</th><th class="head-item mbr-fonts-style display-7" style="width: 10%;">ชำระเป็น</th>
+                        <th class="head-item mbr-fonts-style display-7">จำนวน(บาท)</th><th class="head-item mbr-fonts-style display-7">ผู้รับเงิน</th>
                       </tr>
                          </tfoot>
                          <% if (expenselist.length > 0) {%>
@@ -75,6 +98,7 @@
                             <td class="body-item mbr-fonts-style display-7"><%= expense.exp_date1 %></td>
                             <td class="body-item mbr-fonts-style display-7"><%= expense.expense_type %></td>
                             <td class="body-item mbr-fonts-style display-7 "><%= expense.details %></td>
+                            <td class="body-item mbr-fonts-style display-7" style="text-align: center;"><%= expense.payment_type %></td>
                             <td class="body-item mbr-fonts-style display-7 align-right"><%= expense.expense_amount %></td>
                             <td class="body-item mbr-fonts-style display-7"><%= expense.receive_name %></td>
                          
@@ -142,6 +166,20 @@
   <!-- Page level plugins -->
   <script src="assets/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="assets/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+
+  <!-- Set URL to see by period -->
+  <script>
+
+if (document.getElementById("monthexpense") !== null){
+ document.getElementById("monthexpense").href = "/getexpenselist/0/Bearer " + token1;
+ document.getElementById("all").href = "/getexpenselist/1/Bearer " + token1;
+  }
+ if (document.getElementById("monthexpense1") !== null){
+  document.getElementById("monthexpense1").href = "/getexpenselist/0/Bearer " + token1;
+ document.getElementById("all1").href = "/getexpenselist/1/Bearer " + token1;
+ }
+  </script>
 
   <!-- Page level custom scripts -->
   <script>
