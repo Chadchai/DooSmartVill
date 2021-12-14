@@ -110,7 +110,7 @@ app.get('/receiptfor3/104/:house_no/:receiptno', receiptform1);
 app.get('/receiptform2/104/:house_no/:receiptno', receiptform2);
 app.get('/receiptform4/104/:house_no/:receiptno', receiptform4);
 app.get('/expense/:token',authenticateJWT ,expense);
-app.get('/getexpenselist/:token',authenticateJWT, getexpenselist);
+app.get('/getexpenselist/:period/:token',authenticateJWT, getexpenselist);
 app.get('/incomeexpense', incomeexpense);
 app.get('/todaysummary', todaysummary);
 app.get('/pendingpayment', pendingpayment);
