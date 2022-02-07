@@ -7,11 +7,48 @@ const readline = require('readline');
  const jwt = require("jwt-simple");
 //const jwt = require('jsonwebtoken');
 //ใช้ในการ decode jwt ออกมา
-
+const mysql = require('mysql');
 //สร้าง Strategy
 const bodyParser = require("body-parser");
 
+// function dbconnect(villagename){
+//   console.log(villagename);
+//   var dbhost = "",dbuser ="",dbpassword="",dbdatabase ="";
+//   if (villagename == "idesign2020" || villagename == "Idesign2020" ) {
+      
+//     dbhost= 'ijj1btjwrd3b7932.cbetxkdyhwsb.us-east-1.rds.amazonaws.com';
+//       dbuser= 'ghwr2m49z94xqrt3';
+//       dbpassword = 'qp0lr9wyokjzsg7k';
+//       dbdatabase = 'me0wpspgmbwzlkyn';
+ 
+// } else {
+//   dbhost= 'j8oay8teq9xaycnm.cbetxkdyhwsb.us-east-1.rds.amazonaws.com';
+//   dbuser= 'hxhlwc9l5dz0ivcf';
+//   dbpassword = 'hc5epzesc5j5vlqq';
+//   dbdatabase = 'w15nea6r2gb91x7i';
+ 
+// }
 
+
+
+// console.log("db host =" + dbhost);
+// if ( dbhost !== ""){
+// db = mysql.createConnection ({
+//   host: dbhost,
+//     user: dbuser,
+//     password: dbpassword,
+//     database: dbdatabase
+// });
+// db.connect((err) => {
+//   if (err) {
+//       throw err;
+//   }
+//   //console.log('Connected to database to doSmartvill village');
+// });
+
+// global.db = db;
+// }
+// }
 //var fs = require('fs');
 //var gm = require('gm');
 var cloudinary = require('cloudinary');
@@ -25,6 +62,15 @@ cloudinary.config({
   });
 module.exports = {
  
+getdbconnect: function(req, res){
+    var villagename = req.params.village_name;
+//console.log(villagename);
+  //  if (global.db == null) {
+  //    dbconnect(villagename);
+  //  } 
+ 
+},
+
   index: function(req, res){
        // let token = req.params.token;
              
@@ -68,7 +114,6 @@ memberpage: function(req, res){
   },
   login: function(req, res){
     let villagename = req.params.village_name;
-
     res.render('login.ejs', {
       title: "Login Page"
       ,message: '',villagename:villagename,
@@ -77,7 +122,9 @@ memberpage: function(req, res){
   loginadmin: function(req, res){
     
     let villagename = req.params.village_name;
-
+    
+    //dbconnect(villagename);
+    
     res.render('loginadmin.ejs', {
       title: "Admin Login Page"
       ,message: '',villagename:villagename,
@@ -277,7 +324,8 @@ var villageid = req.body.village_id;
   },
   gethouseinfo: function(req, res){
     let houseid = req.params.house_no;
-    let getinfo = "SELECT * FROM house_info WHERE house_no = '104/" + houseid +"'"
+    let groupid = req.params.groupid;
+    let getinfo = "SELECT * FROM house_info WHERE house_no = '"  + "104/" + houseid +"'"
     //console.log(getinfo);
     db.query(getinfo, (err, result) => {
       if (err) {
@@ -530,40 +578,42 @@ var villageid = req.body.village_id;
       ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',houseno:'',carqty:0 ,periodid:'',commonfee:'',parkfee:'',houseid:'',villageid:'',
   });
   },
-  getownername: function(req, res){
+getownername: function(req, res){
     let houseid = req.params.house_no;
+    let groupid = req.params.groupid;
     let villageid = req.params.village_id;
-    //console.log(houseid);
-    let getownername1 = "SELECT *  FROM `house_info` WHERE house_no = '104/" + houseid + "' AND village_id =" + villageid;
- // console.log(getownername1);
+    //console.log(groupid);
+    let getownername1 = "SELECT *  FROM `house_info` WHERE house_no = '" + "104/" + houseid + "' AND village_id =" + villageid;
+  //console.log(getownername1);
     db.query(getownername1, (err, result) => {
-      //console.log(result);
+     // console.log(result);
         if (err || result == "") {
             res.render('advanceinvoice.ejs', {
                 title: "Issue Invoice in Advance"
-                ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',carqty:0,houseno:'104/'+ houseid,periodid:'',commonfee:'',parkfee:'',houseid:'',
+                ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',carqty:0,houseno: '104/'+ houseid,periodid:'',commonfee:'',parkfee:'',houseid:'',
               })
         } else {
             
     res.render('advanceinvoice.ejs', {
       title: "Issue Invoice in Advance"
-      ,message: '',ownername:result[0].owner_name,carqty:result[0].parking_qty,houseno:'104/'+ houseid,periodid:result[0].invoice_period,commonfee:result[0].common_fee,parkfee:result[0].parking_fee,houseid:result[0].id,
+      ,message: '',ownername:result[0].owner_name,carqty:result[0].parking_qty,houseno: '104/' + houseid,periodid:result[0].invoice_period,commonfee:result[0].common_fee,parkfee:result[0].parking_fee,houseid:result[0].id,
     })
 }
   });
   },
   getrcpowner: function(req, res){
     let houseid = req.params.house_no;
+    let groupid = req.params.groupid;
     //console.log(houseid);
-    let getownername1 = "SELECT *  FROM `house_info` WHERE house_no = '104/" + houseid + "'";
-    let getpendinginvoice =  "SELECT * FROM `invoice_info` WHERE house_no ='104/" + houseid + "' AND (payment_type = '' OR payment_type IS NULL) ";
-    //console.log(getownername1);
+    let getownername1 = "SELECT *  FROM `house_info` WHERE house_no = '104"+ "/" + houseid + "'";
+    let getpendinginvoice =  "SELECT * FROM `invoice_info` WHERE house_no ='104" + "/" + houseid + "' AND (payment_type = '' OR payment_type IS NULL) ";
+    console.log(getownername1);
     db.query(getownername1, (err, result) => {
      // console.log(result);
         if (err || result == "") {
             res.render('issuereceipt.ejs', {
                 title: "Issue Invoice in Advance"
-                ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',houseno:'104/'+ houseid,invoicelist:'',periodid:'',balance:0
+                ,message: '',ownername:'ไม่พบบ้านเลขที่นี้',houseno: '104/'+ houseid,invoicelist:'',periodid:'',balance:0
               })
         } else {
             db.query(getpendinginvoice, (err, result1) => {
@@ -818,7 +868,6 @@ receiptpayment: function(req, res){
             });
             },
             getexpenselist: function(req, res){
-              
               let period = req.params.period;
               let getexpense1;
               if (period == 0) {
@@ -827,8 +876,9 @@ receiptpayment: function(req, res){
               } else {
                 getexpense1 = "SELECT *,FORMAT(expense_amount,2) AS expense_amount, DATE_FORMAT(expense_date, '%d-%m-%Y') AS exp_date1 FROM expense_info ORDER BY expense_date DESC";
                 
-              } 
-             
+              }
+
+             //console.log(getexpense1);
               db.query(getexpense1, (err, result) => {
                   if (err) {
                     return res.status(500).send(err);
@@ -836,7 +886,7 @@ receiptpayment: function(req, res){
                       
                     res.render('expenselist.ejs', {
                       title: "Issue Invoice in Advance"
-                      ,message: '',expenselist:result
+                      ,message: '',expenselist:result,condition:period,
                     })
           }
             });
@@ -1188,15 +1238,18 @@ pendingpayment: function(req, res){
 },
 invoiceform: function(req, res){
   let houseid = req.params.house_no;
+
   //console.log(houseid);
   let getownername1 = "SELECT *, FORMAT(Abs(remain),2) AS remain1  FROM `house_info` WHERE house_no = '104/" + houseid + "'";
   let getpendinginvoice =  "SELECT *,FORMAT(amount,2) AS amount FROM `invoice_info` WHERE house_no ='104/" + houseid + "' AND (payment_type = '' OR payment_type IS NULL) ";
+  
   let getsum =  "SELECT FORMAT(SUM(amount)-house_info.remain,2) AS t_amount,(DATE_FORMAT(MAX(invoice_info.invoice_date),'%d %b %Y')) AS invoice_date1,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',1) AS START,SUBSTRING_INDEX(GROUP_CONCAT(invoice_month),',',-1) AS END FROM `invoice_info` " +
  "LEFT JOIN house_info " + 
   "ON invoice_info.house_no = house_info.house_no "+
   "WHERE invoice_info.house_no ='104/"+ houseid  + "' AND (invoice_info.payment_type = '' OR invoice_info.payment_type IS NULL)";
    //console.log(getsum);
-  db.query(getownername1, (err, result) => {
+  let getvillageinfo = "SELECT * FROM village_info"
+   db.query(getownername1, (err, result) => {
     //console.log(result.length);
       if (err || result.length == 0 ) {
         
@@ -1206,6 +1259,13 @@ invoiceform: function(req, res){
       });
         
       } else {
+        db.query(getvillageinfo, (err, villageinfo) => {
+          if (err || villageinfo.length == 0 ) {
+        
+            return res.status(500).send(err);
+        
+        } else {
+
         //console.log(result[0].remain);
         db.query(getsum, (err, result2) => {
           //console.log(result2);
@@ -1241,10 +1301,12 @@ invoiceform: function(req, res){
  var invoicedate1 = invoicedate.getDate() +" " +month[invoicedate.getMonth()] + " " + c_year1.toString() ;
   res.render('invoiceform.ejs', {
     title: "invoiceform"
-    ,message: '',ownername:result[0].owner_name,oldamount1:result[0].remain,laneno:result[0].lane_no,oldamount:result[0].remain1,houseno:'104/'+ houseid,invoicelist: result1,periodid:result[0].invoice_period,invoiceno:result1[0].invoice_no,invoicedate: invoicedate1,totalamount:result2[0].t_amount.toLocaleString(),villageid:result[0].village_id,periodid:result[0].invoice_period,commonfee:result[0].common_fee,
+    ,message: '',ownername:result[0].owner_name,oldamount1:result[0].remain,laneno:result[0].lane_no,oldamount:result[0].remain1,houseno:'104/'+ houseid,invoicelist: result1,periodid:result[0].invoice_period,invoiceno:result1[0].invoice_no,invoicedate: invoicedate1,totalamount:result2[0].t_amount.toLocaleString(),villageid:result[0].village_id,periodid:result[0].invoice_period,commonfee:result[0].common_fee,villageinfo:villageinfo[0],
 });
               }
             });
+          }
+        });
 }
 })
 }
@@ -2164,7 +2226,7 @@ loadexpense: function(req, res){
   var c_month = today.getMonth()+1;
   var c_year = today.getFullYear();
   var date1 = c_date.toString() + c_month.toString() +c_year.toString();
-  let getexpenseinfo = "SELECT DATE_FORMAT(expense_date, '%d-%b-%Y') AS วันที่จ่าย, expense_type AS ประเภทรายจ่าย,details AS รายการ, expense_amount AS จำนวนเงิน, receive_name AS ชื่อผู้รับเงิน, expense_type AS ประเภทการชำระเงิน  FROM expense_info " +
+  let getexpenseinfo = "SELECT DATE_FORMAT(expense_date, '%d-%b-%Y') AS วันที่จ่าย, expense_type AS ประเภทรายจ่าย,details AS รายการ, expense_amount AS จำนวนเงิน, payment_type AS ชำระเป็น, receive_name AS ชื่อผู้รับเงิน, expense_type AS ประเภทการชำระเงิน  FROM expense_info " +
   "WHERE expense_date BETWEEN '" + startdate +"' AND '"+ enddate + "'";
  //console.log(getexpenseinfo);
   var csv;
@@ -2192,8 +2254,8 @@ checkadmin: function(req, res){
   db.query(checkpwd, (err, result) => {
     if (err) {
         return res.status(500).send(err);
-    } else if (result =="") {
-      
+    } else if (result == "" || result == null) {
+     // console.log(result);
       res.render('loginadmin.ejs', {
         title: "Login"
         ,message: '!!ชื่อ username หรือ password ไม่ถูกต้อง',villagename:villagename,
@@ -2227,11 +2289,12 @@ checkadmin: function(req, res){
                     return res.status(500).send(err);
                 } 
                 else {
+                  console.log(updatelogin);
               res.render('mainpage.ejs', {
       title: "DoSmartVill"
       ,message: '',count1:result1[0].count,role1:result[0].role,adminname:result[0].name,empname:empname,token1:token,villagename:result[0].village_name,villageid:result[0].village_id,
     });
-    //console.log(result[0].role);
+    console.log(result[0].role);
   };
 
   });
@@ -2447,7 +2510,9 @@ addnews: function(req, res){
   let details = req.body.post_details;
   let villageno = req.body.village_id1;
   var today = new Date();
+  var date1 = today.getDate();
   var minute = today.getMinutes();
+  var sec = today.getSeconds();
 
   let filelink;
     let filename,filename1;
@@ -2459,7 +2524,7 @@ addnews: function(req, res){
   
   let filetype = uploadedFile.name.split('.')[1];
   //console.log(image_name);
-   filename = 'image_news/' + "news_" + villageno + minute ;
+  filename = 'image_news/' + "news_" + villageno +date1+ minute +sec ;
    filename1 =  filename + "." + filetype;
   //console.log(filename1);
     if (uploadedFile.mimetype === 'image/png' || uploadedFile.mimetype === 'image/jpeg' || uploadedFile.mimetype === 'image/gif') {

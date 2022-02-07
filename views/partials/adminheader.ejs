@@ -419,6 +419,9 @@
   
 
   <script>
+    var villagename = localStorage.getItem("villagename") ;
+    document.getElementById("villagename").style = villagename;
+    document.getElementById("villagename1").style = "หมู่บ้าน " +villagename;
     var role = localStorage.getItem("role");
 //console.log("Role =" + role);
 if (role == 'Committee') {
@@ -464,8 +467,18 @@ document.getElementById("logo").href = "/admin/Bearer " + token1;
  document.getElementById("income").href = "/income/Bearer " + token1;
  document.getElementById("expense").href = "/expense/Bearer " + token1; 
  document.getElementById("otherreceipt").href = "/getreceiptlist1/Bearer " + token1;
- document.getElementById("expenselist").href = "/getexpenselist/Bearer " + token1;
+ document.getElementById("expenselist").href = "/getexpenselist/0/Bearer " + token1;
 
+//  axios
+//   .get("/getdbconnect/"+villagename,{
+//   })
+//   .then(response => {
+//     console.log("db connect");
+//   })
+//   .catch(err => {
+//     console.error(err);
+//   })
+  
 axios
   .get("/getalert",{
  headers: {

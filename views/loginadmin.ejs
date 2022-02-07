@@ -108,7 +108,7 @@
                                                               <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="fas fa-home"></i></span>
                                                               </div>
-                                                              <input class="form-control" placeholder="ชื่อหมู่บ้าน" type="text" name="village_name" value="<%= villagename %>" readonly>
+                                                              <input class="form-control" placeholder="ชื่อหมู่บ้าน" type="text" id="village_name" name="village_name" value="<%= villagename %>" readonly>
                                                             </div>
                                                             
                                                           </div>
@@ -188,7 +188,20 @@
   <!-- Page level custom scripts -->
   <script src="assets/js/demo/chart-area-demo.js"></script>
   <script src="assets/js/demo/chart-pie-demo.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  let villagename = document.getElementById("village_name").value
 
+  axios
+  .get("/getdbconnect/"+villagename,{
+  })
+  .then(response => {
+    console.log("db connect");
+  })
+  .catch(err => {
+    console.error(err);
+  })
+</script>
 
     
 

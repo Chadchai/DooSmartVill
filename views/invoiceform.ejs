@@ -71,7 +71,7 @@ incoming API request.
                   
                             <tr id="head1">
                                 <td class="title" id = "image1">
-                                    <img src="assets/images/idesign1.png" style="width:100%; max-width:300px;" />
+                                    <img src="assets/images/<%= villageinfo.village_logo %>" style="width:100%; max-width:300px;" />
                                     </td>
                             
                                   
@@ -79,7 +79,7 @@ incoming API request.
                                  
                                     เลขที่ใบแจ้งหนี้: INV<%= invoiceno %>
                                     <br> วันที่ออก: <%= invoicedate %>
-                                    <br>  <p class="align-right" style="font-size:small;">นิติบุคคลหมู่บ้านไอน์ดีไซน์ บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">171-272623-1</a> </p>
+                                    <br>  <p class="align-right" style="font-size:large;"><%= villageinfo.payment_info %></p>
                                
                                 </td>
                                
@@ -87,7 +87,7 @@ incoming API request.
                             <tr  id="headios" style="display:none">
                                                     
                                 <td colspan="2" class="title" id = "image1">
-                                    <img src="assets/images/idesign1.png" style="width:100%; max-width:300px;" />
+                                    <img src="assets/images/"<%= villageinfo.village_logo %> style="width:100%; max-width:300px;" />
                                     </td>
                                                              
                             </tr>
@@ -97,7 +97,7 @@ incoming API request.
                                  
                                     เลขที่ใบแจ้งหนี้: INV<%= invoiceno %>
                                     <br> วันที่ออก: <%= invoicedate %>
-                                    <br>  <p class="align-right" style="font-size:small;">นิติบุคคลหมู่บ้าน DoSmartVill บัญชีออมทรัพย์ ธ.ไทยพาณิชย์ เลขที่  <a style="font-weight: bold;font-size: large;">XXX-XXXXXX-X</a> </p>
+                                    <br>  <p class="align-right" style="font-size:small;"><%= villageinfo.village_name %>  <a style="font-weight: bold;font-size: large;">XXX-XXXXXX-X</a> </p>
                                
                                 </td>
                                
