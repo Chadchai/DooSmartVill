@@ -12,7 +12,8 @@ const db = mysql.createConnection ({
     host: 'ijj1btjwrd3b7932.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
       user: 'ghwr2m49z94xqrt3',
       password: 'qp0lr9wyokjzsg7k',
-      database: 'me0wpspgmbwzlkyn'
+      database: 'me0wpspgmbwzlkyn',
+    ssl: {"rejectUnauthorized":true}
   });
   db.connect((err) => {
     if (err) {
